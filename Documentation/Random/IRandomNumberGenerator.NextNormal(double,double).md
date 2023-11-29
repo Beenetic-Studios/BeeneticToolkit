@@ -3,7 +3,7 @@
 
 ## IRandomNumberGenerator.NextNormal(double, double) Method
 
-Returns a random double that follows a Normal (normal) distribution with the specified mean and standard deviation.
+Returns a random double that follows a normal distribution with the specified mean and standard deviation.
 
 ```csharp
 double NextNormal(double mean, double stdDev);

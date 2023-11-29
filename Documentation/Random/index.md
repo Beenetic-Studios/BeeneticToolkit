@@ -44,10 +44,10 @@ The [BeeneticToolkit.Random](index.md#BeeneticToolkit.Random 'BeeneticToolkit.Ra
     It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if maxExclusive is less than or equal to 0.
   - **[NextLong(long, long)](RandomNumberGeneratorBase.NextLong(long,long).md 'BeeneticToolkit.Random.RandomNumberGeneratorBase.NextLong(long, long)')** `Method` Generates a pseudo-random long integer between the specified minimum (inclusive) and maximum (exclusive).  
     It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if minInclusive is greater than or equal to maxExclusive.
-  - **[NextNormal()](RandomNumberGeneratorBase.NextNormal().md 'BeeneticToolkit.Random.RandomNumberGeneratorBase.NextNormal()')** `Method` Generates a normally distributed (Normal) random number with a default mean of 0.0 and standard deviation of 1.0.  
-    This method is an overload of the NextNormal method that uses default parameters to produce a standard Normal distribution.
-  - **[NextNormal(double, double)](RandomNumberGeneratorBase.NextNormal(double,double).md 'BeeneticToolkit.Random.RandomNumberGeneratorBase.NextNormal(double, double)')** `Method` Generates a normally distributed (Normal) random number with a specified mean and standard deviation.  
-    This method uses the Box-Muller transform to produce a Normal distribution.  
+  - **[NextNormal()](RandomNumberGeneratorBase.NextNormal().md 'BeeneticToolkit.Random.RandomNumberGeneratorBase.NextNormal()')** `Method` Generates a normally distributed random number with a default mean of 0.0 and standard deviation of 1.0.  
+    This method is an overload of the NextNormal method that uses default parameters to produce a standard normal distribution.
+  - **[NextNormal(double, double)](RandomNumberGeneratorBase.NextNormal(double,double).md 'BeeneticToolkit.Random.RandomNumberGeneratorBase.NextNormal(double, double)')** `Method` Generates a normally distributed random number with a specified mean and standard deviation.  
+    This method uses the Box-Muller transform to produce a normal distribution.  
     It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if the standard deviation is negative.
 - **[IRandomNumberGenerator](IRandomNumberGenerator.md 'BeeneticToolkit.Random.IRandomNumberGenerator')** `Interface` Provides an interface for random number generation with a variety of methods  
   to produce random values of different numeric types and ranges.
@@ -68,5 +68,5 @@ The [BeeneticToolkit.Random](index.md#BeeneticToolkit.Random 'BeeneticToolkit.Ra
   - **[NextLong()](IRandomNumberGenerator.NextLong().md 'BeeneticToolkit.Random.IRandomNumberGenerator.NextLong()')** `Method` Generates a non-negative random long integer.
   - **[NextLong(long)](IRandomNumberGenerator.NextLong(long).md 'BeeneticToolkit.Random.IRandomNumberGenerator.NextLong(long)')** `Method` Returns a non-negative random long integer that is less than the specified maximum.
   - **[NextLong(long, long)](IRandomNumberGenerator.NextLong(long,long).md 'BeeneticToolkit.Random.IRandomNumberGenerator.NextLong(long, long)')** `Method` Returns a random long integer within a specified range.
-  - **[NextNormal()](IRandomNumberGenerator.NextNormal().md 'BeeneticToolkit.Random.IRandomNumberGenerator.NextNormal()')** `Method` Returns a random double that follows a Normal (normal) distribution with mean 0 and standard deviation 1.
-  - **[NextNormal(double, double)](IRandomNumberGenerator.NextNormal(double,double).md 'BeeneticToolkit.Random.IRandomNumberGenerator.NextNormal(double, double)')** `Method` Returns a random double that follows a Normal (normal) distribution with the specified mean and standard deviation.
+  - **[NextNormal()](IRandomNumberGenerator.NextNormal().md 'BeeneticToolkit.Random.IRandomNumberGenerator.NextNormal()')** `Method` Returns a random double that follows a normal distribution with mean 0 and standard deviation 1.
+  - **[NextNormal(double, double)](IRandomNumberGenerator.NextNormal(double,double).md 'BeeneticToolkit.Random.IRandomNumberGenerator.NextNormal(double, double)')** `Method` Returns a random double that follows a normal distribution with the specified mean and standard deviation.

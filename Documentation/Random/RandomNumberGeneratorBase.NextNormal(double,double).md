@@ -3,8 +3,8 @@
 
 ## RandomNumberGeneratorBase.NextNormal(double, double) Method
 
-Generates a normally distributed (Normal) random number with a specified mean and standard deviation.  
-This method uses the Box-Muller transform to produce a Normal distribution.  
+Generates a normally distributed random number with a specified mean and standard deviation.  
+This method uses the Box-Muller transform to produce a normal distribution.  
 It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if the standard deviation is negative.
 
 ```csharp
@@ -16,19 +16,19 @@ public virtual double NextNormal(double mean, double stDev);
 
 `mean` [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
 
-The mean (μ) of the Normal distribution.
+The mean (μ) of the normal distribution.
 
 <a name='BeeneticToolkit.Random.RandomNumberGeneratorBase.NextNormal(double,double).stDev'></a>
 
 `stDev` [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
 
-The standard deviation (σ) of the Normal distribution. Must be non-negative.
+The standard deviation (σ) of the normal distribution. Must be non-negative.
 
 Implements [NextNormal(double, double)](IRandomNumberGenerator.NextNormal(double,double).md 'BeeneticToolkit.Random.IRandomNumberGenerator.NextNormal(double, double)')
 
 #### Returns
 [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')  
-A random double number following the Normal distribution with the specified mean and standard deviation.
+A random double number following the normal distribution with the specified mean and standard deviation.
 
 #### Exceptions
 

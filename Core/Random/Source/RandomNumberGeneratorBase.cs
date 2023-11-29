@@ -262,25 +262,23 @@ namespace BeeneticToolkit.Random {
         }
 
         /// <summary>
-        /// Generates a normally distributed (Normal) random number with a default mean of 0.0 and standard deviation of 1.0.
-        /// This method is an overload of the NextNormal method that uses default parameters to produce a standard Normal distribution.
+        /// Generates a normally distributed random number with a default mean of 0.0 and standard deviation of 1.0.
+        /// This method is an overload of the NextNormal method that uses default parameters to produce a standard normal distribution.
         /// </summary>
-        /// <returns>A random double number following the standard Normal distribution with a mean of 0.0 and a standard deviation of 1.0.</returns>
-
+        /// <returns>A random double number following the standard normal distribution with a mean of 0.0 and a standard deviation of 1.0.</returns>
         public virtual double NextNormal() {
             return NextNormal(0.0, 1.0);
         }
 
         /// <summary>
-        /// Generates a normally distributed (Normal) random number with a specified mean and standard deviation.
-        /// This method uses the Box-Muller transform to produce a Normal distribution.
+        /// Generates a normally distributed random number with a specified mean and standard deviation.
+        /// This method uses the Box-Muller transform to produce a normal distribution.
         /// It throws an <see cref="ArgumentException"/> if the standard deviation is negative.
         /// </summary>
-        /// <param name="mean">The mean (μ) of the Normal distribution.</param>
-        /// <param name="stDev">The standard deviation (σ) of the Normal distribution. Must be non-negative.</param>
-        /// <returns>A random double number following the Normal distribution with the specified mean and standard deviation.</returns>
+        /// <param name="mean">The mean (μ) of the normal distribution.</param>
+        /// <param name="stDev">The standard deviation (σ) of the normal distribution. Must be non-negative.</param>
+        /// <returns>A random double number following the normal distribution with the specified mean and standard deviation.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="stDev"/> is negative.</exception>
-
         public virtual double NextNormal(double mean, double stDev) {
             if (stDev < 0)
                 throw new ArgumentException("Standard deviation cannot be negative", nameof(stDev));

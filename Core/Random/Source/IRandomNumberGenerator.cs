@@ -113,13 +113,13 @@
         double NextDouble(double minInclusive, double maxExclusive);
 
         /// <summary>
-        /// Returns a random double that follows a Normal (normal) distribution with mean 0 and standard deviation 1.
+        /// Returns a random double that follows a normal distribution with mean 0 and standard deviation 1.
         /// </summary>
         /// <returns>A normally distributed random double.</returns>
         double NextNormal();
 
         /// <summary>
-        /// Returns a random double that follows a Normal (normal) distribution with the specified mean and standard deviation.
+        /// Returns a random double that follows a normal distribution with the specified mean and standard deviation.
         /// </summary>
         /// <param name="mean">The mean of the Normal distribution.</param>
         /// <param name="stdDev">The standard deviation of the Normal distribution. Must be non-negative.</param>
