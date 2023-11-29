@@ -1,12 +1,12 @@
 #### [Random](index.md 'index')
 ### [BeeneticToolkit.Random](index.md#BeeneticToolkit.Random 'BeeneticToolkit.Random').[IRandomNumberGenerator](IRandomNumberGenerator.md 'BeeneticToolkit.Random.IRandomNumberGenerator')
 
-## IRandomNumberGenerator.NextGaussian() Method
+## IRandomNumberGenerator.NextNormal() Method
 
-Returns a random double that follows a Gaussian (normal) distribution with mean 0 and standard deviation 1.
+Returns a random double that follows a Normal (normal) distribution with mean 0 and standard deviation 1.
 
 ```csharp
-double NextGaussian();
+double NextNormal();
 ```
 
 #### Returns

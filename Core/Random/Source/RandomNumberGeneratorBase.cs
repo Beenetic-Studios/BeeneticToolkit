@@ -18,22 +18,22 @@ namespace BeeneticToolkit.Random {
         protected long Seed { get; private set; }
 
         /// <summary>
-        /// Calculates the next integer value in the random sequence.
+        /// Gets a calculated random integer value based on the next number in the random sequence.
         /// </summary>
-        /// <returns>A randomly generated integer.</returns>
+        /// <value>A calculated random integer.</value>
         protected int CalculatedNextInt => (int)(Next() % (int.MaxValue + 1L));
 
         /// <summary>
-        /// Calculates the next float value in the random sequence.
+        /// Gets a calculated random float value based on the next number in the random sequence.
         /// </summary>
-        /// <returns>A randomly generated float.</returns>
-        protected virtual float CalculatedNextFloat => Next() / (float)(long.MaxValue - 1);
+        /// <value>A calculated random float.</value>
+        protected virtual float CalculatedNextFloat => (float)Next() / (long.MaxValue - 1);
 
         /// <summary>
-        /// Calculates the next double value in the random sequence.
+        /// Gets a calculated random double value based on the next number in the random sequence.
         /// </summary>
-        /// <returns>A randomly generated double.</returns>
-        protected virtual double CalculatedNextDouble => Next() / (double)(long.MaxValue - 1);
+        /// <value>A calculated random double.</value>
+        protected virtual double CalculatedNextDouble => (double)Next() / (long.MaxValue - 1);
 
         /// <summary>
         /// Initializes a new instance of the random number generator with an automatically generated seed.
@@ -69,10 +69,55 @@ namespace BeeneticToolkit.Random {
         /// <returns>A randomly generated long integer.</returns>
         protected abstract long Next();
 
+        /// <summary>
+        /// Generates a random byte array with a default length.
+        /// </summary>
+        /// <returns>A random byte array of default length. The default length is set to 8 bytes.</returns>
         public virtual byte[] NextBytes() {
-            return new byte[0];
+            return NextBytes(8);
         }
 
+        /// <summary>
+        /// Generates a random byte array of a specified length.
+        /// </summary>
+        /// <param name="length">The length of the byte array to generate.</param>
+        /// <returns>A random byte array of the specified length.</returns>
+
+        public virtual byte[] NextBytes(int length) {
+            byte[] bytes = new byte[length];
+
+            for (int i = 0; i < length; i++) {
+                bytes[i] = (byte)NextInt(256);
+            }
+
+            return bytes;
+        }
+
+        /// <summary>
+        /// Generates a random byte array of a specified length, with each byte within a specified range.
+        /// </summary>
+        /// <param name="length">The length of the byte array to generate.</param>
+        /// <param name="minInclusive">The inclusive lower bound of the byte range.</param>
+        /// <param name="maxExclusive">The exclusive upper bound of the byte range.</param>
+        /// <returns>A random byte array of the specified length, with each byte within the specified range.</returns>
+        public byte[] NextBytes(int length, byte minInclusive, byte maxExclusive) {
+            if (minInclusive >= maxExclusive)
+                throw new ArgumentException($"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}");
+
+            byte[] bytes = new byte[length];
+            int range = maxExclusive - minInclusive;
+
+            for (int i = 0; i < length; i++) {
+                bytes[i] = (byte)(NextInt(range) + minInclusive);
+            }
+
+            return bytes;
+        }
+
+        /// <summary>
+        /// Generates a non-negative random integer.
+        /// </summary>
+        /// <returns>A non-negative random integer.</returns>
         public virtual int NextInt() {
             return NextInt(0, int.MaxValue);
         }
@@ -84,7 +129,6 @@ namespace BeeneticToolkit.Random {
         /// <param name="maxExclusive">The upper bound (exclusive) of the random number to be generated. Must be greater than 0.</param>
         /// <returns>A random integer in the range [0, <paramref name="maxExclusive"/>).</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="maxExclusive"/> is less than or equal to 0.</exception>
-
         public virtual int NextInt(int maxExclusive) {
             if (maxExclusive <= 0)
                 throw new ArgumentException($"{nameof(maxExclusive)} must be greater than 0");
@@ -100,7 +144,6 @@ namespace BeeneticToolkit.Random {
         /// <param name="maxExclusive">The upper bound (exclusive) of the random number to be generated. Must be greater than <paramref name="minInclusive"/>.</param>
         /// <returns>A random integer in the range [<paramref name="minInclusive"/>, <paramref name="maxExclusive"/>).</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="minInclusive"/> is greater than or equal to <paramref name="maxExclusive"/>.</exception>
-
         public virtual int NextInt(int minInclusive, int maxExclusive) {
             if (minInclusive >= maxExclusive)
                 throw new ArgumentException($"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}");
@@ -108,6 +151,10 @@ namespace BeeneticToolkit.Random {
             return CalculatedNextInt % (maxExclusive - minInclusive) + minInclusive;
         }
 
+        /// <summary>
+        /// Generates a non-negative random long integer.
+        /// </summary>
+        /// <returns>A non-negative random long integer.</returns>
         public virtual long NextLong() {
             return NextLong(0, long.MaxValue);
         }
@@ -119,7 +166,6 @@ namespace BeeneticToolkit.Random {
         /// <param name="maxExclusive">The upper bound (exclusive) of the random long number to be generated. Must be greater than 0.</param>
         /// <returns>A random long integer in the range [0, <paramref name="maxExclusive"/>).</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="maxExclusive"/> is less than or equal to 0.</exception>
-
         public virtual long NextLong(long maxExclusive) {
             if (maxExclusive <= 0)
                 throw new ArgumentException($"{nameof(maxExclusive)} must be greater than 0");
@@ -135,7 +181,6 @@ namespace BeeneticToolkit.Random {
         /// <param name="maxExclusive">The upper bound (exclusive) of the random long number to be generated. Must be greater than <paramref name="minInclusive"/>.</param>
         /// <returns>A random long integer in the range [<paramref name="minInclusive"/>, <paramref name="maxExclusive"/>).</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="minInclusive"/> is greater than or equal to <paramref name="maxExclusive"/>.</exception>
-
         public virtual long NextLong(long minInclusive, long maxExclusive) {
             if (minInclusive >= maxExclusive)
                 throw new ArgumentException($"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}");
@@ -217,26 +262,26 @@ namespace BeeneticToolkit.Random {
         }
 
         /// <summary>
-        /// Generates a normally distributed (Gaussian) random number with a default mean of 0.0 and standard deviation of 1.0.
-        /// This method is an overload of the NextGaussian method that uses default parameters to produce a standard Gaussian distribution.
+        /// Generates a normally distributed (Normal) random number with a default mean of 0.0 and standard deviation of 1.0.
+        /// This method is an overload of the NextNormal method that uses default parameters to produce a standard Normal distribution.
         /// </summary>
-        /// <returns>A random double number following the standard Gaussian distribution with a mean of 0.0 and a standard deviation of 1.0.</returns>
+        /// <returns>A random double number following the standard Normal distribution with a mean of 0.0 and a standard deviation of 1.0.</returns>
 
-        public virtual double NextGaussian() {
-            return NextGaussian(0.0, 1.0);
+        public virtual double NextNormal() {
+            return NextNormal(0.0, 1.0);
         }
 
         /// <summary>
-        /// Generates a normally distributed (Gaussian) random number with a specified mean and standard deviation.
-        /// This method uses the Box-Muller transform to produce a Gaussian distribution.
+        /// Generates a normally distributed (Normal) random number with a specified mean and standard deviation.
+        /// This method uses the Box-Muller transform to produce a Normal distribution.
         /// It throws an <see cref="ArgumentException"/> if the standard deviation is negative.
         /// </summary>
-        /// <param name="mean">The mean (μ) of the Gaussian distribution.</param>
-        /// <param name="stDev">The standard deviation (σ) of the Gaussian distribution. Must be non-negative.</param>
-        /// <returns>A random double number following the Gaussian distribution with the specified mean and standard deviation.</returns>
+        /// <param name="mean">The mean (μ) of the Normal distribution.</param>
+        /// <param name="stDev">The standard deviation (σ) of the Normal distribution. Must be non-negative.</param>
+        /// <returns>A random double number following the Normal distribution with the specified mean and standard deviation.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="stDev"/> is negative.</exception>
 
-        public virtual double NextGaussian(double mean, double stDev) {
+        public virtual double NextNormal(double mean, double stDev) {
             if (stDev < 0)
                 throw new ArgumentException("Standard deviation cannot be negative", nameof(stDev));
 

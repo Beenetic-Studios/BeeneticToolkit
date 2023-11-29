@@ -3,11 +3,12 @@
 
 ## RandomNumberGeneratorBase.CalculatedNextFloat Property
 
-Calculates the next float value in the random sequence.
+Gets a calculated random float value based on the next number in the random sequence.
 
 ```csharp
 protected virtual float CalculatedNextFloat { get; }
 ```
 
 #### Property Value
-[System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')
+[System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')  
+A calculated random float.

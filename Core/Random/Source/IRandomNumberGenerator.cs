@@ -6,8 +6,32 @@
     /// </summary>
     public interface IRandomNumberGenerator {
 
+        /// <summary>
+        /// Generates a random byte array with a default length.
+        /// </summary>
+        /// <returns>A random byte array of default length.</returns>
         byte[] NextBytes();
 
+        /// <summary>
+        /// Generates a random byte array of a specified length.
+        /// </summary>
+        /// <param name="length">The length of the byte array to generate.</param>
+        /// <returns>A random byte array of the specified length.</returns>
+        byte[] NextBytes(int length);
+
+        /// <summary>
+        /// Generates a random byte array of a specified length, with each byte within a specified range.
+        /// </summary>
+        /// <param name="length">The length of the byte array to generate.</param>
+        /// <param name="min">The inclusive lower bound of the byte range.</param>
+        /// <param name="max">The exclusive upper bound of the byte range.</param>
+        /// <returns>A random byte array of the specified length, with each byte within the specified range.</returns>
+        byte[] NextBytes(int length, byte min, byte max);
+
+        /// <summary>
+        /// Generates a non-negative random integer.
+        /// </summary>
+        /// <returns>A non-negative random integer.</returns>
         int NextInt();
 
         /// <summary>
@@ -25,6 +49,10 @@
         /// <returns>A random integer that is within the range of minValue and maxValue.</returns>
         int NextInt(int minInclusive, int maxExclusive);
 
+        /// <summary>
+        /// Generates a non-negative random long integer.
+        /// </summary>
+        /// <returns>A non-negative random long integer.</returns>
         long NextLong();
 
         /// <summary>
@@ -85,18 +113,18 @@
         double NextDouble(double minInclusive, double maxExclusive);
 
         /// <summary>
-        /// Returns a random double that follows a Gaussian (normal) distribution with mean 0 and standard deviation 1.
+        /// Returns a random double that follows a Normal (normal) distribution with mean 0 and standard deviation 1.
         /// </summary>
         /// <returns>A normally distributed random double.</returns>
-        double NextGaussian();
+        double NextNormal();
 
         /// <summary>
-        /// Returns a random double that follows a Gaussian (normal) distribution with the specified mean and standard deviation.
+        /// Returns a random double that follows a Normal (normal) distribution with the specified mean and standard deviation.
         /// </summary>
-        /// <param name="mean">The mean of the Gaussian distribution.</param>
-        /// <param name="stdDev">The standard deviation of the Gaussian distribution. Must be non-negative.</param>
+        /// <param name="mean">The mean of the Normal distribution.</param>
+        /// <param name="stdDev">The standard deviation of the Normal distribution. Must be non-negative.</param>
         /// <returns>A normally distributed random double with the specified mean and standard deviation.</returns>
-        double NextGaussian(double mean, double stdDev);
+        double NextNormal(double mean, double stdDev);
 
         /// <summary>
         /// Returns a random boolean value.

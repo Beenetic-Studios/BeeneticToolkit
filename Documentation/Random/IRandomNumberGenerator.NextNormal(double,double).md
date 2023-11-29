@@ -1,26 +1,26 @@
 #### [Random](index.md 'index')
 ### [BeeneticToolkit.Random](index.md#BeeneticToolkit.Random 'BeeneticToolkit.Random').[IRandomNumberGenerator](IRandomNumberGenerator.md 'BeeneticToolkit.Random.IRandomNumberGenerator')
 
-## IRandomNumberGenerator.NextGaussian(double, double) Method
+## IRandomNumberGenerator.NextNormal(double, double) Method
 
-Returns a random double that follows a Gaussian (normal) distribution with the specified mean and standard deviation.
+Returns a random double that follows a Normal (normal) distribution with the specified mean and standard deviation.
 
 ```csharp
-double NextGaussian(double mean, double stdDev);
+double NextNormal(double mean, double stdDev);
 ```
 #### Parameters
 
-<a name='BeeneticToolkit.Random.IRandomNumberGenerator.NextGaussian(double,double).mean'></a>
+<a name='BeeneticToolkit.Random.IRandomNumberGenerator.NextNormal(double,double).mean'></a>
 
 `mean` [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
 
-The mean of the Gaussian distribution.
+The mean of the Normal distribution.
 
-<a name='BeeneticToolkit.Random.IRandomNumberGenerator.NextGaussian(double,double).stdDev'></a>
+<a name='BeeneticToolkit.Random.IRandomNumberGenerator.NextNormal(double,double).stdDev'></a>
 
 `stdDev` [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
 
-The standard deviation of the Gaussian distribution. Must be non-negative.
+The standard deviation of the Normal distribution. Must be non-negative.
 
 #### Returns
 [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')  

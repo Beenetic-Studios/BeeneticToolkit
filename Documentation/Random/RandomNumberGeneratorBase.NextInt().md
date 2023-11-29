@@ -1,14 +1,16 @@
 #### [Random](index.md 'index')
 ### [BeeneticToolkit.Random](index.md#BeeneticToolkit.Random 'BeeneticToolkit.Random').[RandomNumberGeneratorBase](RandomNumberGeneratorBase.md 'BeeneticToolkit.Random.RandomNumberGeneratorBase')
 
-## RandomNumberGeneratorBase.CalculatedNextInt Property
+## RandomNumberGeneratorBase.NextInt() Method
 
-Gets a calculated random integer value based on the next number in the random sequence.
+Generates a non-negative random integer.
 
 ```csharp
-protected int CalculatedNextInt { get; }
+public virtual int NextInt();
 ```
 
-#### Property Value
+Implements [NextInt()](IRandomNumberGenerator.NextInt().md 'BeeneticToolkit.Random.IRandomNumberGenerator.NextInt()')
+
+#### Returns
 [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')  
-A calculated random integer.
+A non-negative random integer.

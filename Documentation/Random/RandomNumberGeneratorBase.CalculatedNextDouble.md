@@ -3,11 +3,12 @@
 
 ## RandomNumberGeneratorBase.CalculatedNextDouble Property
 
-Calculates the next double value in the random sequence.
+Gets a calculated random double value based on the next number in the random sequence.
 
 ```csharp
 protected virtual double CalculatedNextDouble { get; }
 ```
 
 #### Property Value
-[System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
+[System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')  
+A calculated random double.
