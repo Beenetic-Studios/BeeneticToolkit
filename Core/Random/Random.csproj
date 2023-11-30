@@ -11,4 +11,8 @@
 		<PackageReference Include="DefaultDocumentation" Version="0.8.2" PrivateAssets="all" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Services\Logging.csproj" />
+	</ItemGroup>
+
 </Project>

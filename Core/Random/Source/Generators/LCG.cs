@@ -1,6 +1,8 @@
-﻿namespace BeeneticToolkit.Random {
+﻿using System;
 
-    internal class LCG : RandomNumberGeneratorBase {
+namespace BeeneticToolkit.Random {
+
+    internal class LCG : RandomGeneratorBase {
 
         #region Fields
 
@@ -31,15 +33,7 @@
 
         #region Initialization
 
-        public LCG(long modulus, long multiplier, long increment) : base() {
-            _modulus = modulus;
-            _multiplier = multiplier;
-            _increment = increment;
-
-            InitializeRng();
-        }
-
-        public LCG(long modulus, long multiplier, long increment, long seed) : base(seed) {
+        public LCG(long modulus, long multiplier, long increment, long? seed = null) : base(seed ?? DateTime.UtcNow.Ticks) {
             _modulus = modulus;
             _multiplier = multiplier;
             _increment = increment;

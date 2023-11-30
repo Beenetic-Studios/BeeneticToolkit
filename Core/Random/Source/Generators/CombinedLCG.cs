@@ -1,4 +1,4 @@
-﻿using BeeneticToolkit.Random;
+﻿using System;
 
 namespace BeeneticToolkit.Random {
 
@@ -7,7 +7,7 @@ namespace BeeneticToolkit.Random {
     /// This class inherits from RandomNumberGeneratorBase, which implements IRandomNumberGenerator.
     /// </summary>
     /// <exclude></exclude>
-    public class CombinedLCG : RandomNumberGeneratorBase {
+    internal class CombinedLCG : RandomGeneratorBase {
 
         #region Fields
 
@@ -40,19 +40,12 @@ namespace BeeneticToolkit.Random {
         #region Initialization
 
         /// <summary>
-        /// Constructs a new CombinedLCG instance with a default seed. This constructor initializes the generator with system-provided seed values.
-        /// </summary>
-        /// <exclude></exclude>
-        public CombinedLCG() : base() {
-        }
-
-        /// <summary>
         /// Constructs a new CombinedLCG instance with a specified seed. Use this constructor to initialize the generator with a deterministic starting point.
         /// </summary>
         /// <param name="seed">The initial seed value for the LCG algorithm.</param>
         /// <exclude></exclude>
 
-        public CombinedLCG(long seed) : base(seed) {
+        public CombinedLCG(long? seed = null) : base(seed ?? DateTime.UtcNow.Ticks) {
         }
 
         /// <summary>
