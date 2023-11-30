@@ -1,0 +1,39 @@
+#### [Logging](index.md 'index')
+### [BeeneticToolkit.Logging](index.md#BeeneticToolkit.Logging 'BeeneticToolkit.Logging')
+
+## LoggerBase Class
+
+Provides a base implementation for loggers with common functionalities.
+
+```csharp
+public abstract class LoggerBase :
+BeeneticToolkit.Logging.ILogger
+```
+
+Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; LoggerBase
+
+Derived  
+&#8627; [ConsoleLogger](ConsoleLogger.md 'BeeneticToolkit.Logging.ConsoleLogger')  
+&#8627; [DebugLogger](DebugLogger.md 'BeeneticToolkit.Logging.DebugLogger')  
+&#8627; [FileLogger](FileLogger.md 'BeeneticToolkit.Logging.FileLogger')
+
+Implements [ILogger](ILogger.md 'BeeneticToolkit.Logging.ILogger')
+
+| Constructors | |
+| :--- | :--- |
+| [LoggerBase(string, LogThreshold)](LoggerBase.LoggerBase(string,LogThreshold).md 'BeeneticToolkit.Logging.LoggerBase.LoggerBase(string, BeeneticToolkit.Logging.LogThreshold)') | Initializes a new instance of the [LoggerBase](LoggerBase.md 'BeeneticToolkit.Logging.LoggerBase') class. |
+
+| Properties | |
+| :--- | :--- |
+| [Enabled](LoggerBase.Enabled.md 'BeeneticToolkit.Logging.LoggerBase.Enabled') | Gets or sets a value indicating whether the logger is enabled. |
+| [Id](LoggerBase.Id.md 'BeeneticToolkit.Logging.LoggerBase.Id') | Gets the unique identifier for the logger. |
+| [Name](LoggerBase.Name.md 'BeeneticToolkit.Logging.LoggerBase.Name') | Gets or sets the name of the logger. |
+| [Threshold](LoggerBase.Threshold.md 'BeeneticToolkit.Logging.LoggerBase.Threshold') | Gets or sets the logging threshold level. |
+| [TimestampFormat](LoggerBase.TimestampFormat.md 'BeeneticToolkit.Logging.LoggerBase.TimestampFormat') | Gets or sets the timestamp format, which is used in [BaseMessage(LogSeverity, object, MethodBase)](LoggerBase.BaseMessage(LogSeverity,object,MethodBase).md 'BeeneticToolkit.Logging.LoggerBase.BaseMessage(BeeneticToolkit.Logging.LogSeverity, object, System.Reflection.MethodBase)'). |
+
+| Methods | |
+| :--- | :--- |
+| [AllowLogMessage(LogSeverity)](LoggerBase.AllowLogMessage(LogSeverity).md 'BeeneticToolkit.Logging.LoggerBase.AllowLogMessage(BeeneticToolkit.Logging.LogSeverity)') | Evaluates if a log message meets the required severity threshold and checks if the logger is currently enabled. |
+| [BaseMessage(LogSeverity, object, MethodBase)](LoggerBase.BaseMessage(LogSeverity,object,MethodBase).md 'BeeneticToolkit.Logging.LoggerBase.BaseMessage(BeeneticToolkit.Logging.LogSeverity, object, System.Reflection.MethodBase)') | Generates a base message string including the current time, log level, and optionally the object and method context. |
+| [Log(LogSeverity, object, MethodBase, string)](LoggerBase.Log(LogSeverity,object,MethodBase,string).md 'BeeneticToolkit.Logging.LoggerBase.Log(BeeneticToolkit.Logging.LogSeverity, object, System.Reflection.MethodBase, string)') | Logs a message with additional context and the specified severity. |
+| [Log(LogSeverity, string)](LoggerBase.Log(LogSeverity,string).md 'BeeneticToolkit.Logging.LoggerBase.Log(BeeneticToolkit.Logging.LogSeverity, string)') | Logs a message with the specified severity. |

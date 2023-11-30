@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Random">
-      <HintPath>..\Core\Random\bin\Debug\netstandard2.1\Random.dll</HintPath>
+    <Reference Include="BeeneticToolkit">
+      <HintPath>..\Master\bin\Debug\net6.0\BeeneticToolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
 

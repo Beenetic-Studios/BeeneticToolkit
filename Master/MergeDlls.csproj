@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<AssemblyName>BeeneticToolkit</AssemblyName>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<Folder Include="Source\" />
+	</ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(ProjectDir)\Source\MergeDlls.ps1&quot;&#xD;&#xA;" />
+	</Target>
+</Project>

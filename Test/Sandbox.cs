@@ -1,19 +1,28 @@
-﻿using BeeneticToolkit.Random;
+﻿using BeeneticToolkit.Logging;
+using BeeneticToolkit.Random;
+using System.Reflection;
 
 namespace Sandbox {
 
     public class Sandbox {
 
         public Sandbox() {
+            DoStuffAndThangs();
+        }
+
+        private void DoStuffAndThangs() {
+            var logger = new LogManager()
+            .AddLogger(new ConsoleLogger("Console Logger", LogThreshold.Warn));
+
             var random1 = RandomGeneratorFactory.GetGenerator();
-            Console.WriteLine($"First:\t{random1.NextBool()}\t{random1.NextBool()}\t{random1.NextBool()}\t{random1.NextBool()}\t{random1.NextBool()}\t{random1.NextInt(100)} | {random1.NextInt(100)} | {random1.NextInt(100)}");
+            logger.LogMessage(LogSeverity.Info, this, MethodBase.GetCurrentMethod(), $"First:\t{random1.NextBool()}\t{random1.NextBool()}\t{random1.NextBool()}\t{random1.NextBool()}\t{random1.NextBool()}\t{random1.NextInt(100)} | {random1.NextInt(100)} | {random1.NextInt(100)}");
 
             var random2 = RandomGeneratorFactory.GetGenerator();
-            Console.WriteLine($"Secon:\t{random2.NextBool()}\t{random2.NextBool()}\t{random2.NextBool()}\t{random2.NextBool()}\t{random2.NextBool()}\t{random2.NextInt(100)} | {random2.NextInt(100)} | {random2.NextInt(100)}");
+            logger.LogMessage(LogSeverity.Debug, this, MethodBase.GetCurrentMethod(), $"Secon:\t{random2.NextBool()}\t{random2.NextBool()}\t{random2.NextBool()}\t{random2.NextBool()}\t{random2.NextBool()}\t{random2.NextInt(100)} | {random2.NextInt(100)} | {random2.NextInt(100)}");
 
             var random3 = RandomGeneratorFactory.GetGenerator();
-            Console.WriteLine($"Third:\t{random3.NextBool()}\t{random3.NextBool()}\t{random3.NextBool()}\t{random3.NextBool()}\t{random3.NextBool()}\t{random3.NextInt(100)} | {random3.NextInt(100)} | {random3.NextInt(100)}");
-            Console.WriteLine("\n\n");
+            logger.LogMessage(LogSeverity.Warn, this, MethodBase.GetCurrentMethod(), $"Third:\t{random3.NextBool()}\t{random3.NextBool()}\t{random3.NextBool()}\t{random3.NextBool()}\t{random3.NextBool()}\t{random3.NextInt(100)} | {random3.NextInt(100)} | {random3.NextInt(100)}");
+            Console.WriteLine("\n");
 
             Dictionary<int, List<double>> normals = new();
             for (int j = 0; j < 20; j++) {
