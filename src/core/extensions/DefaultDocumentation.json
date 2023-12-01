@@ -1,0 +1,15 @@
+{
+  "AssemblyFilePath": "../../../builds/bin/Debug/netstandard2.1/Extensions.dll",
+  "OutputDirectoryPath": "../../../docs/extensions",
+  "GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
+  "GeneratedPages": "Assembly,Types,Members",
+  "FileNameFactory": "Name",
+  "NamespaceDocItem": {
+    "Sections": [
+      "Title",
+      "summary",
+      "TableOfContents"
+    ],
+    "Markdown.TableOfContentsModes": "IncludeKind,IncludeSummary"
+  }
+}

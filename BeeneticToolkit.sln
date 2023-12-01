@@ -6,13 +6,18 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging", "src\core\logging\Logging.csproj", "{BAF9462E-B46B-4B2A-A93A-2B4852547834}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Random", "src\core\random\Random.csproj", "{77B065EE-D31D-4496-A97B-88A0F202BE9D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8368E472-6857-45DC-A44C-CD32B5D3D546} = {8368E472-6857-45DC-A44C-CD32B5D3D546}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MergeDlls", "src\merge_dlls\MergeDlls.csproj", "{5CE0E272-B67E-445B-BEBB-17DC60B8DDDD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3117FD04-8EB5-4501-998B-C537A76196C8} = {3117FD04-8EB5-4501-998B-C537A76196C8}
 		{77B065EE-D31D-4496-A97B-88A0F202BE9D} = {77B065EE-D31D-4496-A97B-88A0F202BE9D}
+		{8368E472-6857-45DC-A44C-CD32B5D3D546} = {8368E472-6857-45DC-A44C-CD32B5D3D546}
 		{8BBB4A3D-F90A-4F40-9CE1-026099E7182D} = {8BBB4A3D-F90A-4F40-9CE1-026099E7182D}
 		{BAF9462E-B46B-4B2A-A93A-2B4852547834} = {BAF9462E-B46B-4B2A-A93A-2B4852547834}
+		{EEF5E649-D062-496B-BEC8-E7A8675B174A} = {EEF5E649-D062-496B-BEC8-E7A8675B174A}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A84FD014-00C7-40F8-B229-529072D2FBA7}"
@@ -24,6 +29,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.Tests", "tests\logging_tests\Logging.Tests.csproj", "{3117FD04-8EB5-4501-998B-C537A76196C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Random.Tests", "tests\random_tests\Random.Tests.csproj", "{8BBB4A3D-F90A-4F40-9CE1-026099E7182D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "src\core\extensions\Extensions.csproj", "{8368E472-6857-45DC-A44C-CD32B5D3D546}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions.Tests", "tests\extensions_tests\Extensions.Tests.csproj", "{EEF5E649-D062-496B-BEC8-E7A8675B174A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +60,14 @@ Global
 		{8BBB4A3D-F90A-4F40-9CE1-026099E7182D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BBB4A3D-F90A-4F40-9CE1-026099E7182D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BBB4A3D-F90A-4F40-9CE1-026099E7182D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8368E472-6857-45DC-A44C-CD32B5D3D546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8368E472-6857-45DC-A44C-CD32B5D3D546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8368E472-6857-45DC-A44C-CD32B5D3D546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8368E472-6857-45DC-A44C-CD32B5D3D546}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEF5E649-D062-496B-BEC8-E7A8675B174A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF5E649-D062-496B-BEC8-E7A8675B174A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF5E649-D062-496B-BEC8-E7A8675B174A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF5E649-D062-496B-BEC8-E7A8675B174A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
