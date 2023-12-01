@@ -1,6 +1,6 @@
 {
-  "AssemblyFilePath": "bin\\Debug\\netstandard2.1\\Random.dll",
-  "OutputDirectoryPath": "..\\..\\Documentation\\Random",
+  "AssemblyFilePath": "../../../builds/bin/Debug/netstandard2.1/Random.dll",
+  "OutputDirectoryPath": "../../../docs/random",
   "GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
   "GeneratedPages": "Assembly,Types,Members",
   "FileNameFactory": "Name",
