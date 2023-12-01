@@ -3,15 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<AssemblyName>BeeneticToolkit</AssemblyName>
-		<BaseOutputPath>../../builds/bin/</BaseOutputPath>
-		<BaseIntermediateOutputPath>../../builds/obj/</BaseIntermediateOutputPath>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<Compile Remove="Source\**" />
-		<EmbeddedResource Remove="Source\**" />
-		<None Remove="Source\**" />
-	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(ProjectDir)\src\MergeDlls.ps1&quot;&#xD;&#xA;" />

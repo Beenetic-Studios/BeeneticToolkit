@@ -1,8 +1,8 @@
-$solutionDir = "C:\Development\Projects\Utilities\BeeneticToolkit\builds\bin\Debug\netstandard2.1"
+$solutionDir = "C:\Development\Projects\Utilities\BeeneticToolkit"
 
 # Define paths to the DLLs you want to merge
-$project1Dll = "$solutionDir\Random.dll"
-$project2Dll = "$solutionDir\Logging.dll"
+$project1Dll = "$solutionDir\builds\bin\Random\Debug\netstandard2.1\Random.dll"
+$project2Dll = "$solutionDir\builds\bin\Logging\Debug\netstandard2.1\Logging.dll"
 # C:\Development\Projects\Utilities\BeeneticToolkit\Core\Random\bin\Debug\netstandard2.1
 
 # Define the path to ILRepack.exe
@@ -10,7 +10,7 @@ $project2Dll = "$solutionDir\Logging.dll"
 $ilRepackPath = "C:\Users\bfran\.nuget\packages\ilrepack\2.0.18\tools\ILRepack.exe"
 
 # Define the output path for the merged DLL
-$outputDll = "$solutionDir\BeeneticToolkit.dll"
+$outputDll = "$solutionDir\builds\bin\BeeneticToolkit\BeeneticToolkit.dll"
 # C:\Development\Projects\Utilities\BeeneticToolkit\Master\bin\Debug\net6.0
 
 # Run ILRepack
