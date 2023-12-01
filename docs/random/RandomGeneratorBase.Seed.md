@@ -6,7 +6,7 @@
 Gets the seed value used for random number generation.
 
 ```csharp
-protected long Seed { get; set; }
+protected internal long Seed { get; set; }
 ```
 
 #### Property Value

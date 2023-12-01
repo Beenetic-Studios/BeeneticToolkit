@@ -1,4 +1,9 @@
-﻿namespace BeeneticToolkit.Random {
+﻿using System;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Random.Tests")]
+
+namespace BeeneticToolkit.Random {
 
     /// <summary>
     /// Defines the algorithms available for random number generation.
@@ -31,7 +36,7 @@
         /// </summary>
         /// <returns>An instance of a random number generator.</returns>
         public static RandomGeneratorBase GetGenerator() {
-            return GetGenerator(RngAlgorithm.Xorshift, null);
+            return GetNewGenerator(RngAlgorithm.Xorshift, null);
         }
 
         /// <summary>
@@ -39,8 +44,8 @@
         /// </summary>
         /// <param name="seed">The seed for the random number generator.</param>
         /// <returns>An instance of a random number generator.</returns>
-        public static RandomGeneratorBase GetGenerator(long seed) {
-            return GetGenerator(RngAlgorithm.Xorshift, seed);
+        public static RandomGeneratorBase GetGenerator(long? seed) {
+            return GetNewGenerator(RngAlgorithm.Xorshift, seed);
         }
 
         /// <summary>
@@ -49,7 +54,7 @@
         /// <param name="algorithm">The algorithm to be used for random number generation.</param>
         /// <returns>An instance of a random number generator.</returns>
         public static RandomGeneratorBase GetGenerator(RngAlgorithm algorithm) {
-            return GetGenerator(algorithm, null);
+            return GetNewGenerator(algorithm, null);
         }
 
         /// <summary>
@@ -58,8 +63,8 @@
         /// <param name="seed">The seed for the random number generator.</param>
         /// <param name="algorithm">The algorithm to be used for random number generation.</param>
         /// <returns>An instance of a random number generator.</returns>
-        public static RandomGeneratorBase GetGenerator(long seed, RngAlgorithm algorithm) {
-            return GetGenerator(algorithm, seed);
+        public static RandomGeneratorBase GetGenerator(RngAlgorithm algorithm, long? seed) {
+            return GetNewGenerator(algorithm, seed);
         }
 
         /// <summary>
@@ -68,12 +73,12 @@
         /// <param name="algorithm">The algorithm to be used for random number generation.</param>
         /// <param name="seed">Optional seed for the random number generator. Can be null.</param>
         /// <returns>An instance of a random number generator.</returns>
-        private static RandomGeneratorBase GetGenerator(RngAlgorithm algorithm, long? seed) {
+        private static RandomGeneratorBase GetNewGenerator(RngAlgorithm algorithm, long? seed) {
             return algorithm switch {
                 RngAlgorithm.Xorshift => new Xorshift(seed),
                 RngAlgorithm.CombinedLCG => new CombinedLCG(seed),
                 RngAlgorithm.MiddleSquare => new MiddleSquare(seed),
-                _ => new Xorshift(seed),
+                _ => throw new ArgumentOutOfRangeException(nameof(algorithm), $"The RNG algorithm '{algorithm}' is not supported.")
             };
         }
     }

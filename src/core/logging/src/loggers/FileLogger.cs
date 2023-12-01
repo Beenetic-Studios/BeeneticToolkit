@@ -43,7 +43,7 @@ namespace BeeneticToolkit.Logging {
             if (!AllowLogMessage(severity))
                 return;
 
-            File.AppendAllText(_fileName, $"{BaseMessage(severity)}\n{message}");
+            File.AppendAllText(_fileName, $"{BaseMessage(severity)} {message}");
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace BeeneticToolkit.Logging {
             if (!AllowLogMessage(severity))
                 return;
 
-            File.AppendAllText(_fileName, $"{BaseMessage(severity, obj, method)}\n{message}");
+            File.AppendAllText(_fileName, $"{BaseMessage(severity, obj, method)} {message}");
         }
 
         #endregion Logging

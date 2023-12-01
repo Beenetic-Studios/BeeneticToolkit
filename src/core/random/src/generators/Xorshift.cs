@@ -1,4 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Random.Tests")]
 
 namespace BeeneticToolkit.Random {
 

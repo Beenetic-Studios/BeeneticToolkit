@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Random.Tests")]
 
 namespace BeeneticToolkit.Random {
 
@@ -15,7 +18,7 @@ namespace BeeneticToolkit.Random {
         /// The seed as a long integer. This seed is used to initialize the state of the random number generator
         /// to ensure consistent random sequences for the same seed.
         /// </value>
-        protected long Seed { get; private set; }
+        protected internal long Seed { get; private set; }
 
         /// <summary>
         /// Gets a calculated random integer value based on the next number in the random sequence.
@@ -110,9 +113,7 @@ namespace BeeneticToolkit.Random {
         /// Generates a non-negative random integer.
         /// </summary>
         /// <returns>A non-negative random integer.</returns>
-        public virtual int NextInt() {
-            return NextInt(0, int.MaxValue);
-        }
+        public virtual int NextInt() => CalculatedNextInt;
 
         /// <summary>
         /// Generates a pseudo-random integer between 0 (inclusive) and the specified maximum (exclusive).
@@ -147,9 +148,7 @@ namespace BeeneticToolkit.Random {
         /// Generates a non-negative random long integer.
         /// </summary>
         /// <returns>A non-negative random long integer.</returns>
-        public virtual long NextLong() {
-            return NextLong(0, long.MaxValue);
-        }
+        public virtual long NextLong() => Next();
 
         /// <summary>
         /// Generates a pseudo-random long integer between 0 (inclusive) and the specified maximum (exclusive).

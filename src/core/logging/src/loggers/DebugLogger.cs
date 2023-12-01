@@ -35,7 +35,7 @@ namespace BeeneticToolkit.Logging {
             if (!AllowLogMessage(severity))
                 return;
 
-            Debug.WriteLine($"{BaseMessage(severity)}\n{message}");
+            Debug.WriteLine($"{BaseMessage(severity)} {message}");
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace BeeneticToolkit.Logging {
             if (!AllowLogMessage(severity))
                 return;
 
-            Debug.WriteLine($"{BaseMessage(severity, obj, method)}\n{message}");
+            Debug.WriteLine($"{BaseMessage(severity, obj, method)} {message}");
         }
 
         #endregion Logging

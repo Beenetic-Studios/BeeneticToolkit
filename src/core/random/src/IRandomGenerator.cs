@@ -1,4 +1,8 @@
-﻿namespace BeeneticToolkit.Random {
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Random.Tests")]
+
+namespace BeeneticToolkit.Random {
 
     /// <summary>
     /// Provides an interface for random number generation with a variety of methods
