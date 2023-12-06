@@ -11,9 +11,9 @@ The [MathUtils](MathUtils.md 'BeeneticToolkit.MathUtils.MathUtils') namespace en
 It is designed to augment the standard mathematical functionality provided by .NET, offering specialized methods and algorithms that are commonly used in scientific, engineering, and game development contexts.  
 This may include advanced geometric calculations, numerical methods, statistical functions, and algorithms for efficient computation.
 - **[MathUtils](MathUtils.md 'BeeneticToolkit.MathUtils.MathUtils')** `Class` Provides a collection of mathematical utility methods for various common operations.
-  - **[Clamp01(decimal)](MathUtils.Clamp01(decimal).md 'BeeneticToolkit.MathUtils.MathUtils.Clamp01(decimal)')** `Method` Clamps a decimal value between 0 and 1.
-  - **[Clamp01(double)](MathUtils.Clamp01(double).md 'BeeneticToolkit.MathUtils.MathUtils.Clamp01(double)')** `Method` Clamps a double value between 0 and 1.
-  - **[Clamp01(float)](MathUtils.Clamp01(float).md 'BeeneticToolkit.MathUtils.MathUtils.Clamp01(float)')** `Method` Clamps a float value between 0 and 1.
+  - **[Clamp01(decimal)](MathUtils.Clamp01(decimal).md 'BeeneticToolkit.MathUtils.MathUtils.Clamp01(decimal)')** `Method` Clamps a decimal value to ensure it falls within the range of 0 to 1.
+  - **[Clamp01(double)](MathUtils.Clamp01(double).md 'BeeneticToolkit.MathUtils.MathUtils.Clamp01(double)')** `Method` Clamps a double value to ensure it falls within the range of 0 to 1.
+  - **[Clamp01(float)](MathUtils.Clamp01(float).md 'BeeneticToolkit.MathUtils.MathUtils.Clamp01(float)')** `Method` Clamps a float value to ensure it falls within the range of 0 to 1.
   - **[InverseLerp(decimal, decimal, decimal)](MathUtils.InverseLerp(decimal,decimal,decimal).md 'BeeneticToolkit.MathUtils.MathUtils.InverseLerp(decimal, decimal, decimal)')** `Method` Calculates the inverse linear interpolation factor between two values.
   - **[InverseLerp(double, double, double)](MathUtils.InverseLerp(double,double,double).md 'BeeneticToolkit.MathUtils.MathUtils.InverseLerp(double, double, double)')** `Method` Calculates the inverse linear interpolation factor between two values.
   - **[InverseLerp(float, float, float)](MathUtils.InverseLerp(float,float,float).md 'BeeneticToolkit.MathUtils.MathUtils.InverseLerp(float, float, float)')** `Method` Calculates the inverse linear interpolation factor between two values.
