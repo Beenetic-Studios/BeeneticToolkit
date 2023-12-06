@@ -10,43 +10,46 @@ namespace BeeneticToolkit.MathUtils {
         #region Clamp
 
         /// <summary>
-        /// Clamps a float value between 0 and 1.
+        /// Clamps a float value to ensure it falls within the range of 0 to 1.
         /// </summary>
         /// <example>
         /// <code>
-        /// float clampedValue = Clamp01(1.5f); // clampedValue will be 1.0f
+        /// float normalizedValue = Clamp01(1.5f); // returns 1.0f
+        /// float lowerBoundValue = Clamp01(-0.3f); // returns 0.0f
         /// </code>
         /// </example>
-        /// <param name="value">The float value to clamp.</param>
-        /// <returns>The clamped float value, which will be within the range of 0 to 1.</returns>
+        /// <param name="value">The float value to be clamped.</param>
+        /// <returns>The clamped float value.</returns>
         public static float Clamp01(float value) {
             return Math.Clamp(value, 0.0f, 1.0f);
         }
 
         /// <summary>
-        /// Clamps a double value between 0 and 1.
+        /// Clamps a double value to ensure it falls within the range of 0 to 1.
         /// </summary>
         /// <example>
         /// <code>
-        /// double clampedValue = Clamp01(2.5d); // clampedValue will be 1.0d
+        /// double normalizedValue = Clamp01(2.5); // returns 1.0
+        /// double lowerBoundValue = Clamp01(-1.0); // returns 0.0
         /// </code>
         /// </example>
-        /// <param name="value">The double value to clamp.</param>
-        /// <returns>The clamped double value, which will be within the range of 0 to 1.</returns>
+        /// <param name="value">The double value to be clamped.</param>
+        /// <returns>The clamped double value.</returns>
         public static double Clamp01(double value) {
             return Math.Clamp(value, 0.0d, 1.0d);
         }
 
         /// <summary>
-        /// Clamps a decimal value between 0 and 1.
+        /// Clamps a decimal value to ensure it falls within the range of 0 to 1.
         /// </summary>
         /// <example>
         /// <code>
-        /// decimal clampedValue = Clamp01(2.5m); // clampedValue will be 1.0m
+        /// decimal normalizedValue = Clamp01(1.2m); // returns 1.0m
+        /// decimal lowerBoundValue = Clamp01(-0.5m); // returns 0.0m
         /// </code>
         /// </example>
         /// <param name="value">The decimal value to be clamped.</param>
-        /// <returns>The clamped decimal value, which will be within the range of 0 to 1.</returns>
+        /// <returns>The clamped decimal value.</returns>
         public static decimal Clamp01(decimal value) {
             return Math.Clamp(value, 0.0m, 1.0m);
         }
