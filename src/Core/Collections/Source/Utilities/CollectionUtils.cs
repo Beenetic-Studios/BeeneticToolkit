@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace BeeneticToolkit.CollectionUtils {
+namespace BeeneticToolkit.Collections.Utility {
 
     /// <summary>
     /// Provides utility methods for common operations on collections, enhancing their usability and management.

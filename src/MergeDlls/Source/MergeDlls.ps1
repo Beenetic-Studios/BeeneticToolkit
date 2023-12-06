@@ -5,7 +5,7 @@ $project1Dll = "$solutionDir\builds\bin\Random\Debug\netstandard2.1\Random.dll"
 $project2Dll = "$solutionDir\builds\bin\Logging\Debug\netstandard2.1\Logging.dll"
 $project3Dll = "$solutionDir\builds\bin\Extensions\Debug\netstandard2.1\Extensions.dll"
 $project4Dll = "$solutionDir\builds\bin\MathUtils\Debug\netstandard2.1\MathUtils.dll"
-$project5Dll = "$solutionDir\builds\bin\CollectionUtils\Debug\netstandard2.1\CollectionUtils.dll"
+$project5Dll = "$solutionDir\builds\bin\Collections\Debug\netstandard2.1\Collections.dll"
 
 # Define the path to ILRepack.exe
 # This path may vary based on how ILRepack is installed

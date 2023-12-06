@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BeeneticToolkit.CollectionUtils.Tests {
+namespace BeeneticToolkit.Collections.Utility.Tests {
 
     [TestClass]
     public class CollectionUtilsTests {

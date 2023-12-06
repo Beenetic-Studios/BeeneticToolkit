@@ -1,6 +1,6 @@
 {
-  "AssemblyFilePath": "../../../builds/bin/Debug/netstandard2.1/CollectionUtils.dll",
-  "OutputDirectoryPath": "../../../docs/CollectionUtils",
+  "AssemblyFilePath": "../../../builds/bin/Debug/netstandard2.1/Collections.dll",
+  "OutputDirectoryPath": "../../../docs/Collections",
   "GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
   "GeneratedPages": "Assembly,Types,Members",
   "FileNameFactory": "Name",

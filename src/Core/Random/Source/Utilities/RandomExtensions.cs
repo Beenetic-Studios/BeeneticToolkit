@@ -1,4 +1,4 @@
-﻿using BeeneticToolkit.CollectionUtils;
+﻿using BeeneticToolkit.Collections.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
