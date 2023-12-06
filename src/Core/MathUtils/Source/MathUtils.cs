@@ -12,8 +12,13 @@ namespace BeeneticToolkit.MathUtils {
         /// <summary>
         /// Clamps a float value between 0 and 1.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// float clampedValue = Clamp01(1.5f); // clampedValue will be 1.0f
+        /// </code>
+        /// </example>
         /// <param name="value">The float value to clamp.</param>
-        /// <returns>The clamped float value.</returns>
+        /// <returns>The clamped float value, which will be within the range of 0 to 1.</returns>
         public static float Clamp01(float value) {
             return Math.Clamp(value, 0.0f, 1.0f);
         }
@@ -21,17 +26,27 @@ namespace BeeneticToolkit.MathUtils {
         /// <summary>
         /// Clamps a double value between 0 and 1.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// double clampedValue = Clamp01(2.5d); // clampedValue will be 1.0d
+        /// </code>
+        /// </example>
         /// <param name="value">The double value to clamp.</param>
-        /// <returns>The clamped double value.</returns>
+        /// <returns>The clamped double value, which will be within the range of 0 to 1.</returns>
         public static double Clamp01(double value) {
-            return Math.Clamp(value, 0.0, 1.0);
+            return Math.Clamp(value, 0.0d, 1.0d);
         }
 
         /// <summary>
         /// Clamps a decimal value between 0 and 1.
         /// </summary>
-        /// <param name="value">The decimal value to clamp.</param>
-        /// <returns>The clamped decimal value.</returns>
+        /// <example>
+        /// <code>
+        /// decimal clampedValue = Clamp01(2.5m); // clampedValue will be 1.0m
+        /// </code>
+        /// </example>
+        /// <param name="value">The decimal value to be clamped.</param>
+        /// <returns>The clamped decimal value, which will be within the range of 0 to 1.</returns>
         public static decimal Clamp01(decimal value) {
             return Math.Clamp(value, 0.0m, 1.0m);
         }
