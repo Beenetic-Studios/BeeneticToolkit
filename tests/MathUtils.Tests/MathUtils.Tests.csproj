@@ -13,7 +13,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\core\extensions\Extensions.csproj" />
+		<ProjectReference Include="..\..\src\Core\MathUtils\MathUtils.csproj" />
 	</ItemGroup>
 
 </Project>

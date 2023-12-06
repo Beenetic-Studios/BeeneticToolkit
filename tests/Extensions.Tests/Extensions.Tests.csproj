@@ -13,7 +13,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\core\random\Random.csproj" />
+		<ProjectReference Include="..\..\src\Core\Extensions\Extensions.csproj" />
 	</ItemGroup>
 
 </Project>

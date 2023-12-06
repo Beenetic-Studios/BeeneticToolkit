@@ -1,6 +1,6 @@
 {
   "AssemblyFilePath": "../../../builds/bin/Debug/netstandard2.1/Extensions.dll",
-  "OutputDirectoryPath": "../../../docs/extensions",
+  "OutputDirectoryPath": "../../../docs/Extensions",
   "GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
   "GeneratedPages": "Assembly,Types,Members",
   "FileNameFactory": "Name",

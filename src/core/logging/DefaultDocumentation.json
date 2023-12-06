@@ -1,6 +1,6 @@
 {
   "AssemblyFilePath": "../../../builds/bin/Debug/netstandard2.1/Logging.dll",
-  "OutputDirectoryPath": "../../../docs/logging",
+  "OutputDirectoryPath": "../../../docs/Logging",
   "GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
   "GeneratedPages": "Assembly,Types,Members",
   "FileNameFactory": "Name",

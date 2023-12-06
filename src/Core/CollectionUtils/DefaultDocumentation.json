@@ -1,6 +1,6 @@
 {
-  "AssemblyFilePath": "../../../builds/bin/MathUtils/Debug/netstandard2.1/MathUtils.dll",
-  "OutputDirectoryPath": "../../../docs/math_utils",
+  "AssemblyFilePath": "../../../builds/bin/Debug/netstandard2.1/CollectionUtils.dll",
+  "OutputDirectoryPath": "../../../docs/CollectionUtils",
   "GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
   "GeneratedPages": "Assembly,Types,Members",
   "FileNameFactory": "Name",

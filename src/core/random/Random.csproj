@@ -12,6 +12,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\collection_utils\CollectionUtils.csproj" />
+	  <ProjectReference Include="..\CollectionUtils\CollectionUtils.csproj" />
 	</ItemGroup>
 </Project>
