@@ -10,4 +10,15 @@
         /// </summary>
         internal static class NamespaceDoc { }
     }
+
+    namespace Random.Utility {
+
+        /// <summary>
+        /// The <see cref="Utility"/> namespace provides classes and methods for advanced randomization tasks, including shuffling
+        /// and selecting random elements from collections. This namespace extends the capabilities
+        /// of standard randomization with additional utility functions to facilitate more
+        /// specialized and efficient operations on collections.
+        /// </summary>
+        internal static class NamespaceDoc { }
+    }
 }

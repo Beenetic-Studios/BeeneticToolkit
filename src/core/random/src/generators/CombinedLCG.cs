@@ -10,7 +10,7 @@ namespace BeeneticToolkit.Random {
     /// This class inherits from RandomNumberGeneratorBase, which implements IRandomNumberGenerator.
     /// </summary>
     /// <exclude></exclude>
-    internal class CombinedLCG : RandomGeneratorBase {
+    internal class CombinedLCG : RandomGenerator {
 
         #region Fields
 

@@ -12,7 +12,7 @@ namespace BeeneticToolkit.Random {
     /// This class inherits from RandomNumberGeneratorBase, which implements IRandomNumberGenerator.
     /// </summary>
     /// <exclude></exclude>
-    internal class Xorshift : RandomGeneratorBase {
+    internal class Xorshift : RandomGenerator {
 
         #region Fields
 

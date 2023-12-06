@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace BeeneticToolkit.Random {
 
-    internal class LCG : RandomGeneratorBase {
+    internal class LCG : RandomGenerator {
 
         #region Fields
 

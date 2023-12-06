@@ -8,7 +8,7 @@ namespace BeeneticToolkit.Random.Tests {
 
         [TestMethod]
         public void GetGenerator_NoParams_ShouldReturnDefaultGenerator() {
-            var generator = RandomGeneratorFactory.GetGenerator();
+            var generator = RngFactory.GetGenerator();
 
             Assert.IsNotNull(generator);
             Assert.IsInstanceOfType(generator, typeof(Xorshift));
@@ -17,7 +17,7 @@ namespace BeeneticToolkit.Random.Tests {
         [TestMethod]
         public void GetGenerator_WithSeed_ShouldReturnGeneratorWithSeed() {
             long seed = 12345;
-            var generator = RandomGeneratorFactory.GetGenerator(seed);
+            var generator = RngFactory.GetGenerator(seed);
 
             Assert.IsNotNull(generator);
             Assert.AreEqual(seed, generator.Seed);
@@ -25,7 +25,7 @@ namespace BeeneticToolkit.Random.Tests {
 
         [TestMethod]
         public void GetGenerator_SpecificAlgorithm_ShouldReturnCorrectType() {
-            var generator = RandomGeneratorFactory.GetGenerator(RngAlgorithm.CombinedLCG);
+            var generator = RngFactory.GetGenerator(RngAlgorithm.CombinedLCG);
 
             Assert.IsNotNull(generator);
             Assert.IsInstanceOfType(generator, typeof(CombinedLCG));
@@ -34,7 +34,7 @@ namespace BeeneticToolkit.Random.Tests {
         [TestMethod]
         public void GetGenerator_WithSeedAndAlgorithm_ShouldReturnCorrectTypeAndSeed() {
             long seed = 12345;
-            var generator = RandomGeneratorFactory.GetGenerator(RngAlgorithm.MiddleSquare, seed);
+            var generator = RngFactory.GetGenerator(RngAlgorithm.MiddleSquare, seed);
 
             Assert.IsNotNull(generator);
             Assert.IsInstanceOfType(generator, typeof(MiddleSquare));
@@ -44,14 +44,14 @@ namespace BeeneticToolkit.Random.Tests {
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void GetGenerator_InvalidAlgorithm_ShouldThrowArgumentException() {
-            _ = RandomGeneratorFactory.GetGenerator((RngAlgorithm)(-1));
+            _ = RngFactory.GetGenerator((RngAlgorithm)(-1));
         }
 
         [TestMethod]
         public void RngsWithSameSeed_ShouldProduceIdenticalSequences() {
             long seed = 12345;
-            var rng1 = RandomGeneratorFactory.GetGenerator(RngAlgorithm.Xorshift, seed);
-            var rng2 = RandomGeneratorFactory.GetGenerator(RngAlgorithm.Xorshift, seed);
+            var rng1 = RngFactory.GetGenerator(RngAlgorithm.Xorshift, seed);
+            var rng2 = RngFactory.GetGenerator(RngAlgorithm.Xorshift, seed);
             int numberOfValuesToTest = 100;
 
             for (int i = 0; i < numberOfValuesToTest; i++) {

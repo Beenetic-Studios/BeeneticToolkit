@@ -11,7 +11,7 @@ public interface IRandomGenerator
 ```
 
 Derived  
-&#8627; [RandomGeneratorBase](RandomGeneratorBase.md 'BeeneticToolkit.Random.RandomGeneratorBase')
+&#8627; [RandomGenerator](RandomGenerator.md 'BeeneticToolkit.Random.RandomGenerator')
 
 | Methods | |
 | :--- | :--- |

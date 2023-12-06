@@ -11,7 +11,7 @@ namespace BeeneticToolkit.Random {
     /// The class inherits from RandomNumberGeneratorBase, implementing the IRandomNumberGenerator interface.
     /// </summary>
     /// <exclude></exclude>
-    internal class MiddleSquare : RandomGeneratorBase {
+    internal class MiddleSquare : RandomGenerator {
 
         #region Fields
 

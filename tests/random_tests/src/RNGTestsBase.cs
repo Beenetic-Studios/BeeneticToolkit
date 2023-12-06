@@ -31,14 +31,14 @@ namespace BeeneticToolkit.Random.Tests {
 
         #region Initialization
 
-        protected RandomGeneratorBase Generator;
+        protected RandomGenerator Generator;
 
         [TestInitialize]
         public void Initialize() {
             Generator = InitRngBase();
         }
 
-        protected abstract RandomGeneratorBase InitRngBase();
+        protected abstract RandomGenerator InitRngBase();
 
         #endregion Initialization
 

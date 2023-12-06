@@ -48,6 +48,11 @@ namespace BeeneticToolkit.MathUtils {
         /// <param name="max">The maximum value of the range.</param>
         /// <returns>The normalized float value.</returns>
         public static float Normalize(float value, float min, float max) {
+            if (min == max)
+                throw new DivideByZeroException("Normalization range cannot be zero (min and max are equal).");
+            if (min > max)
+                throw new ArgumentException("Min value cannot be greater than max value.");
+
             return (value - min) / (max - min);
         }
 
@@ -59,6 +64,11 @@ namespace BeeneticToolkit.MathUtils {
         /// <param name="max">The maximum value of the range.</param>
         /// <returns>The normalized double value.</returns>
         public static double Normalize(double value, double min, double max) {
+            if (min == max)
+                throw new DivideByZeroException("Normalization range cannot be zero (min and max are equal).");
+            if (min > max)
+                throw new ArgumentException("Min value cannot be greater than max value.");
+
             return (value - min) / (max - min);
         }
 
@@ -70,6 +80,11 @@ namespace BeeneticToolkit.MathUtils {
         /// <param name="max">The maximum value of the range.</param>
         /// <returns>The normalized decimal value.</returns>
         public static decimal Normalize(decimal value, decimal min, decimal max) {
+            if (min == max)
+                throw new DivideByZeroException("Normalization range cannot be zero (min and max are equal).");
+            if (min > max)
+                throw new ArgumentException("Min value cannot be greater than max value.");
+
             return (value - min) / (max - min);
         }
 
@@ -111,36 +126,54 @@ namespace BeeneticToolkit.MathUtils {
         }
 
         /// <summary>
-        /// Performs quadratic interpolation between two float values.
+        /// Performs quadratic Bezier interpolation between two values, influenced by a control point.
         /// </summary>
-        /// <param name="start">The start value.</param>
-        /// <param name="end">The end value.</param>
-        /// <param name="factor">The interpolation factor.</param>
-        /// <returns>The interpolated value.</returns>
-        public static float QuadraticInterpolate(float start, float end, float factor) {
-            return (1.0f - factor) * start + factor * factor * end;
+        /// <param name="start">The start value of the interpolation range.</param>
+        /// <param name="control">The control point that influences the shape of the interpolation curve.</param>
+        /// <param name="end">The end value of the interpolation range.</param>
+        /// <param name="factor">The interpolation factor, typically between 0 and 1. A value of 0 returns the start value, 1 returns the end value, and values in between return a point along the quadratic curve defined by the start, control, and end values.</param>
+        /// <returns>The interpolated value along the quadratic Bezier curve defined by the start, control, and end values at the specified factor.</returns>
+        public static float Qerp(float start, float control, float end, float factor) {
+            float inverseFactor = 1f - factor;
+            float weightedStart = inverseFactor * inverseFactor * start;
+            float weightedControl = 2f * inverseFactor * factor * control;
+            float weightedEnd = factor * factor * end;
+
+            return weightedStart + weightedControl + weightedEnd;
         }
 
         /// <summary>
-        /// Performs quadratic interpolation between two double values.
+        /// Performs quadratic Bezier interpolation between two values, influenced by a control point.
         /// </summary>
-        /// <param name="start">The start value.</param>
-        /// <param name="end">The end value.</param>
-        /// <param name="factor">The interpolation factor.</param>
-        /// <returns>The interpolated value.</returns>
-        public static double QuadraticInterpolate(double start, double end, double factor) {
-            return (1.0 - factor) * start + factor * factor * end;
+        /// <param name="start">The start value of the interpolation range.</param>
+        /// <param name="control">The control point that influences the shape of the interpolation curve.</param>
+        /// <param name="end">The end value of the interpolation range.</param>
+        /// <param name="factor">The interpolation factor, typically between 0 and 1. A value of 0 returns the start value, 1 returns the end value, and values in between return a point along the quadratic curve defined by the start, control, and end values.</param>
+        /// <returns>The interpolated value along the quadratic Bezier curve defined by the start, control, and end values at the specified factor.</returns>
+        public static double Qerp(double start, double control, double end, double factor) {
+            double inverseFactor = 1d - factor;
+            double weightedStart = inverseFactor * inverseFactor * start;
+            double weightedControl = 2d * inverseFactor * factor * control;
+            double weightedEnd = factor * factor * end;
+
+            return weightedStart + weightedControl + weightedEnd;
         }
 
         /// <summary>
-        /// Performs quadratic interpolation between two decimal values.
+        /// Performs quadratic Bezier interpolation between two values, influenced by a control point.
         /// </summary>
-        /// <param name="start">The start value.</param>
-        /// <param name="end">The end value.</param>
-        /// <param name="factor">The interpolation factor.</param>
-        /// <returns>The interpolated value.</returns>
-        public static decimal QuadraticInterpolate(decimal start, decimal end, decimal factor) {
-            return (1.0m - factor) * start + factor * factor * end;
+        /// <param name="start">The start value of the interpolation range.</param>
+        /// <param name="control">The control point that influences the shape of the interpolation curve.</param>
+        /// <param name="end">The end value of the interpolation range.</param>
+        /// <param name="factor">The interpolation factor, typically between 0 and 1. A value of 0 returns the start value, 1 returns the end value, and values in between return a point along the quadratic curve defined by the start, control, and end values.</param>
+        /// <returns>The interpolated value along the quadratic Bezier curve defined by the start, control, and end values at the specified factor.</returns>
+        public static decimal Qerp(decimal start, decimal control, decimal end, decimal factor) {
+            decimal inverseFactor = 1m - factor;
+            decimal weightedStart = inverseFactor * inverseFactor * start;
+            decimal weightedControl = 2m * inverseFactor * factor * control;
+            decimal weightedEnd = factor * factor * end;
+
+            return weightedStart + weightedControl + weightedEnd;
         }
 
         /// <summary>
@@ -151,6 +184,9 @@ namespace BeeneticToolkit.MathUtils {
         /// <param name="max">The end value.</param>
         /// <returns>The inverse interpolation factor.</returns>
         public static float InverseLerp(float value, float min, float max) {
+            if (min == max)
+                throw new DivideByZeroException("Lerp range cannot be zero (min and max are equal).");
+
             return (value - min) / (max - min);
         }
 
@@ -162,6 +198,9 @@ namespace BeeneticToolkit.MathUtils {
         /// <param name="max">The end value.</param>
         /// <returns>The inverse interpolation factor.</returns>
         public static double InverseLerp(double value, double min, double max) {
+            if (min == max)
+                throw new DivideByZeroException("Lerp range cannot be zero (min and max are equal).");
+
             return (value - min) / (max - min);
         }
 
@@ -173,6 +212,9 @@ namespace BeeneticToolkit.MathUtils {
         /// <param name="max">The end value.</param>
         /// <returns>The inverse interpolation factor.</returns>
         public static decimal InverseLerp(decimal value, decimal min, decimal max) {
+            if (min == max)
+                throw new DivideByZeroException("Lerp range cannot be zero (min and max are equal).");
+
             return (value - min) / (max - min);
         }
 
@@ -187,7 +229,7 @@ namespace BeeneticToolkit.MathUtils {
         /// <param name="interval">The interval to round to.</param>
         /// <returns>The rounded value.</returns>
         public static float RoundToNearest(float value, float interval) {
-            return (float)(Math.Round(value / interval) * interval);
+            return interval == 0f ? (float)Math.Round(value) : (float)(Math.Round(value / interval, MidpointRounding.AwayFromZero) * interval);
         }
 
         /// <summary>
@@ -197,7 +239,7 @@ namespace BeeneticToolkit.MathUtils {
         /// <param name="interval">The interval to round to.</param>
         /// <returns>The rounded value.</returns>
         public static double RoundToNearest(double value, double interval) {
-            return Math.Round(value / interval) * interval;
+            return interval == 0d ? Math.Round(value) : Math.Round(value / interval, MidpointRounding.AwayFromZero) * interval;
         }
 
         /// <summary>
@@ -207,7 +249,7 @@ namespace BeeneticToolkit.MathUtils {
         /// <param name="interval">The interval to round to.</param>
         /// <returns>The rounded value.</returns>
         public static decimal RoundToNearest(decimal value, decimal interval) {
-            return Math.Round(value / interval) * interval;
+            return interval == 0m ? Math.Round(value) : Math.Round(value / interval, MidpointRounding.AwayFromZero) * interval;
         }
 
         #endregion Round To Nearest

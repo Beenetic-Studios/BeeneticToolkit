@@ -59,3 +59,11 @@ allowing for granular control over log output and severity.
   - **[Info](LogThreshold.md#BeeneticToolkit.Logging.LogThreshold.Info 'BeeneticToolkit.Logging.LogThreshold.Info')** `Field` Informational and higher severity levels are enabled. This includes Info, Debug, Warn, Error, and Fatal.
   - **[Off](LogThreshold.md#BeeneticToolkit.Logging.LogThreshold.Off 'BeeneticToolkit.Logging.LogThreshold.Off')** `Field` Logging is disabled. No log messages will be recorded.
   - **[Warn](LogThreshold.md#BeeneticToolkit.Logging.LogThreshold.Warn 'BeeneticToolkit.Logging.LogThreshold.Warn')** `Field` Warning and higher severity levels are enabled. This includes Warn, Error, and Fatal.
+
+<a name='BeeneticToolkit.Logging.Utility'></a>
+
+## BeeneticToolkit.Logging.Utility Namespace
+- **[LogUtils](LogUtils.md 'BeeneticToolkit.Logging.Utility.LogUtils')** `Class` Provides utility methods for logging and displaying elements of collections and properties of objects.
+  - **[PrintElements&lt;T&gt;(IEnumerable&lt;T&gt;, bool, string)](LogUtils.PrintElements_T_(IEnumerable_T_,bool,string).md 'BeeneticToolkit.Logging.Utility.LogUtils.PrintElements<T>(System.Collections.Generic.IEnumerable<T>, bool, string)')** `Method` Converts an IEnumerable sequence into a string representation, with options for inline display and custom delimiters.
+  - **[PrintElements&lt;T&gt;(List&lt;T&gt;, bool, string)](LogUtils.PrintElements_T_(List_T_,bool,string).md 'BeeneticToolkit.Logging.Utility.LogUtils.PrintElements<T>(System.Collections.Generic.List<T>, bool, string)')** `Method` Converts a list of elements into a string representation, with options for inline display and custom delimiters.
+  - **[PropertiesString(object)](LogUtils.PropertiesString(object).md 'BeeneticToolkit.Logging.Utility.LogUtils.PropertiesString(object)')** `Method` Creates a string representation of the public properties of an object, excluding any marked as obsolete.

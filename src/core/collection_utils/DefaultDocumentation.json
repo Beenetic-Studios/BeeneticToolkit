@@ -1,0 +1,15 @@
+{
+  "AssemblyFilePath": "../../../builds/bin/Debug/netstandard2.1/CollectionUtils.dll",
+  "OutputDirectoryPath": "../../../docs/collection_utils",
+  "GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
+  "GeneratedPages": "Assembly,Types,Members",
+  "FileNameFactory": "Name",
+  "NamespaceDocItem": {
+    "Sections": [
+      "Title",
+      "summary",
+      "TableOfContents"
+    ],
+    "Markdown.TableOfContentsModes": "IncludeKind,IncludeSummary"
+  }
+}
