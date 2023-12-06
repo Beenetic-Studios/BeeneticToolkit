@@ -59,12 +59,19 @@ namespace BeeneticToolkit.MathUtils {
         #region Normalize
 
         /// <summary>
-        /// Normalizes a float value within a given range.
+        /// Normalizes a float value to a range defined by a minimum and maximum.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// float normalized = Normalize(15f, 10f, 20f); // returns 0.5f
+        /// </code>
+        /// </example>
         /// <param name="value">The value to normalize.</param>
         /// <param name="min">The minimum value of the range.</param>
         /// <param name="max">The maximum value of the range.</param>
-        /// <returns>The normalized float value.</returns>
+        /// <returns>The normalized value, scaled to the range 0 to 1.</returns>
+        /// <exception cref="DivideByZeroException">Thrown when the min and max values are equal.</exception>
+        /// <exception cref="ArgumentException">Thrown when min is greater than max.</exception>
         public static float Normalize(float value, float min, float max) {
             if (min == max)
                 throw new DivideByZeroException("Normalization range cannot be zero (min and max are equal).");
@@ -75,12 +82,19 @@ namespace BeeneticToolkit.MathUtils {
         }
 
         /// <summary>
-        /// Normalizes a double value within a given range.
+        /// Normalizes a double value to a range defined by a minimum and maximum.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// double normalized = Normalize(50.0, 0.0, 100.0); // returns 0.5
+        /// </code>
+        /// </example>
         /// <param name="value">The value to normalize.</param>
         /// <param name="min">The minimum value of the range.</param>
         /// <param name="max">The maximum value of the range.</param>
-        /// <returns>The normalized double value.</returns>
+        /// <returns>The normalized value, scaled to the range 0 to 1.</returns>
+        /// <exception cref="DivideByZeroException">Thrown when the min and max values are equal.</exception>
+        /// <exception cref="ArgumentException">Thrown when min is greater than max.</exception>
         public static double Normalize(double value, double min, double max) {
             if (min == max)
                 throw new DivideByZeroException("Normalization range cannot be zero (min and max are equal).");
@@ -91,12 +105,19 @@ namespace BeeneticToolkit.MathUtils {
         }
 
         /// <summary>
-        /// Normalizes a decimal value within a given range.
+        /// Normalizes a decimal value to a range defined by a minimum and maximum.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// decimal normalized = Normalize(300m, 200m, 400m); // returns 0.5m
+        /// </code>
+        /// </example>
         /// <param name="value">The value to normalize.</param>
         /// <param name="min">The minimum value of the range.</param>
         /// <param name="max">The maximum value of the range.</param>
-        /// <returns>The normalized decimal value.</returns>
+        /// <returns>The normalized value, scaled to the range 0 to 1.</returns>
+        /// <exception cref="DivideByZeroException">Thrown when the min and max values are equal.</exception>
+        /// <exception cref="ArgumentException">Thrown when min is greater than max.</exception>
         public static decimal Normalize(decimal value, decimal min, decimal max) {
             if (min == max)
                 throw new DivideByZeroException("Normalization range cannot be zero (min and max are equal).");
