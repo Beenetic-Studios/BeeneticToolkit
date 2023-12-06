@@ -8,6 +8,6 @@
 	</PropertyGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(ProjectDir)\src\MergeDlls.ps1&quot;&#xD;&#xA;" />
+		<Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(ProjectDir)\Source\MergeDlls.ps1&quot;&#xD;&#xA;" />
 	</Target>
 </Project>
