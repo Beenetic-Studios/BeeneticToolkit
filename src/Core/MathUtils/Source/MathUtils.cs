@@ -132,34 +132,34 @@ namespace BeeneticToolkit.MathUtils {
         #region Lerp
 
         /// <summary>
-        /// Linearly interpolates between two float values.
+        /// Performs linear interpolation between two float values based on a given interpolation factor.
         /// </summary>
         /// <param name="start">The start value.</param>
         /// <param name="end">The end value.</param>
-        /// <param name="factor">The interpolation factor.</param>
-        /// <returns>The interpolated float value.</returns>
+        /// <param name="factor">The interpolation factor, typically between 0 and 1. Values outside this range are clamped to the range [0, 1].</param>
+        /// <returns>The interpolated float value between the start and end values.</returns>
         public static float Lerp(float start, float end, float factor) {
             return start + (end - start) * Clamp01(factor);
         }
 
         /// <summary>
-        /// Linearly interpolates between two double values.
+        /// Performs linear interpolation between two double values based on a given interpolation factor.
         /// </summary>
         /// <param name="start">The start value.</param>
         /// <param name="end">The end value.</param>
-        /// <param name="factor">The interpolation factor.</param>
-        /// <returns>The interpolated double value.</returns>
+        /// <param name="factor">The interpolation factor, typically between 0 and 1. Values outside this range are clamped to the range [0, 1].</param>
+        /// <returns>The interpolated double value between the start and end values.</returns>
         public static double Lerp(double start, double end, double factor) {
             return start + (end - start) * Clamp01(factor);
         }
 
         /// <summary>
-        /// Linearly interpolates between two decimal values.
+        /// Performs linear interpolation between two decimal values based on a given interpolation factor.
         /// </summary>
         /// <param name="start">The start value.</param>
         /// <param name="end">The end value.</param>
-        /// <param name="factor">The interpolation factor.</param>
-        /// <returns>The interpolated decimal value.</returns>
+        /// <param name="factor">The interpolation factor, typically between 0 and 1. Values outside this range are clamped to the range [0, 1].</param>
+        /// <returns>The interpolated decimal value between the start and end values.</returns>
         public static decimal Lerp(decimal start, decimal end, decimal factor) {
             return start + (end - start) * Clamp01(factor);
         }

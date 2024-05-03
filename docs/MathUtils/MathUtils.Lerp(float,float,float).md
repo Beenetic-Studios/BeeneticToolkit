@@ -3,7 +3,7 @@
 
 ## MathUtils.Lerp(float, float, float) Method
 
-Linearly interpolates between two float values.
+Performs linear interpolation between two float values based on a given interpolation factor.
 
 ```csharp
 public static float Lerp(float start, float end, float factor);
@@ -26,8 +26,8 @@ The end value.
 
 `factor` [System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')
 
-The interpolation factor.
+The interpolation factor, typically between 0 and 1. Values outside this range are clamped to the range [0, 1].
 
 #### Returns
 [System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')  
-The interpolated float value.
+The interpolated float value between the start and end values.

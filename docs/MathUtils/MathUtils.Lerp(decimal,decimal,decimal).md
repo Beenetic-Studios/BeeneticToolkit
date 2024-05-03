@@ -3,7 +3,7 @@
 
 ## MathUtils.Lerp(decimal, decimal, decimal) Method
 
-Linearly interpolates between two decimal values.
+Performs linear interpolation between two decimal values based on a given interpolation factor.
 
 ```csharp
 public static decimal Lerp(decimal start, decimal end, decimal factor);
@@ -26,8 +26,8 @@ The end value.
 
 `factor` [System.Decimal](https://docs.microsoft.com/en-us/dotnet/api/System.Decimal 'System.Decimal')
 
-The interpolation factor.
+The interpolation factor, typically between 0 and 1. Values outside this range are clamped to the range [0, 1].
 
 #### Returns
 [System.Decimal](https://docs.microsoft.com/en-us/dotnet/api/System.Decimal 'System.Decimal')  
-The interpolated decimal value.
+The interpolated decimal value between the start and end values.

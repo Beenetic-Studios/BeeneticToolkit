@@ -3,7 +3,7 @@
 
 ## MathUtils.Lerp(double, double, double) Method
 
-Linearly interpolates between two double values.
+Performs linear interpolation between two double values based on a given interpolation factor.
 
 ```csharp
 public static double Lerp(double start, double end, double factor);
@@ -26,8 +26,8 @@ The end value.
 
 `factor` [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
 
-The interpolation factor.
+The interpolation factor, typically between 0 and 1. Values outside this range are clamped to the range [0, 1].
 
 #### Returns
 [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')  
-The interpolated double value.
+The interpolated double value between the start and end values.
