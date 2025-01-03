@@ -35,6 +35,27 @@ namespace BeeneticToolkit.Logging.Tests {
         }
 
         [TestMethod]
+        public void GetLogger_ExistingLogger_ReturnsNotNullLoggerBase() {
+            var logManager = new LogManager();
+            var logger = new MockLoggerBase() { Name = "TestLogger" };
+            logManager.AddLogger(logger);
+
+            var result = logManager.GetLogger("TestLogger");
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(logger, result);
+        }
+
+        [TestMethod]
+        public void GetLogger_NonExistingLogger_ReturnsNull() {
+            var logManager = new LogManager();
+
+            var result = logManager.GetLogger("TestLogger");
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
         public void EnableLogger_ExistingLogger_ReturnsTrue() {
             var logManager = new LogManager();
             var logger = new MockLoggerBase() { Name = "TestLogger" };

@@ -6,7 +6,7 @@
 Gets or sets the logging threshold level.
 
 ```csharp
-protected BeeneticToolkit.Logging.LogThreshold Threshold { get; set; }
+public BeeneticToolkit.Logging.LogThreshold Threshold { get; set; }
 ```
 
 #### Property Value

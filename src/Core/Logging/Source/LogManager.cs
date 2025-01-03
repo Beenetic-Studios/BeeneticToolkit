@@ -71,11 +71,19 @@ namespace BeeneticToolkit.Logging {
         #region Helpers
 
         /// <summary>
+        /// Gets a specified logger.
+        /// </summary>
+        /// <param name="identifier">The identifier (ID or Name) of the logger to be enabled.</param>
+        /// <returns>LoggerBase with the specified identifier; otherwise, null.</returns>
+        public LoggerBase GetLogger(string identifier) {
+            return FindLoggerByIdentifier(identifier);
+        }
+
+        /// <summary>
         /// Enables a logger with the specified identifier.
         /// </summary>
         /// <param name="identifier">The identifier (ID or Name) of the logger to be enabled.</param>
         /// <returns>True if the logger is found and enabled; otherwise, false.</returns>
-
         public bool EnableLogger(string identifier) {
             var logger = FindLoggerByIdentifier(identifier);
             if (logger != null) {
@@ -91,7 +99,6 @@ namespace BeeneticToolkit.Logging {
         /// </summary>
         /// <param name="identifier">The identifier (ID or Name) of the logger to be disabled.</param>
         /// <returns>True if the logger is found and disabled; otherwise, false.</returns>
-
         public bool DisableLogger(string identifier) {
             var logger = FindLoggerByIdentifier(identifier);
             if (logger != null) {
@@ -107,7 +114,6 @@ namespace BeeneticToolkit.Logging {
         /// </summary>
         /// <param name="identifier">The identifier (ID or Name) of the logger.</param>
         /// <returns>The found logger, or null if no logger matches the identifier.</returns>
-
         private LoggerBase FindLoggerByIdentifier(string identifier) {
             return _loggers.FirstOrDefault(l => l.Id == identifier || l.Name == identifier);
         }

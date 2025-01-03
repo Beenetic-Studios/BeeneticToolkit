@@ -12,7 +12,9 @@ namespace BeeneticToolkit.Logging {
         /// </summary>
         /// <param name="severity">The severity level of the log message.</param>
         /// <param name="message">The message to be logged.</param>
-        void Log(LogSeverity severity, string message);
+        /// <param name="prepend">String value to prepend to the message string.</param>
+        /// <param name="append">String value to append to the message string.</param>
+        void Log(LogSeverity severity, string message, string prepend = " ", string append = "\n");
 
         /// <summary>
         /// Logs a message with additional context from an object and a method, and with the specified severity.
@@ -21,6 +23,8 @@ namespace BeeneticToolkit.Logging {
         /// <param name="obj">The object context of the log message.</param>
         /// <param name="method">The method context of the log message.</param>
         /// <param name="message">The message to be logged.</param>
-        void Log(LogSeverity severity, object obj, MethodBase method, string message);
+        /// <param name="prepend">String value to prepend to the message string.</param>
+        /// <param name="append">String value to append to the message string.</param>
+        void Log(LogSeverity severity, object obj, MethodBase method, string message, string prepend = " ", string append = "\n");
     }
 }

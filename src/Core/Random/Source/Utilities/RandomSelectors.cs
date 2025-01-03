@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 
 namespace BeeneticToolkit.Random.Utility {
 
     /// <summary>
     /// Provides utility methods for random operations, such as selecting random elements from collections.
     /// </summary>
-    public static partial class RandomUtils {
+    public static partial class RandomSelectors {
 
         #region Random Choice
 
@@ -136,9 +137,15 @@ namespace BeeneticToolkit.Random.Utility {
         /// <typeparam name="T">The type of elements in the list.</typeparam>
         /// <param name="list">The list from which to select a random weighted element.</param>
         /// <param name="weights">A list of weights corresponding to each element in the list.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
+        /// <param name="random">The random number generator to use, or <c>null</c> to use the default generator.</param>
         /// <returns>A randomly selected element, weighted by the corresponding weights list.</returns>
-        /// <exception cref="ArgumentException">Thrown when the input list is empty or the lengths of the list and weights do not match.</exception>
+        /// <exception cref="ArgumentException">
+        /// Thrown when the input list is empty or the lengths of the list and weights do not match.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when no valid item is selected. This could occur if the weights are improperly configured
+        /// (e.g., all weights are zero or negative).
+        /// </exception>
         public static T RandomWeightedChoice<T>(IList<T> list, IList<double> weights, RandomGenerator? random = null) {
             random ??= RngManager.Current;
 
@@ -161,9 +168,11 @@ namespace BeeneticToolkit.Random.Utility {
                     break;
                 }
             }
-#pragma warning disable CS8603 // Possible null reference return.
+
+            if (selected == null)
+                throw new InvalidOperationException("No valid item was selected. Ensure the weights are properly configured.");
+
             return selected;
-#pragma warning restore CS8603 // Possible null reference return.
         }
 
         /// <summary>
@@ -173,12 +182,70 @@ namespace BeeneticToolkit.Random.Utility {
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
         /// <param name="sequence">The sequence from which to select a random weighted element.</param>
         /// <param name="weights">A list of weights corresponding to each element in the sequence.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
+        /// <param name="random">The random number generator to use, or <c>null</c> to use the default generator.</param>
         /// <returns>A randomly selected element, weighted by the corresponding weights list.</returns>
+        /// <exception cref="ArgumentException">
+        /// Thrown when the input sequence is empty or the lengths of the sequence and weights do not match.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when no valid item is selected. This could occur if the weights are improperly configured
+        /// (e.g., all weights are zero or negative).
+        /// </exception>
         public static T RandomWeightedChoice<T>(IEnumerable<T> sequence, IList<double> weights, RandomGenerator? random = null) {
             var list = sequence as IList<T> ?? sequence.ToList();
 
             return RandomWeightedChoice(list, weights, random);
+        }
+
+        /// <summary>
+        /// Selects a random element from a dictionary, with each element's likelihood of being chosen
+        /// determined by its associated weight.
+        /// </summary>
+        /// <typeparam name="T">The type of elements used as the dictionary's keys.</typeparam>
+        /// <param name="typeWeightDict">The dictionary containing items as keys and their associated weights as values.</param>
+        /// <param name="sortByAscending">
+        /// A value indicating whether the dictionary should be sorted by weights in ascending order.
+        /// If <c>false</c>, the dictionary will be sorted in descending order.
+        /// </param>
+        /// <param name="random">The random number generator to use, or <c>null</c> to use the default generator.</param>
+        /// <returns>A randomly selected key from the dictionary, weighted by the corresponding values.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeWeightDict"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="typeWeightDict"/> is empty.</exception>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when no valid item is selected. This could occur if the weights are improperly configured
+        /// (e.g., all weights are zero or negative).
+        /// </exception>
+        public static T RandomWeightedChoice<T>(Dictionary<T, double> typeWeightDict, bool sortByAscending = true, RandomGenerator? random = null) {
+            random ??= RngManager.Current;
+
+            if (typeWeightDict == null)
+                throw new ArgumentNullException(nameof(typeWeightDict), "Dictionary cannot be null.");
+
+            if (typeWeightDict.Count == 0)
+                throw new ArgumentException("Dictionary cannot be empty.", nameof(typeWeightDict));
+
+            if (sortByAscending)
+                typeWeightDict = typeWeightDict.OrderBy(w => w.Value).ToDictionary(w => w.Key, w => w.Value);
+            else
+                typeWeightDict = typeWeightDict.OrderByDescending(w => w.Value).ToDictionary(w => w.Key, w => w.Value);
+
+            T selected = default;
+            double totalWeight = typeWeightDict.Values.Sum();
+            double itemWeightIndex = random.NextDouble() * totalWeight;
+            double currentWeightIndex = 0;
+
+            foreach (var kvp in typeWeightDict) {
+                currentWeightIndex += kvp.Value;
+                if (currentWeightIndex >= itemWeightIndex) {
+                    selected = kvp.Key;
+                    break;
+                }
+            }
+
+            if (selected == null)
+                throw new InvalidOperationException("No valid item was selected. Ensure the weights are properly configured.");
+
+            return selected;
         }
 
         #endregion Random Weighted Choice

@@ -17,5 +17,5 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Methods | |
 | :--- | :--- |
-| [Log(LogSeverity, object, MethodBase, string)](DebugLogger.Log(LogSeverity,object,MethodBase,string).md 'BeeneticToolkit.Logging.DebugLogger.Log(BeeneticToolkit.Logging.LogSeverity, object, System.Reflection.MethodBase, string)') | Logs a message with additional context from an object and a method, and with the specified severity to the debug output. |
-| [Log(LogSeverity, string)](DebugLogger.Log(LogSeverity,string).md 'BeeneticToolkit.Logging.DebugLogger.Log(BeeneticToolkit.Logging.LogSeverity, string)') | Logs a message with the specified severity to the debug output. |
+| [Log(LogSeverity, object, MethodBase, string, string, string)](DebugLogger.Log(LogSeverity,object,MethodBase,string,string,string).md 'BeeneticToolkit.Logging.DebugLogger.Log(BeeneticToolkit.Logging.LogSeverity, object, System.Reflection.MethodBase, string, string, string)') | Logs a message with additional context from an object and a method, and with the specified severity to the debug output. |
+| [Log(LogSeverity, string, string, string)](DebugLogger.Log(LogSeverity,string,string,string).md 'BeeneticToolkit.Logging.DebugLogger.Log(BeeneticToolkit.Logging.LogSeverity, string, string, string)') | Logs a message with the specified severity to the debug output. |

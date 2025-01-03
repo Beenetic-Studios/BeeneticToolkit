@@ -84,18 +84,70 @@ namespace BeeneticToolkit.Logging.Utility {
         /// </summary>
         /// <param name="obj">The object whose properties are to be represented in a string.</param>
         /// <returns>A string listing the object's properties and their values.</returns>
-        public static string PropertiesString(object obj) {
-            var sb = new StringBuilder();
+        public static string ToPropertiesString(object obj) {
+            if (obj == null)
+                return "null";
+
             PropertyInfo[] properties = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var sb = new StringBuilder();
 
             foreach (PropertyInfo property in properties) {
-                if (!property.IsDefined(typeof(ObsoleteAttribute), true)) {
-                    var value = property.GetValue(obj, null) ?? "null";
-                    sb.AppendLine($"{property.Name}:\t{value}");
+                if (!property.IsDefined(typeof(LogIgnoreAttribute), true) && !property.IsDefined(typeof(ObsoleteAttribute), true)) {
+                    try {
+                        var value = property.GetValue(obj);
+                        sb.AppendLine($"{property.Name}: {value ?? "null"}");
+                    } catch {
+                        sb.AppendLine($"{property.Name}: [Error retrieving value]");
+                    }
                 }
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Sets all numeric properties of an object to zero.
+        /// </summary>
+        /// <typeparam name="T">The type of the object whose numeric properties will be set to zero.</typeparam>
+        /// <param name="obj">The object whose numeric properties are to be updated. Must not be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="obj"/> is <c>null</c>.</exception>
+        public static void PropertyZeroSet<T>(T obj) {
+            if (obj == null)
+                throw new ArgumentNullException(nameof(obj), "The object cannot be null.");
+
+            var properties = obj.GetType().GetProperties();
+            foreach (PropertyInfo property in properties) {
+                if (IsNumericType(property.PropertyType)) {
+                    property.SetValue(obj, 0);
+                }
+            }
+        }
+
+        /// <summary>
+        /// A set of types that are considered numeric, including both integral and floating-point types.
+        /// </summary>
+        private static readonly HashSet<Type> NumericTypes = new HashSet<Type>() {
+            typeof(byte),
+            typeof(sbyte),
+            typeof(short),
+            typeof(ushort),
+            typeof(int),
+            typeof(uint),
+            typeof(long),
+            typeof(ulong),
+            typeof(double),
+            typeof(double),
+            typeof(decimal)
+        };
+
+        /// <summary>
+        /// Determines whether a given type is numeric.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> to check.</param>
+        /// <returns><c>true</c> if the type is numeric or a nullable numeric type; otherwise, <c>false</c>.</returns>
+        private static bool IsNumericType(Type type) {
+            return NumericTypes.Contains(type) ||
+                   NumericTypes.Contains(Nullable.GetUnderlyingType(type));
         }
 
         #endregion Properties

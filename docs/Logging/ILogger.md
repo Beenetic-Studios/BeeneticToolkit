@@ -14,5 +14,5 @@ Derived
 
 | Methods | |
 | :--- | :--- |
-| [Log(LogSeverity, object, MethodBase, string)](ILogger.Log(LogSeverity,object,MethodBase,string).md 'BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.LogSeverity, object, System.Reflection.MethodBase, string)') | Logs a message with additional context from an object and a method, and with the specified severity. |
-| [Log(LogSeverity, string)](ILogger.Log(LogSeverity,string).md 'BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.LogSeverity, string)') | Logs a message with the specified severity. |
+| [Log(LogSeverity, object, MethodBase, string, string, string)](ILogger.Log(LogSeverity,object,MethodBase,string,string,string).md 'BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.LogSeverity, object, System.Reflection.MethodBase, string, string, string)') | Logs a message with additional context from an object and a method, and with the specified severity. |
+| [Log(LogSeverity, string, string, string)](ILogger.Log(LogSeverity,string,string,string).md 'BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.LogSeverity, string, string, string)') | Logs a message with the specified severity. |

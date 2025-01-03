@@ -6,13 +6,13 @@
 Generates a base message string including the current time, log level, and optionally the object and method context.
 
 ```csharp
-protected string BaseMessage(BeeneticToolkit.Logging.LogSeverity level, object? obj=null, System.Reflection.MethodBase? method=null);
+protected string BaseMessage(BeeneticToolkit.Logging.LogSeverity severity, object? obj=null, System.Reflection.MethodBase? method=null);
 ```
 #### Parameters
 
-<a name='BeeneticToolkit.Logging.LoggerBase.BaseMessage(BeeneticToolkit.Logging.LogSeverity,object,System.Reflection.MethodBase).level'></a>
+<a name='BeeneticToolkit.Logging.LoggerBase.BaseMessage(BeeneticToolkit.Logging.LogSeverity,object,System.Reflection.MethodBase).severity'></a>
 
-`level` [LogSeverity](LogSeverity.md 'BeeneticToolkit.Logging.LogSeverity')
+`severity` [LogSeverity](LogSeverity.md 'BeeneticToolkit.Logging.LogSeverity')
 
 The severity level of the log message.
 

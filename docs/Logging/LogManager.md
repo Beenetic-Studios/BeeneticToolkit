@@ -16,5 +16,6 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 | [AddLogger(LoggerBase)](LogManager.AddLogger(LoggerBase).md 'BeeneticToolkit.Logging.LogManager.AddLogger(BeeneticToolkit.Logging.LoggerBase)') | Adds a logger to the LogManager and enables fluent configuration. |
 | [DisableLogger(string)](LogManager.DisableLogger(string).md 'BeeneticToolkit.Logging.LogManager.DisableLogger(string)') | Disables a logger with the specified identifier. |
 | [EnableLogger(string)](LogManager.EnableLogger(string).md 'BeeneticToolkit.Logging.LogManager.EnableLogger(string)') | Enables a logger with the specified identifier. |
+| [GetLogger(string)](LogManager.GetLogger(string).md 'BeeneticToolkit.Logging.LogManager.GetLogger(string)') | Gets a specified logger. |
 | [LogMessage(LogSeverity, object, MethodBase, string)](LogManager.LogMessage(LogSeverity,object,MethodBase,string).md 'BeeneticToolkit.Logging.LogManager.LogMessage(BeeneticToolkit.Logging.LogSeverity, object, System.Reflection.MethodBase, string)') | Logs a message with additional context from an object and a method, using the specified severity. |
 | [LogMessage(LogSeverity, string)](LogManager.LogMessage(LogSeverity,string).md 'BeeneticToolkit.Logging.LogManager.LogMessage(BeeneticToolkit.Logging.LogSeverity, string)') | Logs a message with the specified severity. |

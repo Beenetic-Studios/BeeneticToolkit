@@ -10,14 +10,14 @@ namespace BeeneticToolkit.Logging.Tests {
             Threshold = threshold;
         }
 
-        public override void Log(LogSeverity severity, string message) {
+        public override void Log(LogSeverity severity, string message, string prepend = " ", string append = "\n") {
             if (!AllowLogMessage(severity))
                 return;
 
             LastLoggedMessage = $"{BaseMessage(severity)}: {message}";
         }
 
-        public override void Log(LogSeverity severity, object obj, MethodBase method, string message) {
+        public override void Log(LogSeverity severity, object obj, MethodBase method, string message, string prepend = " ", string append = "\n") {
             if (!AllowLogMessage(severity))
                 return;
 

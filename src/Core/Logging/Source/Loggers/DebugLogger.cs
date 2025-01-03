@@ -27,15 +27,17 @@ namespace BeeneticToolkit.Logging {
         /// </summary>
         /// <param name="severity">The severity level of the log message.</param>
         /// <param name="message">The message to be logged.</param>
+        /// <param name="prepend">String value to prepend to the message string.</param>
+        /// <param name="append">String value to append to the message string.</param>
         /// <remarks>
         /// This method will log the message only if the logger is enabled and the message severity meets or exceeds the logger's threshold level.
         /// </remarks>
 
-        public override void Log(LogSeverity severity, string message) {
+        public override void Log(LogSeverity severity, string message, string prepend = " ", string append = "\n") {
             if (!AllowLogMessage(severity))
                 return;
 
-            Debug.WriteLine($"{BaseMessage(severity)} {message}");
+            Debug.WriteLine($"{BaseMessage(severity)}{prepend}{message}{append}");
         }
 
         /// <summary>
@@ -45,16 +47,18 @@ namespace BeeneticToolkit.Logging {
         /// <param name="obj">The object context of the log message.</param>
         /// <param name="method">The method context of the log message.</param>
         /// <param name="message">The message to be logged.</param>
+        /// <param name="prepend">String value to prepend to the message string.</param>
+        /// <param name="append">String value to append to the message string.</param>
         /// <remarks>
         /// This method will log the message only if the logger is enabled and the message severity meets or exceeds the logger's threshold level.
         /// If either <paramref name="obj"/> or <paramref name="method"/> is null, 'UnknownObject' or 'UnknownMethod' will be used respectively.
         /// </remarks>
 
-        public override void Log(LogSeverity severity, object? obj, MethodBase? method, string message) {
+        public override void Log(LogSeverity severity, object? obj, MethodBase? method, string message, string prepend = " ", string append = "\n") {
             if (!AllowLogMessage(severity))
                 return;
 
-            Debug.WriteLine($"{BaseMessage(severity, obj, method)} {message}");
+            Debug.WriteLine($"{BaseMessage(severity, obj, method)}{prepend}{message}{append}");
         }
 
         #endregion Logging
