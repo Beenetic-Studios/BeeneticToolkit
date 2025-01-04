@@ -38,7 +38,7 @@ The random number generator to use, or `null` to use the default generator.
 
 #### Returns
 [T](RandomSelectors.RandomWeightedChoice_T_(IList_T_,IList_double_,RandomGenerator).md#BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IList_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).T 'BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice<T>(System.Collections.Generic.IList<T>, System.Collections.Generic.IList<double>, BeeneticToolkit.Random.RandomGenerator).T')  
-A randomly selected element, weighted by the corresponding weights list.
+A randomly selected element from the list, weighted by the corresponding weights.
 
 #### Exceptions
 

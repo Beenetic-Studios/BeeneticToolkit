@@ -138,7 +138,7 @@ namespace BeeneticToolkit.Random.Utility {
         /// <param name="list">The list from which to select a random weighted element.</param>
         /// <param name="weights">A list of weights corresponding to each element in the list.</param>
         /// <param name="random">The random number generator to use, or <c>null</c> to use the default generator.</param>
-        /// <returns>A randomly selected element, weighted by the corresponding weights list.</returns>
+        /// <returns>A randomly selected element from the list, weighted by the corresponding weights.</returns>
         /// <exception cref="ArgumentException">
         /// Thrown when the input list is empty or the lengths of the list and weights do not match.
         /// </exception>
@@ -156,7 +156,6 @@ namespace BeeneticToolkit.Random.Utility {
                 throw new ArgumentException("The lengths of the list and weights do not match.");
             }
 
-            T selected = default;
             double totalWeight = weights.Sum();
             double itemWeightIndex = random.NextDouble() * totalWeight;
             double currentWeightIndex = 0;
@@ -164,26 +163,22 @@ namespace BeeneticToolkit.Random.Utility {
             for (int i = 0; i < list.Count; ++i) {
                 currentWeightIndex += weights[i];
                 if (currentWeightIndex >= itemWeightIndex) {
-                    selected = list[i];
-                    break;
+                    return list[i];
                 }
             }
 
-            if (selected == null)
-                throw new InvalidOperationException("No valid item was selected. Ensure the weights are properly configured.");
-
-            return selected;
+            throw new InvalidOperationException("No valid item was selected. Ensure the weights are properly configured.");
         }
 
         /// <summary>
-        /// Selects a random element from an IEnumerable sequence, with each element's likelihood of being chosen
+        /// Selects a random element from an <see cref="IEnumerable{T}"/> sequence, with each element's likelihood of being chosen
         /// determined by its corresponding weight in a separate weight list.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
         /// <param name="sequence">The sequence from which to select a random weighted element.</param>
         /// <param name="weights">A list of weights corresponding to each element in the sequence.</param>
         /// <param name="random">The random number generator to use, or <c>null</c> to use the default generator.</param>
-        /// <returns>A randomly selected element, weighted by the corresponding weights list.</returns>
+        /// <returns>A randomly selected element from the sequence, weighted by the corresponding weights.</returns>
         /// <exception cref="ArgumentException">
         /// Thrown when the input sequence is empty or the lengths of the sequence and weights do not match.
         /// </exception>
@@ -203,10 +198,6 @@ namespace BeeneticToolkit.Random.Utility {
         /// </summary>
         /// <typeparam name="T">The type of elements used as the dictionary's keys.</typeparam>
         /// <param name="typeWeightDict">The dictionary containing items as keys and their associated weights as values.</param>
-        /// <param name="sortByAscending">
-        /// A value indicating whether the dictionary should be sorted by weights in ascending order.
-        /// If <c>false</c>, the dictionary will be sorted in descending order.
-        /// </param>
         /// <param name="random">The random number generator to use, or <c>null</c> to use the default generator.</param>
         /// <returns>A randomly selected key from the dictionary, weighted by the corresponding values.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeWeightDict"/> is <c>null</c>.</exception>
@@ -215,7 +206,7 @@ namespace BeeneticToolkit.Random.Utility {
         /// Thrown when no valid item is selected. This could occur if the weights are improperly configured
         /// (e.g., all weights are zero or negative).
         /// </exception>
-        public static T RandomWeightedChoice<T>(Dictionary<T, double> typeWeightDict, bool sortByAscending = true, RandomGenerator? random = null) {
+        public static T RandomWeightedChoice<T>(Dictionary<T, double> typeWeightDict, RandomGenerator? random = null) {
             random ??= RngManager.Current;
 
             if (typeWeightDict == null)
@@ -224,12 +215,6 @@ namespace BeeneticToolkit.Random.Utility {
             if (typeWeightDict.Count == 0)
                 throw new ArgumentException("Dictionary cannot be empty.", nameof(typeWeightDict));
 
-            if (sortByAscending)
-                typeWeightDict = typeWeightDict.OrderBy(w => w.Value).ToDictionary(w => w.Key, w => w.Value);
-            else
-                typeWeightDict = typeWeightDict.OrderByDescending(w => w.Value).ToDictionary(w => w.Key, w => w.Value);
-
-            T selected = default;
             double totalWeight = typeWeightDict.Values.Sum();
             double itemWeightIndex = random.NextDouble() * totalWeight;
             double currentWeightIndex = 0;
@@ -237,15 +222,11 @@ namespace BeeneticToolkit.Random.Utility {
             foreach (var kvp in typeWeightDict) {
                 currentWeightIndex += kvp.Value;
                 if (currentWeightIndex >= itemWeightIndex) {
-                    selected = kvp.Key;
-                    break;
+                    return kvp.Key;
                 }
             }
 
-            if (selected == null)
-                throw new InvalidOperationException("No valid item was selected. Ensure the weights are properly configured.");
-
-            return selected;
+            throw new InvalidOperationException("No valid item was selected. Ensure the weights are properly configured.");
         }
 
         #endregion Random Weighted Choice

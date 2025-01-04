@@ -3,7 +3,7 @@
 
 ## RandomSelectors.RandomWeightedChoice<T>(IEnumerable<T>, IList<double>, RandomGenerator) Method
 
-Selects a random element from an IEnumerable sequence, with each element's likelihood of being chosen  
+Selects a random element from an [System.Collections.Generic.IEnumerable&lt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1') sequence, with each element's likelihood of being chosen  
 determined by its corresponding weight in a separate weight list.
 
 ```csharp
@@ -38,7 +38,7 @@ The random number generator to use, or `null` to use the default generator.
 
 #### Returns
 [T](RandomSelectors.RandomWeightedChoice_T_(IEnumerable_T_,IList_double_,RandomGenerator).md#BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).T 'BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IList<double>, BeeneticToolkit.Random.RandomGenerator).T')  
-A randomly selected element, weighted by the corresponding weights list.
+A randomly selected element from the sequence, weighted by the corresponding weights.
 
 #### Exceptions
 
