@@ -1,0 +1,14 @@
+#### [Collections](index.md 'index')
+### [BeeneticToolkit.Collections.Enums](index.md#BeeneticToolkit.Collections.Enums 'BeeneticToolkit.Collections.Enums').[EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>')
+
+## EnumItem<TGroup>.GetHashCode() Method
+
+Returns a hash code for this enumeration item.
+
+```csharp
+public override int GetHashCode();
+```
+
+#### Returns
+[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')  
+A hash code for the current enumeration item.

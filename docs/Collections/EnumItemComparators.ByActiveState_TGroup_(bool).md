@@ -1,0 +1,31 @@
+#### [Collections](index.md 'index')
+### [BeeneticToolkit.Collections.Enums.Comparators](index.md#BeeneticToolkit.Collections.Enums.Comparators 'BeeneticToolkit.Collections.Enums.Comparators').[EnumItemComparators](EnumItemComparators.md 'BeeneticToolkit.Collections.Enums.Comparators.EnumItemComparators')
+
+## EnumItemComparators.ByActiveState<TGroup>(bool) Method
+
+Creates a comparator that sorts [EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>') instances by their [IsActive](EnumItem_TGroup_.IsActive.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.IsActive') property.
+
+```csharp
+public static System.Collections.Generic.IComparer<BeeneticToolkit.Collections.Enums.EnumItem<TGroup>> ByActiveState<TGroup>(bool ascending=true)
+    where TGroup : struct, System.Enum, System.ValueType, System.ValueType;
+```
+#### Type parameters
+
+<a name='BeeneticToolkit.Collections.Enums.Comparators.EnumItemComparators.ByActiveState_TGroup_(bool).TGroup'></a>
+
+`TGroup`
+
+The type of the group associated with the enumeration item, which must be an enumeration.
+#### Parameters
+
+<a name='BeeneticToolkit.Collections.Enums.Comparators.EnumItemComparators.ByActiveState_TGroup_(bool).ascending'></a>
+
+`ascending` [System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')
+
+A value indicating whether the sorting should be in ascending order. Defaults to `true`.
+
+#### Returns
+[System.Collections.Generic.IComparer&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IComparer-1 'System.Collections.Generic.IComparer`1')[BeeneticToolkit.Collections.Enums.EnumItem&lt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>')[TGroup](EnumItemComparators.ByActiveState_TGroup_(bool).md#BeeneticToolkit.Collections.Enums.Comparators.EnumItemComparators.ByActiveState_TGroup_(bool).TGroup 'BeeneticToolkit.Collections.Enums.Comparators.EnumItemComparators.ByActiveState<TGroup>(bool).TGroup')[&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IComparer-1 'System.Collections.Generic.IComparer`1')  
+An [System.Collections.Generic.IComparer&lt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IComparer-1 'System.Collections.Generic.IComparer`1') that sorts by [IsActive](EnumItem_TGroup_.IsActive.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.IsActive') in the specified order.  
+Active items (`true`) are considered greater than inactive items (`false`), and both are considered  
+greater than items with an undefined active state (`null`).
