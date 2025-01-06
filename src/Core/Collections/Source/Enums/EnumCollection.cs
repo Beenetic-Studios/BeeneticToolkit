@@ -5,15 +5,13 @@ using System.Linq;
 namespace BeeneticToolkit.Collections.Enums {
 
     /// <summary>
-    /// Represents a collection of strongly-typed enumeration items with utility methods for managing,
-    /// retrieving, and searching items based on their properties.
+    /// Represents a collection of strongly-typed enumeration items with utility methods for managing, retrieving, and searching items based on their properties.
     /// </summary>
     /// <typeparam name="T">
     /// The type of the enumeration items, which must inherit from <see cref="EnumItem{TGroup}"/>.
     /// </typeparam>
     /// <typeparam name="TGroup">
-    /// The type of the group associated with the enumeration items, which must be an enumeration.
-    /// Use <see cref="NoGroup"/> if grouping is not required.
+    /// The type of the group associated with the enumeration items, which must be an enumeration. Use <see cref="NoGroup"/> if grouping is not required.
     /// </typeparam>
     /// <example>
     /// The following example demonstrates how to create an <see cref="EnumCollection{T, TGroup}"/> without grouping:
@@ -30,10 +28,7 @@ namespace BeeneticToolkit.Collections.Enums {
     /// </code>
     /// </example>
     /// <remarks>
-    /// This class supports both grouped and non-grouped enumeration items. When grouping is not relevant,
-    /// use <see cref="NoGroup"/> as the <typeparamref name="TGroup"/> parameter. In such cases, methods like
-    /// <see cref="GetByGroup"/> will still function, but they will return all items in the collection when
-    /// the <c>group"</c> parameter is <see langword="null"/>.
+    /// This class supports both grouped and non-grouped enumeration items. When grouping is not relevant, use <see cref="NoGroup"/> as the <typeparamref name="TGroup"/> parameter. In such cases, methods like <see cref="GetByGroup"/> will still function, but they will return all items in the collection when the <c>group</c> parameter is <see langword="null"/>.
     /// </remarks>
     public abstract class EnumCollection<T, TGroup> where T : EnumItem<TGroup> where TGroup : struct, Enum {
 
@@ -77,26 +72,20 @@ namespace BeeneticToolkit.Collections.Enums {
         }
 
         /// <summary>
-        /// Retrieves all items in the collection as an <see cref="IEnumerable{T}"/>,
-        /// optionally filtered by active state and sorted using a specified comparer.
+        /// Retrieves all items in the collection as an <see cref="IEnumerable{T}"/>, optionally filtered by active state and sorted using a specified comparer.
         /// </summary>
         /// <param name="comparer">
-        /// An optional comparer to determine the sort order of the items.
-        /// If no comparer is provided, the items are returned in their natural order as stored in the collection.
-        /// Predefined comparators are available in <see cref="Comparators.EnumItemComparators"/>.
+        /// An optional comparer to determine the sort order of the items. If no comparer is provided, the items are returned in their natural order as stored in the collection. Predefined comparators are available in <see cref="Comparators.EnumItemComparators"/>.
         /// </param>
         /// <param name="isActive">
-        /// An optional filter to include only active or inactive items.
-        /// If <see langword="null"/>, both active and inactive items are included.
+        /// An optional filter to include only active or inactive items. If <see langword="null"/>, both active and inactive items are included.
         /// </param>
         /// <returns>
         /// An <see cref="IEnumerable{T}"/> containing the items in the collection.
-        /// If a comparer is specified, the items are returned in the specified order; otherwise, they are returned in their natural order.
-        /// Items are filtered by their active state if <paramref name="isActive"/> is provided.
+        /// If a comparer is specified, the items are returned in the specified order; otherwise, they are returned in their natural order. Items are filtered by their active state if <paramref name="isActive"/> is provided.
         /// </returns>
         /// <remarks>
-        /// This method leverages caching for optimized repeated retrievals.
-        /// When no filters or comparers are provided, a cached list of items is returned to minimize overhead.
+        /// This method leverages caching for optimized repeated retrievals. When no filters or comparers are provided, a cached list of items is returned to minimize overhead.
         ///
         /// Predefined comparators in <see cref="Comparators.EnumItemComparators"/> include:
         /// <list type="bullet">
@@ -108,8 +97,7 @@ namespace BeeneticToolkit.Collections.Enums {
         /// </list>
         /// </remarks>
         /// <example>
-        /// The following example demonstrates how to retrieve all items from the collection,
-        /// optionally filtering by active state and sorting them using a custom or predefined comparer:
+        /// The following example demonstrates how to retrieve all items from the collection, optionally filtering by active state and sorting them using a custom or predefined comparer:
         /// <code>
         /// var collection = new MyEnumCollection();
         /// // Add items to the collection...
@@ -121,7 +109,7 @@ namespace BeeneticToolkit.Collections.Enums {
         /// }
         ///
         /// // Retrieve all items sorted using a predefined comparator by name
-        /// var sortedByName = collection.GetAll(BeeneticToolkit.Collections.Enums.Comparators.EnumItemComparators.ByName&lt;MyGroup&gt;());
+        /// var sortedByName = collection.GetAll(EnumItemComparators.ByName&lt;MyGroup&gt;());
         /// foreach (var item in sortedByName) {
         ///     Console.WriteLine(item.Name);
         /// }
@@ -162,28 +150,22 @@ namespace BeeneticToolkit.Collections.Enums {
         }
 
         /// <summary>
-        /// Retrieves items in the collection that belong to the specified group,
-        /// optionally filtered by active state.
+        /// Retrieves items in the collection that belong to the specified group, optionally filtered by active state.
         /// </summary>
         /// <param name="group">
-        /// The group to filter items by. If <paramref name="group"/> is <see langword="null"/>,
-        /// all items in the collection are included regardless of their group.
+        /// The group to filter items by. If <paramref name="group"/> is <see langword="null"/>, all items in the collection are included regardless of their group.
         /// </param>
         /// <param name="isActive">
-        /// An optional filter to include only active or inactive items.
-        /// If <see langword="null"/>, both active and inactive items are included.
+        /// An optional filter to include only active or inactive items. If <see langword="null"/>, both active and inactive items are included.
         /// </param>
         /// <returns>
-        /// An <see cref="IEnumerable{T}"/> containing the items in the specified group.
-        /// Items are filtered by their active state if <paramref name="isActive"/> is provided.
+        /// An <see cref="IEnumerable{T}"/> containing the items in the specified group. Items are filtered by their active state if <paramref name="isActive"/> is provided.
         /// </returns>
         /// <remarks>
-        /// Group filtering and active state filtering are combined in the results.
-        /// This allows flexible queries to retrieve exactly the desired subset of items.
+        /// Group filtering and active state filtering are combined in the results. This allows flexible queries to retrieve exactly the desired subset of items.
         /// </remarks>
         /// <example>
-        /// The following example demonstrates how to retrieve items from the collection
-        /// that belong to a specific group and optionally filter by active state:
+        /// The following example demonstrates how to retrieve items from the collection that belong to a specific group and optionally filter by active state:
         /// <code>
         /// var collection = new MyEnumCollection();
         /// // Add items to the collection...
@@ -214,8 +196,7 @@ namespace BeeneticToolkit.Collections.Enums {
         }
 
         /// <summary>
-        /// Searches the collection for items whose selected property matches the specified search term,
-        /// optionally filtered by active state.
+        /// Searches the collection for items whose selected property matches the specified search term, optionally filtered by active state.
         /// </summary>
         /// <param name="selector">
         /// A function that selects the property of each item to search.
@@ -227,20 +208,16 @@ namespace BeeneticToolkit.Collections.Enums {
         /// Indicates whether the search should be case-sensitive. Defaults to <c>false</c>.
         /// </param>
         /// <param name="isActive">
-        /// An optional filter to include only active or inactive items.
-        /// If <see langword="null"/>, both active and inactive items are included.
+        /// An optional filter to include only active or inactive items. If <see langword="null"/>, both active and inactive items are included.
         /// </param>
         /// <returns>
-        /// An <see cref="IEnumerable{T}"/> containing the items that match the search term.
-        /// Items are filtered by their active state if <paramref name="isActive"/> is provided.
+        /// An <see cref="IEnumerable{T}"/> containing the items that match the search term. Items are filtered by their active state if <paramref name="isActive"/> is provided.
         /// </returns>
         /// <remarks>
-        /// This method combines search term matching and active state filtering to provide precise results.
-        /// Case-sensitivity is controlled via the <paramref name="caseSensitive"/> parameter.
+        /// This method combines search term matching and active state filtering to provide precise results. Case-sensitivity is controlled via the <paramref name="caseSensitive"/> parameter.
         /// </remarks>
         /// <example>
-        /// The following example demonstrates how to search the collection for items
-        /// where the `Name` property contains a specific term, optionally filtering by active state:
+        /// The following example demonstrates how to search the collection for items where the `Name` property contains a specific term, optionally filtering by active state:
         /// <code>
         /// var collection = new MyEnumCollection();
         /// // Add items to the collection...
