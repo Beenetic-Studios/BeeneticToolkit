@@ -8,8 +8,33 @@ namespace BeeneticToolkit.Collections.Enums {
     /// Represents a collection of strongly-typed enumeration items with utility methods for managing,
     /// retrieving, and searching items based on their properties.
     /// </summary>
-    /// <typeparam name="T">The type of the enumeration items, which must inherit from <see cref="EnumItem{TGroup}"/>.</typeparam>
-    /// <typeparam name="TGroup">The type of the group associated with the enumeration items, which must be an enumeration.</typeparam>
+    /// <typeparam name="T">
+    /// The type of the enumeration items, which must inherit from <see cref="EnumItem{TGroup}"/>.
+    /// </typeparam>
+    /// <typeparam name="TGroup">
+    /// The type of the group associated with the enumeration items, which must be an enumeration.
+    /// Use <see cref="NoGroup"/> if grouping is not required.
+    /// </typeparam>
+    /// <example>
+    /// The following example demonstrates how to create an <see cref="EnumCollection{T, TGroup}"/> without grouping:
+    /// <code>
+    /// public class PositionCollection : EnumCollection&lt;Position, NoGroup&gt; { }
+    ///
+    /// var positionCollection = new PositionCollection();
+    /// positionCollection.Add(new Position("P001", "Manager", "Mgr"));
+    ///
+    /// var allPositions = positionCollection.GetAll();
+    /// foreach (var position in allPositions) {
+    ///     Console.WriteLine(position.Name);
+    /// }
+    /// </code>
+    /// </example>
+    /// <remarks>
+    /// This class supports both grouped and non-grouped enumeration items. When grouping is not relevant,
+    /// use <see cref="NoGroup"/> as the <typeparamref name="TGroup"/> parameter. In such cases, methods like
+    /// <see cref="GetByGroup"/> will still function, but they will return all items in the collection when
+    /// the <c>group"</c> parameter is <see langword="null"/>.
+    /// </remarks>
     public abstract class EnumCollection<T, TGroup> where T : EnumItem<TGroup> where TGroup : struct, Enum {
 
         #region Fields
@@ -52,95 +77,198 @@ namespace BeeneticToolkit.Collections.Enums {
         }
 
         /// <summary>
-        /// Retrieves all items in the collection as a read-only list, optionally sorted using a specified comparer.
+        /// Retrieves all items in the collection as an <see cref="IEnumerable{T}"/>,
+        /// optionally filtered by active state and sorted using a specified comparer.
         /// </summary>
-        /// <param name="comparer">An optional comparer to determine the sort order of the items.</param>
-        /// <returns>A read-only list of all items in the collection.</returns>
+        /// <param name="comparer">
+        /// An optional comparer to determine the sort order of the items.
+        /// If no comparer is provided, the items are returned in their natural order as stored in the collection.
+        /// Predefined comparators are available in <see cref="Comparators.EnumItemComparators"/>.
+        /// </param>
+        /// <param name="isActive">
+        /// An optional filter to include only active or inactive items.
+        /// If <see langword="null"/>, both active and inactive items are included.
+        /// </param>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> containing the items in the collection.
+        /// If a comparer is specified, the items are returned in the specified order; otherwise, they are returned in their natural order.
+        /// Items are filtered by their active state if <paramref name="isActive"/> is provided.
+        /// </returns>
+        /// <remarks>
+        /// This method leverages caching for optimized repeated retrievals.
+        /// When no filters or comparers are provided, a cached list of items is returned to minimize overhead.
+        ///
+        /// Predefined comparators in <see cref="Comparators.EnumItemComparators"/> include:
+        /// <list type="bullet">
+        /// <item><description><see cref="Comparators.EnumItemComparators.ByKey{TGroup}"/> - Sorts by the key property.</description></item>
+        /// <item><description><see cref="Comparators.EnumItemComparators.ByName{TGroup}"/> - Sorts by the name property.</description></item>
+        /// <item><description><see cref="Comparators.EnumItemComparators.ByShortName{TGroup}"/> - Sorts by the short name property.</description></item>
+        /// <item><description><see cref="Comparators.EnumItemComparators.ByDisplayOrder{TGroup}"/> - Sorts by the display order property.</description></item>
+        /// <item><description><see cref="Comparators.EnumItemComparators.ByActiveState{TGroup}"/> - Sorts by the active state property.</description></item>
+        /// </list>
+        /// </remarks>
         /// <example>
-        /// The following example demonstrates how to retrieve all items from the collection
-        /// and sort them using a custom comparer:
+        /// The following example demonstrates how to retrieve all items from the collection,
+        /// optionally filtering by active state and sorting them using a custom or predefined comparer:
         /// <code>
         /// var collection = new MyEnumCollection();
         /// // Add items to the collection...
         ///
-        /// var sortedItems = collection.GetAll(new MyCustomComparer());
-        /// foreach (var item in sortedItems) {
+        /// // Retrieve all active items in their natural order
+        /// var activeItems = collection.GetAll(isActive: true);
+        /// foreach (var item in activeItems) {
+        ///     Console.WriteLine(item.Name);
+        /// }
+        ///
+        /// // Retrieve all items sorted using a predefined comparator by name
+        /// var sortedByName = collection.GetAll(BeeneticToolkit.Collections.Enums.Comparators.EnumItemComparators.ByName&lt;MyGroup&gt;());
+        /// foreach (var item in sortedByName) {
         ///     Console.WriteLine(item.Name);
         /// }
         /// </code>
         /// </example>
-
-        public IReadOnlyList<T> GetAll(IComparer<T>? comparer = null) {
-            if (comparer == null)
+        public IEnumerable<T> GetAll(IComparer<T>? comparer = null, bool? isActive = null) {
+            // If no isActive filter is specified and no comparer is provided, return the default cached list
+            if (isActive == null && comparer == null) {
                 return _defaultCachedItems ??= _items.AsReadOnly();
+            }
 
-            if (_comparerCache.TryGetValue(comparer, out var cachedList))
+            // Filter the items based on the isActive parameter
+            IEnumerable<T> filteredItems = _items;
+            if (isActive.HasValue) {
+                filteredItems = filteredItems.Where(item => item.IsActive == isActive.Value);
+            }
+
+            // If no comparer is specified, return the filtered list
+            if (comparer == null) {
+                return filteredItems.ToList().AsReadOnly();
+            }
+
+            // Use the cache for sorted results if possible
+            if (!isActive.HasValue && _comparerCache.TryGetValue(comparer, out var cachedList)) {
                 return cachedList;
+            }
 
-            var sortedList = new List<T>(_items);
+            // Sort the filtered items
+            var sortedList = filteredItems.ToList();
             sortedList.Sort(comparer);
 
-            var readOnlyList = sortedList.AsReadOnly();
-            _comparerCache[comparer] = readOnlyList;
+            // Cache the sorted list if no isActive filter is applied
+            if (!isActive.HasValue) {
+                _comparerCache[comparer] = sortedList.AsReadOnly();
+            }
 
-            return readOnlyList;
+            return sortedList.AsReadOnly();
         }
 
         /// <summary>
-        /// Retrieves all items in the collection that belong to the specified group.
+        /// Retrieves items in the collection that belong to the specified group,
+        /// optionally filtered by active state.
         /// </summary>
         /// <param name="group">
-        /// The group to filter items by. If <paramref name="group"/> is <see langword="null"/>, all items in the collection are returned.
+        /// The group to filter items by. If <paramref name="group"/> is <see langword="null"/>,
+        /// all items in the collection are included regardless of their group.
+        /// </param>
+        /// <param name="isActive">
+        /// An optional filter to include only active or inactive items.
+        /// If <see langword="null"/>, both active and inactive items are included.
         /// </param>
         /// <returns>
-        /// An <see cref="IEnumerable{T}"/> containing the items that belong to the specified group.
-        /// If <paramref name="group"/> is <see langword="null"/>, all items are returned.
+        /// An <see cref="IEnumerable{T}"/> containing the items in the specified group.
+        /// Items are filtered by their active state if <paramref name="isActive"/> is provided.
         /// </returns>
+        /// <remarks>
+        /// Group filtering and active state filtering are combined in the results.
+        /// This allows flexible queries to retrieve exactly the desired subset of items.
+        /// </remarks>
         /// <example>
         /// The following example demonstrates how to retrieve items from the collection
-        /// that belong to a specific group:
+        /// that belong to a specific group and optionally filter by active state:
         /// <code>
         /// var collection = new MyEnumCollection();
         /// // Add items to the collection...
         ///
-        /// var groupItems = collection.GetByGroup(MyEnumGroup.Category1);
+        /// // Retrieve all items in Group1
+        /// var groupItems = collection.GetByGroup(MyEnumGroup.Group1);
         /// foreach (var item in groupItems) {
         ///     Console.WriteLine(item.Name);
         /// }
-        /// </code>
-        /// </example>
-        public IEnumerable<T> GetByGroup(TGroup? group = null) {
-            if (group == null)
-                return _items;
-
-            return _items.Where(item => item.Group != null && item.Group.Equals(group));
-        }
-
-        /// <summary>
-        /// Searches the collection for items whose selected property matches the search term.
-        /// </summary>
-        /// <param name="selector">A function that selects the property of each item to search.</param>
-        /// <param name="searchTerm">The term to search for within the selected property.</param>
-        /// <param name="caseSensitive">Whether the search should be case-sensitive. Defaults to <c>false</c>.</param>
-        /// <returns>A collection of items that match the search term.</returns>
-        /// <example>
-        /// The following example demonstrates how to search the collection for items
-        /// where the `Name` property contains a specific term, ignoring case:
-        /// <code>
-        /// var collection = new MyEnumCollection();
-        /// // Add items to the collection...
         ///
-        /// var searchResults = collection.Search(item => item.Name, "searchTerm", caseSensitive: false);
-        /// foreach (var item in searchResults) {
+        /// // Retrieve only active items in Group1
+        /// var activeGroupItems = collection.GetByGroup(MyEnumGroup.Group1, isActive: true);
+        /// foreach (var item in activeGroupItems) {
         ///     Console.WriteLine(item.Name);
         /// }
         /// </code>
         /// </example>
-        public IEnumerable<T> Search(Func<T, string> selector, string searchTerm, bool caseSensitive = false) {
-            if (caseSensitive)
-                return _items.Where(item => selector(item).Contains(searchTerm));
+        public IEnumerable<T> GetByGroup(TGroup? group = null, bool? isActive = null) {
+            IEnumerable<T> result = group == null
+                ? _items
+                : _items.Where(item => item.Group != null && item.Group.Equals(group));
 
-            return _items.Where(item => selector(item).Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+            if (isActive.HasValue) {
+                result = result.Where(item => item.IsActive == isActive.Value);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Searches the collection for items whose selected property matches the specified search term,
+        /// optionally filtered by active state.
+        /// </summary>
+        /// <param name="selector">
+        /// A function that selects the property of each item to search.
+        /// </param>
+        /// <param name="searchTerm">
+        /// The term to search for within the selected property.
+        /// </param>
+        /// <param name="caseSensitive">
+        /// Indicates whether the search should be case-sensitive. Defaults to <c>false</c>.
+        /// </param>
+        /// <param name="isActive">
+        /// An optional filter to include only active or inactive items.
+        /// If <see langword="null"/>, both active and inactive items are included.
+        /// </param>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> containing the items that match the search term.
+        /// Items are filtered by their active state if <paramref name="isActive"/> is provided.
+        /// </returns>
+        /// <remarks>
+        /// This method combines search term matching and active state filtering to provide precise results.
+        /// Case-sensitivity is controlled via the <paramref name="caseSensitive"/> parameter.
+        /// </remarks>
+        /// <example>
+        /// The following example demonstrates how to search the collection for items
+        /// where the `Name` property contains a specific term, optionally filtering by active state:
+        /// <code>
+        /// var collection = new MyEnumCollection();
+        /// // Add items to the collection...
+        ///
+        /// // Search for items with "term" in their name, ignoring case
+        /// var searchResults = collection.Search(item => item.Name, "term");
+        /// foreach (var item in searchResults) {
+        ///     Console.WriteLine(item.Name);
+        /// }
+        ///
+        /// // Search for active items with "term" in their name, ignoring case
+        /// var activeSearchResults = collection.Search(item => item.Name, "term", isActive: true);
+        /// foreach (var item in activeSearchResults) {
+        ///     Console.WriteLine(item.Name);
+        /// }
+        /// </code>
+        /// </example>
+        public IEnumerable<T> Search(Func<T, string> selector, string searchTerm, bool caseSensitive = false, bool? isActive = null) {
+            IEnumerable<T> result = _items.Where(item =>
+                caseSensitive
+                    ? selector(item).Contains(searchTerm)
+                    : selector(item).Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+
+            if (isActive.HasValue) {
+                result = result.Where(item => item.IsActive == isActive.Value);
+            }
+
+            return result;
         }
 
         #endregion Collection Management

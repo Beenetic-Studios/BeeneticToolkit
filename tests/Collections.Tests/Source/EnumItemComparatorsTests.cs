@@ -13,6 +13,12 @@ namespace BeeneticToolkit.Collections.Enums.Tests {
                 : base(key, name, shortName, null, displayOrder, isActive, group) { }
         }
 
+        private class NoGroupEnumItem : EnumItem<NoGroup> {
+
+            public NoGroupEnumItem(string key, string name, string shortName)
+                : base(key, name, shortName) { }
+        }
+
         [TestMethod]
         public void ByKey_SortsAscending_CorrectOrder() {
             var item1 = new TestEnumItem("b", "NameB", "ShortNameB");
@@ -128,6 +134,32 @@ namespace BeeneticToolkit.Collections.Enums.Tests {
 
             Assert.IsNull(items[0].Group);
             Assert.AreEqual(TestEnumGroup.Group1, items[1].Group);
+        }
+
+        [TestMethod]
+        public void ByKey_WithNoGroup_SortsCorrectly() {
+            var item1 = new NoGroupEnumItem("b", "NameB", "ShortNameB");
+            var item2 = new NoGroupEnumItem("a", "NameA", "ShortNameA");
+            var items = new List<EnumItem<NoGroup>> { item1, item2 };
+
+            var comparator = EnumItemComparators.ByKey<NoGroup>();
+            items.Sort(comparator);
+
+            Assert.AreEqual("a", items[0].Key);
+            Assert.AreEqual("b", items[1].Key);
+        }
+
+        [TestMethod]
+        public void ByName_WithNoGroup_SortsCorrectly() {
+            var item1 = new NoGroupEnumItem("1", "B", "ShortNameB");
+            var item2 = new NoGroupEnumItem("2", "A", "ShortNameA");
+            var items = new List<EnumItem<NoGroup>> { item1, item2 };
+
+            var comparator = EnumItemComparators.ByName<NoGroup>();
+            items.Sort(comparator);
+
+            Assert.AreEqual("A", items[0].Name);
+            Assert.AreEqual("B", items[1].Name);
         }
     }
 }

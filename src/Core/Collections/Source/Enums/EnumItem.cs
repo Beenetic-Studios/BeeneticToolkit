@@ -3,10 +3,27 @@
 namespace BeeneticToolkit.Collections.Enums {
 
     /// <summary>
+    /// Represents a placeholder type for grouping in <see cref="EnumItem{TGroup}"/> and <see cref="EnumCollection{T, TGroup}"/>
+    /// when grouping is not required.
+    /// </summary>
+    /// <remarks>
+    /// Use this enumeration as the group type parameter for <see cref="EnumItem{TGroup}"/> or <see cref="EnumCollection{T, TGroup}"/>
+    /// when the concept of grouping does not apply. This allows items to be created and managed without assigning them to a specific group.
+    /// </remarks>
+    public enum NoGroup { }
+
+    /// <summary>
     /// Represents a base class for strongly-typed enumeration items with properties for identification,
     /// grouping, and display purposes.
     /// </summary>
-    /// <typeparam name="TGroup">The type of the group associated with the enumeration item, which must be an enumeration.</typeparam>
+    /// <typeparam name="TGroup">
+    /// The type of the group associated with the enumeration item, which must be an enumeration.
+    /// Use <see cref="NoGroup"/> if grouping is not required for the item.
+    /// </typeparam>
+    /// <remarks>
+    /// When grouping is not relevant, the <see cref="NoGroup"/> enumeration can be used as a placeholder for the
+    /// <typeparamref name="TGroup"/> parameter.
+    /// </remarks>
     public abstract class EnumItem<TGroup> : IComparable where TGroup : struct, Enum {
 
         #region Properties
@@ -93,10 +110,12 @@ namespace BeeneticToolkit.Collections.Enums {
         /// An optional flag indicating whether the enumeration item is active. This parameter can be <c>null</c> if the active state is not explicitly defined.
         /// </param>
         /// <param name="group">
-        /// An optional group associated with the enumeration item. This parameter can be <c>null</c> if the item does not belong to a specific group.
+        /// An optional group associated with the enumeration item. Use <see cref="NoGroup"/> as the <typeparamref name="TGroup"/>
+        /// and pass <c>null</c> for this parameter if grouping is not required.
         /// </param>
         /// <exception cref="ArgumentException">
-        /// Thrown when any of the required parameters (<paramref name="key"/>, <paramref name="name"/>, or <paramref name="shortName"/>) are <c>null</c>, empty, or whitespace.
+        /// Thrown when any of the required parameters (<paramref name="key"/>, <paramref name="name"/>, or <paramref name="shortName"/>)
+        /// are <c>null</c>, empty, or whitespace.
         /// </exception>
         protected EnumItem(string key, string name, string shortName, string? description = null, int? displayOrder = null, bool? isActive = null, TGroup? group = null) {
             if (string.IsNullOrWhiteSpace(key))

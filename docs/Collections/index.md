@@ -13,9 +13,12 @@
   - **[FromKey(string)](EnumCollection_T,TGroup_.FromKey(string).md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.FromKey(string)')** `Method` Retrieves an item from the collection by its unique key.
   - **[FromName(string)](EnumCollection_T,TGroup_.FromName(string).md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.FromName(string)')** `Method` Retrieves an item from the collection by its name.
   - **[FromShortName(string)](EnumCollection_T,TGroup_.FromShortName(string).md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.FromShortName(string)')** `Method` Retrieves an item from the collection by its short name.
-  - **[GetAll(IComparer&lt;T&gt;)](EnumCollection_T,TGroup_.GetAll(IComparer_T_).md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.GetAll(System.Collections.Generic.IComparer<T>)')** `Method` Retrieves all items in the collection as a read-only list, optionally sorted using a specified comparer.
-  - **[GetByGroup(Nullable&lt;TGroup&gt;)](EnumCollection_T,TGroup_.GetByGroup(Nullable_TGroup_).md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.GetByGroup(System.Nullable<TGroup>)')** `Method` Retrieves all items in the collection that belong to the specified group.
-  - **[Search(Func&lt;T,string&gt;, string, bool)](EnumCollection_T,TGroup_.Search(Func_T,string_,string,bool).md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.Search(System.Func<T,string>, string, bool)')** `Method` Searches the collection for items whose selected property matches the search term.
+  - **[GetAll(IComparer&lt;T&gt;, Nullable&lt;bool&gt;)](EnumCollection_T,TGroup_.GetAll(IComparer_T_,Nullable_bool_).md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.GetAll(System.Collections.Generic.IComparer<T>, System.Nullable<bool>)')** `Method` Retrieves all items in the collection as an [System.Collections.Generic.IEnumerable&lt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1'),  
+    optionally filtered by active state and sorted using a specified comparer.
+  - **[GetByGroup(Nullable&lt;TGroup&gt;, Nullable&lt;bool&gt;)](EnumCollection_T,TGroup_.GetByGroup(Nullable_TGroup_,Nullable_bool_).md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.GetByGroup(System.Nullable<TGroup>, System.Nullable<bool>)')** `Method` Retrieves items in the collection that belong to the specified group,  
+    optionally filtered by active state.
+  - **[Search(Func&lt;T,string&gt;, string, bool, Nullable&lt;bool&gt;)](EnumCollection_T,TGroup_.Search(Func_T,string_,string,bool,Nullable_bool_).md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.Search(System.Func<T,string>, string, bool, System.Nullable<bool>)')** `Method` Searches the collection for items whose selected property matches the specified search term,  
+    optionally filtered by active state.
 - **[EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>')** `Class` Represents a base class for strongly-typed enumeration items with properties for identification,  
   grouping, and display purposes.
   - **[EnumItem(string, string, string, string, Nullable&lt;int&gt;, Nullable&lt;bool&gt;, Nullable&lt;TGroup&gt;)](EnumItem_TGroup_.EnumItem(string,string,string,string,Nullable_int_,Nullable_bool_,Nullable_TGroup_).md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.EnumItem(string, string, string, string, System.Nullable<int>, System.Nullable<bool>, System.Nullable<TGroup>)')** `Constructor` Initializes a new instance of the [EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>') class.
@@ -31,6 +34,8 @@
     based on its key and type.
   - **[GetHashCode()](EnumItem_TGroup_.GetHashCode().md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.GetHashCode()')** `Method` Returns a hash code for this enumeration item.
   - **[ToString()](EnumItem_TGroup_.ToString().md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.ToString()')** `Method` Returns a string representation of the enumeration item.
+- **[NoGroup](NoGroup.md 'BeeneticToolkit.Collections.Enums.NoGroup')** `Enum` Represents a placeholder type for grouping in [EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>') and [EnumCollection&lt;T,TGroup&gt;](EnumCollection_T,TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>')  
+  when grouping is not required.
 
 <a name='BeeneticToolkit.Collections.Enums.Comparators'></a>
 

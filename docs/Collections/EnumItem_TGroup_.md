@@ -17,11 +17,16 @@ System.IComparable
 
 `TGroup`
 
-The type of the group associated with the enumeration item, which must be an enumeration.
+The type of the group associated with the enumeration item, which must be an enumeration.  
+Use [NoGroup](NoGroup.md 'BeeneticToolkit.Collections.Enums.NoGroup') if grouping is not required for the item.
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; EnumItem<TGroup>
 
 Implements [System.IComparable](https://docs.microsoft.com/en-us/dotnet/api/System.IComparable 'System.IComparable')
+
+### Remarks
+When grouping is not relevant, the [NoGroup](NoGroup.md 'BeeneticToolkit.Collections.Enums.NoGroup') enumeration can be used as a placeholder for the  
+[TGroup](EnumItem_TGroup_.md#BeeneticToolkit.Collections.Enums.EnumItem_TGroup_.TGroup 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.TGroup') parameter.
 
 | Constructors | |
 | :--- | :--- |

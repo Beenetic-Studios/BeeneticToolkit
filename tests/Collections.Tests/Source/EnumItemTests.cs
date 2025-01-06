@@ -16,6 +16,12 @@ namespace BeeneticToolkit.Collections.Enums.Tests {
                 : base(key, name, shortName, description, displayOrder, isActive, group) { }
         }
 
+        private class NoGroupEnumItem : EnumItem<NoGroup> {
+
+            public NoGroupEnumItem(string key, string name, string shortName)
+                : base(key, name, shortName) { }
+        }
+
         [TestMethod]
         public void Constructor_WithValidArguments_SetsPropertiesCorrectly() {
             var item = new TestEnumItem("key1", "Name1", "ShortName1", "Description1", 1, true, TestEnumGroup.Group1);
@@ -47,6 +53,25 @@ namespace BeeneticToolkit.Collections.Enums.Tests {
         [TestMethod]
         public void Constructor_WithEmptyName_ThrowsException() {
             Assert.ThrowsException<ArgumentException>(() => new TestEnumItem("key", string.Empty, "ShortName"));
+        }
+
+        [TestMethod]
+        public void Constructor_WithNoGroup_SetsPropertiesCorrectly() {
+            var item = new NoGroupEnumItem("key1", "Name1", "ShortName1");
+
+            Assert.AreEqual("key1", item.Key);
+            Assert.AreEqual("Name1", item.Name);
+            Assert.AreEqual("ShortName1", item.ShortName);
+            Assert.IsNull(item.Group); // Group should remain null when NoGroup is used.
+        }
+
+        [TestMethod]
+        public void Constructor_WithNoGroup_AllowsNullGroup() {
+            var item = new NoGroupEnumItem("key1", "Name1", "ShortName1") {
+                Group = null
+            };
+
+            Assert.IsNull(item.Group); // Group explicitly set to null should be allowed.
         }
 
         [TestMethod]
