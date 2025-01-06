@@ -15,7 +15,7 @@ public class EnumItemIsActiveComparator<TGroup> : BeeneticToolkit.Collections.En
 
 `TGroup`
 
-The type of the group associated with the enumeration item, which must be an enumeration.
+The type of the group associated with the enumeration item. Must be an enumeration.
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator&lt;](PropertyComparator_TGroup_.md 'BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator<TGroup>')[TGroup](EnumItemIsActiveComparator_TGroup_.md#BeeneticToolkit.Collections.Enums.Comparators.EnumItemIsActiveComparator_TGroup_.TGroup 'BeeneticToolkit.Collections.Enums.Comparators.EnumItemIsActiveComparator<TGroup>.TGroup')[&gt;](PropertyComparator_TGroup_.md 'BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator<TGroup>') &#129106; EnumItemIsActiveComparator<TGroup>
 

@@ -13,4 +13,4 @@ public string? Description { get; set; }
 [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 
 ### Remarks
-This property is nullable. A value of `null` indicates that no description is provided.
+A value of `null` indicates that no description is provided.

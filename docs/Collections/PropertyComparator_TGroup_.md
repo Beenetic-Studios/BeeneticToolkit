@@ -3,9 +3,7 @@
 
 ## PropertyComparator<TGroup> Class
 
-Serves as a base class for comparators that sort [EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>') instances  
-by a specific property, with a fallback to the [Key](EnumItem_TGroup_.Key.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.Key') property  
-for deterministic ordering.
+Serves as a base class for comparators that sort [EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>') instances by a specific property, with a fallback to the [Key](EnumItem_TGroup_.Key.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.Key') property for deterministic ordering.
 
 ```csharp
 public abstract class PropertyComparator<TGroup> :
@@ -18,7 +16,7 @@ System.Collections.Generic.IComparer<BeeneticToolkit.Collections.Enums.EnumItem<
 
 `TGroup`
 
-The type of the group associated with the enumeration item, which must be an enumeration.
+The type of the group associated with the enumeration item. Must be an enumeration.
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; PropertyComparator<TGroup>
 
@@ -33,8 +31,7 @@ Derived
 Implements [System.Collections.Generic.IComparer&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IComparer-1 'System.Collections.Generic.IComparer`1')[BeeneticToolkit.Collections.Enums.EnumItem&lt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>')[TGroup](PropertyComparator_TGroup_.md#BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator_TGroup_.TGroup 'BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator<TGroup>.TGroup')[&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IComparer-1 'System.Collections.Generic.IComparer`1')
 
 ### Remarks
-This class provides common logic for handling null values, sorting order (ascending or descending),  
-and fallback to the [Key](EnumItem_TGroup_.Key.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.Key') property.
+This class provides common logic for handling null values, sorting order (ascending or descending), and fallback to the [Key](EnumItem_TGroup_.Key.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.Key') property.
 
 | Constructors | |
 | :--- | :--- |
@@ -42,5 +39,5 @@ and fallback to the [Key](EnumItem_TGroup_.Key.md 'BeeneticToolkit.Collections.E
 
 | Methods | |
 | :--- | :--- |
-| [Compare(EnumItem&lt;TGroup&gt;, EnumItem&lt;TGroup&gt;)](PropertyComparator_TGroup_.Compare(EnumItem_TGroup_,EnumItem_TGroup_).md 'BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator<TGroup>.Compare(BeeneticToolkit.Collections.Enums.EnumItem<TGroup>, BeeneticToolkit.Collections.Enums.EnumItem<TGroup>)') | Compares two [EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>') instances, first by the property defined in<br/>[PerformComparison(EnumItem&lt;TGroup&gt;, EnumItem&lt;TGroup&gt;)](PropertyComparator_TGroup_.PerformComparison(EnumItem_TGroup_,EnumItem_TGroup_).md 'BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator<TGroup>.PerformComparison(BeeneticToolkit.Collections.Enums.EnumItem<TGroup>, BeeneticToolkit.Collections.Enums.EnumItem<TGroup>)'), and then by<br/>the [Key](EnumItem_TGroup_.Key.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.Key') property as a secondary criterion. |
+| [Compare(EnumItem&lt;TGroup&gt;, EnumItem&lt;TGroup&gt;)](PropertyComparator_TGroup_.Compare(EnumItem_TGroup_,EnumItem_TGroup_).md 'BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator<TGroup>.Compare(BeeneticToolkit.Collections.Enums.EnumItem<TGroup>, BeeneticToolkit.Collections.Enums.EnumItem<TGroup>)') | Compares two [EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>') instances by the property defined in [PerformComparison(EnumItem&lt;TGroup&gt;, EnumItem&lt;TGroup&gt;)](PropertyComparator_TGroup_.PerformComparison(EnumItem_TGroup_,EnumItem_TGroup_).md 'BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator<TGroup>.PerformComparison(BeeneticToolkit.Collections.Enums.EnumItem<TGroup>, BeeneticToolkit.Collections.Enums.EnumItem<TGroup>)'), with a fallback to the [Key](EnumItem_TGroup_.Key.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>.Key') property. |
 | [PerformComparison(EnumItem&lt;TGroup&gt;, EnumItem&lt;TGroup&gt;)](PropertyComparator_TGroup_.PerformComparison(EnumItem_TGroup_,EnumItem_TGroup_).md 'BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator<TGroup>.PerformComparison(BeeneticToolkit.Collections.Enums.EnumItem<TGroup>, BeeneticToolkit.Collections.Enums.EnumItem<TGroup>)') | Performs the primary comparison for the specific property this comparator is designed to sort by. |

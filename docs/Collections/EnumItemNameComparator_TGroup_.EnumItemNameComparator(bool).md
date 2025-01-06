@@ -14,5 +14,4 @@ public EnumItemNameComparator(bool ascending=true);
 
 `ascending` [System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')
 
-A value indicating whether the comparison should be in ascending order. If `false`,  
-the comparison will be in descending order.
+Indicates whether the comparison should be in ascending order. Defaults to `true`.

@@ -3,8 +3,7 @@
 
 ## EnumItem<TGroup>.Equals(object) Method
 
-Determines whether the specified object is equal to the current enumeration item,  
-based on its key and type.
+Determines whether the specified object is equal to the current enumeration item, based on its key and type.
 
 ```csharp
 public override bool Equals(object obj);
@@ -19,5 +18,4 @@ The object to compare with the current enumeration item.
 
 #### Returns
 [System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')  
-`true` if the specified object is an [EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>') with the same key as the current item;  
-            otherwise, `false`.
+`true` if the specified object is an [EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>') with the same key and type; otherwise, `false`.

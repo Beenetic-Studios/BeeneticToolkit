@@ -3,7 +3,7 @@
 
 ## EnumItem<TGroup>.Key Property
 
-Gets the unique key that identifies this enumeration item.
+Gets the unique key identifying this enumeration item.
 
 ```csharp
 public string Key { get; set; }
@@ -13,4 +13,4 @@ public string Key { get; set; }
 [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 
 ### Remarks
-This property is required and cannot be `null` or empty.
+The key must not be `null` or empty.

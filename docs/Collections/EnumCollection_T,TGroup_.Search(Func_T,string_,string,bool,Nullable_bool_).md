@@ -36,10 +36,9 @@ An optional filter to include only active or inactive items. If [null](https://d
 
 #### Returns
 [System.Collections.Generic.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')[T](EnumCollection_T,TGroup_.md#BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.T 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.T')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')  
-An [System.Collections.Generic.IEnumerable&lt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1') containing the items that match the search term. Items are filtered by their active state if [isActive](EnumCollection_T,TGroup_.Search(Func_T,string_,string,bool,Nullable_bool_).md#BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.Search(System.Func_T,string_,string,bool,System.Nullable_bool_).isActive 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.Search(System.Func<T,string>, string, bool, System.Nullable<bool>).isActive') is provided.
+An [System.Collections.Generic.IEnumerable&lt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1') containing the items that match the search term, optionally filtered by active state.
 
 ### Example
-The following example demonstrates how to search the collection for items where the `Name` property contains a specific term, optionally filtering by active state:  
   
 ```csharp  
 var collection = new MyEnumCollection();  
@@ -59,4 +58,4 @@ foreach (var item in activeSearchResults) {
 ```
 
 ### Remarks
-This method combines search term matching and active state filtering to provide precise results. Case-sensitivity is controlled via the [caseSensitive](EnumCollection_T,TGroup_.Search(Func_T,string_,string,bool,Nullable_bool_).md#BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.Search(System.Func_T,string_,string,bool,System.Nullable_bool_).caseSensitive 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.Search(System.Func<T,string>, string, bool, System.Nullable<bool>).caseSensitive') parameter.
+Combines search term matching and active state filtering to provide precise results. Case sensitivity is controlled by the [caseSensitive](EnumCollection_T,TGroup_.Search(Func_T,string_,string,bool,Nullable_bool_).md#BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.Search(System.Func_T,string_,string,bool,System.Nullable_bool_).caseSensitive 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.Search(System.Func<T,string>, string, bool, System.Nullable<bool>).caseSensitive') parameter.

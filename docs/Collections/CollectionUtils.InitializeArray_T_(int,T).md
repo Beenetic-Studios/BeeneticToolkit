@@ -27,7 +27,7 @@ The size of the array to initialize.
 
 `defaultValue` [T](CollectionUtils.InitializeArray_T_(int,T).md#BeeneticToolkit.Collections.Utility.CollectionUtils.InitializeArray_T_(int,T).T 'BeeneticToolkit.Collections.Utility.CollectionUtils.InitializeArray<T>(int, T).T')
 
-The default value to assign to each element in the array.
+The default value to assign to each element in the array. Defaults to the type's default value.
 
 #### Returns
 [T](CollectionUtils.InitializeArray_T_(int,T).md#BeeneticToolkit.Collections.Utility.CollectionUtils.InitializeArray_T_(int,T).T 'BeeneticToolkit.Collections.Utility.CollectionUtils.InitializeArray<T>(int, T).T')[[]](https://docs.microsoft.com/en-us/dotnet/api/System.Array 'System.Array')  

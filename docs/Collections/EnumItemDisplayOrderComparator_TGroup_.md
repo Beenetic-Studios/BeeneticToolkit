@@ -15,7 +15,7 @@ public class EnumItemDisplayOrderComparator<TGroup> : BeeneticToolkit.Collection
 
 `TGroup`
 
-The type of the group associated with the enumeration item, which must be an enumeration.
+The type of the group associated with the enumeration item. Must be an enumeration.
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator&lt;](PropertyComparator_TGroup_.md 'BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator<TGroup>')[TGroup](EnumItemDisplayOrderComparator_TGroup_.md#BeeneticToolkit.Collections.Enums.Comparators.EnumItemDisplayOrderComparator_TGroup_.TGroup 'BeeneticToolkit.Collections.Enums.Comparators.EnumItemDisplayOrderComparator<TGroup>.TGroup')[&gt;](PropertyComparator_TGroup_.md 'BeeneticToolkit.Collections.Enums.Comparators.PropertyComparator<TGroup>') &#129106; EnumItemDisplayOrderComparator<TGroup>
 

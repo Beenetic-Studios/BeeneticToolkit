@@ -14,7 +14,7 @@ public System.Collections.Generic.IEnumerable<T> GetByGroup(System.Nullable<TGro
 
 `group` [System.Nullable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Nullable-1 'System.Nullable`1')[TGroup](EnumCollection_T,TGroup_.md#BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.TGroup 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.TGroup')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Nullable-1 'System.Nullable`1')
 
-The group to filter items by. If [group](EnumCollection_T,TGroup_.GetByGroup(Nullable_TGroup_,Nullable_bool_).md#BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.GetByGroup(System.Nullable_TGroup_,System.Nullable_bool_).group 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.GetByGroup(System.Nullable<TGroup>, System.Nullable<bool>).group') is [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null'), all items in the collection are included regardless of their group.
+The group to filter items by. If [group](EnumCollection_T,TGroup_.GetByGroup(Nullable_TGroup_,Nullable_bool_).md#BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.GetByGroup(System.Nullable_TGroup_,System.Nullable_bool_).group 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.GetByGroup(System.Nullable<TGroup>, System.Nullable<bool>).group') is [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null'), all items are included regardless of their group.
 
 <a name='BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.GetByGroup(System.Nullable_TGroup_,System.Nullable_bool_).isActive'></a>
 
@@ -24,10 +24,9 @@ An optional filter to include only active or inactive items. If [null](https://d
 
 #### Returns
 [System.Collections.Generic.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')[T](EnumCollection_T,TGroup_.md#BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.T 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.T')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')  
-An [System.Collections.Generic.IEnumerable&lt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1') containing the items in the specified group. Items are filtered by their active state if [isActive](EnumCollection_T,TGroup_.GetByGroup(Nullable_TGroup_,Nullable_bool_).md#BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.GetByGroup(System.Nullable_TGroup_,System.Nullable_bool_).isActive 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.GetByGroup(System.Nullable<TGroup>, System.Nullable<bool>).isActive') is provided.
+An [System.Collections.Generic.IEnumerable&lt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1') containing the items in the specified group, optionally filtered by active state.
 
 ### Example
-The following example demonstrates how to retrieve items from the collection that belong to a specific group and optionally filter by active state:  
   
 ```csharp  
 var collection = new MyEnumCollection();  
@@ -47,4 +46,4 @@ foreach (var item in activeGroupItems) {
 ```
 
 ### Remarks
-Group filtering and active state filtering are combined in the results. This allows flexible queries to retrieve exactly the desired subset of items.
+Group filtering and active state filtering are combined to provide flexible queries for retrieving desired subsets of items.

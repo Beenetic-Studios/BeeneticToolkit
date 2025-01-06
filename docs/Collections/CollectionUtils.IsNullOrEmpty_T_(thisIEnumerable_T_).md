@@ -25,4 +25,4 @@ The collection to check for null or emptiness.
 
 #### Returns
 [System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')  
-true if the collection is null or empty; otherwise, false.
+`true` if the collection is null or empty; otherwise, `false`.

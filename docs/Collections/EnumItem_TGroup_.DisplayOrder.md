@@ -13,4 +13,4 @@ public System.Nullable<int> DisplayOrder { get; set; }
 [System.Nullable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Nullable-1 'System.Nullable`1')[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Nullable-1 'System.Nullable`1')
 
 ### Remarks
-This property is nullable. A value of `null` indicates no specific display order is set.
+A value of `null` indicates no specific display order is set.

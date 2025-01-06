@@ -22,12 +22,11 @@ The type of the enumeration items, which must inherit from [EnumItem&lt;TGroup&g
 
 `TGroup`
 
-The type of the group associated with the enumeration items, which must be an enumeration. Use [NoGroup](NoGroup.md 'BeeneticToolkit.Collections.Enums.NoGroup') if grouping is not required.
+The type of the group associated with the enumeration items. Must be an enumeration. Use [NoGroup](NoGroup.md 'BeeneticToolkit.Collections.Enums.NoGroup') if grouping is not required.
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; EnumCollection<T,TGroup>
 
 ### Example
-The following example demonstrates how to create an [EnumCollection&lt;T,TGroup&gt;](EnumCollection_T,TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>') without grouping:  
   
 ```csharp  
 public class PositionCollection : EnumCollection<Position, NoGroup> { }  
@@ -42,7 +41,7 @@ foreach (var position in allPositions) {
 ```
 
 ### Remarks
-This class supports both grouped and non-grouped enumeration items. When grouping is not relevant, use [NoGroup](NoGroup.md 'BeeneticToolkit.Collections.Enums.NoGroup') as the [TGroup](EnumCollection_T,TGroup_.md#BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.TGroup 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.TGroup') parameter. In such cases, methods like [GetByGroup(Nullable&lt;TGroup&gt;, Nullable&lt;bool&gt;)](EnumCollection_T,TGroup_.GetByGroup(Nullable_TGroup_,Nullable_bool_).md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.GetByGroup(System.Nullable<TGroup>, System.Nullable<bool>)') will still function, but they will return all items in the collection when the `group` parameter is [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null').
+This class supports both grouped and non-grouped enumeration items. When grouping is not relevant, use [NoGroup](NoGroup.md 'BeeneticToolkit.Collections.Enums.NoGroup') as the [TGroup](EnumCollection_T,TGroup_.md#BeeneticToolkit.Collections.Enums.EnumCollection_T,TGroup_.TGroup 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.TGroup') parameter. Methods like [GetByGroup(Nullable&lt;TGroup&gt;, Nullable&lt;bool&gt;)](EnumCollection_T,TGroup_.GetByGroup(Nullable_TGroup_,Nullable_bool_).md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TGroup>.GetByGroup(System.Nullable<TGroup>, System.Nullable<bool>)') return all items when the `group` parameter is [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null').
 
 | Methods | |
 | :--- | :--- |
