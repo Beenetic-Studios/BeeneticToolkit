@@ -3,7 +3,7 @@
 
 ## IntegralMappingExtensions.ToMappedSByte(this byte) Method
 
-Maps a byte value to its equivalent sbyte value, preserving its relative position within the data type's range.
+Maps a [System.Byte](https://docs.microsoft.com/en-us/dotnet/api/System.Byte 'System.Byte') value to its equivalent [System.SByte](https://docs.microsoft.com/en-us/dotnet/api/System.SByte 'System.SByte') value, preserving its relative position within the data type's range.
 
 ```csharp
 public static sbyte ToMappedSByte(this byte value);
@@ -14,8 +14,8 @@ public static sbyte ToMappedSByte(this byte value);
 
 `value` [System.Byte](https://docs.microsoft.com/en-us/dotnet/api/System.Byte 'System.Byte')
 
-The byte value to map.
+The [System.Byte](https://docs.microsoft.com/en-us/dotnet/api/System.Byte 'System.Byte') value to map.
 
 #### Returns
 [System.SByte](https://docs.microsoft.com/en-us/dotnet/api/System.SByte 'System.SByte')  
-The mapped sbyte value.
+The mapped [System.SByte](https://docs.microsoft.com/en-us/dotnet/api/System.SByte 'System.SByte') value.

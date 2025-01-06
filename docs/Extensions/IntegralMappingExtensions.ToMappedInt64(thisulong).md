@@ -3,7 +3,7 @@
 
 ## IntegralMappingExtensions.ToMappedInt64(this ulong) Method
 
-Maps a ulong value to its equivalent long value, preserving its relative position within the data type's range.
+Maps a [System.UInt64](https://docs.microsoft.com/en-us/dotnet/api/System.UInt64 'System.UInt64') value to its equivalent [System.Int64](https://docs.microsoft.com/en-us/dotnet/api/System.Int64 'System.Int64') value, preserving its relative position within the data type's range.
 
 ```csharp
 public static long ToMappedInt64(this ulong value);
@@ -14,8 +14,8 @@ public static long ToMappedInt64(this ulong value);
 
 `value` [System.UInt64](https://docs.microsoft.com/en-us/dotnet/api/System.UInt64 'System.UInt64')
 
-The ulong value to map.
+The [System.UInt64](https://docs.microsoft.com/en-us/dotnet/api/System.UInt64 'System.UInt64') value to map.
 
 #### Returns
 [System.Int64](https://docs.microsoft.com/en-us/dotnet/api/System.Int64 'System.Int64')  
-The mapped long value.
+The mapped [System.Int64](https://docs.microsoft.com/en-us/dotnet/api/System.Int64 'System.Int64') value.

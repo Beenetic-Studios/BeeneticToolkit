@@ -3,7 +3,7 @@
 
 ## IntegralMappingExtensions.ToMappedUInt32(this int) Method
 
-Maps an int value to its equivalent uint value, preserving its relative position within the data type's range.
+Maps an [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32') value to its equivalent [System.UInt32](https://docs.microsoft.com/en-us/dotnet/api/System.UInt32 'System.UInt32') value, preserving its relative position within the data type's range.
 
 ```csharp
 public static uint ToMappedUInt32(this int value);
@@ -14,8 +14,8 @@ public static uint ToMappedUInt32(this int value);
 
 `value` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')
 
-The int value to map.
+The [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32') value to map.
 
 #### Returns
 [System.UInt32](https://docs.microsoft.com/en-us/dotnet/api/System.UInt32 'System.UInt32')  
-The mapped uint value.
+The mapped [System.UInt32](https://docs.microsoft.com/en-us/dotnet/api/System.UInt32 'System.UInt32') value.

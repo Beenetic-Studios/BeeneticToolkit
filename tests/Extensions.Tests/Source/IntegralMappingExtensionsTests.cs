@@ -3,7 +3,7 @@
 namespace BeeneticToolkit.Extensions.Tests {
 
     [TestClass]
-    public class NumericExtensionsTests {
+    public class IntegralMappingExtensionsTests {
 
         #region Byte
 
