@@ -36,7 +36,7 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <summary>Adds an enumeration item to the collection if it does not already exist.</summary>
         /// <param name="item">The enumeration item to add.</param>
         /// <exception cref="InvalidOperationException">Thrown when an item with the same key as the specified item already exists in the collection.</exception>
-        public void Add(T item) {
+        public virtual void Add(T item) {
             if (_items.Any(existing => existing.Key == item.Key))
                 throw new InvalidOperationException($"Duplicate Key '{item.Key}' in {typeof(T).Name}.");
 
@@ -48,9 +48,29 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <summary>Adds multiple enumeration items to the collection.</summary>
         /// <param name="items">The collection of enumeration items to add.</param>
         /// <remarks>This method calls <see cref="Add"/> for each item in the provided collection.</remarks>
-        public void AddRange(IEnumerable<T> items) {
+        public virtual void AddRange(IEnumerable<T> items) {
             foreach (T item in items) {
                 Add(item);
+            }
+        }
+
+        /// <summary>Removes an enumeration item from the collection by its reference.</summary>
+        /// <param name="item">The enumeration item to remove.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the specified item does not exist in the collection.</exception>
+        public virtual void Remove(T item) {
+            if (!_items.Remove(item))
+                throw new InvalidOperationException($"Item '{item.Key}' does not exist in {typeof(T).Name}.");
+
+            _defaultCachedItems = null; // Invalidate default cache
+            _comparerCache.Clear();    // Invalidate comparer-specific caches
+        }
+
+        /// <summary>Removes multiple enumeration items from the collection by their references.</summary>
+        /// <param name="items">The collection of enumeration items to remove.</param>
+        /// <remarks>This method calls <see cref="Remove"/> for each item in the provided collection.</remarks>
+        public virtual void RemoveRange(IEnumerable<T> items) {
+            foreach (T item in items) {
+                Remove(item);
             }
         }
 
