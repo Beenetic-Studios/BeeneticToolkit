@@ -10,13 +10,13 @@ namespace BeeneticToolkit.Collections.Enums.Tests {
     [TestClass]
     public class EnumItemTests {
 
-        private class TestEnumItem : EnumItem<TestEnumGroup> {
+        private class TestEnumItem : EnumItem<string, TestEnumGroup> {
 
             public TestEnumItem(string key, string name, string shortName, string? description = null, int? displayOrder = null, bool? isActive = null, TestEnumGroup? group = null)
                 : base(key, name, shortName, description, displayOrder, isActive, group) { }
         }
 
-        private class NoGroupEnumItem : EnumItem<NoGroup> {
+        private class NoGroupEnumItem : EnumItem<string, NoGroup> {
 
             public NoGroupEnumItem(string key, string name, string shortName)
                 : base(key, name, shortName) { }

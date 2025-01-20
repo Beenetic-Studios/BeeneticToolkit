@@ -3,7 +3,7 @@
 
 ## EnumItemMetadataBase Class
 
-Represents the base class for metadata that can be associated with [EnumItem&lt;TGroup&gt;](EnumItem_TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TGroup>') instances.
+Represents the base class for metadata that can be associated with [EnumItem&lt;TKey,TGroup&gt;](EnumItem_TKey,TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>') instances.
 
 ```csharp
 public abstract class EnumItemMetadataBase :

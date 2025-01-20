@@ -5,11 +5,12 @@ using System.Linq;
 namespace BeeneticToolkit.Collections.Enums {
 
     /// <summary>Represents a collection of strongly-typed enumeration items with utility methods for managing, retrieving, and searching items based on their properties.</summary>
-    /// <typeparam name="T">The type of the enumeration items, which must inherit from <see cref="EnumItem{TGroup}"/>.</typeparam>
+    /// <typeparam name="T">The type of the enumeration items, which must inherit from <see cref="EnumItem{TKey, TGroup}"/>.</typeparam>
+    /// <typeparam name="TKey">The type of the key for the enumeration items.</typeparam>
     /// <typeparam name="TGroup">The type of the group associated with the enumeration items. Must be an enumeration. Use <see cref="NoGroup"/> if grouping is not required.</typeparam>
     /// <example>
     /// <code>
-    /// public class PositionCollection : EnumCollection&lt;Position, NoGroup&gt; { }
+    /// public class PositionCollection : EnumCollection&lt;Position, PositionKey, NoGroup&gt; { }
     ///
     /// var positionCollection = new PositionCollection();
     /// positionCollection.Add(new Position("P001", "Manager", "Mgr"));
@@ -21,7 +22,10 @@ namespace BeeneticToolkit.Collections.Enums {
     /// </code>
     /// </example>
     /// <remarks>This class supports both grouped and non-grouped enumeration items. When grouping is not relevant, use <see cref="NoGroup"/> as the <typeparamref name="TGroup"/> parameter. Methods like <see cref="GetByGroup"/> return all items when the <c>group</c> parameter is <see langword="null"/>.</remarks>
-    public abstract class EnumCollection<T, TGroup> where T : EnumItem<TGroup> where TGroup : struct, Enum {
+    public abstract class EnumCollection<T, TKey, TGroup>
+           where T : EnumItem<TKey, TGroup>
+           where TKey : notnull
+           where TGroup : struct, Enum {
 
         #region Fields
 
@@ -37,7 +41,7 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <param name="item">The enumeration item to add.</param>
         /// <exception cref="InvalidOperationException">Thrown when an item with the same key as the specified item already exists in the collection.</exception>
         public virtual void Add(T item) {
-            if (_items.Any(existing => existing.Key == item.Key))
+            if (_items.Any(existing => EqualityComparer<TKey>.Default.Equals(existing.Key, item.Key)))
                 throw new InvalidOperationException($"Duplicate Key '{item.Key}' in {typeof(T).Name}.");
 
             _items.Add(item);
@@ -80,7 +84,7 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <returns>An <see cref="IEnumerable{T}"/> containing the items in the collection, optionally filtered and sorted.</returns>
         /// <remarks>
         /// This method leverages caching for optimized repeated retrievals. When no filters or comparers are provided, a cached list of items is returned to minimize overhead.
-        /// Predefined comparators include <see cref="Comparators.EnumItemComparators.ByKey{TGroup}"/>, <see cref="Comparators.EnumItemComparators.ByName{TGroup}"/>, and others.
+        /// Predefined comparators include <see cref="Comparators.EnumItemComparators.ByKey{TKey, TGroup}"/>, <see cref="Comparators.EnumItemComparators.ByName{TKey, TGroup}"/>, and others.
         /// </remarks>
         /// <example>
         /// <code>
@@ -215,8 +219,8 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <param name="key">The unique key of the item to retrieve.</param>
         /// <returns>The item corresponding to the specified key.</returns>
         /// <exception cref="InvalidOperationException">Thrown when no item with the specified key exists in the collection.</exception>
-        public T FromKey(string key) {
-            var item = _items.FirstOrDefault(i => i.Key == key);
+        public T FromKey(TKey key) {
+            var item = _items.FirstOrDefault(i => EqualityComparer<TKey>.Default.Equals(i.Key, key));
             return item ?? throw new InvalidOperationException($"'{key}' is not a valid Key in {typeof(T).Name}.");
         }
 

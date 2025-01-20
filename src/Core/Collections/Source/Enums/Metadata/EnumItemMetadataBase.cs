@@ -2,7 +2,7 @@
 
 namespace BeeneticToolkit.Collections.Enums.Metadata {
 
-    /// <summary>Represents the base class for metadata that can be associated with <see cref="EnumItem{TGroup}"/> instances.</summary>
+    /// <summary>Represents the base class for metadata that can be associated with <see cref="EnumItem{TKey, TGroup}"/> instances.</summary>
     /// <remarks>This class provides a unique identifier (GUID) to distinguish metadata instances, supports readonly behavior, and can be extended to include additional properties as needed.</remarks>
     public abstract class EnumItemMetadataBase : IHasMetadata<EnumItemMetadataBase> {
 

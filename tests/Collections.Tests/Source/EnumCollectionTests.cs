@@ -7,21 +7,21 @@ namespace BeeneticToolkit.Collections.Enums.Tests {
     [TestClass]
     public class EnumCollectionTests {
 
-        private class TestEnumItem : EnumItem<TestEnumGroup> {
+        private class TestEnumItem : EnumItem<string, TestEnumGroup> {
 
             public TestEnumItem(string key, string name, string shortName)
                 : base(key, name, shortName) { }
         }
 
-        private class TestEnumCollection : EnumCollection<TestEnumItem, TestEnumGroup> { }
+        private class TestEnumCollection : EnumCollection<TestEnumItem, string, TestEnumGroup> { }
 
-        private class NoGroupEnumItem : EnumItem<NoGroup> {
+        private class NoGroupEnumItem : EnumItem<string, NoGroup> {
 
             public NoGroupEnumItem(string key, string name, string shortName)
                 : base(key, name, shortName) { }
         }
 
-        private class NoGroupEnumCollection : EnumCollection<NoGroupEnumItem, NoGroup> { }
+        private class NoGroupEnumCollection : EnumCollection<NoGroupEnumItem, string, NoGroup> { }
 
         [TestMethod]
         public void Add_WithUniqueKey_AddsItem() {
@@ -30,7 +30,6 @@ namespace BeeneticToolkit.Collections.Enums.Tests {
 
             collection.Add(item);
 
-            // Convert the result to a list to access by index
             var items = collection.GetAll().ToList();
 
             Assert.AreEqual(1, items.Count);
