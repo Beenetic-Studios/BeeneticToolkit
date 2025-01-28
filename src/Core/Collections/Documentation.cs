@@ -8,5 +8,15 @@
 
             internal static class NamespaceDoc { }
         }
+
+        namespace Enums {
+
+            internal static class NamespaceDoc { }
+        }
+
+        namespace ObjectPooling {
+
+            internal static class NamespaceDoc { }
+        }
     }
 }
