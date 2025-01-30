@@ -1,5 +1,5 @@
 #### [Collections](index.md 'index')
-### [BeeneticToolkit.Collections.ObjectPooling](index.md#BeeneticToolkit.Collections.ObjectPooling 'BeeneticToolkit.Collections.ObjectPooling')
+### [BeeneticToolkit.Collections.ObjectPooling.Policies](index.md#BeeneticToolkit.Collections.ObjectPooling.Policies 'BeeneticToolkit.Collections.ObjectPooling.Policies')
 
 ## PooledObjectPolicy<T> Class
 
@@ -10,7 +10,7 @@ public abstract class PooledObjectPolicy<T>
 ```
 #### Type parameters
 
-<a name='BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy_T_.T'></a>
+<a name='BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy_T_.T'></a>
 
 `T`
 
@@ -20,6 +20,6 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Methods | |
 | :--- | :--- |
-| [Create()](PooledObjectPolicy_T_.Create().md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>.Create()') | Creates a new instance of the object. |
-| [Reset(T)](PooledObjectPolicy_T_.Reset(T).md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>.Reset(T)') | Resets the object before it is returned to the pool. |
-| [Validate(T)](PooledObjectPolicy_T_.Validate(T).md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>.Validate(T)') | Validates whether the object is still suitable for reuse. |
+| [Create()](PooledObjectPolicy_T_.Create().md 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>.Create()') | Creates a new instance of the object. |
+| [Reset(T)](PooledObjectPolicy_T_.Reset(T).md 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>.Reset(T)') | Resets the object before it is returned to the pool. |
+| [Validate(T)](PooledObjectPolicy_T_.Validate(T).md 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>.Validate(T)') | Validates whether the object is still suitable for reuse. |

@@ -6,13 +6,13 @@
 Evaluates if a log message meets the required severity threshold and checks if the logger is currently enabled.
 
 ```csharp
-protected bool AllowLogMessage(BeeneticToolkit.Logging.LogSeverity severity);
+protected bool AllowLogMessage(BeeneticToolkit.Logging.Enums.LogSeverity severity);
 ```
 #### Parameters
 
-<a name='BeeneticToolkit.Logging.LoggerBase.AllowLogMessage(BeeneticToolkit.Logging.LogSeverity).severity'></a>
+<a name='BeeneticToolkit.Logging.LoggerBase.AllowLogMessage(BeeneticToolkit.Logging.Enums.LogSeverity).severity'></a>
 
-`severity` [LogSeverity](LogSeverity.md 'BeeneticToolkit.Logging.LogSeverity')
+`severity` [LogSeverity](LogSeverity.md 'BeeneticToolkit.Logging.Enums.LogSeverity')
 
 The severity of the message.
 

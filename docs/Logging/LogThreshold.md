@@ -1,5 +1,5 @@
 #### [Logging](index.md 'index')
-### [BeeneticToolkit.Logging](index.md#BeeneticToolkit.Logging 'BeeneticToolkit.Logging')
+### [BeeneticToolkit.Logging.Enums](index.md#BeeneticToolkit.Logging.Enums 'BeeneticToolkit.Logging.Enums')
 
 ## LogThreshold Enum
 
@@ -10,43 +10,43 @@ public enum LogThreshold
 ```
 ### Fields
 
-<a name='BeeneticToolkit.Logging.LogThreshold.All'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogThreshold.All'></a>
 
 `All` 0
 
 All logging levels are enabled. Every log message regardless of severity will be logged.
 
-<a name='BeeneticToolkit.Logging.LogThreshold.Debug'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogThreshold.Debug'></a>
 
 `Debug` 2
 
 Debug and higher severity levels are enabled. This includes Debug, Warn, Error, and Fatal.
 
-<a name='BeeneticToolkit.Logging.LogThreshold.Error'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogThreshold.Error'></a>
 
 `Error` 4
 
 Error and Fatal severity levels are enabled.
 
-<a name='BeeneticToolkit.Logging.LogThreshold.Fatal'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogThreshold.Fatal'></a>
 
 `Fatal` 5
 
 Only Fatal severity level is enabled.
 
-<a name='BeeneticToolkit.Logging.LogThreshold.Info'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogThreshold.Info'></a>
 
 `Info` 1
 
 Informational and higher severity levels are enabled. This includes Info, Debug, Warn, Error, and Fatal.
 
-<a name='BeeneticToolkit.Logging.LogThreshold.Off'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogThreshold.Off'></a>
 
 `Off` 6
 
 Logging is disabled. No log messages will be recorded.
 
-<a name='BeeneticToolkit.Logging.LogThreshold.Warn'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogThreshold.Warn'></a>
 
 `Warn` 3
 

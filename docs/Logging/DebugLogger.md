@@ -1,5 +1,5 @@
 #### [Logging](index.md 'index')
-### [BeeneticToolkit.Logging](index.md#BeeneticToolkit.Logging 'BeeneticToolkit.Logging')
+### [BeeneticToolkit.Logging.Loggers](index.md#BeeneticToolkit.Logging.Loggers 'BeeneticToolkit.Logging.Loggers')
 
 ## DebugLogger Class
 
@@ -13,9 +13,9 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Constructors | |
 | :--- | :--- |
-| [DebugLogger(string, LogThreshold)](DebugLogger.DebugLogger(string,LogThreshold).md 'BeeneticToolkit.Logging.DebugLogger.DebugLogger(string, BeeneticToolkit.Logging.LogThreshold)') | Initializes a new instance of the [DebugLogger](DebugLogger.md 'BeeneticToolkit.Logging.DebugLogger') class. |
+| [DebugLogger(string, LogThreshold)](DebugLogger.DebugLogger(string,LogThreshold).md 'BeeneticToolkit.Logging.Loggers.DebugLogger.DebugLogger(string, BeeneticToolkit.Logging.Enums.LogThreshold)') | Initializes a new instance of the [DebugLogger](DebugLogger.md 'BeeneticToolkit.Logging.Loggers.DebugLogger') class. |
 
 | Methods | |
 | :--- | :--- |
-| [Log(LogSeverity, object, MethodBase, string, string, string)](DebugLogger.Log(LogSeverity,object,MethodBase,string,string,string).md 'BeeneticToolkit.Logging.DebugLogger.Log(BeeneticToolkit.Logging.LogSeverity, object, System.Reflection.MethodBase, string, string, string)') | Logs a message with additional context from an object and a method, and with the specified severity to the debug output. |
-| [Log(LogSeverity, string, string, string)](DebugLogger.Log(LogSeverity,string,string,string).md 'BeeneticToolkit.Logging.DebugLogger.Log(BeeneticToolkit.Logging.LogSeverity, string, string, string)') | Logs a message with the specified severity to the debug output. |
+| [Log(LogSeverity, object, MethodBase, string, string, string)](DebugLogger.Log(LogSeverity,object,MethodBase,string,string,string).md 'BeeneticToolkit.Logging.Loggers.DebugLogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity, object, System.Reflection.MethodBase, string, string, string)') | Logs a message with additional context from an object and a method, and with the specified severity to the debug output. |
+| [Log(LogSeverity, string, string, string)](DebugLogger.Log(LogSeverity,string,string,string).md 'BeeneticToolkit.Logging.Loggers.DebugLogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity, string, string, string)') | Logs a message with the specified severity to the debug output. |

@@ -1,5 +1,5 @@
 #### [Logging](index.md 'index')
-### [BeeneticToolkit.Logging](index.md#BeeneticToolkit.Logging 'BeeneticToolkit.Logging')
+### [BeeneticToolkit.Logging.Enums](index.md#BeeneticToolkit.Logging.Enums 'BeeneticToolkit.Logging.Enums')
 
 ## LogSeverity Enum
 
@@ -10,37 +10,37 @@ public enum LogSeverity
 ```
 ### Fields
 
-<a name='BeeneticToolkit.Logging.LogSeverity.Debug'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogSeverity.Debug'></a>
 
 `Debug` 2
 
 Debug severity level, used for debugging purposes during development.
 
-<a name='BeeneticToolkit.Logging.LogSeverity.Error'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogSeverity.Error'></a>
 
 `Error` 4
 
 Error severity level, used for error events that might still allow the application to continue running.
 
-<a name='BeeneticToolkit.Logging.LogSeverity.Fatal'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogSeverity.Fatal'></a>
 
 `Fatal` 5
 
 Fatal severity level, used for very severe error events that will presumably lead the application to abort.
 
-<a name='BeeneticToolkit.Logging.LogSeverity.Info'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogSeverity.Info'></a>
 
 `Info` 1
 
 Informational severity level, used for general informational messages.
 
-<a name='BeeneticToolkit.Logging.LogSeverity.Trace'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogSeverity.Trace'></a>
 
 `Trace` 0
 
 Trace severity level, used for detailed and systematic logging.
 
-<a name='BeeneticToolkit.Logging.LogSeverity.Warn'></a>
+<a name='BeeneticToolkit.Logging.Enums.LogSeverity.Warn'></a>
 
 `Warn` 3
 

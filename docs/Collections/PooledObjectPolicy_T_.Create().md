@@ -1,5 +1,5 @@
 #### [Collections](index.md 'index')
-### [BeeneticToolkit.Collections.ObjectPooling](index.md#BeeneticToolkit.Collections.ObjectPooling 'BeeneticToolkit.Collections.ObjectPooling').[PooledObjectPolicy&lt;T&gt;](PooledObjectPolicy_T_.md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>')
+### [BeeneticToolkit.Collections.ObjectPooling.Policies](index.md#BeeneticToolkit.Collections.ObjectPooling.Policies 'BeeneticToolkit.Collections.ObjectPooling.Policies').[PooledObjectPolicy&lt;T&gt;](PooledObjectPolicy_T_.md 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>')
 
 ## PooledObjectPolicy<T>.Create() Method
 
@@ -10,5 +10,5 @@ public abstract T Create();
 ```
 
 #### Returns
-[T](PooledObjectPolicy_T_.md#BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy_T_.T 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>.T')  
-A new instance of [T](PooledObjectPolicy_T_.md#BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy_T_.T 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>.T').
+[T](PooledObjectPolicy_T_.md#BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy_T_.T 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>.T')  
+A new instance of [T](PooledObjectPolicy_T_.md#BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy_T_.T 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>.T').

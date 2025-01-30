@@ -1,5 +1,5 @@
 #### [Random](index.md 'index')
-### [BeeneticToolkit.Random.Utility](index.md#BeeneticToolkit.Random.Utility 'BeeneticToolkit.Random.Utility').[RandomSelectors](RandomSelectors.md 'BeeneticToolkit.Random.Utility.RandomSelectors')
+### [BeeneticToolkit.Random.Utilities](index.md#BeeneticToolkit.Random.Utilities 'BeeneticToolkit.Random.Utilities').[RandomSelectors](RandomSelectors.md 'BeeneticToolkit.Random.Utilities.RandomSelectors')
 
 ## RandomSelectors.RandomSubset<T>(IEnumerable<T>, int, RandomGenerator) Method
 
@@ -10,33 +10,33 @@ public static System.Collections.Generic.List<T> RandomSubset<T>(System.Collecti
 ```
 #### Type parameters
 
-<a name='BeeneticToolkit.Random.Utility.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).T'></a>
+<a name='BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).T'></a>
 
 `T`
 
 The type of elements in the sequence.
 #### Parameters
 
-<a name='BeeneticToolkit.Random.Utility.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).sequence'></a>
+<a name='BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).sequence'></a>
 
-`sequence` [System.Collections.Generic.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')[T](RandomSelectors.RandomSubset_T_(IEnumerable_T_,int,RandomGenerator).md#BeeneticToolkit.Random.Utility.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).T 'BeeneticToolkit.Random.Utility.RandomSelectors.RandomSubset<T>(System.Collections.Generic.IEnumerable<T>, int, BeeneticToolkit.Random.RandomGenerator).T')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')
+`sequence` [System.Collections.Generic.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')[T](RandomSelectors.RandomSubset_T_(IEnumerable_T_,int,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).T 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset<T>(System.Collections.Generic.IEnumerable<T>, int, BeeneticToolkit.Random.RandomGenerator).T')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')
 
 The sequence from which to select a random subset.
 
-<a name='BeeneticToolkit.Random.Utility.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).subsetSize'></a>
+<a name='BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).subsetSize'></a>
 
 `subsetSize` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')
 
 The size of the subset to select.
 
-<a name='BeeneticToolkit.Random.Utility.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).random'></a>
+<a name='BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).random'></a>
 
 `random` [RandomGenerator](RandomGenerator.md 'BeeneticToolkit.Random.RandomGenerator')
 
 The random number generator to use, or null to use the default generator.
 
 #### Returns
-[System.Collections.Generic.List&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1 'System.Collections.Generic.List`1')[T](RandomSelectors.RandomSubset_T_(IEnumerable_T_,int,RandomGenerator).md#BeeneticToolkit.Random.Utility.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).T 'BeeneticToolkit.Random.Utility.RandomSelectors.RandomSubset<T>(System.Collections.Generic.IEnumerable<T>, int, BeeneticToolkit.Random.RandomGenerator).T')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1 'System.Collections.Generic.List`1')  
+[System.Collections.Generic.List&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1 'System.Collections.Generic.List`1')[T](RandomSelectors.RandomSubset_T_(IEnumerable_T_,int,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IEnumerable_T_,int,BeeneticToolkit.Random.RandomGenerator).T 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset<T>(System.Collections.Generic.IEnumerable<T>, int, BeeneticToolkit.Random.RandomGenerator).T')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1 'System.Collections.Generic.List`1')  
 A list containing a random subset of the specified size.
 
 ### Remarks

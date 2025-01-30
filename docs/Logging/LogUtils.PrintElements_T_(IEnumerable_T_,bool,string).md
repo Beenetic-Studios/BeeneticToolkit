@@ -1,5 +1,5 @@
 #### [Logging](index.md 'index')
-### [BeeneticToolkit.Logging.Utility](index.md#BeeneticToolkit.Logging.Utility 'BeeneticToolkit.Logging.Utility').[LogUtils](LogUtils.md 'BeeneticToolkit.Logging.Utility.LogUtils')
+### [BeeneticToolkit.Logging.Utilities](index.md#BeeneticToolkit.Logging.Utilities 'BeeneticToolkit.Logging.Utilities').[LogUtils](LogUtils.md 'BeeneticToolkit.Logging.Utilities.LogUtils')
 
 ## LogUtils.PrintElements<T>(IEnumerable<T>, bool, string) Method
 
@@ -10,26 +10,26 @@ public static string PrintElements<T>(System.Collections.Generic.IEnumerable<T> 
 ```
 #### Type parameters
 
-<a name='BeeneticToolkit.Logging.Utility.LogUtils.PrintElements_T_(System.Collections.Generic.IEnumerable_T_,bool,string).T'></a>
+<a name='BeeneticToolkit.Logging.Utilities.LogUtils.PrintElements_T_(System.Collections.Generic.IEnumerable_T_,bool,string).T'></a>
 
 `T`
 
 The type of elements in the sequence.
 #### Parameters
 
-<a name='BeeneticToolkit.Logging.Utility.LogUtils.PrintElements_T_(System.Collections.Generic.IEnumerable_T_,bool,string).enumerable'></a>
+<a name='BeeneticToolkit.Logging.Utilities.LogUtils.PrintElements_T_(System.Collections.Generic.IEnumerable_T_,bool,string).enumerable'></a>
 
-`enumerable` [System.Collections.Generic.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')[T](LogUtils.PrintElements_T_(IEnumerable_T_,bool,string).md#BeeneticToolkit.Logging.Utility.LogUtils.PrintElements_T_(System.Collections.Generic.IEnumerable_T_,bool,string).T 'BeeneticToolkit.Logging.Utility.LogUtils.PrintElements<T>(System.Collections.Generic.IEnumerable<T>, bool, string).T')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')
+`enumerable` [System.Collections.Generic.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')[T](LogUtils.PrintElements_T_(IEnumerable_T_,bool,string).md#BeeneticToolkit.Logging.Utilities.LogUtils.PrintElements_T_(System.Collections.Generic.IEnumerable_T_,bool,string).T 'BeeneticToolkit.Logging.Utilities.LogUtils.PrintElements<T>(System.Collections.Generic.IEnumerable<T>, bool, string).T')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')
 
 The enumerable to be converted into a string.
 
-<a name='BeeneticToolkit.Logging.Utility.LogUtils.PrintElements_T_(System.Collections.Generic.IEnumerable_T_,bool,string).inline'></a>
+<a name='BeeneticToolkit.Logging.Utilities.LogUtils.PrintElements_T_(System.Collections.Generic.IEnumerable_T_,bool,string).inline'></a>
 
 `inline` [System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')
 
 Specifies whether the elements should be displayed inline.
 
-<a name='BeeneticToolkit.Logging.Utility.LogUtils.PrintElements_T_(System.Collections.Generic.IEnumerable_T_,bool,string).delimiter'></a>
+<a name='BeeneticToolkit.Logging.Utilities.LogUtils.PrintElements_T_(System.Collections.Generic.IEnumerable_T_,bool,string).delimiter'></a>
 
 `delimiter` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 

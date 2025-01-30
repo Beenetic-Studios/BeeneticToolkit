@@ -10,4 +10,4 @@ protected readonly PooledObjectPolicy<T> _policy;
 ```
 
 #### Field Value
-[BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy&lt;](PooledObjectPolicy_T_.md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>')[T](ObjectPool_T_.md#BeeneticToolkit.Collections.ObjectPooling.ObjectPool_T_.T 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.T')[&gt;](PooledObjectPolicy_T_.md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>')
+[BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy&lt;](PooledObjectPolicy_T_.md 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>')[T](ObjectPool_T_.md#BeeneticToolkit.Collections.ObjectPooling.ObjectPool_T_.T 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.T')[&gt;](PooledObjectPolicy_T_.md 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>')

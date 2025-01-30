@@ -1,5 +1,5 @@
 #### [Collections](index.md 'index')
-### [BeeneticToolkit.Collections.Utility](index.md#BeeneticToolkit.Collections.Utility 'BeeneticToolkit.Collections.Utility')
+### [BeeneticToolkit.Collections.Utilities](index.md#BeeneticToolkit.Collections.Utilities 'BeeneticToolkit.Collections.Utilities')
 
 ## CollectionUtils Class
 
@@ -13,5 +13,5 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Methods | |
 | :--- | :--- |
-| [InitializeArray&lt;T&gt;(int, T)](CollectionUtils.InitializeArray_T_(int,T).md 'BeeneticToolkit.Collections.Utility.CollectionUtils.InitializeArray<T>(int, T)') | Initializes an array of a specified size with a given default value for each element. |
-| [IsNullOrEmpty&lt;T&gt;(this IEnumerable&lt;T&gt;)](CollectionUtils.IsNullOrEmpty_T_(thisIEnumerable_T_).md 'BeeneticToolkit.Collections.Utility.CollectionUtils.IsNullOrEmpty<T>(this System.Collections.Generic.IEnumerable<T>)') | Determines whether a collection is null or contains no elements. |
+| [InitializeArray&lt;T&gt;(int, T)](CollectionUtils.InitializeArray_T_(int,T).md 'BeeneticToolkit.Collections.Utilities.CollectionUtils.InitializeArray<T>(int, T)') | Initializes an array of a specified size with a given default value for each element. |
+| [IsNullOrEmpty&lt;T&gt;(this IEnumerable&lt;T&gt;)](CollectionUtils.IsNullOrEmpty_T_(thisIEnumerable_T_).md 'BeeneticToolkit.Collections.Utilities.CollectionUtils.IsNullOrEmpty<T>(this System.Collections.Generic.IEnumerable<T>)') | Determines whether a collection is null or contains no elements. |

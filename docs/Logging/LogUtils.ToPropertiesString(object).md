@@ -1,5 +1,5 @@
 #### [Logging](index.md 'index')
-### [BeeneticToolkit.Logging.Utility](index.md#BeeneticToolkit.Logging.Utility 'BeeneticToolkit.Logging.Utility').[LogUtils](LogUtils.md 'BeeneticToolkit.Logging.Utility.LogUtils')
+### [BeeneticToolkit.Logging.Utilities](index.md#BeeneticToolkit.Logging.Utilities 'BeeneticToolkit.Logging.Utilities').[LogUtils](LogUtils.md 'BeeneticToolkit.Logging.Utilities.LogUtils')
 
 ## LogUtils.ToPropertiesString(object) Method
 
@@ -10,7 +10,7 @@ public static string ToPropertiesString(object obj);
 ```
 #### Parameters
 
-<a name='BeeneticToolkit.Logging.Utility.LogUtils.ToPropertiesString(object).obj'></a>
+<a name='BeeneticToolkit.Logging.Utilities.LogUtils.ToPropertiesString(object).obj'></a>
 
 `obj` [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object')
 

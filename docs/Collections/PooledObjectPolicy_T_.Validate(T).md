@@ -1,5 +1,5 @@
 #### [Collections](index.md 'index')
-### [BeeneticToolkit.Collections.ObjectPooling](index.md#BeeneticToolkit.Collections.ObjectPooling 'BeeneticToolkit.Collections.ObjectPooling').[PooledObjectPolicy&lt;T&gt;](PooledObjectPolicy_T_.md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>')
+### [BeeneticToolkit.Collections.ObjectPooling.Policies](index.md#BeeneticToolkit.Collections.ObjectPooling.Policies 'BeeneticToolkit.Collections.ObjectPooling.Policies').[PooledObjectPolicy&lt;T&gt;](PooledObjectPolicy_T_.md 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>')
 
 ## PooledObjectPolicy<T>.Validate(T) Method
 
@@ -10,9 +10,9 @@ public virtual bool Validate(T obj);
 ```
 #### Parameters
 
-<a name='BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy_T_.Validate(T).obj'></a>
+<a name='BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy_T_.Validate(T).obj'></a>
 
-`obj` [T](PooledObjectPolicy_T_.md#BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy_T_.T 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>.T')
+`obj` [T](PooledObjectPolicy_T_.md#BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy_T_.T 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>.T')
 
 The object to validate.
 

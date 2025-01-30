@@ -3,7 +3,7 @@
 
 ## LoggerBase.Includes Property
 
-Struct that contains flags for the individual components of [BaseMessage(LogSeverity, object, MethodBase)](LoggerBase.BaseMessage(LogSeverity,object,MethodBase).md 'BeeneticToolkit.Logging.LoggerBase.BaseMessage(BeeneticToolkit.Logging.LogSeverity, object, System.Reflection.MethodBase)')
+Struct that contains flags for the individual components of [BaseMessage(LogSeverity, object, MethodBase)](LoggerBase.BaseMessage(LogSeverity,object,MethodBase).md 'BeeneticToolkit.Logging.LoggerBase.BaseMessage(BeeneticToolkit.Logging.Enums.LogSeverity, object, System.Reflection.MethodBase)')
 
 ```csharp
 public BeeneticToolkit.Logging.BaseMessageIncludes Includes { get; set; }

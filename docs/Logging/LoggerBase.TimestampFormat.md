@@ -3,7 +3,7 @@
 
 ## LoggerBase.TimestampFormat Property
 
-Gets or sets the timestamp format, which is used in [BaseMessage(LogSeverity, object, MethodBase)](LoggerBase.BaseMessage(LogSeverity,object,MethodBase).md 'BeeneticToolkit.Logging.LoggerBase.BaseMessage(BeeneticToolkit.Logging.LogSeverity, object, System.Reflection.MethodBase)').
+Gets or sets the timestamp format, which is used in [BaseMessage(LogSeverity, object, MethodBase)](LoggerBase.BaseMessage(LogSeverity,object,MethodBase).md 'BeeneticToolkit.Logging.LoggerBase.BaseMessage(BeeneticToolkit.Logging.Enums.LogSeverity, object, System.Reflection.MethodBase)').
 
 ```csharp
 public string TimestampFormat { get; set; }

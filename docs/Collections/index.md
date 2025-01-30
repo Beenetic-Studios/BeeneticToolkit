@@ -98,7 +98,7 @@
 
 ## BeeneticToolkit.Collections.ObjectPooling Namespace
 - **[ObjectPool&lt;T&gt;](ObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>')** `Class` Abstract base class for object pools, providing core operations for retrieving, returning, and clearing pooled objects.
-  - **[ObjectPool(PooledObjectPolicy&lt;T&gt;, bool, int)](ObjectPool_T_.ObjectPool(PooledObjectPolicy_T_,bool,int).md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.ObjectPool(BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>, bool, int)')** `Constructor` Initializes a new instance of the [ObjectPool&lt;T&gt;](ObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>') class.
+  - **[ObjectPool(PooledObjectPolicy&lt;T&gt;, bool, int)](ObjectPool_T_.ObjectPool(PooledObjectPolicy_T_,bool,int).md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.ObjectPool(BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>, bool, int)')** `Constructor` Initializes a new instance of the [ObjectPool&lt;T&gt;](ObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>') class.
   - **[_isDynamic](ObjectPool_T_._isDynamic.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>._isDynamic')** `Field` Indicates whether the pool can dynamically grow when it runs out of objects.
   - **[_maxSize](ObjectPool_T_._maxSize.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>._maxSize')** `Field` Specifies the maximum number of objects allowed in the pool. A value of 0 indicates no limit.
   - **[_policy](ObjectPool_T_._policy.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>._policy')** `Field` Defines the policy used for creating, resetting, and validating pooled objects.
@@ -106,20 +106,24 @@
   - **[Clear()](ObjectPool_T_.Clear().md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.Clear()')** `Method` Clears all objects from the pool.
   - **[Get()](ObjectPool_T_.Get().md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.Get()')** `Method` Retrieves an object from the pool.
   - **[Return(T)](ObjectPool_T_.Return(T).md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.Return(T)')** `Method` Returns an object to the pool.
-- **[PooledObjectPolicy&lt;T&gt;](PooledObjectPolicy_T_.md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>')** `Class` Defines the policy for managing pooled objects, including creation, resetting, and validation.
-  - **[Create()](PooledObjectPolicy_T_.Create().md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>.Create()')** `Method` Creates a new instance of the object.
-  - **[Reset(T)](PooledObjectPolicy_T_.Reset(T).md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>.Reset(T)')** `Method` Resets the object before it is returned to the pool.
-  - **[Validate(T)](PooledObjectPolicy_T_.Validate(T).md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>.Validate(T)')** `Method` Validates whether the object is still suitable for reuse.
-- **[StackObjectPool&lt;T&gt;](StackObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.StackObjectPool<T>')** `Class` Stack-based implementation of [ObjectPool&lt;T&gt;](ObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>'), using a last-in-first-out (LIFO) approach for object storage.
-  - **[StackObjectPool(PooledObjectPolicy&lt;T&gt;, bool, int, int)](StackObjectPool_T_.StackObjectPool(PooledObjectPolicy_T_,bool,int,int).md 'BeeneticToolkit.Collections.ObjectPooling.StackObjectPool<T>.StackObjectPool(BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>, bool, int, int)')** `Constructor` Initializes a new instance of the [StackObjectPool&lt;T&gt;](StackObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.StackObjectPool<T>') class.
-  - **[Count](StackObjectPool_T_.Count.md 'BeeneticToolkit.Collections.ObjectPooling.StackObjectPool<T>.Count')** `Property` Gets the current number of objects in the pool.
-  - **[Clear()](StackObjectPool_T_.Clear().md 'BeeneticToolkit.Collections.ObjectPooling.StackObjectPool<T>.Clear()')** `Method` Clears all objects from the pool.
-  - **[Get()](StackObjectPool_T_.Get().md 'BeeneticToolkit.Collections.ObjectPooling.StackObjectPool<T>.Get()')** `Method` Retrieves an object from the pool.
-  - **[Return(T)](StackObjectPool_T_.Return(T).md 'BeeneticToolkit.Collections.ObjectPooling.StackObjectPool<T>.Return(T)')** `Method` Returns an object to the pool.
 
-<a name='BeeneticToolkit.Collections.Utility'></a>
+<a name='BeeneticToolkit.Collections.ObjectPooling.Policies'></a>
 
-## BeeneticToolkit.Collections.Utility Namespace
-- **[CollectionUtils](CollectionUtils.md 'BeeneticToolkit.Collections.Utility.CollectionUtils')** `Class` Provides utility methods for common operations on collections, enhancing their usability and management.
-  - **[InitializeArray&lt;T&gt;(int, T)](CollectionUtils.InitializeArray_T_(int,T).md 'BeeneticToolkit.Collections.Utility.CollectionUtils.InitializeArray<T>(int, T)')** `Method` Initializes an array of a specified size with a given default value for each element.
-  - **[IsNullOrEmpty&lt;T&gt;(this IEnumerable&lt;T&gt;)](CollectionUtils.IsNullOrEmpty_T_(thisIEnumerable_T_).md 'BeeneticToolkit.Collections.Utility.CollectionUtils.IsNullOrEmpty<T>(this System.Collections.Generic.IEnumerable<T>)')** `Method` Determines whether a collection is null or contains no elements.
+## BeeneticToolkit.Collections.ObjectPooling.Policies Namespace
+- **[PooledObjectPolicy&lt;T&gt;](PooledObjectPolicy_T_.md 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>')** `Class` Defines the policy for managing pooled objects, including creation, resetting, and validation.
+  - **[Create()](PooledObjectPolicy_T_.Create().md 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>.Create()')** `Method` Creates a new instance of the object.
+  - **[Reset(T)](PooledObjectPolicy_T_.Reset(T).md 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>.Reset(T)')** `Method` Resets the object before it is returned to the pool.
+  - **[Validate(T)](PooledObjectPolicy_T_.Validate(T).md 'BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>.Validate(T)')** `Method` Validates whether the object is still suitable for reuse.
+- **[StackObjectPool&lt;T&gt;](StackObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool<T>')** `Class` Stack-based implementation of [ObjectPool&lt;T&gt;](ObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>'), using a last-in-first-out (LIFO) approach for object storage.
+  - **[StackObjectPool(PooledObjectPolicy&lt;T&gt;, bool, int, int)](StackObjectPool_T_.StackObjectPool(PooledObjectPolicy_T_,bool,int,int).md 'BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool<T>.StackObjectPool(BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>, bool, int, int)')** `Constructor` Initializes a new instance of the [StackObjectPool&lt;T&gt;](StackObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool<T>') class.
+  - **[Count](StackObjectPool_T_.Count.md 'BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool<T>.Count')** `Property` Gets the current number of objects in the pool.
+  - **[Clear()](StackObjectPool_T_.Clear().md 'BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool<T>.Clear()')** `Method` Clears all objects from the pool.
+  - **[Get()](StackObjectPool_T_.Get().md 'BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool<T>.Get()')** `Method` Retrieves an object from the pool.
+  - **[Return(T)](StackObjectPool_T_.Return(T).md 'BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool<T>.Return(T)')** `Method` Returns an object to the pool.
+
+<a name='BeeneticToolkit.Collections.Utilities'></a>
+
+## BeeneticToolkit.Collections.Utilities Namespace
+- **[CollectionUtils](CollectionUtils.md 'BeeneticToolkit.Collections.Utilities.CollectionUtils')** `Class` Provides utility methods for common operations on collections, enhancing their usability and management.
+  - **[InitializeArray&lt;T&gt;(int, T)](CollectionUtils.InitializeArray_T_(int,T).md 'BeeneticToolkit.Collections.Utilities.CollectionUtils.InitializeArray<T>(int, T)')** `Method` Initializes an array of a specified size with a given default value for each element.
+  - **[IsNullOrEmpty&lt;T&gt;(this IEnumerable&lt;T&gt;)](CollectionUtils.IsNullOrEmpty_T_(thisIEnumerable_T_).md 'BeeneticToolkit.Collections.Utilities.CollectionUtils.IsNullOrEmpty<T>(this System.Collections.Generic.IEnumerable<T>)')** `Method` Determines whether a collection is null or contains no elements.

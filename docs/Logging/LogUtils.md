@@ -1,5 +1,5 @@
 #### [Logging](index.md 'index')
-### [BeeneticToolkit.Logging.Utility](index.md#BeeneticToolkit.Logging.Utility 'BeeneticToolkit.Logging.Utility')
+### [BeeneticToolkit.Logging.Utilities](index.md#BeeneticToolkit.Logging.Utilities 'BeeneticToolkit.Logging.Utilities')
 
 ## LogUtils Class
 
@@ -13,7 +13,7 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Methods | |
 | :--- | :--- |
-| [PrintElements&lt;T&gt;(IEnumerable&lt;T&gt;, bool, string)](LogUtils.PrintElements_T_(IEnumerable_T_,bool,string).md 'BeeneticToolkit.Logging.Utility.LogUtils.PrintElements<T>(System.Collections.Generic.IEnumerable<T>, bool, string)') | Converts an IEnumerable sequence into a string representation, with options for inline display and custom delimiters. |
-| [PrintElements&lt;T&gt;(List&lt;T&gt;, bool, string)](LogUtils.PrintElements_T_(List_T_,bool,string).md 'BeeneticToolkit.Logging.Utility.LogUtils.PrintElements<T>(System.Collections.Generic.List<T>, bool, string)') | Converts a list of elements into a string representation, with options for inline display and custom delimiters. |
-| [PropertyZeroSet&lt;T&gt;(T)](LogUtils.PropertyZeroSet_T_(T).md 'BeeneticToolkit.Logging.Utility.LogUtils.PropertyZeroSet<T>(T)') | Sets all numeric properties of an object to zero. |
-| [ToPropertiesString(object)](LogUtils.ToPropertiesString(object).md 'BeeneticToolkit.Logging.Utility.LogUtils.ToPropertiesString(object)') | Creates a string representation of the public properties of an object, excluding any marked as obsolete. |
+| [PrintElements&lt;T&gt;(IEnumerable&lt;T&gt;, bool, string)](LogUtils.PrintElements_T_(IEnumerable_T_,bool,string).md 'BeeneticToolkit.Logging.Utilities.LogUtils.PrintElements<T>(System.Collections.Generic.IEnumerable<T>, bool, string)') | Converts an IEnumerable sequence into a string representation, with options for inline display and custom delimiters. |
+| [PrintElements&lt;T&gt;(List&lt;T&gt;, bool, string)](LogUtils.PrintElements_T_(List_T_,bool,string).md 'BeeneticToolkit.Logging.Utilities.LogUtils.PrintElements<T>(System.Collections.Generic.List<T>, bool, string)') | Converts a list of elements into a string representation, with options for inline display and custom delimiters. |
+| [PropertyZeroSet&lt;T&gt;(T)](LogUtils.PropertyZeroSet_T_(T).md 'BeeneticToolkit.Logging.Utilities.LogUtils.PropertyZeroSet<T>(T)') | Sets all numeric properties of an object to zero. |
+| [ToPropertiesString(object)](LogUtils.ToPropertiesString(object).md 'BeeneticToolkit.Logging.Utilities.LogUtils.ToPropertiesString(object)') | Creates a string representation of the public properties of an object, excluding any marked as obsolete. |

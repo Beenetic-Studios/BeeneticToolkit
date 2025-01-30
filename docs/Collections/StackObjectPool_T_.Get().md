@@ -1,5 +1,5 @@
 #### [Collections](index.md 'index')
-### [BeeneticToolkit.Collections.ObjectPooling](index.md#BeeneticToolkit.Collections.ObjectPooling 'BeeneticToolkit.Collections.ObjectPooling').[StackObjectPool&lt;T&gt;](StackObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.StackObjectPool<T>')
+### [BeeneticToolkit.Collections.ObjectPooling.Policies](index.md#BeeneticToolkit.Collections.ObjectPooling.Policies 'BeeneticToolkit.Collections.ObjectPooling.Policies').[StackObjectPool&lt;T&gt;](StackObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool<T>')
 
 ## StackObjectPool<T>.Get() Method
 
@@ -10,8 +10,8 @@ public override T Get();
 ```
 
 #### Returns
-[T](StackObjectPool_T_.md#BeeneticToolkit.Collections.ObjectPooling.StackObjectPool_T_.T 'BeeneticToolkit.Collections.ObjectPooling.StackObjectPool<T>.T')  
-An instance of [T](StackObjectPool_T_.md#BeeneticToolkit.Collections.ObjectPooling.StackObjectPool_T_.T 'BeeneticToolkit.Collections.ObjectPooling.StackObjectPool<T>.T') from the pool.
+[T](StackObjectPool_T_.md#BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool_T_.T 'BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool<T>.T')  
+An instance of [T](StackObjectPool_T_.md#BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool_T_.T 'BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool<T>.T') from the pool.
 
 #### Exceptions
 

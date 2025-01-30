@@ -6,8 +6,8 @@
 Gets or sets the logging threshold level.
 
 ```csharp
-public BeeneticToolkit.Logging.LogThreshold Threshold { get; set; }
+public BeeneticToolkit.Logging.Enums.LogThreshold Threshold { get; set; }
 ```
 
 #### Property Value
-[LogThreshold](LogThreshold.md 'BeeneticToolkit.Logging.LogThreshold')
+[LogThreshold](LogThreshold.md 'BeeneticToolkit.Logging.Enums.LogThreshold')

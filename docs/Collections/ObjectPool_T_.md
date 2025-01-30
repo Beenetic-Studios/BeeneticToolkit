@@ -20,11 +20,11 @@ The type of object managed by the pool.
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; ObjectPool<T>
 
 Derived  
-&#8627; [StackObjectPool&lt;T&gt;](StackObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.StackObjectPool<T>')
+&#8627; [StackObjectPool&lt;T&gt;](StackObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.Policies.StackObjectPool<T>')
 
 | Constructors | |
 | :--- | :--- |
-| [ObjectPool(PooledObjectPolicy&lt;T&gt;, bool, int)](ObjectPool_T_.ObjectPool(PooledObjectPolicy_T_,bool,int).md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.ObjectPool(BeeneticToolkit.Collections.ObjectPooling.PooledObjectPolicy<T>, bool, int)') | Initializes a new instance of the [ObjectPool&lt;T&gt;](ObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>') class. |
+| [ObjectPool(PooledObjectPolicy&lt;T&gt;, bool, int)](ObjectPool_T_.ObjectPool(PooledObjectPolicy_T_,bool,int).md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.ObjectPool(BeeneticToolkit.Collections.ObjectPooling.Policies.PooledObjectPolicy<T>, bool, int)') | Initializes a new instance of the [ObjectPool&lt;T&gt;](ObjectPool_T_.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>') class. |
 
 | Fields | |
 | :--- | :--- |

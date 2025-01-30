@@ -1,5 +1,5 @@
 #### [Random](index.md 'index')
-### [BeeneticToolkit.Random.Utility](index.md#BeeneticToolkit.Random.Utility 'BeeneticToolkit.Random.Utility')
+### [BeeneticToolkit.Random.Utilities](index.md#BeeneticToolkit.Random.Utilities 'BeeneticToolkit.Random.Utilities')
 
 ## RandomExtensions Class
 
@@ -13,4 +13,4 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Methods | |
 | :--- | :--- |
-| [Shuffle&lt;T&gt;(this IEnumerable&lt;T&gt;, RandomGenerator)](RandomExtensions.Shuffle_T_(thisIEnumerable_T_,RandomGenerator).md 'BeeneticToolkit.Random.Utility.RandomExtensions.Shuffle<T>(this System.Collections.Generic.IEnumerable<T>, BeeneticToolkit.Random.RandomGenerator)') | Shuffles elements in a collection using a specified or default random number generator. |
+| [Shuffle&lt;T&gt;(this IEnumerable&lt;T&gt;, RandomGenerator)](RandomExtensions.Shuffle_T_(thisIEnumerable_T_,RandomGenerator).md 'BeeneticToolkit.Random.Utilities.RandomExtensions.Shuffle<T>(this System.Collections.Generic.IEnumerable<T>, BeeneticToolkit.Random.RandomGenerator)') | Shuffles elements in a collection using a specified or default random number generator. |

@@ -1,5 +1,5 @@
 #### [Random](index.md 'index')
-### [BeeneticToolkit.Random.Utility](index.md#BeeneticToolkit.Random.Utility 'BeeneticToolkit.Random.Utility').[RandomSelectors](RandomSelectors.md 'BeeneticToolkit.Random.Utility.RandomSelectors')
+### [BeeneticToolkit.Random.Utilities](index.md#BeeneticToolkit.Random.Utilities 'BeeneticToolkit.Random.Utilities').[RandomSelectors](RandomSelectors.md 'BeeneticToolkit.Random.Utilities.RandomSelectors')
 
 ## RandomSelectors.RandomWeightedChoice<T>(IEnumerable<T>, IList<double>, RandomGenerator) Method
 
@@ -11,33 +11,33 @@ public static T RandomWeightedChoice<T>(System.Collections.Generic.IEnumerable<T
 ```
 #### Type parameters
 
-<a name='BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).T'></a>
+<a name='BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).T'></a>
 
 `T`
 
 The type of elements in the sequence.
 #### Parameters
 
-<a name='BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).sequence'></a>
+<a name='BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).sequence'></a>
 
-`sequence` [System.Collections.Generic.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')[T](RandomSelectors.RandomWeightedChoice_T_(IEnumerable_T_,IList_double_,RandomGenerator).md#BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).T 'BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IList<double>, BeeneticToolkit.Random.RandomGenerator).T')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')
+`sequence` [System.Collections.Generic.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')[T](RandomSelectors.RandomWeightedChoice_T_(IEnumerable_T_,IList_double_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).T 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IList<double>, BeeneticToolkit.Random.RandomGenerator).T')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')
 
 The sequence from which to select a random weighted element.
 
-<a name='BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).weights'></a>
+<a name='BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).weights'></a>
 
 `weights` [System.Collections.Generic.IList&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IList-1 'System.Collections.Generic.IList`1')[System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IList-1 'System.Collections.Generic.IList`1')
 
 A list of weights corresponding to each element in the sequence.
 
-<a name='BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).random'></a>
+<a name='BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).random'></a>
 
 `random` [RandomGenerator](RandomGenerator.md 'BeeneticToolkit.Random.RandomGenerator')
 
 The random number generator to use, or `null` to use the default generator.
 
 #### Returns
-[T](RandomSelectors.RandomWeightedChoice_T_(IEnumerable_T_,IList_double_,RandomGenerator).md#BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).T 'BeeneticToolkit.Random.Utility.RandomSelectors.RandomWeightedChoice<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IList<double>, BeeneticToolkit.Random.RandomGenerator).T')  
+[T](RandomSelectors.RandomWeightedChoice_T_(IEnumerable_T_,IList_double_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.IEnumerable_T_,System.Collections.Generic.IList_double_,BeeneticToolkit.Random.RandomGenerator).T 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IList<double>, BeeneticToolkit.Random.RandomGenerator).T')  
 A randomly selected element from the sequence, weighted by the corresponding weights.
 
 #### Exceptions
