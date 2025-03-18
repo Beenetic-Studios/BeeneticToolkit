@@ -127,6 +127,66 @@ namespace BeeneticToolkit.Numerics {
             return (value - min) / (max - min);
         }
 
+        /// <summary>
+        /// Converts a normalized float value (0 to 1) back to its original range.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// float value = Denormalize(0.5f, 10f, 20f); // returns 15f
+        /// </code>
+        /// </example>
+        /// <param name="normalizedValue">The normalized value (0 to 1).</param>
+        /// <param name="min">The minimum value of the original range.</param>
+        /// <param name="max">The maximum value of the original range.</param>
+        /// <returns>The original value within the specified range.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the normalized value is outside the range 0 to 1.</exception>
+        public static float Denormalize(float normalizedValue, float min, float max) {
+            if (normalizedValue < 0 || normalizedValue > 1)
+                throw new ArgumentOutOfRangeException(nameof(normalizedValue), "Normalized value must be between 0 and 1.");
+
+            return normalizedValue * (max - min) + min;
+        }
+
+        /// <summary>
+        /// Converts a normalized double value (0 to 1) back to its original range.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// float value = Denormalize(0.5, 10.0, 20.0); // returns 15.0
+        /// </code>
+        /// </example>
+        /// <param name="normalizedValue">The normalized value (0 to 1).</param>
+        /// <param name="min">The minimum value of the original range.</param>
+        /// <param name="max">The maximum value of the original range.</param>
+        /// <returns>The original value within the specified range.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the normalized value is outside the range 0 to 1.</exception>
+        public static double Denormalize(double normalizedValue, double min, double max) {
+            if (normalizedValue < 0 || normalizedValue > 1)
+                throw new ArgumentOutOfRangeException(nameof(normalizedValue), "Normalized value must be between 0 and 1.");
+
+            return normalizedValue * (max - min) + min;
+        }
+
+        /// <summary>
+        /// Converts a normalized decimal value (0 to 1) back to its original range.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// float value = Denormalize(0.5m, 10m, 20m); // returns 15m
+        /// </code>
+        /// </example>
+        /// <param name="normalizedValue">The normalized value (0 to 1).</param>
+        /// <param name="min">The minimum value of the original range.</param>
+        /// <param name="max">The maximum value of the original range.</param>
+        /// <returns>The original value within the specified range.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the normalized value is outside the range 0 to 1.</exception>
+        public static decimal Denormalize(decimal normalizedValue, decimal min, decimal max) {
+            if (normalizedValue < 0 || normalizedValue > 1)
+                throw new ArgumentOutOfRangeException(nameof(normalizedValue), "Normalized value must be between 0 and 1.");
+
+            return normalizedValue * (max - min) + min;
+        }
+
         #endregion Normalize
 
         #region Is Approximately
