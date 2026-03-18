@@ -3,19 +3,19 @@
 
 ## IRandomGenerator.NextFloat(float) Method
 
-Returns a non-negative random float that is less than the specified maximum.
+Generates a non-negative random float that is less than or equal to the specified maximum.
 
 ```csharp
-float NextFloat(float maxExclusive);
+float NextFloat(float maxInclusive);
 ```
 #### Parameters
 
-<a name='BeeneticToolkit.Random.IRandomGenerator.NextFloat(float).maxExclusive'></a>
+<a name='BeeneticToolkit.Random.IRandomGenerator.NextFloat(float).maxInclusive'></a>
 
-`maxExclusive` [System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')
+`maxInclusive` [System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')
 
-The exclusive upper bound of the random number to be generated. maxValue must be greater than or equal to 0.0.
+The inclusive upper bound of the random number to generate. Must be greater than 0.
 
 #### Returns
 [System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')  
-A non-negative random float that is less than maxValue.
+A random float in the range [0, [maxInclusive](IRandomGenerator.NextFloat(float).md#BeeneticToolkit.Random.IRandomGenerator.NextFloat(float).maxInclusive 'BeeneticToolkit.Random.IRandomGenerator.NextFloat(float).maxInclusive')].

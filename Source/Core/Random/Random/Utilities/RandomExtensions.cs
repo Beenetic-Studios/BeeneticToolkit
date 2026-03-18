@@ -6,7 +6,7 @@ using System.Linq;
 namespace BeeneticToolkit.Random.Utilities {
 
     /// <summary>
-    /// Provides extension methods for randomizing collections, enhancing the standard Random class functionality.
+    /// Provides extension methods for randomizing collections, enhancing the standard RandomGenerator class functionality.
     /// </summary>
     public static class RandomExtensions {
 

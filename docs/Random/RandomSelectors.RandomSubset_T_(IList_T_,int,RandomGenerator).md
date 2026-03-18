@@ -42,7 +42,7 @@ A list containing a random subset of the specified size.
 #### Exceptions
 
 [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
-Thrown when the input list is empty.
+Thrown when [list](RandomSelectors.RandomSubset_T_(IList_T_,int,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IList_T_,int,BeeneticToolkit.Random.RandomGenerator).list 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset<T>(System.Collections.Generic.IList<T>, int, BeeneticToolkit.Random.RandomGenerator).list') is null or empty.
 
 [System.ArgumentOutOfRangeException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentOutOfRangeException 'System.ArgumentOutOfRangeException')  
-Thrown when the subset size is not within the valid range.
+Thrown when [subsetSize](RandomSelectors.RandomSubset_T_(IList_T_,int,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset_T_(System.Collections.Generic.IList_T_,int,BeeneticToolkit.Random.RandomGenerator).subsetSize 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomSubset<T>(System.Collections.Generic.IList<T>, int, BeeneticToolkit.Random.RandomGenerator).subsetSize') is less than or equal to 0, or greater than the list size.

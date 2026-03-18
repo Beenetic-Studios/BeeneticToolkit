@@ -37,11 +37,10 @@ A randomly selected key from the dictionary, weighted by the corresponding value
 #### Exceptions
 
 [System.ArgumentNullException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentNullException 'System.ArgumentNullException')  
-Thrown when [typeWeightDict](RandomSelectors.RandomWeightedChoice_T_(Dictionary_T,double_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.Dictionary_T,double_,BeeneticToolkit.Random.RandomGenerator).typeWeightDict 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice<T>(System.Collections.Generic.Dictionary<T,double>, BeeneticToolkit.Random.RandomGenerator).typeWeightDict') is `null`.
+Thrown when [typeWeightDict](RandomSelectors.RandomWeightedChoice_T_(Dictionary_T,double_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.Dictionary_T,double_,BeeneticToolkit.Random.RandomGenerator).typeWeightDict 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice<T>(System.Collections.Generic.Dictionary<T,double>, BeeneticToolkit.Random.RandomGenerator).typeWeightDict') is null.
 
 [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
 Thrown when [typeWeightDict](RandomSelectors.RandomWeightedChoice_T_(Dictionary_T,double_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice_T_(System.Collections.Generic.Dictionary_T,double_,BeeneticToolkit.Random.RandomGenerator).typeWeightDict 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomWeightedChoice<T>(System.Collections.Generic.Dictionary<T,double>, BeeneticToolkit.Random.RandomGenerator).typeWeightDict') is empty.
 
 [System.InvalidOperationException](https://docs.microsoft.com/en-us/dotnet/api/System.InvalidOperationException 'System.InvalidOperationException')  
-Thrown when no valid item is selected. This could occur if the weights are improperly configured  
-(e.g., all weights are zero or negative).
+Thrown when the total weight is zero or no valid item can be selected.

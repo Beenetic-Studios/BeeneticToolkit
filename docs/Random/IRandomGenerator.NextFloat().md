@@ -3,7 +3,7 @@
 
 ## IRandomGenerator.NextFloat() Method
 
-Returns a non-negative random float.
+Generates a non-negative random float.
 
 ```csharp
 float NextFloat();

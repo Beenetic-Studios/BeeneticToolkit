@@ -3,7 +3,7 @@
 
 ## IRandomGenerator.NextLong(long, long) Method
 
-Returns a random long integer within a specified range.
+Generates a random long integer within the specified range.
 
 ```csharp
 long NextLong(long minInclusive, long maxExclusive);
@@ -14,14 +14,16 @@ long NextLong(long minInclusive, long maxExclusive);
 
 `minInclusive` [System.Int64](https://docs.microsoft.com/en-us/dotnet/api/System.Int64 'System.Int64')
 
-The inclusive lower bound of the random number returned.
+The inclusive lower bound of the random number to generate.
 
 <a name='BeeneticToolkit.Random.IRandomGenerator.NextLong(long,long).maxExclusive'></a>
 
 `maxExclusive` [System.Int64](https://docs.microsoft.com/en-us/dotnet/api/System.Int64 'System.Int64')
 
-The exclusive upper bound of the random number returned. maxValue must be greater than or equal to minValue.
+The exclusive upper bound of the random number to generate.  
+Must be greater than [minInclusive](IRandomGenerator.NextLong(long,long).md#BeeneticToolkit.Random.IRandomGenerator.NextLong(long,long).minInclusive 'BeeneticToolkit.Random.IRandomGenerator.NextLong(long, long).minInclusive').
 
 #### Returns
 [System.Int64](https://docs.microsoft.com/en-us/dotnet/api/System.Int64 'System.Int64')  
-A random long integer that is within the range of minValue and maxValue.
+A random long integer in the range  
+[[minInclusive](IRandomGenerator.NextLong(long,long).md#BeeneticToolkit.Random.IRandomGenerator.NextLong(long,long).minInclusive 'BeeneticToolkit.Random.IRandomGenerator.NextLong(long, long).minInclusive'), [maxExclusive](IRandomGenerator.NextLong(long,long).md#BeeneticToolkit.Random.IRandomGenerator.NextLong(long,long).maxExclusive 'BeeneticToolkit.Random.IRandomGenerator.NextLong(long, long).maxExclusive')).

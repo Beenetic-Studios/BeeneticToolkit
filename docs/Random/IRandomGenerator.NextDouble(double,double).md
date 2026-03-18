@@ -3,10 +3,10 @@
 
 ## IRandomGenerator.NextDouble(double, double) Method
 
-Returns a random double within a specified range.
+Generates a random double within the specified range.
 
 ```csharp
-double NextDouble(double minInclusive, double maxExclusive);
+double NextDouble(double minInclusive, double maxInclusive);
 ```
 #### Parameters
 
@@ -14,14 +14,16 @@ double NextDouble(double minInclusive, double maxExclusive);
 
 `minInclusive` [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
 
-The inclusive lower bound of the random number returned.
+The inclusive lower bound of the random number to generate.
 
-<a name='BeeneticToolkit.Random.IRandomGenerator.NextDouble(double,double).maxExclusive'></a>
+<a name='BeeneticToolkit.Random.IRandomGenerator.NextDouble(double,double).maxInclusive'></a>
 
-`maxExclusive` [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
+`maxInclusive` [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
 
-The exclusive upper bound of the random number returned. maxValue must be greater than or equal to minValue.
+The inclusive upper bound of the random number to generate.  
+Must be greater than [minInclusive](IRandomGenerator.NextDouble(double,double).md#BeeneticToolkit.Random.IRandomGenerator.NextDouble(double,double).minInclusive 'BeeneticToolkit.Random.IRandomGenerator.NextDouble(double, double).minInclusive').
 
 #### Returns
 [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')  
-A random double that is within the range of minValue and maxValue.
+A random double in the range  
+[[minInclusive](IRandomGenerator.NextDouble(double,double).md#BeeneticToolkit.Random.IRandomGenerator.NextDouble(double,double).minInclusive 'BeeneticToolkit.Random.IRandomGenerator.NextDouble(double, double).minInclusive'), [maxInclusive](IRandomGenerator.NextDouble(double,double).md#BeeneticToolkit.Random.IRandomGenerator.NextDouble(double,double).maxInclusive 'BeeneticToolkit.Random.IRandomGenerator.NextDouble(double, double).maxInclusive')].

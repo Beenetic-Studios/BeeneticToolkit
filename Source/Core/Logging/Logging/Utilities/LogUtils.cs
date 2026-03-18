@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -32,9 +33,12 @@ namespace BeeneticToolkit.Logging.Utilities {
 
             var sb = new StringBuilder();
             sb.Append(inline ? "" : "\n");
+
+            int count = 0;
             foreach (var item in list) {
+                count++;
                 var s = item?.ToString();
-                if (inline)
+                if (inline && count < list.Count)
                     sb.Append(s).Append(delimiter);
                 else
                     sb.AppendLine(s);
@@ -64,9 +68,12 @@ namespace BeeneticToolkit.Logging.Utilities {
 
             var sb = new StringBuilder();
             sb.Append(inline ? "" : "\n");
+
+            int count = 0;
             do {
+                count++;
                 var s = enumerator.Current?.ToString();
-                if (inline)
+                if (inline && count < enumerable.Count())
                     sb.Append(s).Append(delimiter);
                 else
                     sb.AppendLine(s);

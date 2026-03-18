@@ -3,10 +3,16 @@
 
 ## RngManager.Current Property
 
-Gets or sets the global random number generator instance.
+Gets the current global random number generator.  
+  
+This property is initialized to [Default](RngRole.md#BeeneticToolkit.Random.RngRole.Default 'BeeneticToolkit.Random.RngRole.Default') during startup,  
+and is therefore guaranteed to be non-null.  
+  
+It may be reassigned to any registered generator through  
+[SetCurrent(RngRole)](RngManager.SetCurrent(RngRole).md 'BeeneticToolkit.Random.RngManager.SetCurrent(BeeneticToolkit.Random.RngRole)') or [SetCurrent(string)](RngManager.SetCurrent(string).md 'BeeneticToolkit.Random.RngManager.SetCurrent(string)').
 
 ```csharp
-public static BeeneticToolkit.Random.RandomGenerator Current { get; set; }
+public static BeeneticToolkit.Random.RandomGenerator? Current { get; }
 ```
 
 #### Property Value

@@ -3,7 +3,7 @@
 
 ## RngFactory.GetGenerator(RngAlgorithm, Nullable<long>) Method
 
-Creates a random number generator using a specified algorithm and seed.
+Creates a random number generator using the specified algorithm and optional seed.
 
 ```csharp
 public static BeeneticToolkit.Random.RandomGenerator GetGenerator(BeeneticToolkit.Random.RngAlgorithm algorithm, System.Nullable<long> seed);
@@ -14,13 +14,13 @@ public static BeeneticToolkit.Random.RandomGenerator GetGenerator(BeeneticToolki
 
 `algorithm` [RngAlgorithm](RngAlgorithm.md 'BeeneticToolkit.Random.RngAlgorithm')
 
-The algorithm to be used for random number generation.
+The algorithm to use for random number generation.
 
 <a name='BeeneticToolkit.Random.RngFactory.GetGenerator(BeeneticToolkit.Random.RngAlgorithm,System.Nullable_long_).seed'></a>
 
 `seed` [System.Nullable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Nullable-1 'System.Nullable`1')[System.Int64](https://docs.microsoft.com/en-us/dotnet/api/System.Int64 'System.Int64')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Nullable-1 'System.Nullable`1')
 
-The seed for the random number generator.
+The optional seed for the random number generator.
 
 #### Returns
 [RandomGenerator](RandomGenerator.md 'BeeneticToolkit.Random.RandomGenerator')  

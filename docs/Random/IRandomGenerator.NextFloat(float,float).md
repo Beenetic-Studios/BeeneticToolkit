@@ -3,10 +3,10 @@
 
 ## IRandomGenerator.NextFloat(float, float) Method
 
-Returns a random float within a specified range.
+Generates a random float within the specified range.
 
 ```csharp
-float NextFloat(float minInclusive, float maxExclusive);
+float NextFloat(float minInclusive, float maxInclusive);
 ```
 #### Parameters
 
@@ -14,14 +14,16 @@ float NextFloat(float minInclusive, float maxExclusive);
 
 `minInclusive` [System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')
 
-The inclusive lower bound of the random number returned.
+The inclusive lower bound of the random number to generate.
 
-<a name='BeeneticToolkit.Random.IRandomGenerator.NextFloat(float,float).maxExclusive'></a>
+<a name='BeeneticToolkit.Random.IRandomGenerator.NextFloat(float,float).maxInclusive'></a>
 
-`maxExclusive` [System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')
+`maxInclusive` [System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')
 
-The exclusive upper bound of the random number returned. maxValue must be greater than or equal to minValue.
+The inclusive upper bound of the random number to generate.  
+Must be greater than [minInclusive](IRandomGenerator.NextFloat(float,float).md#BeeneticToolkit.Random.IRandomGenerator.NextFloat(float,float).minInclusive 'BeeneticToolkit.Random.IRandomGenerator.NextFloat(float, float).minInclusive').
 
 #### Returns
 [System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')  
-A random float that is within the range of minValue and maxValue.
+A random float in the range  
+[[minInclusive](IRandomGenerator.NextFloat(float,float).md#BeeneticToolkit.Random.IRandomGenerator.NextFloat(float,float).minInclusive 'BeeneticToolkit.Random.IRandomGenerator.NextFloat(float, float).minInclusive'), [maxInclusive](IRandomGenerator.NextFloat(float,float).md#BeeneticToolkit.Random.IRandomGenerator.NextFloat(float,float).maxInclusive 'BeeneticToolkit.Random.IRandomGenerator.NextFloat(float, float).maxInclusive')].

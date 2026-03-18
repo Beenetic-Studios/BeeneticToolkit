@@ -41,5 +41,8 @@ A randomly selected element from the sequence that does not match the exclusion 
 
 #### Exceptions
 
+[System.ArgumentNullException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentNullException 'System.ArgumentNullException')  
+Thrown when [sequence](RandomSelectors.RandomChoiceWithExclusion_T_(IEnumerable_T_,Func_T,bool_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoiceWithExclusion_T_(System.Collections.Generic.IEnumerable_T_,System.Func_T,bool_,BeeneticToolkit.Random.RandomGenerator).sequence 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoiceWithExclusion<T>(System.Collections.Generic.IEnumerable<T>, System.Func<T,bool>, BeeneticToolkit.Random.RandomGenerator).sequence') or [exclusionPredicate](RandomSelectors.RandomChoiceWithExclusion_T_(IEnumerable_T_,Func_T,bool_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoiceWithExclusion_T_(System.Collections.Generic.IEnumerable_T_,System.Func_T,bool_,BeeneticToolkit.Random.RandomGenerator).exclusionPredicate 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoiceWithExclusion<T>(System.Collections.Generic.IEnumerable<T>, System.Func<T,bool>, BeeneticToolkit.Random.RandomGenerator).exclusionPredicate') is null.
+
 [System.InvalidOperationException](https://docs.microsoft.com/en-us/dotnet/api/System.InvalidOperationException 'System.InvalidOperationException')  
-Thrown when no elements are available after applying the exclusion filter.
+Thrown when no elements remain after applying the exclusion filter.

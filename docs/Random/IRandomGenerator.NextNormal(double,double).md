@@ -3,10 +3,10 @@
 
 ## IRandomGenerator.NextNormal(double, double) Method
 
-Returns a random double that follows a normal distribution with the specified mean and standard deviation.
+Generates a random double from a normal distribution with the specified mean and standard deviation.
 
 ```csharp
-double NextNormal(double mean, double stdDev);
+double NextNormal(double mean, double stDev);
 ```
 #### Parameters
 
@@ -14,13 +14,13 @@ double NextNormal(double mean, double stdDev);
 
 `mean` [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
 
-The mean of the Normal distribution.
+The mean of the normal distribution.
 
-<a name='BeeneticToolkit.Random.IRandomGenerator.NextNormal(double,double).stdDev'></a>
+<a name='BeeneticToolkit.Random.IRandomGenerator.NextNormal(double,double).stDev'></a>
 
-`stdDev` [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
+`stDev` [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')
 
-The standard deviation of the Normal distribution. Must be non-negative.
+The standard deviation of the normal distribution. Must be non-negative.
 
 #### Returns
 [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')  

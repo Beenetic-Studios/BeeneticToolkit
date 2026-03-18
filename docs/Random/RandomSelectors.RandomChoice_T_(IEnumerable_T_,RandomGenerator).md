@@ -32,3 +32,11 @@ The random number generator to use, or null to use the default generator.
 #### Returns
 [T](RandomSelectors.RandomChoice_T_(IEnumerable_T_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoice_T_(System.Collections.Generic.IEnumerable_T_,BeeneticToolkit.Random.RandomGenerator).T 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoice<T>(System.Collections.Generic.IEnumerable<T>, BeeneticToolkit.Random.RandomGenerator).T')  
 A randomly selected element from the sequence.
+
+#### Exceptions
+
+[System.ArgumentNullException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentNullException 'System.ArgumentNullException')  
+Thrown when [sequence](RandomSelectors.RandomChoice_T_(IEnumerable_T_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoice_T_(System.Collections.Generic.IEnumerable_T_,BeeneticToolkit.Random.RandomGenerator).sequence 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoice<T>(System.Collections.Generic.IEnumerable<T>, BeeneticToolkit.Random.RandomGenerator).sequence') is null.
+
+[System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
+Thrown when the converted list is empty.

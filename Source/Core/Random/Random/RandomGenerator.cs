@@ -38,7 +38,6 @@ namespace BeeneticToolkit.Random {
         /// <value>A calculated random double.</value>
         protected virtual double CalculatedNextDouble => (double)Next() / (long.MaxValue - 1);
 
-        ///
         /// <summary>
         /// Initializes a new instance of the random number generator with the specified seed.
         /// </summary>

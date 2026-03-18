@@ -59,10 +59,10 @@ namespace BeeneticToolkit.Random {
         }
 
         /// <summary>
-        /// Creates a random number generator using a specified algorithm and seed.
+        /// Creates a random number generator using the specified algorithm and optional seed.
         /// </summary>
-        /// <param name="seed">The seed for the random number generator.</param>
-        /// <param name="algorithm">The algorithm to be used for random number generation.</param>
+        /// <param name="algorithm">The algorithm to use for random number generation.</param>
+        /// <param name="seed">The optional seed for the random number generator.</param>
         /// <returns>An instance of a random number generator.</returns>
         public static RandomGenerator GetGenerator(RngAlgorithm algorithm, long? seed) {
             return GetNewGenerator(algorithm, seed);

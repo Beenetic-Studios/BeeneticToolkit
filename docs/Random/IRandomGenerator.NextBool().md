@@ -3,7 +3,7 @@
 
 ## IRandomGenerator.NextBool() Method
 
-Returns a random boolean value.
+Generates a random boolean value.
 
 ```csharp
 bool NextBool();

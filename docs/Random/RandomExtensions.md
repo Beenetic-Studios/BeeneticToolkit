@@ -3,7 +3,7 @@
 
 ## RandomExtensions Class
 
-Provides extension methods for randomizing collections, enhancing the standard Random class functionality.
+Provides extension methods for randomizing collections, enhancing the standard RandomGenerator class functionality.
 
 ```csharp
 public static class RandomExtensions

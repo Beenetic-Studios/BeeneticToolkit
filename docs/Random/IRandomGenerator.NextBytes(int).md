@@ -3,7 +3,7 @@
 
 ## IRandomGenerator.NextBytes(int) Method
 
-Generates a random byte array of a specified length.
+Generates a random byte array of the specified length.
 
 ```csharp
 byte[] NextBytes(int length);
@@ -14,7 +14,7 @@ byte[] NextBytes(int length);
 
 `length` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')
 
-The length of the byte array to generate.
+The number of bytes to generate.
 
 #### Returns
 [System.Byte](https://docs.microsoft.com/en-us/dotnet/api/System.Byte 'System.Byte')[[]](https://docs.microsoft.com/en-us/dotnet/api/System.Array 'System.Array')  

@@ -3,7 +3,7 @@
 
 ## IRandomGenerator.NextDouble() Method
 
-Returns a non-negative random double.
+Generates a non-negative random double.
 
 ```csharp
 double NextDouble();

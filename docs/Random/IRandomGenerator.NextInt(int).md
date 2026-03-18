@@ -3,7 +3,7 @@
 
 ## IRandomGenerator.NextInt(int) Method
 
-Returns a non-negative random integer that is less than the specified maximum.
+Generates a non-negative random integer that is less than the specified maximum.
 
 ```csharp
 int NextInt(int maxExclusive);
@@ -14,8 +14,8 @@ int NextInt(int maxExclusive);
 
 `maxExclusive` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')
 
-The exclusive upper bound of the random number to be generated. maxValue must be greater than or equal to 0.
+The exclusive upper bound of the random number to generate. Must be greater than 0.
 
 #### Returns
 [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')  
-A non-negative random integer that is less than maxValue.
+A random integer in the range [0, [maxExclusive](IRandomGenerator.NextInt(int).md#BeeneticToolkit.Random.IRandomGenerator.NextInt(int).maxExclusive 'BeeneticToolkit.Random.IRandomGenerator.NextInt(int).maxExclusive')).
