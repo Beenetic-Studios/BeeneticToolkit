@@ -52,23 +52,32 @@ selecting random elements from collections, and working with various pseudorando
 - **[RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment')** `Class` Represents an isolated collection of random number generators grouped under a single environment.  
     
   [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment') allows related RNG instances to be registered and retrieved  
-              by string key while keeping them scoped to a specific environment.  
+              by either string key or [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey') while keeping them scoped to a specific environment.  
     
   Each environment also exposes a convenience [Current](RngEnvironment.Current.md 'BeeneticToolkit.Random.RngEnvironment.Current') generator,  
   which remains [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null') until the first generator is registered  
-  unless explicitly assigned later through [SetCurrent(string)](RngEnvironment.SetCurrent(string).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(string)').
+  unless explicitly assigned later through [SetCurrent(string)](RngEnvironment.SetCurrent(string).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(string)') or  
+  [SetCurrent(RngKey)](RngEnvironment.SetCurrent(RngKey).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(BeeneticToolkit.Random.RngKey)').
   - **[RngEnvironment(string)](RngEnvironment.RngEnvironment(string).md 'BeeneticToolkit.Random.RngEnvironment.RngEnvironment(string)')** `Constructor` Initializes a new instance of the [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment') class.
   - **[Current](RngEnvironment.Current.md 'BeeneticToolkit.Random.RngEnvironment.Current')** `Property` Gets the current random number generator for this environment.  
       
     This property is assigned to the first generator registered in the environment,  
-    but may be reassigned through [SetCurrent(string)](RngEnvironment.SetCurrent(string).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(string)').
+    but may be reassigned through [SetCurrent(string)](RngEnvironment.SetCurrent(string).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(string)') or [SetCurrent(RngKey)](RngEnvironment.SetCurrent(RngKey).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(BeeneticToolkit.Random.RngKey)').
   - **[Name](RngEnvironment.Name.md 'BeeneticToolkit.Random.RngEnvironment.Name')** `Property` Gets the name of the environment.
+  - **[CreateAndRegister(RngKey, Nullable&lt;long&gt;, RngAlgorithm)](RngEnvironment.CreateAndRegister(RngKey,Nullable_long_,RngAlgorithm).md 'BeeneticToolkit.Random.RngEnvironment.CreateAndRegister(BeeneticToolkit.Random.RngKey, System.Nullable<long>, BeeneticToolkit.Random.RngAlgorithm)')** `Method` Creates a new random number generator, registers it under the specified [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey'),  
+    and returns the created instance.  
+    If a generator was previously registered with the same key, it will be replaced.
   - **[CreateAndRegister(string, Nullable&lt;long&gt;, RngAlgorithm)](RngEnvironment.CreateAndRegister(string,Nullable_long_,RngAlgorithm).md 'BeeneticToolkit.Random.RngEnvironment.CreateAndRegister(string, System.Nullable<long>, BeeneticToolkit.Random.RngAlgorithm)')** `Method` Creates a new random number generator, registers it under the specified key,  
     and returns the created instance.  
     If a generator was previously registered with the same key, it will be replaced.
+  - **[Get(RngKey)](RngEnvironment.Get(RngKey).md 'BeeneticToolkit.Random.RngEnvironment.Get(BeeneticToolkit.Random.RngKey)')** `Method` Retrieves a random number generator previously registered under the specified [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey').
   - **[Get(string)](RngEnvironment.Get(string).md 'BeeneticToolkit.Random.RngEnvironment.Get(string)')** `Method` Retrieves a random number generator previously registered under the specified key.
+  - **[Register(RngKey, RandomGenerator)](RngEnvironment.Register(RngKey,RandomGenerator).md 'BeeneticToolkit.Random.RngEnvironment.Register(BeeneticToolkit.Random.RngKey, BeeneticToolkit.Random.RandomGenerator)')** `Method` Registers a random number generator under a specific [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey').  
+    If a generator was previously registered with the same key, it will be replaced.
   - **[Register(string, RandomGenerator)](RngEnvironment.Register(string,RandomGenerator).md 'BeeneticToolkit.Random.RngEnvironment.Register(string, BeeneticToolkit.Random.RandomGenerator)')** `Method` Registers a random number generator under a specific string key.  
     If a generator was previously registered with the same key, it will be replaced.
+  - **[SetCurrent(RngKey)](RngEnvironment.SetCurrent(RngKey).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(BeeneticToolkit.Random.RngKey)')** `Method` Sets the [Current](RngEnvironment.Current.md 'BeeneticToolkit.Random.RngEnvironment.Current') random number generator to the one  
+    associated with the specified [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey').
   - **[SetCurrent(string)](RngEnvironment.SetCurrent(string).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(string)')** `Method` Sets the [Current](RngEnvironment.Current.md 'BeeneticToolkit.Random.RngEnvironment.Current') random number generator to the one  
     associated with the specified key.
 - **[RngFactory](RngFactory.md 'BeeneticToolkit.Random.RngFactory')** `Class` Provides factory methods for creating random number generators based on different algorithms.
@@ -106,6 +115,19 @@ selecting random elements from collections, and working with various pseudorando
     associated with the specified [RngRole](RngRole.md 'BeeneticToolkit.Random.RngRole').
   - **[SetCurrent(string)](RngManager.SetCurrent(string).md 'BeeneticToolkit.Random.RngManager.SetCurrent(string)')** `Method` Sets the [Current](RngManager.Current.md 'BeeneticToolkit.Random.RngManager.Current') random number generator to the one  
     associated with the specified custom string key.
+- **[RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey')** `Struct` Represents a strongly typed key used to identify a random number generator  
+  within an [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment').
+  - **[RngKey(string)](RngKey.RngKey(string).md 'BeeneticToolkit.Random.RngKey.RngKey(string)')** `Constructor` Initializes a new instance of the [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey') struct.
+  - **[IsEmpty](RngKey.IsEmpty.md 'BeeneticToolkit.Random.RngKey.IsEmpty')** `Property` Gets a value indicating whether this key is uninitialized or empty.
+  - **[Value](RngKey.Value.md 'BeeneticToolkit.Random.RngKey.Value')** `Property` Gets the underlying string value of the key.
+  - **[Equals(RngKey)](RngKey.Equals(RngKey).md 'BeeneticToolkit.Random.RngKey.Equals(BeeneticToolkit.Random.RngKey)')** `Method` Determines whether the current key is equal to another [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey').
+  - **[Equals(object)](RngKey.Equals(object).md 'BeeneticToolkit.Random.RngKey.Equals(object)')** `Method` Determines whether the current key is equal to the specified object.
+  - **[GetHashCode()](RngKey.GetHashCode().md 'BeeneticToolkit.Random.RngKey.GetHashCode()')** `Method` Returns the hash code for this key.
+  - **[ToString()](RngKey.ToString().md 'BeeneticToolkit.Random.RngKey.ToString()')** `Method` Returns the string representation of the key.
+  - **[operator ==(RngKey, RngKey)](RngKey.operator(RngKey,RngKey).md 'BeeneticToolkit.Random.RngKey.op_Equality(BeeneticToolkit.Random.RngKey, BeeneticToolkit.Random.RngKey)')** `Operator` Determines whether two [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey') values are equal.
+  - **[explicit operator RngKey(string)](RngKey.explicitoperatorRngKey(string).md 'BeeneticToolkit.Random.RngKey.op_Explicit BeeneticToolkit.Random.RngKey(string)')** `Operator` Converts a string value to an [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey').
+  - **[implicit operator string(RngKey)](RngKey.implicitoperatorstring(RngKey).md 'BeeneticToolkit.Random.RngKey.op_Implicit string(BeeneticToolkit.Random.RngKey)')** `Operator` Converts an [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey') to its underlying string value.
+  - **[operator !=(RngKey, RngKey)](RngKey.operator!(RngKey,RngKey).md 'BeeneticToolkit.Random.RngKey.op_Inequality(BeeneticToolkit.Random.RngKey, BeeneticToolkit.Random.RngKey)')** `Operator` Determines whether two [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey') values are not equal.
 - **[IRandomGenerator](IRandomGenerator.md 'BeeneticToolkit.Random.IRandomGenerator')** `Interface` Defines the contract for random number generators that can produce values  
   across multiple primitive types and distributions.
   - **[NextBool()](IRandomGenerator.NextBool().md 'BeeneticToolkit.Random.IRandomGenerator.NextBool()')** `Method` Generates a random boolean value.
