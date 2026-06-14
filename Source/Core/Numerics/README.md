@@ -1,0 +1,43 @@
+# BeeneticToolkit.Numerics
+
+Small, allocation-free numeric helpers — a `Mathf`-style companion for plain .NET (and Unity).
+
+Targets `netstandard2.1`. Most methods come in `float`/`double` (and `decimal` where it makes sense).
+
+## Install
+
+```sh
+dotnet add package BeeneticToolkit.Numerics
+```
+
+## Highlights
+
+```csharp
+using BeeneticToolkit.Numerics;
+
+// Interpolation
+float y  = InterpolationUtils.Lerp(0, 100, t);              // clamped to [0,1]
+float ye = InterpolationUtils.SmoothStep(0, 100, t);        // Hermite easing
+float yx = InterpolationUtils.LerpUnclamped(0, 100, 1.5f);  // extrapolates
+
+// Remap a value from one range to another (e.g. raw reading -> percentage)
+float pct = InterpolationUtils.Remap(reading, 0, 1023, 0, 100);
+
+// Normalize / clamp
+float hp01 = NumericalUtils.Normalize(hp, 0, maxHp);        // -> [0, 1]
+float c    = NumericalUtils.Clamp01(value);
+
+// Angles
+float radians = AngleUtils.ToRadians(90f);
+float wrapped = AngleUtils.WrapDegrees(370f);              // -> 10
+
+// Magnitude-aware float comparison (absolute comparison fails for large values)
+bool equal = NumericalUtils.IsApproximatelyRelative(1e9, 1e9 + 50, 1e-6); // true
+```
+
+Also includes `RoundingUtils` (`RoundToNearest`, floored `Wrap`) and
+`IntegralMappingExtensions` for signed/unsigned integral mapping.
+
+## License
+
+Licensed under the MIT License.
