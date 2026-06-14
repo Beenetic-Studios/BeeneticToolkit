@@ -104,8 +104,8 @@ namespace BeeneticToolkit.Tests.Collections.Enums {
         [TestMethod]
         public void CompareTo_Null_ReturnsPositive() {
             var a = new Item("a", "N", "S");
-            Assert.IsTrue(a.CompareTo((EnumItem<string, TestEnumGroup>?)null) > 0);
-            Assert.IsTrue(a.CompareTo((object?)null) > 0);
+            Assert.IsTrue(a.CompareTo((EnumItem<string, TestEnumGroup>)null) > 0);
+            Assert.IsTrue(a.CompareTo((object)null) > 0);
         }
 
         [TestMethod]

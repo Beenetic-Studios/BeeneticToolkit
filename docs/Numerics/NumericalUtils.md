@@ -11,6 +11,15 @@ public static class NumericalUtils
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; NumericalUtils
 
+### Remarks
+  
+[IsApproximately(float, float, float)](NumericalUtils.IsApproximately(float,float,float).md 'BeeneticToolkit.Numerics.NumericalUtils.IsApproximately(float, float, float)') uses an <em>absolute</em> tolerance, which is only  
+            appropriate when the compared magnitudes are known and small. For values that vary in scale, prefer  
+            [IsApproximatelyRelative(float, float, float)](NumericalUtils.IsApproximatelyRelative(float,float,float).md 'BeeneticToolkit.Numerics.NumericalUtils.IsApproximatelyRelative(float, float, float)'), whose tolerance scales with magnitude.  
+  
+Except where documented, non-finite inputs ([System.Single.NaN](https://docs.microsoft.com/en-us/dotnet/api/System.Single.NaN 'System.Single.NaN'), infinities) are not specially  
+handled by the clamp/normalize methods and propagate through the result.
+
 | Methods | |
 | :--- | :--- |
 | [Clamp01(decimal)](NumericalUtils.Clamp01(decimal).md 'BeeneticToolkit.Numerics.NumericalUtils.Clamp01(decimal)') | Clamps a decimal value to ensure it falls within the range of 0 to 1. |
@@ -22,6 +31,9 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 | [IsApproximately(decimal, decimal, decimal)](NumericalUtils.IsApproximately(decimal,decimal,decimal).md 'BeeneticToolkit.Numerics.NumericalUtils.IsApproximately(decimal, decimal, decimal)') | Determines if two decimal values are approximately equal within a tolerance. |
 | [IsApproximately(double, double, double)](NumericalUtils.IsApproximately(double,double,double).md 'BeeneticToolkit.Numerics.NumericalUtils.IsApproximately(double, double, double)') | Determines if two double values are approximately equal within a tolerance. |
 | [IsApproximately(float, float, float)](NumericalUtils.IsApproximately(float,float,float).md 'BeeneticToolkit.Numerics.NumericalUtils.IsApproximately(float, float, float)') | Determines if two float values are approximately equal within a tolerance. |
+| [IsApproximatelyRelative(decimal, decimal, decimal)](NumericalUtils.IsApproximatelyRelative(decimal,decimal,decimal).md 'BeeneticToolkit.Numerics.NumericalUtils.IsApproximatelyRelative(decimal, decimal, decimal)') | Determines whether two decimal values are approximately equal using a tolerance scaled to their magnitude. |
+| [IsApproximatelyRelative(double, double, double)](NumericalUtils.IsApproximatelyRelative(double,double,double).md 'BeeneticToolkit.Numerics.NumericalUtils.IsApproximatelyRelative(double, double, double)') | Determines whether two double values are approximately equal using a tolerance scaled to their magnitude. |
+| [IsApproximatelyRelative(float, float, float)](NumericalUtils.IsApproximatelyRelative(float,float,float).md 'BeeneticToolkit.Numerics.NumericalUtils.IsApproximatelyRelative(float, float, float)') | Determines whether two float values are approximately equal using a tolerance scaled to their magnitude. |
 | [Normalize(decimal, decimal, decimal)](NumericalUtils.Normalize(decimal,decimal,decimal).md 'BeeneticToolkit.Numerics.NumericalUtils.Normalize(decimal, decimal, decimal)') | Normalizes a decimal value to a range defined by a minimum and maximum. |
 | [Normalize(double, double, double)](NumericalUtils.Normalize(double,double,double).md 'BeeneticToolkit.Numerics.NumericalUtils.Normalize(double, double, double)') | Normalizes a double value to a range defined by a minimum and maximum. |
 | [Normalize(float, float, float)](NumericalUtils.Normalize(float,float,float).md 'BeeneticToolkit.Numerics.NumericalUtils.Normalize(float, float, float)') | Normalizes a float value to a range defined by a minimum and maximum. |

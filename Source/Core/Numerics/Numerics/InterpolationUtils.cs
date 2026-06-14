@@ -3,8 +3,13 @@
 namespace BeeneticToolkit.Numerics {
 
     /// <summary>
-    /// Provides methods for interpolation, including linear interpolation (Lerp) and quadratic Bezier interpolation (Qerp).
+    /// Provides methods for interpolation, including linear interpolation (Lerp), quadratic Bezier
+    /// interpolation (Qerp), range remapping, and smooth (Hermite) easing.
     /// </summary>
+    /// <remarks>
+    /// Unless a method documents otherwise, non-finite inputs (<see cref="float.NaN"/>,
+    /// <see cref="float.PositiveInfinity"/>, etc.) are not specially handled and propagate through the result.
+    /// </remarks>
     public static class InterpolationUtils {
 
         #region Interpolation
@@ -136,5 +141,113 @@ namespace BeeneticToolkit.Numerics {
         }
 
         #endregion Interpolation
+
+        #region Unclamped Interpolation
+
+        /// <summary>Performs linear interpolation between two values without clamping the factor, allowing extrapolation.</summary>
+        /// <param name="start">The start value.</param>
+        /// <param name="end">The end value.</param>
+        /// <param name="factor">The interpolation factor. Values outside [0, 1] extrapolate beyond the endpoints.</param>
+        /// <returns>The (possibly extrapolated) interpolated value.</returns>
+        public static float LerpUnclamped(float start, float end, float factor) => start + (end - start) * factor;
+
+        /// <inheritdoc cref="LerpUnclamped(float, float, float)"/>
+        public static double LerpUnclamped(double start, double end, double factor) => start + (end - start) * factor;
+
+        /// <inheritdoc cref="LerpUnclamped(float, float, float)"/>
+        public static decimal LerpUnclamped(decimal start, decimal end, decimal factor) => start + (end - start) * factor;
+
+        #endregion Unclamped Interpolation
+
+        #region Remap
+
+        /// <summary>Remaps a value from one range to another (linear, unclamped).</summary>
+        /// <param name="value">The value to remap.</param>
+        /// <param name="fromMin">The lower bound of the source range.</param>
+        /// <param name="fromMax">The upper bound of the source range.</param>
+        /// <param name="toMin">The lower bound of the destination range.</param>
+        /// <param name="toMax">The upper bound of the destination range.</param>
+        /// <returns>The value mapped into the destination range. Inputs outside the source range extrapolate.</returns>
+        /// <exception cref="DivideByZeroException">Thrown when <paramref name="fromMin"/> equals <paramref name="fromMax"/>.</exception>
+        public static float Remap(float value, float fromMin, float fromMax, float toMin, float toMax) {
+            if (fromMin == fromMax)
+                throw new DivideByZeroException("Source range cannot be zero (fromMin and fromMax are equal).");
+
+            return toMin + (value - fromMin) * (toMax - toMin) / (fromMax - fromMin);
+        }
+
+        /// <inheritdoc cref="Remap(float, float, float, float, float)"/>
+        public static double Remap(double value, double fromMin, double fromMax, double toMin, double toMax) {
+            if (fromMin == fromMax)
+                throw new DivideByZeroException("Source range cannot be zero (fromMin and fromMax are equal).");
+
+            return toMin + (value - fromMin) * (toMax - toMin) / (fromMax - fromMin);
+        }
+
+        /// <inheritdoc cref="Remap(float, float, float, float, float)"/>
+        public static decimal Remap(decimal value, decimal fromMin, decimal fromMax, decimal toMin, decimal toMax) {
+            if (fromMin == fromMax)
+                throw new DivideByZeroException("Source range cannot be zero (fromMin and fromMax are equal).");
+
+            return toMin + (value - fromMin) * (toMax - toMin) / (fromMax - fromMin);
+        }
+
+        /// <summary>Remaps a value from one range to another, clamping the result to the destination range.</summary>
+        /// <param name="value">The value to remap.</param>
+        /// <param name="fromMin">The lower bound of the source range.</param>
+        /// <param name="fromMax">The upper bound of the source range.</param>
+        /// <param name="toMin">The lower bound of the destination range.</param>
+        /// <param name="toMax">The upper bound of the destination range.</param>
+        /// <returns>The value mapped into the destination range, clamped so it never leaves [<paramref name="toMin"/>, <paramref name="toMax"/>].</returns>
+        /// <exception cref="DivideByZeroException">Thrown when <paramref name="fromMin"/> equals <paramref name="fromMax"/>.</exception>
+        public static float RemapClamped(float value, float fromMin, float fromMax, float toMin, float toMax) {
+            if (fromMin == fromMax)
+                throw new DivideByZeroException("Source range cannot be zero (fromMin and fromMax are equal).");
+
+            float t = NumericalUtils.Clamp01((value - fromMin) / (fromMax - fromMin));
+            return toMin + (toMax - toMin) * t;
+        }
+
+        /// <inheritdoc cref="RemapClamped(float, float, float, float, float)"/>
+        public static double RemapClamped(double value, double fromMin, double fromMax, double toMin, double toMax) {
+            if (fromMin == fromMax)
+                throw new DivideByZeroException("Source range cannot be zero (fromMin and fromMax are equal).");
+
+            double t = NumericalUtils.Clamp01((value - fromMin) / (fromMax - fromMin));
+            return toMin + (toMax - toMin) * t;
+        }
+
+        /// <inheritdoc cref="RemapClamped(float, float, float, float, float)"/>
+        public static decimal RemapClamped(decimal value, decimal fromMin, decimal fromMax, decimal toMin, decimal toMax) {
+            if (fromMin == fromMax)
+                throw new DivideByZeroException("Source range cannot be zero (fromMin and fromMax are equal).");
+
+            decimal t = NumericalUtils.Clamp01((value - fromMin) / (fromMax - fromMin));
+            return toMin + (toMax - toMin) * t;
+        }
+
+        #endregion Remap
+
+        #region SmoothStep
+
+        /// <summary>Interpolates between two values with smooth (Hermite) easing, clamping the factor to [0, 1].</summary>
+        /// <param name="from">The start value (returned when <paramref name="t"/> is 0 or less).</param>
+        /// <param name="to">The end value (returned when <paramref name="t"/> is 1 or more).</param>
+        /// <param name="t">The interpolation factor. Clamped to [0, 1] before easing.</param>
+        /// <returns>The eased value between <paramref name="from"/> and <paramref name="to"/>.</returns>
+        public static float SmoothStep(float from, float to, float t) {
+            t = NumericalUtils.Clamp01(t);
+            t = t * t * (3f - 2f * t);
+            return from + (to - from) * t;
+        }
+
+        /// <inheritdoc cref="SmoothStep(float, float, float)"/>
+        public static double SmoothStep(double from, double to, double t) {
+            t = NumericalUtils.Clamp01(t);
+            t = t * t * (3d - 2d * t);
+            return from + (to - from) * t;
+        }
+
+        #endregion SmoothStep
     }
 }

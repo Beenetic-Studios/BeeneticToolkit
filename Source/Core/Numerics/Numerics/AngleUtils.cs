@@ -7,6 +7,16 @@ namespace BeeneticToolkit.Numerics {
     /// </summary>
     public static class AngleUtils {
 
+        #region Constants
+
+        /// <summary>Multiplier that converts degrees to radians (π / 180).</summary>
+        public const float Deg2Rad = MathF.PI / 180f;
+
+        /// <summary>Multiplier that converts radians to degrees (180 / π).</summary>
+        public const float Rad2Deg = 180f / MathF.PI;
+
+        #endregion Constants
+
         #region Angle
 
         /// <summary>
@@ -15,7 +25,7 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="degrees">The angle in degrees.</param>
         /// <returns>The angle in radians.</returns>
         public static float ToRadians(float degrees) {
-            return degrees * (float)Math.PI / 180.0f;
+            return degrees * Deg2Rad;
         }
 
         /// <summary>
@@ -42,7 +52,7 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="radians">The angle in radians.</param>
         /// <returns>The angle in degrees.</returns>
         public static float ToDegrees(float radians) {
-            return radians * 180.0f / (float)Math.PI;
+            return radians * Rad2Deg;
         }
 
         /// <summary>
@@ -64,5 +74,25 @@ namespace BeeneticToolkit.Numerics {
         }
 
         #endregion Angle
+
+        #region Wrapping
+
+        /// <summary>Wraps an angle in degrees to the half-open range [-180, 180).</summary>
+        /// <param name="degrees">The angle in degrees.</param>
+        /// <returns>The equivalent angle in the range [-180, 180).</returns>
+        public static float WrapDegrees(float degrees) => RoundingUtils.Wrap(degrees, -180f, 180f);
+
+        /// <inheritdoc cref="WrapDegrees(float)"/>
+        public static double WrapDegrees(double degrees) => RoundingUtils.Wrap(degrees, -180d, 180d);
+
+        /// <summary>Wraps an angle in radians to the half-open range [-π, π).</summary>
+        /// <param name="radians">The angle in radians.</param>
+        /// <returns>The equivalent angle in the range [-π, π).</returns>
+        public static float WrapRadians(float radians) => RoundingUtils.Wrap(radians, -MathF.PI, MathF.PI);
+
+        /// <inheritdoc cref="WrapRadians(float)"/>
+        public static double WrapRadians(double radians) => RoundingUtils.Wrap(radians, -Math.PI, Math.PI);
+
+        #endregion Wrapping
     }
 }

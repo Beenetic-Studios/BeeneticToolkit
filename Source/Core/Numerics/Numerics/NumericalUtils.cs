@@ -5,6 +5,17 @@ namespace BeeneticToolkit.Numerics {
     /// <summary>
     /// Provides utility methods for common numerical operations, including clamping, normalization, and approximate comparisons.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// <see cref="IsApproximately(float, float, float)"/> uses an <em>absolute</em> tolerance, which is only
+    /// appropriate when the compared magnitudes are known and small. For values that vary in scale, prefer
+    /// <see cref="IsApproximatelyRelative(float, float, float)"/>, whose tolerance scales with magnitude.
+    /// </para>
+    /// <para>
+    /// Except where documented, non-finite inputs (<see cref="float.NaN"/>, infinities) are not specially
+    /// handled by the clamp/normalize methods and propagate through the result.
+    /// </para>
+    /// </remarks>
     public static class NumericalUtils {
 
         #region Clamp
@@ -222,6 +233,61 @@ namespace BeeneticToolkit.Numerics {
         /// <returns>True if the values are approximately equal; otherwise, false.</returns>
         public static bool IsApproximately(decimal value, decimal other, decimal tolerance = 0.0001m) {
             return Math.Abs(value - other) < tolerance;
+        }
+
+        /// <summary>
+        /// Determines whether two float values are approximately equal using a tolerance scaled to their magnitude.
+        /// </summary>
+        /// <param name="value">The first value to compare.</param>
+        /// <param name="other">The second value to compare.</param>
+        /// <param name="relativeTolerance">The relative tolerance (fraction of the larger magnitude).</param>
+        /// <returns>
+        /// <c>true</c> if the values are approximately equal; otherwise <c>false</c>. Equal infinities return
+        /// <c>true</c>; <see cref="float.NaN"/> and mismatched non-finite values return <c>false</c>.
+        /// </returns>
+        public static bool IsApproximatelyRelative(float value, float other, float relativeTolerance = 1e-6f) {
+            if (value == other)
+                return true;
+            if (float.IsNaN(value) || float.IsNaN(other) || float.IsInfinity(value) || float.IsInfinity(other))
+                return false;
+
+            float scale = Math.Max(Math.Abs(value), Math.Abs(other));
+            return Math.Abs(value - other) <= relativeTolerance * scale;
+        }
+
+        /// <summary>
+        /// Determines whether two double values are approximately equal using a tolerance scaled to their magnitude.
+        /// </summary>
+        /// <param name="value">The first value to compare.</param>
+        /// <param name="other">The second value to compare.</param>
+        /// <param name="relativeTolerance">The relative tolerance (fraction of the larger magnitude).</param>
+        /// <returns>
+        /// <c>true</c> if the values are approximately equal; otherwise <c>false</c>. Equal infinities return
+        /// <c>true</c>; <see cref="double.NaN"/> and mismatched non-finite values return <c>false</c>.
+        /// </returns>
+        public static bool IsApproximatelyRelative(double value, double other, double relativeTolerance = 1e-12) {
+            if (value == other)
+                return true;
+            if (double.IsNaN(value) || double.IsNaN(other) || double.IsInfinity(value) || double.IsInfinity(other))
+                return false;
+
+            double scale = Math.Max(Math.Abs(value), Math.Abs(other));
+            return Math.Abs(value - other) <= relativeTolerance * scale;
+        }
+
+        /// <summary>
+        /// Determines whether two decimal values are approximately equal using a tolerance scaled to their magnitude.
+        /// </summary>
+        /// <param name="value">The first value to compare.</param>
+        /// <param name="other">The second value to compare.</param>
+        /// <param name="relativeTolerance">The relative tolerance (fraction of the larger magnitude).</param>
+        /// <returns><c>true</c> if the values are approximately equal; otherwise <c>false</c>.</returns>
+        public static bool IsApproximatelyRelative(decimal value, decimal other, decimal relativeTolerance = 0.000001m) {
+            if (value == other)
+                return true;
+
+            decimal scale = Math.Max(Math.Abs(value), Math.Abs(other));
+            return Math.Abs(value - other) <= relativeTolerance * scale;
         }
 
         #endregion Is Approximately
