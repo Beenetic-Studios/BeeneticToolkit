@@ -17,14 +17,6 @@ namespace BeeneticToolkit.Collections.Enums.Metadata {
         /// <param name="innerException">The exception that caused the current exception.</param>
         public MetadataValidationException(string message, Exception innerException) : base(message, innerException) { }
 
-        /// <summary>Initializes a new instance of the <see cref="MetadataValidationException"/> class with serialized data.</summary>
-        /// <param name="info">The serialization info.</param>
-        /// <param name="context">The streaming context.</param>
-        protected MetadataValidationException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context
-        ) : base(info, context) { }
-
         /// <summary>Gets or sets additional information about the validation failure.</summary>
         public string? ValidationDetails { get; set; }
     }

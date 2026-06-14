@@ -68,6 +68,23 @@ namespace BeeneticToolkit.Collections.ObjectPooling {
         public abstract T Get();
 
         /// <summary>
+        /// Rents an object from the pool and returns a scope that returns it when disposed.
+        /// </summary>
+        /// <param name="obj">The rented object.</param>
+        /// <returns>A disposable scope; disposing it returns <paramref name="obj"/> to the pool.</returns>
+        /// <example>
+        /// <code>
+        /// using (pool.Rent(out var buffer)) {
+        ///     // use buffer ...
+        /// } // buffer is automatically returned here
+        /// </code>
+        /// </example>
+        public PooledObjectScope<T> Rent(out T obj) {
+            obj = Get();
+            return new PooledObjectScope<T>(this, obj);
+        }
+
+        /// <summary>
         /// Returns an object to the pool.
         /// </summary>
         /// <param name="obj">The object to return to the pool.</param>

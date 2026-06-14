@@ -53,6 +53,20 @@ namespace BeeneticToolkit.Tests.Collections.ObjectPooling {
         }
 
         [TestMethod]
+        public void RentReturnsObjectToPoolOnDispose() {
+            var pool = new StackObjectPool<StringBuilder>(new StringBuilderPolicy(), initialCapacity: 1);
+
+            Assert.AreEqual(1, pool.Count);
+            using (var scope = pool.Rent(out var rented)) {
+                Assert.IsNotNull(rented);
+                Assert.AreSame(rented, scope.Value);
+                Assert.AreEqual(0, pool.Count, "Rented object should be taken out of the pool.");
+            }
+
+            Assert.AreEqual(1, pool.Count, "Disposing the scope should return the object to the pool.");
+        }
+
+        [TestMethod]
         public void RespectMaxSizeTest() {
             var pool = new StackObjectPool<StringBuilder>(new StringBuilderPolicy(), maxSize: 1);
             var sb1 = new StringBuilder("One");

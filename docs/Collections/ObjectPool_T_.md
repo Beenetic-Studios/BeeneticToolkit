@@ -41,4 +41,5 @@ Derived
 | :--- | :--- |
 | [Clear()](ObjectPool_T_.Clear().md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.Clear()') | Clears all objects from the pool. |
 | [Get()](ObjectPool_T_.Get().md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.Get()') | Retrieves an object from the pool. |
+| [Rent(T)](ObjectPool_T_.Rent(T).md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.Rent(T)') | Rents an object from the pool and returns a scope that returns it when disposed. |
 | [Return(T)](ObjectPool_T_.Return(T).md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>.Return(T)') | Returns an object to the pool. |

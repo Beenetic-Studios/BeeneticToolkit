@@ -161,7 +161,7 @@ namespace BeeneticToolkit.Collections.Enums {
                 result = result.Where(item => item.IsActive == isActive.Value);
             }
 
-            return result;
+            return result.ToList();
         }
 
         /// <summary>Searches the collection for items whose selected property matches the specified search term, optionally filtered by active state.</summary>
@@ -199,7 +199,7 @@ namespace BeeneticToolkit.Collections.Enums {
                 result = result.Where(item => item.IsActive == isActive.Value);
             }
 
-            return result;
+            return result.ToList();
         }
 
         #endregion Collection Management

@@ -122,5 +122,30 @@ namespace BeeneticToolkit.Tests.Collections.Enums {
         }
 
         #endregion EnumItem generic IEquatable / IComparable
+
+        #region Snapshot results
+
+        [TestMethod]
+        public void GetByGroup_ReturnsSnapshot_SafeToEnumerateAfterModification() {
+            var c = Make();
+            var result = c.GetByGroup(null);
+
+            c.Add(new Item("k3", "Charlie", "C")); // modify after obtaining the result
+
+            // Materialized snapshot: enumeration must not throw "collection modified" and reflects pre-add state.
+            Assert.AreEqual(2, result.Count());
+        }
+
+        [TestMethod]
+        public void Search_ReturnsSnapshot_SafeToEnumerateAfterModification() {
+            var c = Make();
+            var result = c.Search(i => i.Name, "a"); // matches Alpha and Bravo (case-insensitive)
+
+            c.Add(new Item("k3", "Charlie", "C"));
+
+            Assert.AreEqual(2, result.Count());
+        }
+
+        #endregion Snapshot results
     }
 }
