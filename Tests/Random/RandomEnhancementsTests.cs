@@ -15,7 +15,7 @@ namespace BeeneticToolkit.Tests.Random {
         private enum Direction { North, East, South, West }
 
         private static RandomGenerator NewGen(long seed = Seed) =>
-            RngFactory.GetGenerator(RngAlgorithm.Xorshift, seed);
+            RandomFactory.GetGenerator(RandomAlgorithm.Xorshift, seed);
 
         #region NextEnum
 
@@ -267,8 +267,8 @@ namespace BeeneticToolkit.Tests.Random {
         #region TryGet
 
         [TestMethod]
-        public void RngEnvironment_TryGet_ReturnsRegisteredGenerator() {
-            var env = new RngEnvironment("test");
+        public void RandomEnvironment_TryGet_ReturnsRegisteredGenerator() {
+            var env = new RandomEnvironment("test");
             var gen = env.CreateAndRegister("primary");
 
             Assert.IsTrue(env.TryGet("primary", out var found));
@@ -276,8 +276,8 @@ namespace BeeneticToolkit.Tests.Random {
         }
 
         [TestMethod]
-        public void RngEnvironment_TryGet_ReturnsFalseForMissingKey() {
-            var env = new RngEnvironment("test");
+        public void RandomEnvironment_TryGet_ReturnsFalseForMissingKey() {
+            var env = new RandomEnvironment("test");
 
             Assert.IsFalse(env.TryGet("missing", out var found));
             Assert.IsNull(found);
@@ -289,8 +289,8 @@ namespace BeeneticToolkit.Tests.Random {
 
         [TestMethod]
         public void RootSeed_SameRootAndKey_ProducesIdenticalSequences() {
-            var a = new RngEnvironment("a", rootSeed: 12345);
-            var b = new RngEnvironment("b", rootSeed: 12345);
+            var a = new RandomEnvironment("a", rootSeed: 12345);
+            var b = new RandomEnvironment("b", rootSeed: 12345);
 
             var genA = a.CreateAndRegister("player");
             var genB = b.CreateAndRegister("player");
@@ -301,7 +301,7 @@ namespace BeeneticToolkit.Tests.Random {
 
         [TestMethod]
         public void RootSeed_DifferentKeys_ProduceDifferentSequences() {
-            var env = new RngEnvironment("env", rootSeed: 12345);
+            var env = new RandomEnvironment("env", rootSeed: 12345);
 
             var player = env.CreateAndRegister("player");
             var enemy = env.CreateAndRegister("enemy");
@@ -315,9 +315,9 @@ namespace BeeneticToolkit.Tests.Random {
 
         [TestMethod]
         public void RootSeed_ExplicitSeedOverridesDerivation() {
-            var env = new RngEnvironment("env", rootSeed: 12345);
+            var env = new RandomEnvironment("env", rootSeed: 12345);
             var explicitly = env.CreateAndRegister("x", seed: 999);
-            var reference = RngFactory.GetGenerator(RngAlgorithm.Xoshiro256, 999);
+            var reference = RandomFactory.GetGenerator(RandomAlgorithm.Xoshiro256, 999);
 
             for (int i = 0; i < 20; i++)
                 Assert.AreEqual(reference.NextInt(), explicitly.NextInt());
@@ -325,8 +325,8 @@ namespace BeeneticToolkit.Tests.Random {
 
         [TestMethod]
         public void RootSeed_NullByDefault() {
-            Assert.IsNull(new RngEnvironment("env").RootSeed);
-            Assert.AreEqual(7L, new RngEnvironment("env", 7).RootSeed);
+            Assert.IsNull(new RandomEnvironment("env").RootSeed);
+            Assert.AreEqual(7L, new RandomEnvironment("env", 7).RootSeed);
         }
 
         #endregion Environment root seed

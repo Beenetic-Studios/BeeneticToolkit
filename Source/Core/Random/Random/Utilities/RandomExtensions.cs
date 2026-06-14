@@ -37,7 +37,7 @@ namespace BeeneticToolkit.Random.Utilities {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
 
             for (int i = list.Count - 1; i > 0; i--) {
                 int swapIndex = random.NextInt(i + 1);

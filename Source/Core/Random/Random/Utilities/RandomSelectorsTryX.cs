@@ -22,7 +22,7 @@ namespace BeeneticToolkit.Random.Utilities {
                 return false;
             }
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
             result = list[random.NextInt(list.Count)];
             return true;
         }
@@ -64,7 +64,7 @@ namespace BeeneticToolkit.Random.Utilities {
                 return false;
             }
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
             var filteredList = list.Where(item => !exclusionPredicate(item)).ToList();
 
             if (filteredList.Count == 0) {
@@ -114,7 +114,7 @@ namespace BeeneticToolkit.Random.Utilities {
                 return false;
             }
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
 
             List<T> shuffledList = new List<T>(list);
             for (int i = 0; i < subsetSize; i++) {
@@ -170,7 +170,7 @@ namespace BeeneticToolkit.Random.Utilities {
                 return false;
             }
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
             double itemWeightIndex = random.NextDouble() * totalWeight;
             double currentWeightIndex = 0;
 
@@ -225,7 +225,7 @@ namespace BeeneticToolkit.Random.Utilities {
                 return false;
             }
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
             double itemWeightIndex = random.NextDouble() * totalWeight;
             double currentWeightIndex = 0;
 

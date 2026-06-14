@@ -9,7 +9,7 @@ namespace BeeneticToolkit.Tests.Random {
     public class Xoshiro256Tests : RNGTestsBase {
 
         protected override RandomGenerator InitRngBase() {
-            return RngFactory.GetGenerator(RngAlgorithm.Xoshiro256, FixedSeed);
+            return RandomFactory.GetGenerator(RandomAlgorithm.Xoshiro256, FixedSeed);
         }
     }
 
@@ -17,7 +17,7 @@ namespace BeeneticToolkit.Tests.Random {
     public class XorshiftTests : RNGTestsBase {
 
         protected override RandomGenerator InitRngBase() {
-            return RngFactory.GetGenerator(RngAlgorithm.Xorshift, FixedSeed);
+            return RandomFactory.GetGenerator(RandomAlgorithm.Xorshift, FixedSeed);
         }
     }
 
@@ -25,7 +25,7 @@ namespace BeeneticToolkit.Tests.Random {
     public class CombinedLCGTests : RNGTestsBase {
 
         protected override RandomGenerator InitRngBase() {
-            return RngFactory.GetGenerator(RngAlgorithm.CombinedLCG, FixedSeed);
+            return RandomFactory.GetGenerator(RandomAlgorithm.CombinedLCG, FixedSeed);
         }
     }
 
@@ -33,7 +33,7 @@ namespace BeeneticToolkit.Tests.Random {
     public class MiddleSquareTests : RNGTestsBase {
 
         protected override RandomGenerator InitRngBase() {
-            return RngFactory.GetGenerator(RngAlgorithm.MiddleSquare, FixedSeed);
+            return RandomFactory.GetGenerator(RandomAlgorithm.MiddleSquare, FixedSeed);
         }
     }
 }

@@ -17,8 +17,8 @@ Implements [IRandomGenerator](IRandomGenerator.md 'BeeneticToolkit.Random.IRando
 
 ### Remarks
 Instances are <b>not</b> thread-safe: each call advances mutable internal state. Use a separate  
-generator per thread, or a per-scope [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment') registration, rather than sharing  
-a single instance across threads. The registry types ([RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment'), [RngManager](RngManager.md 'BeeneticToolkit.Random.RngManager'))  
+generator per thread, or a per-scope [RandomEnvironment](RandomEnvironment.md 'BeeneticToolkit.Random.RandomEnvironment') registration, rather than sharing  
+a single instance across threads. The registry types ([RandomEnvironment](RandomEnvironment.md 'BeeneticToolkit.Random.RandomEnvironment'), [RandomManager](RandomManager.md 'BeeneticToolkit.Random.RandomManager'))  
 are themselves safe for concurrent registration and lookup.
 
 | Constructors | |

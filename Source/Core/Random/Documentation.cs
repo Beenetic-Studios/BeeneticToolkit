@@ -11,8 +11,8 @@
         /// <list type="bullet">
         /// <item><description><see cref="IRandomGenerator"/> - Defines an interface for random number generation.</description></item>
         /// <item><description><see cref="RandomGenerator"/> - Serves as the base class for random number generators.</description></item>
-        /// <item><description><see cref="RngFactory"/> - Provides factory methods for creating random number generators.</description></item>
-        /// <item><description><see cref="RngManager"/> - Manages a global instance of a random number generator.</description></item>
+        /// <item><description><see cref="RandomFactory"/> - Provides factory methods for creating random number generators.</description></item>
+        /// <item><description><see cref="RandomManager"/> - Manages a global instance of a random number generator.</description></item>
         /// <item><description><see cref="Utilities.RandomExtensions"/> - Contains extension methods for randomizing collections.</description></item>
         /// <item><description><see cref="Utilities.RandomSelectors"/> - Provides methods for randomly selecting elements from collections.</description></item>
         /// <item><description><see cref="Generators.CombinedLCG"/> - Implements a Combined Linear Congruential Generator for pseudorandom number generation.</description></item>

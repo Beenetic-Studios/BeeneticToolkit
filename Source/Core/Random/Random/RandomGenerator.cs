@@ -11,8 +11,8 @@ namespace BeeneticToolkit.Random {
     /// </summary>
     /// <remarks>
     /// Instances are <b>not</b> thread-safe: each call advances mutable internal state. Use a separate
-    /// generator per thread, or a per-scope <see cref="RngEnvironment"/> registration, rather than sharing
-    /// a single instance across threads. The registry types (<see cref="RngEnvironment"/>, <see cref="RngManager"/>)
+    /// generator per thread, or a per-scope <see cref="RandomEnvironment"/> registration, rather than sharing
+    /// a single instance across threads. The registry types (<see cref="RandomEnvironment"/>, <see cref="RandomManager"/>)
     /// are themselves safe for concurrent registration and lookup.
     /// </remarks>
     public abstract class RandomGenerator : IRandomGenerator {

@@ -26,7 +26,7 @@ namespace BeeneticToolkit.Random.Utilities {
             if (list.Count == 0)
                 throw new ArgumentException("List cannot be empty.", nameof(list));
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
 
             return list[random.NextInt(list.Count)];
         }
@@ -60,7 +60,7 @@ namespace BeeneticToolkit.Random.Utilities {
             if (span.IsEmpty)
                 throw new ArgumentException("Span cannot be empty.", nameof(span));
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
             return span[random.NextInt(span.Length)];
         }
 
@@ -84,7 +84,7 @@ namespace BeeneticToolkit.Random.Utilities {
             if (exclusionPredicate == null)
                 throw new ArgumentNullException(nameof(exclusionPredicate));
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
             List<T> filteredList = list.Where(item => !exclusionPredicate(item)).ToList();
 
             if (filteredList.Count == 0)
@@ -136,7 +136,7 @@ namespace BeeneticToolkit.Random.Utilities {
                 throw new ArgumentOutOfRangeException(nameof(subsetSize), subsetSize,
                     "Subset size must be larger than 0 and less than or equal to the list size.");
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
 
             List<T> shuffledList = new List<T>(list);
             for (int i = 0; i < subsetSize; i++) {
@@ -190,7 +190,7 @@ namespace BeeneticToolkit.Random.Utilities {
             if (list.Count != weights.Count)
                 throw new ArgumentException("The lengths of the list and weights do not match.");
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
 
             double totalWeight = weights.Sum();
             if (totalWeight <= 0)
@@ -245,7 +245,7 @@ namespace BeeneticToolkit.Random.Utilities {
             if (typeWeightDict.Count == 0)
                 throw new ArgumentException("Dictionary cannot be empty.", nameof(typeWeightDict));
 
-            random ??= RngManager.Current;
+            random ??= RandomManager.Current;
 
             double totalWeight = typeWeightDict.Values.Sum();
             if (totalWeight <= 0)
