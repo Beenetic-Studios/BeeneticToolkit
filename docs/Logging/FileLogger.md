@@ -3,7 +3,8 @@
 
 ## FileLogger Class
 
-A logger that writes log messages to a file.
+A logger that writes log messages to a file. Writes to the same file are serialized,  
+so multiple [FileLogger](FileLogger.md 'BeeneticToolkit.Logging.Loggers.FileLogger') instances (and threads) can safely target one path.
 
 ```csharp
 public class FileLogger : BeeneticToolkit.Logging.LoggerBase

@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 
 namespace BeeneticToolkit.Diagnostics {
 
     /// <summary>
-    /// Tracks the frequency of method calls.
+    /// Tracks the frequency of method calls. All members are safe for concurrent use.
     /// </summary>
     public static class CallFrequencyTracker {
-        private static readonly Dictionary<string, int> _callCounts = new Dictionary<string, int>();
+        private static readonly ConcurrentDictionary<string, long> _callCounts = new ConcurrentDictionary<string, long>();
 
         /// <summary>
         /// Increments the call count for a specified method.
@@ -18,10 +18,7 @@ namespace BeeneticToolkit.Diagnostics {
             if (string.IsNullOrEmpty(methodName))
                 throw new ArgumentNullException(nameof(methodName));
 
-            if (!_callCounts.ContainsKey(methodName)) {
-                _callCounts[methodName] = 0;
-            }
-            _callCounts[methodName]++;
+            _callCounts.AddOrUpdate(methodName, 1, (_, current) => current + 1);
         }
 
         /// <summary>
@@ -29,7 +26,7 @@ namespace BeeneticToolkit.Diagnostics {
         /// </summary>
         /// <param name="methodName">The name of the method.</param>
         /// <returns>The number of times the method has been called.</returns>
-        public static int GetCallCount(string methodName) {
+        public static long GetCallCount(string methodName) {
             if (string.IsNullOrEmpty(methodName))
                 throw new ArgumentNullException(nameof(methodName));
 

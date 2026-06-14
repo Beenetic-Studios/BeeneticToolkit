@@ -65,7 +65,7 @@ namespace BeeneticToolkit.Collections.Enums.Metadata {
         /// <summary>Validates the metadata instance to ensure all required properties are set.</summary>
         /// <exception cref="MetadataValidationException">Thrown if the metadata is in an invalid state.</exception>
         public virtual void Validate() {
-            if (string.IsNullOrWhiteSpace(Guid.ToString())) {
+            if (Guid == Guid.Empty) {
                 throw new MetadataValidationException("GUID must be set.");
             }
         }

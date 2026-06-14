@@ -9,7 +9,7 @@ This property is assigned to the first generator registered in the environment,
 but may be reassigned through [SetCurrent(string)](RngEnvironment.SetCurrent(string).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(string)') or [SetCurrent(RngKey)](RngEnvironment.SetCurrent(RngKey).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(BeeneticToolkit.Random.RngKey)').
 
 ```csharp
-public BeeneticToolkit.Random.RandomGenerator? Current { get; set; }
+public BeeneticToolkit.Random.RandomGenerator? Current { get; }
 ```
 
 #### Property Value

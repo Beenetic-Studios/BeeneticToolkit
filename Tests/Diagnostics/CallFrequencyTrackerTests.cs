@@ -17,11 +17,11 @@ namespace BeeneticToolkit.Tests.Diagnostics {
         public void Increment_IncreasesCallCount() {
             // Arrange
             string methodName = "TestMethod";
-            int initialCount = CallFrequencyTracker.GetCallCount(methodName);
+            long initialCount = CallFrequencyTracker.GetCallCount(methodName);
 
             // Act
             CallFrequencyTracker.Increment(methodName);
-            int updatedCount = CallFrequencyTracker.GetCallCount(methodName);
+            long updatedCount = CallFrequencyTracker.GetCallCount(methodName);
 
             // Assert
             Assert.AreEqual(initialCount + 1, updatedCount, "Increment should increase the count by 1.");
@@ -36,10 +36,10 @@ namespace BeeneticToolkit.Tests.Diagnostics {
             string methodName = "UntrackedMethod";
 
             // Act
-            int count = CallFrequencyTracker.GetCallCount(methodName);
+            long count = CallFrequencyTracker.GetCallCount(methodName);
 
             // Assert
-            Assert.AreEqual(0, count, "Untracked methods should have a call count of zero.");
+            Assert.AreEqual(0L, count, "Untracked methods should have a call count of zero.");
         }
 
         /// <summary>
@@ -49,13 +49,13 @@ namespace BeeneticToolkit.Tests.Diagnostics {
         public void Increment_MultipleTimes_AccumulatesCorrectly() {
             // Arrange
             string methodName = "RepeatedMethod";
-            int initialCount = CallFrequencyTracker.GetCallCount(methodName);
+            long initialCount = CallFrequencyTracker.GetCallCount(methodName);
 
             // Act
             CallFrequencyTracker.Increment(methodName);
             CallFrequencyTracker.Increment(methodName);
             CallFrequencyTracker.Increment(methodName);
-            int updatedCount = CallFrequencyTracker.GetCallCount(methodName);
+            long updatedCount = CallFrequencyTracker.GetCallCount(methodName);
 
             // Assert
             Assert.AreEqual(initialCount + 3, updatedCount, "Call count should increase by the number of increments.");

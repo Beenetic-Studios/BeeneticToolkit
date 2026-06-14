@@ -12,9 +12,9 @@ selecting random elements from collections, and working with various pseudorando
 - **[RandomGenerator](RandomGenerator.md 'BeeneticToolkit.Random.RandomGenerator')** `Class` Serves as the base class for random number generators, providing common functionality for seed management.  
   This abstract class defines the basic structure and seeding mechanism that derived random number generators will use.
   - **[RandomGenerator(long)](RandomGenerator.RandomGenerator(long).md 'BeeneticToolkit.Random.RandomGenerator.RandomGenerator(long)')** `Constructor` Initializes a new instance of the random number generator with the specified seed.
-  - **[CalculatedNextDouble](RandomGenerator.CalculatedNextDouble.md 'BeeneticToolkit.Random.RandomGenerator.CalculatedNextDouble')** `Property` Gets a calculated random double value based on the next number in the random sequence.
-  - **[CalculatedNextFloat](RandomGenerator.CalculatedNextFloat.md 'BeeneticToolkit.Random.RandomGenerator.CalculatedNextFloat')** `Property` Gets a calculated random float value based on the next number in the random sequence.
-  - **[CalculatedNextInt](RandomGenerator.CalculatedNextInt.md 'BeeneticToolkit.Random.RandomGenerator.CalculatedNextInt')** `Property` Gets a calculated random integer value based on the next number in the random sequence.
+  - **[CalculatedNextDouble](RandomGenerator.CalculatedNextDouble.md 'BeeneticToolkit.Random.RandomGenerator.CalculatedNextDouble')** `Property` Gets a calculated random double value, uniformly distributed in the half-open range `[0, 1)`.
+  - **[CalculatedNextFloat](RandomGenerator.CalculatedNextFloat.md 'BeeneticToolkit.Random.RandomGenerator.CalculatedNextFloat')** `Property` Gets a calculated random float value, uniformly distributed in the half-open range `[0, 1)`.
+  - **[NextMaxInclusive](RandomGenerator.NextMaxInclusive.md 'BeeneticToolkit.Random.RandomGenerator.NextMaxInclusive')** `Property` Gets the inclusive maximum value that [Next()](RandomGenerator.Next().md 'BeeneticToolkit.Random.RandomGenerator.Next()') can return.
   - **[Seed](RandomGenerator.Seed.md 'BeeneticToolkit.Random.RandomGenerator.Seed')** `Property` Gets the seed value used for random number generation.
   - **[InitializeRng()](RandomGenerator.InitializeRng().md 'BeeneticToolkit.Random.RandomGenerator.InitializeRng()')** `Method` Initializes the random number generator with the given seed.  
     Override this method in derived classes to set up the random number generator.
@@ -22,28 +22,28 @@ selecting random elements from collections, and working with various pseudorando
   - **[NextBool()](RandomGenerator.NextBool().md 'BeeneticToolkit.Random.RandomGenerator.NextBool()')** `Method` Returns a random boolean value by equally considering the true and false outcomes.
   - **[NextBool(float)](RandomGenerator.NextBool(float).md 'BeeneticToolkit.Random.RandomGenerator.NextBool(float)')** `Method` Returns a random boolean value with the probability of returning true specified by the input parameter.
   - **[NextBytes()](RandomGenerator.NextBytes().md 'BeeneticToolkit.Random.RandomGenerator.NextBytes()')** `Method` Generates a random byte array with a default length.
-  - **[NextBytes(int)](RandomGenerator.NextBytes(int).md 'BeeneticToolkit.Random.RandomGenerator.NextBytes(int)')** `Method` Generates a random byte array of a specified length.
   - **[NextBytes(int, byte, byte)](RandomGenerator.NextBytes(int,byte,byte).md 'BeeneticToolkit.Random.RandomGenerator.NextBytes(int, byte, byte)')** `Method` Generates a random byte array of a specified length, with each byte within a specified range.
+  - **[NextBytes(int)](RandomGenerator.NextBytes(int).md 'BeeneticToolkit.Random.RandomGenerator.NextBytes(int)')** `Method` Generates a random byte array of a specified length.
   - **[NextDouble()](RandomGenerator.NextDouble().md 'BeeneticToolkit.Random.RandomGenerator.NextDouble()')** `Method` Calculates the next double value in the random sequence.
-  - **[NextDouble(double)](RandomGenerator.NextDouble(double).md 'BeeneticToolkit.Random.RandomGenerator.NextDouble(double)')** `Method` Generates a pseudo-random double between 0 (inclusive) and the specified maximum (inclusive).  
-    It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if maxInclusive is less than or equal to 0.
   - **[NextDouble(double, double)](RandomGenerator.NextDouble(double,double).md 'BeeneticToolkit.Random.RandomGenerator.NextDouble(double, double)')** `Method` Generates a pseudo-random double between the specified minimum (inclusive) and maximum (inclusive).  
     It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if minInclusive is greater than or equal to maxInclusive.
-  - **[NextFloat()](RandomGenerator.NextFloat().md 'BeeneticToolkit.Random.RandomGenerator.NextFloat()')** `Method` Calculates the next float value in the random sequence.
-  - **[NextFloat(float)](RandomGenerator.NextFloat(float).md 'BeeneticToolkit.Random.RandomGenerator.NextFloat(float)')** `Method` Generates a pseudo-random float between 0 (inclusive) and the specified maximum (inclusive).  
+  - **[NextDouble(double)](RandomGenerator.NextDouble(double).md 'BeeneticToolkit.Random.RandomGenerator.NextDouble(double)')** `Method` Generates a pseudo-random double between 0 (inclusive) and the specified maximum (inclusive).  
     It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if maxInclusive is less than or equal to 0.
+  - **[NextFloat()](RandomGenerator.NextFloat().md 'BeeneticToolkit.Random.RandomGenerator.NextFloat()')** `Method` Calculates the next float value in the random sequence.
   - **[NextFloat(float, float)](RandomGenerator.NextFloat(float,float).md 'BeeneticToolkit.Random.RandomGenerator.NextFloat(float, float)')** `Method` Generates a pseudo-random float between the specified minimum (inclusive) and maximum (inclusive).  
     It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if minInclusive is greater than or equal to maxInclusive.
+  - **[NextFloat(float)](RandomGenerator.NextFloat(float).md 'BeeneticToolkit.Random.RandomGenerator.NextFloat(float)')** `Method` Generates a pseudo-random float between 0 (inclusive) and the specified maximum (inclusive).  
+    It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if maxInclusive is less than or equal to 0.
   - **[NextInt()](RandomGenerator.NextInt().md 'BeeneticToolkit.Random.RandomGenerator.NextInt()')** `Method` Generates a non-negative random integer.
-  - **[NextInt(int)](RandomGenerator.NextInt(int).md 'BeeneticToolkit.Random.RandomGenerator.NextInt(int)')** `Method` Generates a pseudo-random integer between 0 (inclusive) and the specified maximum (exclusive).  
-    It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if maxExclusive is less than or equal to 0.
   - **[NextInt(int, int)](RandomGenerator.NextInt(int,int).md 'BeeneticToolkit.Random.RandomGenerator.NextInt(int, int)')** `Method` Generates a pseudo-random integer between the specified minimum (inclusive) and maximum (exclusive).  
     It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if minInclusive is greater than or equal to maxExclusive.
-  - **[NextLong()](RandomGenerator.NextLong().md 'BeeneticToolkit.Random.RandomGenerator.NextLong()')** `Method` Generates a non-negative random long integer.
-  - **[NextLong(long)](RandomGenerator.NextLong(long).md 'BeeneticToolkit.Random.RandomGenerator.NextLong(long)')** `Method` Generates a pseudo-random long integer between 0 (inclusive) and the specified maximum (exclusive).  
+  - **[NextInt(int)](RandomGenerator.NextInt(int).md 'BeeneticToolkit.Random.RandomGenerator.NextInt(int)')** `Method` Generates a pseudo-random integer between 0 (inclusive) and the specified maximum (exclusive).  
     It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if maxExclusive is less than or equal to 0.
+  - **[NextLong()](RandomGenerator.NextLong().md 'BeeneticToolkit.Random.RandomGenerator.NextLong()')** `Method` Generates a non-negative random long integer.
   - **[NextLong(long, long)](RandomGenerator.NextLong(long,long).md 'BeeneticToolkit.Random.RandomGenerator.NextLong(long, long)')** `Method` Generates a pseudo-random long integer between the specified minimum (inclusive) and maximum (exclusive).  
     It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if minInclusive is greater than or equal to maxExclusive.
+  - **[NextLong(long)](RandomGenerator.NextLong(long).md 'BeeneticToolkit.Random.RandomGenerator.NextLong(long)')** `Method` Generates a pseudo-random long integer between 0 (inclusive) and the specified maximum (exclusive).  
+    It throws an [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException') if maxExclusive is less than or equal to 0.
   - **[NextNormal()](RandomGenerator.NextNormal().md 'BeeneticToolkit.Random.RandomGenerator.NextNormal()')** `Method` Generates a normally distributed random number with a default mean of 0.0 and standard deviation of 1.0.  
     This method is an overload of the NextNormal method that uses default parameters to produce a standard normal distribution.
   - **[NextNormal(double, double)](RandomGenerator.NextNormal(double,double).md 'BeeneticToolkit.Random.RandomGenerator.NextNormal(double, double)')** `Method` Generates a normally distributed random number with a specified mean and standard deviation.  
@@ -82,8 +82,8 @@ selecting random elements from collections, and working with various pseudorando
     associated with the specified key.
 - **[RngFactory](RngFactory.md 'BeeneticToolkit.Random.RngFactory')** `Class` Provides factory methods for creating random number generators based on different algorithms.
   - **[GetGenerator()](RngFactory.GetGenerator().md 'BeeneticToolkit.Random.RngFactory.GetGenerator()')** `Method` Creates a random number generator using the default algorithm (Xorshift) without a specific seed.
-  - **[GetGenerator(RngAlgorithm)](RngFactory.GetGenerator(RngAlgorithm).md 'BeeneticToolkit.Random.RngFactory.GetGenerator(BeeneticToolkit.Random.RngAlgorithm)')** `Method` Creates a random number generator using a specified algorithm without a specific seed.
   - **[GetGenerator(RngAlgorithm, Nullable&lt;long&gt;)](RngFactory.GetGenerator(RngAlgorithm,Nullable_long_).md 'BeeneticToolkit.Random.RngFactory.GetGenerator(BeeneticToolkit.Random.RngAlgorithm, System.Nullable<long>)')** `Method` Creates a random number generator using the specified algorithm and optional seed.
+  - **[GetGenerator(RngAlgorithm)](RngFactory.GetGenerator(RngAlgorithm).md 'BeeneticToolkit.Random.RngFactory.GetGenerator(BeeneticToolkit.Random.RngAlgorithm)')** `Method` Creates a random number generator using a specified algorithm without a specific seed.
   - **[GetGenerator(Nullable&lt;long&gt;)](RngFactory.GetGenerator(Nullable_long_).md 'BeeneticToolkit.Random.RngFactory.GetGenerator(System.Nullable<long>)')** `Method` Creates a random number generator using the default algorithm (Xorshift) with a specified seed.
 - **[RngManager](RngManager.md 'BeeneticToolkit.Random.RngManager')** `Class` Provides centralized access to a default global [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment').  
     
@@ -133,21 +133,21 @@ selecting random elements from collections, and working with various pseudorando
   - **[NextBool()](IRandomGenerator.NextBool().md 'BeeneticToolkit.Random.IRandomGenerator.NextBool()')** `Method` Generates a random boolean value.
   - **[NextBool(float)](IRandomGenerator.NextBool(float).md 'BeeneticToolkit.Random.IRandomGenerator.NextBool(float)')** `Method` Generates a random boolean value using the specified probability of returning [true](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/bool').
   - **[NextBytes()](IRandomGenerator.NextBytes().md 'BeeneticToolkit.Random.IRandomGenerator.NextBytes()')** `Method` Generates a random byte array with the default length.
-  - **[NextBytes(int)](IRandomGenerator.NextBytes(int).md 'BeeneticToolkit.Random.IRandomGenerator.NextBytes(int)')** `Method` Generates a random byte array of the specified length.
   - **[NextBytes(int, byte, byte)](IRandomGenerator.NextBytes(int,byte,byte).md 'BeeneticToolkit.Random.IRandomGenerator.NextBytes(int, byte, byte)')** `Method` Generates a random byte array of the specified length, with each byte  
     falling within the specified range.
+  - **[NextBytes(int)](IRandomGenerator.NextBytes(int).md 'BeeneticToolkit.Random.IRandomGenerator.NextBytes(int)')** `Method` Generates a random byte array of the specified length.
   - **[NextDouble()](IRandomGenerator.NextDouble().md 'BeeneticToolkit.Random.IRandomGenerator.NextDouble()')** `Method` Generates a non-negative random double.
-  - **[NextDouble(double)](IRandomGenerator.NextDouble(double).md 'BeeneticToolkit.Random.IRandomGenerator.NextDouble(double)')** `Method` Generates a non-negative random double that is less than or equal to the specified maximum.
   - **[NextDouble(double, double)](IRandomGenerator.NextDouble(double,double).md 'BeeneticToolkit.Random.IRandomGenerator.NextDouble(double, double)')** `Method` Generates a random double within the specified range.
+  - **[NextDouble(double)](IRandomGenerator.NextDouble(double).md 'BeeneticToolkit.Random.IRandomGenerator.NextDouble(double)')** `Method` Generates a non-negative random double that is less than or equal to the specified maximum.
   - **[NextFloat()](IRandomGenerator.NextFloat().md 'BeeneticToolkit.Random.IRandomGenerator.NextFloat()')** `Method` Generates a non-negative random float.
-  - **[NextFloat(float)](IRandomGenerator.NextFloat(float).md 'BeeneticToolkit.Random.IRandomGenerator.NextFloat(float)')** `Method` Generates a non-negative random float that is less than or equal to the specified maximum.
   - **[NextFloat(float, float)](IRandomGenerator.NextFloat(float,float).md 'BeeneticToolkit.Random.IRandomGenerator.NextFloat(float, float)')** `Method` Generates a random float within the specified range.
+  - **[NextFloat(float)](IRandomGenerator.NextFloat(float).md 'BeeneticToolkit.Random.IRandomGenerator.NextFloat(float)')** `Method` Generates a non-negative random float that is less than or equal to the specified maximum.
   - **[NextInt()](IRandomGenerator.NextInt().md 'BeeneticToolkit.Random.IRandomGenerator.NextInt()')** `Method` Generates a non-negative random integer.
-  - **[NextInt(int)](IRandomGenerator.NextInt(int).md 'BeeneticToolkit.Random.IRandomGenerator.NextInt(int)')** `Method` Generates a non-negative random integer that is less than the specified maximum.
   - **[NextInt(int, int)](IRandomGenerator.NextInt(int,int).md 'BeeneticToolkit.Random.IRandomGenerator.NextInt(int, int)')** `Method` Generates a random integer within the specified range.
+  - **[NextInt(int)](IRandomGenerator.NextInt(int).md 'BeeneticToolkit.Random.IRandomGenerator.NextInt(int)')** `Method` Generates a non-negative random integer that is less than the specified maximum.
   - **[NextLong()](IRandomGenerator.NextLong().md 'BeeneticToolkit.Random.IRandomGenerator.NextLong()')** `Method` Generates a non-negative random long integer.
-  - **[NextLong(long)](IRandomGenerator.NextLong(long).md 'BeeneticToolkit.Random.IRandomGenerator.NextLong(long)')** `Method` Generates a non-negative random long integer that is less than the specified maximum.
   - **[NextLong(long, long)](IRandomGenerator.NextLong(long,long).md 'BeeneticToolkit.Random.IRandomGenerator.NextLong(long, long)')** `Method` Generates a random long integer within the specified range.
+  - **[NextLong(long)](IRandomGenerator.NextLong(long).md 'BeeneticToolkit.Random.IRandomGenerator.NextLong(long)')** `Method` Generates a non-negative random long integer that is less than the specified maximum.
   - **[NextNormal()](IRandomGenerator.NextNormal().md 'BeeneticToolkit.Random.IRandomGenerator.NextNormal()')** `Method` Generates a random double from the standard normal distribution.
   - **[NextNormal(double, double)](IRandomGenerator.NextNormal(double,double).md 'BeeneticToolkit.Random.IRandomGenerator.NextNormal(double, double)')** `Method` Generates a random double from a normal distribution with the specified mean and standard deviation.
 - **[RngAlgorithm](RngAlgorithm.md 'BeeneticToolkit.Random.RngAlgorithm')** `Enum` Defines the algorithms available for random number generation.

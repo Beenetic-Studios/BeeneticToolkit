@@ -9,6 +9,12 @@ namespace BeeneticToolkit.Random {
     /// Serves as the base class for random number generators, providing common functionality for seed management.
     /// This abstract class defines the basic structure and seeding mechanism that derived random number generators will use.
     /// </summary>
+    /// <remarks>
+    /// Instances are <b>not</b> thread-safe: each call advances mutable internal state. Use a separate
+    /// generator per thread, or a per-scope <see cref="RngEnvironment"/> registration, rather than sharing
+    /// a single instance across threads. The registry types (<see cref="RngEnvironment"/>, <see cref="RngManager"/>)
+    /// are themselves safe for concurrent registration and lookup.
+    /// </remarks>
     public abstract class RandomGenerator : IRandomGenerator {
 
         /// <summary>
@@ -21,22 +27,29 @@ namespace BeeneticToolkit.Random {
         protected internal long Seed { get; private set; }
 
         /// <summary>
-        /// Gets a calculated random integer value based on the next number in the random sequence.
+        /// Gets the inclusive maximum value that <see cref="Next"/> can return.
         /// </summary>
-        /// <value>A calculated random integer.</value>
-        protected int CalculatedNextInt => (int)(Next() % (int.MaxValue + 1L));
+        /// <remarks>
+        /// This is used to derive unbiased bounded values and to scale the <c>[0, 1)</c> float/double
+        /// helpers. The base implementation assumes <see cref="Next"/> yields a uniform value in
+        /// <c>[0, long.MaxValue]</c> (i.e. a full 63-bit result). Generators whose <see cref="Next"/>
+        /// produces a narrower range (for example a modulus-bounded LCG) must override this so the
+        /// derived values stay correct.
+        /// </remarks>
+        /// <value>The inclusive upper bound of <see cref="Next"/>.</value>
+        protected virtual long NextMaxInclusive => long.MaxValue;
 
         /// <summary>
-        /// Gets a calculated random float value based on the next number in the random sequence.
+        /// Gets a calculated random float value, uniformly distributed in the half-open range <c>[0, 1)</c>.
         /// </summary>
-        /// <value>A calculated random float.</value>
-        protected virtual float CalculatedNextFloat => (float)Next() / (long.MaxValue - 1);
+        /// <value>A calculated random float in <c>[0, 1)</c>.</value>
+        protected virtual float CalculatedNextFloat => (Next() >> 39) * (1.0f / (1 << 24));
 
         /// <summary>
-        /// Gets a calculated random double value based on the next number in the random sequence.
+        /// Gets a calculated random double value, uniformly distributed in the half-open range <c>[0, 1)</c>.
         /// </summary>
-        /// <value>A calculated random double.</value>
-        protected virtual double CalculatedNextDouble => (double)Next() / (long.MaxValue - 1);
+        /// <value>A calculated random double in <c>[0, 1)</c>.</value>
+        protected virtual double CalculatedNextDouble => (Next() >> 10) * (1.0 / (1L << 53));
 
         /// <summary>
         /// Initializes a new instance of the random number generator with the specified seed.
@@ -62,6 +75,52 @@ namespace BeeneticToolkit.Random {
         /// </summary>
         /// <returns>A randomly generated long integer.</returns>
         protected abstract long Next();
+
+        /// <summary>
+        /// Produces a uniformly distributed integer in the half-open range
+        /// <c>[<paramref name="minInclusive"/>, <paramref name="maxExclusive"/>)</c> without modulo bias.
+        /// </summary>
+        /// <param name="minInclusive">The inclusive lower bound. Must be less than <paramref name="maxExclusive"/>.</param>
+        /// <param name="maxExclusive">The exclusive upper bound.</param>
+        /// <returns>An unbiased random value in the requested range.</returns>
+        private long NextBounded(long minInclusive, long maxExclusive) {
+            ulong range = unchecked((ulong)maxExclusive - (ulong)minInclusive);
+            return unchecked((long)((ulong)minInclusive + NextUIntBelow(range)));
+        }
+
+        /// <summary>
+        /// Produces a uniformly distributed value in <c>[0, <paramref name="range"/>)</c> using rejection
+        /// sampling, composing multiple draws when a single draw cannot represent the whole range.
+        /// </summary>
+        /// <param name="range">The exclusive upper bound. Must be greater than 0.</param>
+        /// <returns>An unbiased random value in <c>[0, <paramref name="range"/>)</c>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="range"/> is larger than this generator can represent without bias.
+        /// </exception>
+        private ulong NextUIntBelow(ulong range) {
+            // Number of distinct values a single Next() call can produce.
+            ulong source = unchecked((ulong)NextMaxInclusive + 1UL);
+
+            while (true) {
+                ulong accumulated = (ulong)Next();
+                ulong span = source;
+
+                // Draw additional digits until the accumulated span can represent the whole range.
+                while (span < range) {
+                    if (span > ulong.MaxValue / source)
+                        throw new ArgumentOutOfRangeException(nameof(range),
+                            "The requested range is too large for this generator to sample without bias.");
+
+                    accumulated = accumulated * source + (ulong)Next();
+                    span *= source;
+                }
+
+                // Reject the non-uniform tail so every value in [0, range) is equally likely.
+                ulong limit = span - span % range;
+                if (accumulated < limit)
+                    return accumulated % range;
+            }
+        }
 
         /// <summary>
         /// Generates a random byte array with a default length.
@@ -112,7 +171,7 @@ namespace BeeneticToolkit.Random {
         /// Generates a non-negative random integer.
         /// </summary>
         /// <returns>A non-negative random integer.</returns>
-        public virtual int NextInt() => CalculatedNextInt;
+        public virtual int NextInt() => (int)NextBounded(0, (long)int.MaxValue + 1L);
 
         /// <summary>
         /// Generates a pseudo-random integer between 0 (inclusive) and the specified maximum (exclusive).
@@ -140,7 +199,7 @@ namespace BeeneticToolkit.Random {
             if (minInclusive >= maxExclusive)
                 throw new ArgumentException($"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}");
 
-            return CalculatedNextInt % (maxExclusive - minInclusive) + minInclusive;
+            return (int)NextBounded(minInclusive, maxExclusive);
         }
 
         /// <summary>
@@ -175,7 +234,7 @@ namespace BeeneticToolkit.Random {
             if (minInclusive >= maxExclusive)
                 throw new ArgumentException($"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}");
 
-            return Next() % (maxExclusive - minInclusive) + minInclusive;
+            return NextBounded(minInclusive, maxExclusive);
         }
 
         /// <summary>

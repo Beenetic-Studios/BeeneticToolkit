@@ -3,7 +3,7 @@
 
 ## RandomGenerator.CalculatedNextFloat Property
 
-Gets a calculated random float value based on the next number in the random sequence.
+Gets a calculated random float value, uniformly distributed in the half-open range `[0, 1)`.
 
 ```csharp
 protected virtual float CalculatedNextFloat { get; }
@@ -11,4 +11,4 @@ protected virtual float CalculatedNextFloat { get; }
 
 #### Property Value
 [System.Single](https://docs.microsoft.com/en-us/dotnet/api/System.Single 'System.Single')  
-A calculated random float.
+A calculated random float in `[0, 1)`.

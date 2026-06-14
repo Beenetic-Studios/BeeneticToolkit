@@ -14,29 +14,37 @@ namespace BeeneticToolkit.Random.Generators {
 
         #region Fields
 
-        private const long MOD_A = 32416187567;
-        private const long MOD_B = 32416190071;
-        private const long MULT_A = 2862933555777941757;
-        private const long MULT_B = 3202034522624059733;
-        private const long INCREMENT_A = 0;
-        private const long INCREMENT_B = 1;
+        // Parameters of the L'Ecuyer (1988) combined linear congruential generator.
+        // Each multiplier is far smaller than its modulus, so a * state never overflows a long.
+        private const long MOD_A = 2147483563;
+        private const long MOD_B = 2147483399;
+        private const long MULT_A = 40014;
+        private const long MULT_B = 40692;
 
         private long _previousA;
         private long _previousB;
 
         /// <summary>
-        /// Generates the next float value in the sequence.
+        /// Generates the next float value, uniformly distributed in <c>[0, 1)</c>.
         /// </summary>
-        /// <returns>A pseudorandomly generated float.</returns>
+        /// <returns>A pseudorandomly generated float in <c>[0, 1)</c>.</returns>
         /// <exclude></exclude>
-        protected override float CalculatedNextFloat => Next() / (float)(MOD_A - 1);
+        // Scale by 2^31, which is strictly greater than any value Next() can return (MOD_A < 2^31),
+        // so the result stays below 1.0 even after rounding to float precision.
+        protected override float CalculatedNextFloat => (float)Next() * (1.0f / 2147483648f);
 
         /// <summary>
-        /// Generates the next double value in the sequence.
+        /// Generates the next double value, uniformly distributed in <c>[0, 1)</c>.
         /// </summary>
-        /// <returns>A pseudorandomly generated double.</returns>
+        /// <returns>A pseudorandomly generated double in <c>[0, 1)</c>.</returns>
         /// <exclude></exclude>
         protected override double CalculatedNextDouble => Next() / (double)(MOD_A - 1);
+
+        /// <summary>
+        /// Gets the inclusive maximum value <see cref="Next"/> can return for this generator.
+        /// </summary>
+        /// <exclude></exclude>
+        protected override long NextMaxInclusive => MOD_A - 2;
 
         #endregion Fields
 
@@ -57,16 +65,10 @@ namespace BeeneticToolkit.Random.Generators {
         /// </summary>
         /// <exclude></exclude>
         protected override void InitializeRng() {
-            var a = (Seed ^ MULT_A) % MOD_A;
-            var b = (Seed ^ MULT_B) % MOD_B;
-
-            if (a == 0)
-                a = (a + 17) * MULT_A % MOD_A;
-            if (b == 0 || b == a)
-                b = (b + 31) * MULT_B % MOD_B;
-
-            _previousA = a;
-            _previousB = b;
+            // Each sub-generator state must be a non-zero residue: A in [1, MOD_A - 1], B in [1, MOD_B - 1].
+            // Because the moduli are prime and the increments are zero, a non-zero state can never become zero.
+            _previousA = Seed % (MOD_A - 1) + 1;
+            _previousB = Seed % (MOD_B - 1) + 1;
         }
 
         /// <summary>
@@ -77,16 +79,15 @@ namespace BeeneticToolkit.Random.Generators {
         /// <returns>A pseudorandomly generated long integer.</returns>
         /// <exclude></exclude>
         protected override long Next() {
-            long a = (_previousA * MULT_A + INCREMENT_A) % MOD_A;
-            long b = (_previousB * MULT_B + INCREMENT_B) % MOD_B;
-            _previousA = a;
-            _previousB = b;
+            // a * state stays well within long range: 40692 * (MOD_B - 1) < 9.0e13.
+            _previousA = MULT_A * _previousA % MOD_A;
+            _previousB = MULT_B * _previousB % MOD_B;
 
-            long combined = (a - b) % MOD_A;
+            long combined = (_previousA - _previousB) % (MOD_A - 1);
             if (combined < 0)
-                combined += MOD_A;
+                combined += MOD_A - 1;
 
-            return combined;
+            return combined; // uniform in [0, MOD_A - 2]
         }
 
         #endregion Initialization

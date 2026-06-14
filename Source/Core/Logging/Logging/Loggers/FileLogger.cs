@@ -1,17 +1,24 @@
 ﻿using BeeneticToolkit.Logging.Enums;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Reflection;
 
 namespace BeeneticToolkit.Logging.Loggers {
     /// <summary>
-    /// A logger that writes log messages to a file.
+    /// A logger that writes log messages to a file. Writes to the same file are serialized,
+    /// so multiple <see cref="FileLogger"/> instances (and threads) can safely target one path.
     /// </summary>
 
     public class FileLogger : LoggerBase {
 
         #region Fields
 
+        // One lock object per target file, shared across all FileLogger instances, so concurrent
+        // appends to the same file never collide (File.AppendAllText opens the file exclusively).
+        private static readonly ConcurrentDictionary<string, object> s_fileLocks = new ConcurrentDictionary<string, object>();
+
         private readonly string _fileName;
+        private readonly object _fileLock;
 
         #endregion Fields
 
@@ -25,6 +32,10 @@ namespace BeeneticToolkit.Logging.Loggers {
         /// <param name="threshold">The threshold level for logging messages. Defaults to LogThreshold.All.</param>
         public FileLogger(string fileName, string? loggerName = null, LogThreshold threshold = LogThreshold.All) : base(loggerName, threshold) {
             _fileName = fileName;
+
+            // Normalize so loggers created with equivalent paths share the same lock.
+            string lockKey = Path.GetFullPath(fileName);
+            _fileLock = s_fileLocks.GetOrAdd(lockKey, _ => new object());
         }
 
         #endregion Initialization
@@ -46,7 +57,9 @@ namespace BeeneticToolkit.Logging.Loggers {
             if (!AllowLogMessage(severity))
                 return;
 
-            File.AppendAllText(_fileName, $"{BaseMessage(severity)}{prepend}{message}{append}");
+            string entry = $"{BaseMessage(severity)}{prepend}{message}{append}";
+            lock (_fileLock)
+                File.AppendAllText(_fileName, entry);
         }
 
         /// <summary>
@@ -67,7 +80,9 @@ namespace BeeneticToolkit.Logging.Loggers {
             if (!AllowLogMessage(severity))
                 return;
 
-            File.AppendAllText(_fileName, $"{BaseMessage(severity, obj, method)}{prepend}{message}{append}");
+            string entry = $"{BaseMessage(severity, obj, method)}{prepend}{message}{append}";
+            lock (_fileLock)
+                File.AppendAllText(_fileName, entry);
         }
 
         #endregion Logging

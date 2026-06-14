@@ -142,7 +142,7 @@ namespace BeeneticToolkit.Logging.Utilities {
             typeof(uint),
             typeof(long),
             typeof(ulong),
-            typeof(double),
+            typeof(float),
             typeof(double),
             typeof(decimal)
         };

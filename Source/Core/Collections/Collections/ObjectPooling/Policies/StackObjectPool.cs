@@ -20,7 +20,9 @@ namespace BeeneticToolkit.Collections.ObjectPooling.Policies {
         /// <summary>
         /// Gets the current number of objects in the pool.
         /// </summary>
-        public override int Count => _stack.Count;
+        public override int Count {
+            get { lock (_syncRoot) return _stack.Count; }
+        }
 
         #endregion Properties
 
@@ -53,17 +55,26 @@ namespace BeeneticToolkit.Collections.ObjectPooling.Policies {
         /// <returns>An instance of <typeparamref name="T"/> from the pool.</returns>
         /// <exception cref="InvalidOperationException">Thrown if the pool is empty and cannot grow dynamically.</exception>
         public override T Get() {
-            T obj;
+            lock (_syncRoot) {
+                T obj;
 
-            if (_stack.Count > 0) {
-                obj = _stack.Pop();
-            } else if (_isDynamic || _maxSize == 0 || _stack.Count < _maxSize) {
-                obj = _policy.Create();
-            } else {
-                throw new InvalidOperationException("Pool is empty and not dynamic.");
+                if (_stack.Count > 0) {
+                    obj = _stack.Pop();
+                } else if (_isDynamic) {
+                    obj = _policy.Create();
+                } else {
+                    throw new InvalidOperationException("Pool is empty and not dynamic.");
+                }
+
+                if (_policy.Validate(obj))
+                    return obj;
+
+                // The pooled object is no longer usable; dispose it (if applicable) before replacing it.
+                if (obj is IDisposable disposable)
+                    disposable.Dispose();
+
+                return _policy.Create();
             }
-
-            return _policy.Validate(obj) ? obj : _policy.Create();
         }
 
         /// <summary>
@@ -75,16 +86,18 @@ namespace BeeneticToolkit.Collections.ObjectPooling.Policies {
             if (obj == null)
                 throw new ArgumentNullException(nameof(obj));
 
-            if (_maxSize > 0 && _stack.Count >= _maxSize) {
-                if (obj is IDisposable disposableObj) {
-                    disposableObj.Dispose();
+            lock (_syncRoot) {
+                if (_maxSize > 0 && _stack.Count >= _maxSize) {
+                    if (obj is IDisposable disposableObj) {
+                        disposableObj.Dispose();
+                    }
+
+                    return;
                 }
 
-                return;
+                _policy.Reset(obj);
+                _stack.Push(obj);
             }
-
-            _policy.Reset(obj);
-            _stack.Push(obj);
         }
 
         /// <summary>
@@ -94,11 +107,13 @@ namespace BeeneticToolkit.Collections.ObjectPooling.Policies {
         /// Objects implementing <see cref="IDisposable"/> are disposed during the clearing process.
         /// </remarks>
         public override void Clear() {
-            while (_stack.Count > 0) {
-                T obj = _stack.Pop();
+            lock (_syncRoot) {
+                while (_stack.Count > 0) {
+                    T obj = _stack.Pop();
 
-                if (obj is IDisposable disposableObj) {
-                    disposableObj.Dispose();
+                    if (obj is IDisposable disposableObj) {
+                        disposableObj.Dispose();
+                    }
                 }
             }
         }

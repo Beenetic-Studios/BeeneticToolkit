@@ -6,7 +6,7 @@
 Gets the call count for a specified method.
 
 ```csharp
-public static int GetCallCount(string methodName);
+public static long GetCallCount(string methodName);
 ```
 #### Parameters
 
@@ -17,5 +17,5 @@ public static int GetCallCount(string methodName);
 The name of the method.
 
 #### Returns
-[System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')  
+[System.Int64](https://docs.microsoft.com/en-us/dotnet/api/System.Int64 'System.Int64')  
 The number of times the method has been called.

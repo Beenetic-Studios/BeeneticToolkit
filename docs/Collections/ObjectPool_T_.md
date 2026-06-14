@@ -31,6 +31,7 @@ Derived
 | [_isDynamic](ObjectPool_T_._isDynamic.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>._isDynamic') | Indicates whether the pool can dynamically grow when it runs out of objects. |
 | [_maxSize](ObjectPool_T_._maxSize.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>._maxSize') | Specifies the maximum number of objects allowed in the pool. A value of 0 indicates no limit. |
 | [_policy](ObjectPool_T_._policy.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>._policy') | Defines the policy used for creating, resetting, and validating pooled objects. |
+| [_syncRoot](ObjectPool_T_._syncRoot.md 'BeeneticToolkit.Collections.ObjectPooling.ObjectPool<T>._syncRoot') | Synchronization root used by derived pools to guard concurrent access to their backing store. |
 
 | Properties | |
 | :--- | :--- |

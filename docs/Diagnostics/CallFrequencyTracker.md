@@ -3,7 +3,7 @@
 
 ## CallFrequencyTracker Class
 
-Tracks the frequency of method calls.
+Tracks the frequency of method calls. All members are safe for concurrent use.
 
 ```csharp
 public static class CallFrequencyTracker

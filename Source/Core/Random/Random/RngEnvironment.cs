@@ -20,6 +20,8 @@ namespace BeeneticToolkit.Random {
     /// </summary>
     public sealed class RngEnvironment {
         private readonly Dictionary<string, RandomGenerator> m_Generators = new Dictionary<string, RandomGenerator>();
+        private readonly object m_Sync = new object();
+        private RandomGenerator? m_Current;
 
         /// <summary>
         /// Gets the name of the environment.
@@ -40,7 +42,9 @@ namespace BeeneticToolkit.Random {
         /// The current random number generator for the environment,
         /// or <see langword="null"/> if no generator has been registered yet.
         /// </value>
-        public RandomGenerator? Current { get; private set; }
+        public RandomGenerator? Current {
+            get { lock (m_Sync) return m_Current; }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RngEnvironment"/> class.
@@ -60,8 +64,10 @@ namespace BeeneticToolkit.Random {
         /// If <see cref="Current"/> has not yet been assigned, it will be set to the newly registered generator.
         /// </remarks>
         public void Register(string key, RandomGenerator generator) {
-            m_Generators[key] = generator;
-            Current ??= generator;
+            lock (m_Sync) {
+                m_Generators[key] = generator;
+                m_Current ??= generator;
+            }
         }
 
         /// <summary>
@@ -111,7 +117,10 @@ namespace BeeneticToolkit.Random {
         /// <exception cref="System.Collections.Generic.KeyNotFoundException">
         /// Thrown if no generator has been registered with the given key.
         /// </exception>
-        public RandomGenerator Get(string key) => m_Generators[key];
+        public RandomGenerator Get(string key) {
+            lock (m_Sync)
+                return m_Generators[key];
+        }
 
         /// <summary>
         /// Retrieves a random number generator previously registered under the specified <see cref="RngKey"/>.
@@ -131,7 +140,10 @@ namespace BeeneticToolkit.Random {
         /// <exception cref="System.Collections.Generic.KeyNotFoundException">
         /// Thrown if no generator has been registered with the given key.
         /// </exception>
-        public void SetCurrent(string key) => Current = Get(key);
+        public void SetCurrent(string key) {
+            lock (m_Sync)
+                m_Current = m_Generators[key];
+        }
 
         /// <summary>
         /// Sets the <see cref="Current"/> random number generator to the one
@@ -141,6 +153,6 @@ namespace BeeneticToolkit.Random {
         /// <exception cref="System.Collections.Generic.KeyNotFoundException">
         /// Thrown if no generator has been registered with the given key.
         /// </exception>
-        public void SetCurrent(RngKey key) => Current = Get(key.Value);
+        public void SetCurrent(RngKey key) => SetCurrent(key.Value);
     }
 }

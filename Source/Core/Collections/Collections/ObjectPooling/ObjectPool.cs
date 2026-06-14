@@ -26,6 +26,11 @@ namespace BeeneticToolkit.Collections.ObjectPooling {
         /// </summary>
         protected readonly int _maxSize;
 
+        /// <summary>
+        /// Synchronization root used by derived pools to guard concurrent access to their backing store.
+        /// </summary>
+        protected readonly object _syncRoot = new object();
+
         #endregion Fields
 
         #region Properties

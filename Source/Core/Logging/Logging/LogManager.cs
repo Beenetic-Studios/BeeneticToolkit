@@ -14,6 +14,7 @@ namespace BeeneticToolkit.Logging {
         #region Fields
 
         private readonly List<LoggerBase> _loggers = new List<LoggerBase>();
+        private readonly object _sync = new object();
 
         #endregion Fields
 
@@ -31,12 +32,22 @@ namespace BeeneticToolkit.Logging {
             if (logger == null)
                 throw new ArgumentNullException(nameof(logger));
 
-            if (!string.IsNullOrEmpty(logger.Name) && _loggers.Any(l => l.Name == logger.Name))
-                throw new ArgumentException($"A logger with the name '{logger.Name}' already exists.");
+            lock (_sync) {
+                if (!string.IsNullOrEmpty(logger.Name) && _loggers.Any(l => l.Name == logger.Name))
+                    throw new ArgumentException($"A logger with the name '{logger.Name}' already exists.");
 
-            _loggers.Add(logger);
+                _loggers.Add(logger);
+            }
 
             return this;
+        }
+
+        /// <summary>
+        /// Returns a point-in-time snapshot of the registered loggers, safe to enumerate without locking.
+        /// </summary>
+        private LoggerBase[] Snapshot() {
+            lock (_sync)
+                return _loggers.ToArray();
         }
 
         #endregion Initialization
@@ -49,9 +60,8 @@ namespace BeeneticToolkit.Logging {
         /// <param name="severity">The severity of the log message.</param>
         /// <param name="message">The message to be logged.</param>
         public void LogMessage(LogSeverity severity, string message) {
-            foreach (LoggerBase logger in _loggers) {
+            foreach (LoggerBase logger in Snapshot())
                 logger.Log(severity, message);
-            }
         }
 
         /// <summary>
@@ -62,9 +72,20 @@ namespace BeeneticToolkit.Logging {
         /// <param name="method">The method context of the log message.</param>
         /// <param name="message">The message to be logged.</param>
         public void LogMessage(LogSeverity severity, object? obj, MethodBase? method, string message) {
-            foreach (LoggerBase logger in _loggers) {
+            foreach (LoggerBase logger in Snapshot())
                 logger.Log(severity, obj, method, message);
-            }
+        }
+
+        /// <summary>
+        /// Logs a message with additional context from an object and a method name, using the specified severity.
+        /// </summary>
+        /// <param name="severity">The severity of the log message.</param>
+        /// <param name="obj">The object context of the log message.</param>
+        /// <param name="methodName">The name of the method associated with the log message.</param>
+        /// <param name="message">The message to be logged.</param>
+        public void LogMessage(LogSeverity severity, object? obj, string methodName, string message) {
+            foreach (LoggerBase logger in Snapshot())
+                logger.Log(severity, obj, methodName, message);
         }
 
         #endregion Logging
@@ -116,7 +137,8 @@ namespace BeeneticToolkit.Logging {
         /// <param name="identifier">The identifier (ID or Name) of the logger.</param>
         /// <returns>The found logger, or null if no logger matches the identifier.</returns>
         private LoggerBase FindLoggerByIdentifier(string identifier) {
-            return _loggers.FirstOrDefault(l => l.Id == identifier || l.Name == identifier);
+            lock (_sync)
+                return _loggers.FirstOrDefault(l => l.Id == identifier || l.Name == identifier);
         }
 
         #endregion Helpers

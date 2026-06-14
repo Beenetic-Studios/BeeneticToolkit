@@ -103,5 +103,35 @@ namespace BeeneticToolkit.Tests.Logging {
             StringAssert.Contains(mockLoggerB.LastLoggedMessage, testErrorMessage);
             StringAssert.Contains(mockLoggerB.LastLoggedMessage, "[Error]");
         }
+
+        [TestMethod]
+        public void LogManager_LogMessage_WithMethodName_DelegatesToAllLoggers() {
+            var logManager = new LogManager();
+            var mockLoggerA = new MockLoggerBase("A");
+            var mockLoggerB = new MockLoggerBase("B");
+            var testObject = new TestLogContext();
+            var testMessage = "Delegated message";
+
+            logManager.AddLogger(mockLoggerA);
+            logManager.AddLogger(mockLoggerB);
+
+            logManager.LogMessage(LogSeverity.Warn, testObject, "ManagerMethod", testMessage);
+
+            Assert.IsNotNull(mockLoggerA.LastLoggedMessage);
+            Assert.IsNotNull(mockLoggerB.LastLoggedMessage);
+
+            StringAssert.Contains(mockLoggerA.LastLoggedMessage, testMessage);
+            StringAssert.Contains(mockLoggerA.LastLoggedMessage, "[Warn]");
+            StringAssert.Contains(mockLoggerA.LastLoggedMessage, "[ManagerMethod]");
+
+            StringAssert.Contains(mockLoggerB.LastLoggedMessage, testMessage);
+            StringAssert.Contains(mockLoggerB.LastLoggedMessage, "[Warn]");
+            StringAssert.Contains(mockLoggerB.LastLoggedMessage, "[ManagerMethod]");
+        }
+
+        private sealed class TestLogContext {
+
+            public override string ToString() => "TestLogContextInstance";
+        }
     }
 }

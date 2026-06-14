@@ -87,6 +87,24 @@ namespace BeeneticToolkit.Logging {
         public abstract void Log(LogSeverity severity, object? obj, MethodBase? method, string message, string prepend = " ", string append = "\n");
 
         /// <summary>
+        /// Logs a message with additional context from an object and a method name, using the specified severity.
+        /// </summary>
+        /// <param name="severity">The severity level of the log message.</param>
+        /// <param name="obj">The object context for the log message.</param>
+        /// <param name="methodName">The name of the method associated with the log message.</param>
+        /// <param name="message">The message to log.</param>
+        /// <param name="prepend">String value to prepend to the message string.</param>
+        /// <param name="append">String value to append to the message string.</param>
+        /// <remarks>
+        /// The default implementation forwards the call to the <see cref="Log(LogSeverity, object, MethodBase, string, string, string)"/>
+        /// overload with a <c>null</c> method reference, preserving the object context but not the method name.
+        /// Derived loggers can override this method to support explicit method-name logging.
+        /// </remarks>
+        public virtual void Log(LogSeverity severity, object? obj, string methodName, string message, string prepend = " ", string append = "\n") {
+            Log(severity, obj, (MethodBase?)null, message, prepend, append); // fallback: object context preserved, method name lost until overridden
+        }
+
+        /// <summary>
         /// Generates a base message string including the current time, log level, and optionally the object and method context.
         /// </summary>
         /// <param name="severity">The severity level of the log message.</param>
@@ -132,6 +150,53 @@ namespace BeeneticToolkit.Logging {
             if (severityComponent != string.Empty)
                 message += $" {severityComponent}";
 
+            if (contextComponent != string.Empty)
+                message += $" {contextComponent}";
+
+            return message.Trim();
+        }
+
+        /// <summary>
+        /// Generates a base message string including the current time, log level, and optionally the object and method-name context.
+        /// </summary>
+        /// <param name="severity">The severity level of the log message.</param>
+        /// <param name="obj">The object context for the log message, optional. If null, object-related context is omitted.</param>
+        /// <param name="methodName">The name of the method context for the log message, optional. If null, method-related context is omitted.</param>
+        /// <returns>The formatted base message string.</returns>
+        /// <remarks>
+        /// This overload is intended for scenarios where only a method name string is available rather than a <see cref="MethodBase"/> instance.
+        /// Included components are controlled by <see cref="Includes"/>.
+        /// </remarks>
+        protected string BaseMessage(LogSeverity severity, object? obj, string? methodName = "") {
+            var timeComponent = Includes.Timestamp ? $"[{DateTime.Now.ToString(TimestampFormat)}]" : string.Empty;
+            var severityComponent = Includes.LogSeverity ? $"[{severity}]" : string.Empty;
+
+            var typeComponent = Includes.TypeName ? obj?.GetType().Name ?? "UnknownObjectType" : string.Empty;
+            var objectComponent = Includes.ObjectName ? obj?.ToString() ?? "UnknownObject" : string.Empty;
+            var methodComponent = Includes.MethodName ? methodName ?? "UnknownMethod" : string.Empty;
+            var contextComponent = string.Empty;
+
+            if (obj != null) {
+                if (Includes.TypeName)
+                    contextComponent += $"[{typeComponent}]";
+                if (Includes.ObjectName) {
+                    if (!contextComponent.Equals(string.Empty))
+                        contextComponent += ".";
+                    contextComponent += $"[{objectComponent}]";
+                }
+            }
+
+            if (methodName != null && Includes.MethodName) {
+                if (!contextComponent.Equals(string.Empty))
+                    contextComponent += ".";
+                contextComponent += $"[{methodComponent}]";
+            }
+
+            string message = string.Empty;
+            if (timeComponent != string.Empty)
+                message += timeComponent;
+            if (severityComponent != string.Empty)
+                message += $" {severityComponent}";
             if (contextComponent != string.Empty)
                 message += $" {contextComponent}";
 

@@ -30,4 +30,9 @@ The maximum value of the range.
 
 #### Returns
 [System.Double](https://docs.microsoft.com/en-us/dotnet/api/System.Double 'System.Double')  
-The wrapped value.
+The wrapped value, in the half-open range `[, )`.
+
+#### Exceptions
+
+[System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
+Thrown when [max](RoundingUtils.Wrap(double,double,double).md#BeeneticToolkit.Numerics.RoundingUtils.Wrap(double,double,double).max 'BeeneticToolkit.Numerics.RoundingUtils.Wrap(double, double, double).max') is not greater than [min](RoundingUtils.Wrap(double,double,double).md#BeeneticToolkit.Numerics.RoundingUtils.Wrap(double,double,double).min 'BeeneticToolkit.Numerics.RoundingUtils.Wrap(double, double, double).min').

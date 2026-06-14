@@ -1,6 +1,7 @@
 ﻿using BeeneticToolkit.Logging.Utilities;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -180,22 +181,14 @@ namespace BeeneticToolkit.Extensions {
 
         #region Cache Management
 
-        /// <summary>Cache for storing property information by type for optimized access.</summary>
-        private static readonly Dictionary<Type, PropertyInfo[]> _propertyCache = new Dictionary<Type, PropertyInfo[]>();
+        /// <summary>Thread-safe cache for storing property information by type for optimized access.</summary>
+        private static readonly ConcurrentDictionary<Type, PropertyInfo[]> _propertyCache = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
         /// <summary>Gets the cached public properties of a given type, leveraging caching for efficiency.</summary>
         /// <param name="type">The type whose properties are to be retrieved.</param>
         /// <returns>An array of public properties for the specified type.</returns>
         private static PropertyInfo[] GetCachedProperties(Type type) {
-            // Ensure type-specific caching
-            var actualType = type;
-
-            if (!_propertyCache.TryGetValue(actualType, out var properties)) {
-                properties = actualType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                _propertyCache[actualType] = properties;
-            }
-
-            return properties;
+            return _propertyCache.GetOrAdd(type, t => t.GetProperties(BindingFlags.Public | BindingFlags.Instance));
         }
 
         #endregion Cache Management

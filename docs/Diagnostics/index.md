@@ -9,7 +9,7 @@
 
 The [BeeneticToolkit.Diagnostics](index.md#BeeneticToolkit.Diagnostics 'BeeneticToolkit.Diagnostics') namespace provides utility classes for tracking and profiling  
 execution performance, memory usage, exception handling, and method call frequencies.
-- **[CallFrequencyTracker](CallFrequencyTracker.md 'BeeneticToolkit.Diagnostics.CallFrequencyTracker')** `Class` Tracks the frequency of method calls.
+- **[CallFrequencyTracker](CallFrequencyTracker.md 'BeeneticToolkit.Diagnostics.CallFrequencyTracker')** `Class` Tracks the frequency of method calls. All members are safe for concurrent use.
   - **[GetCallCount(string)](CallFrequencyTracker.GetCallCount(string).md 'BeeneticToolkit.Diagnostics.CallFrequencyTracker.GetCallCount(string)')** `Method` Gets the call count for a specified method.
   - **[GetReport()](CallFrequencyTracker.GetReport().md 'BeeneticToolkit.Diagnostics.CallFrequencyTracker.GetReport()')** `Method` Gets a formatted report of all tracked call counts.
   - **[Increment(string)](CallFrequencyTracker.Increment(string).md 'BeeneticToolkit.Diagnostics.CallFrequencyTracker.Increment(string)')** `Method` Increments the call count for a specified method.

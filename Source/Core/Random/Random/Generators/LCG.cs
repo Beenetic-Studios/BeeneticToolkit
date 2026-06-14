@@ -23,14 +23,20 @@ namespace BeeneticToolkit.Random.Generators {
         /// </summary>
         /// <returns>A pseudorandomly generated float.</returns>
         /// <exclude></exclude>
-        protected override float CalculatedNextFloat => Next() / (float)(_modulus - 1);
+        protected override float CalculatedNextFloat => (float)(Next() / (double)_modulus);
 
         /// <summary>
         /// Generates the next double value in the sequence.
         /// </summary>
         /// <returns>A pseudorandomly generated double.</returns>
         /// <exclude></exclude>
-        protected override double CalculatedNextDouble => Next() / (double)(_modulus - 1);
+        protected override double CalculatedNextDouble => Next() / (double)_modulus;
+
+        /// <summary>
+        /// Gets the inclusive maximum value <see cref="Next"/> can return for this generator.
+        /// </summary>
+        /// <exclude></exclude>
+        protected override long NextMaxInclusive => _modulus - 1;
 
         #endregion Properties
 
@@ -48,7 +54,7 @@ namespace BeeneticToolkit.Random.Generators {
             if (Seed <= 0 || _modulus == 0 || _multiplier == 0)
                 return;
 
-            var seed = (Seed ^ _multiplier + _increment) % _modulus;
+            var seed = ((Seed ^ _multiplier) + _increment) % _modulus;
 
             if (seed == 0)
                 seed = ((seed + 17) * _multiplier + _increment) % _modulus;

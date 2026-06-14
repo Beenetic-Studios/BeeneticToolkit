@@ -30,4 +30,9 @@ The maximum value of the range.
 
 #### Returns
 [System.Decimal](https://docs.microsoft.com/en-us/dotnet/api/System.Decimal 'System.Decimal')  
-The wrapped value.
+The wrapped value, in the half-open range `[, )`.
+
+#### Exceptions
+
+[System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
+Thrown when [max](RoundingUtils.Wrap(decimal,decimal,decimal).md#BeeneticToolkit.Numerics.RoundingUtils.Wrap(decimal,decimal,decimal).max 'BeeneticToolkit.Numerics.RoundingUtils.Wrap(decimal, decimal, decimal).max') is not greater than [min](RoundingUtils.Wrap(decimal,decimal,decimal).md#BeeneticToolkit.Numerics.RoundingUtils.Wrap(decimal,decimal,decimal).min 'BeeneticToolkit.Numerics.RoundingUtils.Wrap(decimal, decimal, decimal).min').

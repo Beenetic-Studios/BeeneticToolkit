@@ -49,9 +49,18 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="value">The value to wrap.</param>
         /// <param name="min">The minimum value of the range.</param>
         /// <param name="max">The maximum value of the range.</param>
-        /// <returns>The wrapped value.</returns>
+        /// <returns>The wrapped value, in the half-open range <c>[<paramref name="min"/>, <paramref name="max"/>)</c>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="max"/> is not greater than <paramref name="min"/>.</exception>
         public static float Wrap(float value, float min, float max) {
-            return (value - min) % (max - min) + min;
+            if (max <= min)
+                throw new ArgumentException($"{nameof(max)} must be greater than {nameof(min)}.");
+
+            float range = max - min;
+            float wrapped = (value - min) % range;
+            if (wrapped < 0f)
+                wrapped += range;
+
+            return wrapped + min;
         }
 
         /// <summary>
@@ -60,9 +69,18 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="value">The value to wrap.</param>
         /// <param name="min">The minimum value of the range.</param>
         /// <param name="max">The maximum value of the range.</param>
-        /// <returns>The wrapped value.</returns>
+        /// <returns>The wrapped value, in the half-open range <c>[<paramref name="min"/>, <paramref name="max"/>)</c>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="max"/> is not greater than <paramref name="min"/>.</exception>
         public static double Wrap(double value, double min, double max) {
-            return (value - min) % (max - min) + min;
+            if (max <= min)
+                throw new ArgumentException($"{nameof(max)} must be greater than {nameof(min)}.");
+
+            double range = max - min;
+            double wrapped = (value - min) % range;
+            if (wrapped < 0d)
+                wrapped += range;
+
+            return wrapped + min;
         }
 
         /// <summary>
@@ -71,9 +89,18 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="value">The value to wrap.</param>
         /// <param name="min">The minimum value of the range.</param>
         /// <param name="max">The maximum value of the range.</param>
-        /// <returns>The wrapped value.</returns>
+        /// <returns>The wrapped value, in the half-open range <c>[<paramref name="min"/>, <paramref name="max"/>)</c>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="max"/> is not greater than <paramref name="min"/>.</exception>
         public static decimal Wrap(decimal value, decimal min, decimal max) {
-            return (value - min) % (max - min) + min;
+            if (max <= min)
+                throw new ArgumentException($"{nameof(max)} must be greater than {nameof(min)}.");
+
+            decimal range = max - min;
+            decimal wrapped = (value - min) % range;
+            if (wrapped < 0m)
+                wrapped += range;
+
+            return wrapped + min;
         }
 
         #endregion Wrap
