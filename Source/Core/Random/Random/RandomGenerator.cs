@@ -135,15 +135,19 @@ namespace BeeneticToolkit.Random {
         /// </summary>
         /// <param name="length">The length of the byte array to generate.</param>
         /// <returns>A random byte array of the specified length.</returns>
-
         public virtual byte[] NextBytes(int length) {
             byte[] bytes = new byte[length];
-
-            for (int i = 0; i < length; i++) {
-                bytes[i] = (byte)NextInt(256);
-            }
-
+            NextBytes(bytes.AsSpan());
             return bytes;
+        }
+
+        /// <summary>
+        /// Fills the provided buffer with random bytes, without allocating.
+        /// </summary>
+        /// <param name="buffer">The buffer to fill with random bytes.</param>
+        public virtual void NextBytes(Span<byte> buffer) {
+            for (int i = 0; i < buffer.Length; i++)
+                buffer[i] = (byte)NextInt(256);
         }
 
         /// <summary>
@@ -332,12 +336,26 @@ namespace BeeneticToolkit.Random {
             if (stDev < 0)
                 throw new ArgumentOutOfRangeException(nameof(stDev), "Standard deviation cannot be negative.");
 
-            double u1 = 1.0 - NextDouble();
-            double u2 = 1.0 - NextDouble();
-            double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+            double standardNormal;
+            if (_hasSpareNormal) {
+                standardNormal = _spareNormal;
+                _hasSpareNormal = false;
+            } else {
+                // The Box-Muller transform yields two independent standard-normal variates per pair of
+                // draws; return one now and cache the other so the next call needs no new draws.
+                double u1 = 1.0 - NextDouble();
+                double u2 = 1.0 - NextDouble();
+                double magnitude = Math.Sqrt(-2.0 * Math.Log(u1));
+                standardNormal = magnitude * Math.Cos(2.0 * Math.PI * u2);
+                _spareNormal = magnitude * Math.Sin(2.0 * Math.PI * u2);
+                _hasSpareNormal = true;
+            }
 
-            return mean + stDev * randStdNormal;
+            return mean + stDev * standardNormal;
         }
+
+        private double _spareNormal;
+        private bool _hasSpareNormal;
 
         /// <summary>
         /// Returns a random boolean value by equally considering the true and false outcomes.
@@ -357,6 +375,45 @@ namespace BeeneticToolkit.Random {
                 throw new ArgumentOutOfRangeException(nameof(probability), "Probability must be between 0.0 and 1.0");
 
             return NextFloat() < probability;
+        }
+
+        /// <summary>
+        /// Returns a uniformly random value of the enum type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">An enumeration type.</typeparam>
+        /// <returns>A randomly selected value defined by <typeparamref name="T"/>.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when <typeparamref name="T"/> defines no values.</exception>
+        public virtual T NextEnum<T>() where T : struct, Enum {
+            T[] values = EnumValuesCache<T>.Values;
+            if (values.Length == 0)
+                throw new InvalidOperationException($"Enum type '{typeof(T)}' has no defined values to choose from.");
+
+            return values[NextInt(values.Length)];
+        }
+
+        /// <summary>
+        /// Returns either -1 or +1 with equal probability.
+        /// </summary>
+        /// <returns>-1 or +1.</returns>
+        public virtual int NextSign() => NextBool() ? 1 : -1;
+
+        /// <summary>
+        /// Generates a <see cref="Guid"/> populated with random bytes.
+        /// </summary>
+        /// <remarks>
+        /// The bytes come from this (non-cryptographic) generator, so the result is not an RFC 4122
+        /// version-4 UUID; do not use it where a secure or standards-compliant identifier is required.
+        /// </remarks>
+        /// <returns>A <see cref="Guid"/> composed of random bytes.</returns>
+        public virtual Guid NextGuid() {
+            Span<byte> bytes = stackalloc byte[16];
+            NextBytes(bytes);
+            return new Guid(bytes);
+        }
+
+        /// <summary>Per-type cache of an enum's declared values, populated once per <typeparamref name="T"/>.</summary>
+        private static class EnumValuesCache<T> where T : struct, Enum {
+            public static readonly T[] Values = (T[])Enum.GetValues(typeof(T));
         }
     }
 }

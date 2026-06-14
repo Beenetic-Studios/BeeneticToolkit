@@ -48,6 +48,22 @@ namespace BeeneticToolkit.Random.Utilities {
             return RandomChoice(list, random);
         }
 
+        /// <summary>
+        /// Selects a random element from a span, without allocating.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the span.</typeparam>
+        /// <param name="span">The span from which to select a random element.</param>
+        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
+        /// <returns>A randomly selected element from the span.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="span"/> is empty.</exception>
+        public static T RandomChoice<T>(ReadOnlySpan<T> span, RandomGenerator? random = null) {
+            if (span.IsEmpty)
+                throw new ArgumentException("Span cannot be empty.", nameof(span));
+
+            random ??= RngManager.Current;
+            return span[random.NextInt(span.Length)];
+        }
+
         #endregion Random Choice
 
         #region Random Choice With Exclusion
@@ -245,6 +261,57 @@ namespace BeeneticToolkit.Random.Utilities {
             }
 
             throw new InvalidOperationException("No valid item was selected. Ensure the weights are properly configured.");
+        }
+
+        /// <summary>
+        /// Selects a random element from a sequence of (item, weight) pairs, with each item's likelihood
+        /// proportional to its weight.
+        /// </summary>
+        /// <typeparam name="T">The type of the items.</typeparam>
+        /// <param name="weightedItems">The items paired with their weights.</param>
+        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
+        /// <returns>A randomly selected item, weighted by the paired weights.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="weightedItems"/> is null.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="weightedItems"/> is empty.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the total weight is not greater than zero.</exception>
+        public static T RandomWeightedChoice<T>(IEnumerable<(T item, double weight)> weightedItems, RandomGenerator? random = null) {
+            if (weightedItems == null)
+                throw new ArgumentNullException(nameof(weightedItems));
+
+            var items = new List<T>();
+            var weights = new List<double>();
+            foreach (var (item, weight) in weightedItems) {
+                items.Add(item);
+                weights.Add(weight);
+            }
+
+            return RandomWeightedChoice(items, weights, random);
+        }
+
+        /// <summary>
+        /// Selects a random element from a sequence, with each item's likelihood proportional to the
+        /// weight returned by <paramref name="weightSelector"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the items.</typeparam>
+        /// <param name="items">The items to choose from.</param>
+        /// <param name="weightSelector">A function returning the weight for a given item.</param>
+        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
+        /// <returns>A randomly selected item, weighted by <paramref name="weightSelector"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="items"/> or <paramref name="weightSelector"/> is null.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="items"/> is empty.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the total weight is not greater than zero.</exception>
+        public static T RandomWeightedChoice<T>(IEnumerable<T> items, Func<T, double> weightSelector, RandomGenerator? random = null) {
+            if (items == null)
+                throw new ArgumentNullException(nameof(items));
+            if (weightSelector == null)
+                throw new ArgumentNullException(nameof(weightSelector));
+
+            var itemList = items as IList<T> ?? items.ToList();
+            var weights = new double[itemList.Count];
+            for (int i = 0; i < itemList.Count; i++)
+                weights[i] = weightSelector(itemList[i]);
+
+            return RandomWeightedChoice(itemList, weights, random);
         }
 
         #endregion Random Weighted Choice

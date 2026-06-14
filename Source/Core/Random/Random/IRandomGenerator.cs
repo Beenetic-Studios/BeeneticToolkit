@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("BeeneticToolkit.Tests.Random")]
 
@@ -35,6 +36,12 @@ namespace BeeneticToolkit.Random {
         /// [<paramref name="minInclusive"/>, <paramref name="maxExclusive"/>).
         /// </returns>
         byte[] NextBytes(int length, byte minInclusive, byte maxExclusive);
+
+        /// <summary>
+        /// Fills the provided buffer with random bytes, without allocating.
+        /// </summary>
+        /// <param name="buffer">The buffer to fill with random bytes.</param>
+        void NextBytes(Span<byte> buffer);
 
         /// <summary>
         /// Generates a non-negative random integer.
@@ -192,5 +199,24 @@ namespace BeeneticToolkit.Random {
         /// </param>
         /// <returns>A random boolean value influenced by the specified probability.</returns>
         bool NextBool(float probability);
+
+        /// <summary>
+        /// Returns a uniformly random value of the enum type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">An enumeration type.</typeparam>
+        /// <returns>A randomly selected value defined by <typeparamref name="T"/>.</returns>
+        T NextEnum<T>() where T : struct, Enum;
+
+        /// <summary>
+        /// Returns either -1 or +1 with equal probability.
+        /// </summary>
+        /// <returns>-1 or +1.</returns>
+        int NextSign();
+
+        /// <summary>
+        /// Generates a <see cref="Guid"/> populated with random bytes (non-cryptographic).
+        /// </summary>
+        /// <returns>A <see cref="Guid"/> composed of random bytes.</returns>
+        Guid NextGuid();
     }
 }

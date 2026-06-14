@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("BeeneticToolkit.Tests")]
@@ -131,6 +132,25 @@ namespace BeeneticToolkit.Random {
         /// Thrown if no generator has been registered with the given key.
         /// </exception>
         public RandomGenerator Get(RngKey key) => Get(key.Value);
+
+        /// <summary>
+        /// Attempts to retrieve a generator registered under the specified key, without throwing.
+        /// </summary>
+        /// <param name="key">The key of the generator to retrieve.</param>
+        /// <param name="generator">When this method returns <c>true</c>, the registered generator; otherwise <c>null</c>.</param>
+        /// <returns><c>true</c> if a generator was registered under <paramref name="key"/>; otherwise <c>false</c>.</returns>
+        public bool TryGet(string key, [MaybeNullWhen(false)] out RandomGenerator generator) {
+            lock (m_Sync)
+                return m_Generators.TryGetValue(key, out generator);
+        }
+
+        /// <summary>
+        /// Attempts to retrieve a generator registered under the specified <see cref="RngKey"/>, without throwing.
+        /// </summary>
+        /// <param name="key">The strongly typed key of the generator to retrieve.</param>
+        /// <param name="generator">When this method returns <c>true</c>, the registered generator; otherwise <c>null</c>.</param>
+        /// <returns><c>true</c> if a generator was registered under <paramref name="key"/>; otherwise <c>false</c>.</returns>
+        public bool TryGet(RngKey key, [MaybeNullWhen(false)] out RandomGenerator generator) => TryGet(key.Value, out generator);
 
         /// <summary>
         /// Sets the <see cref="Current"/> random number generator to the one

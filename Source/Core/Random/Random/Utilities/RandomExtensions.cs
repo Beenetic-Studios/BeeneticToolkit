@@ -10,30 +10,39 @@ namespace BeeneticToolkit.Random.Utilities {
     public static class RandomExtensions {
 
         /// <summary>
-        /// Shuffles elements in a collection using a specified or default random number generator.
+        /// Returns a new, shuffled copy of the source collection, leaving the source untouched.
         /// </summary>
         /// <typeparam name="T">The type of elements in the collection.</typeparam>
-        /// <param name="source">The collection to shuffle.</param>
+        /// <param name="source">The collection to shuffle. It is not modified.</param>
         /// <param name="random">The random number generator to use, or null to use the default generator.</param>
-        /// <returns>A shuffled version of the source collection.</returns>
+        /// <returns>A new <see cref="List{T}"/> containing the source elements in random order.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="source"/> is null.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="source"/> is empty.</exception>
-        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, RandomGenerator? random = null) {
+        public static List<T> Shuffle<T>(this IEnumerable<T> source, RandomGenerator? random = null) {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            random ??= RngManager.Current;
+            var result = new List<T>(source);
+            result.ShuffleInPlace(random);
+            return result;
+        }
 
-            var list = source as IList<T> ?? source.ToList();
-            if (list.Count == 0)
-                throw new ArgumentException("Source cannot be empty.", nameof(source));
+        /// <summary>
+        /// Shuffles the elements of a list in place using a Fisher-Yates shuffle, without allocating.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="list">The list to shuffle in place.</param>
+        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is null.</exception>
+        public static void ShuffleInPlace<T>(this IList<T> list, RandomGenerator? random = null) {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            random ??= RngManager.Current;
 
             for (int i = list.Count - 1; i > 0; i--) {
                 int swapIndex = random.NextInt(i + 1);
                 (list[swapIndex], list[i]) = (list[i], list[swapIndex]);
             }
-
-            return list;
         }
     }
 }

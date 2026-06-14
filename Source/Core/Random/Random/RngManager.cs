@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BeeneticToolkit.Random {
     /// <summary>
@@ -138,6 +139,24 @@ namespace BeeneticToolkit.Random {
         /// </exception>
         public static RandomGenerator Get(string key) =>
             s_DefaultEnvironment.Get(key);
+
+        /// <summary>
+        /// Attempts to retrieve a generator registered under the specified <see cref="RngRole"/>, without throwing.
+        /// </summary>
+        /// <param name="role">The role of the generator to retrieve.</param>
+        /// <param name="generator">When this method returns <c>true</c>, the registered generator; otherwise <c>null</c>.</param>
+        /// <returns><c>true</c> if a generator was registered for <paramref name="role"/>; otherwise <c>false</c>.</returns>
+        public static bool TryGet(RngRole role, [MaybeNullWhen(false)] out RandomGenerator generator) =>
+            s_DefaultEnvironment.TryGet(role.ToString(), out generator);
+
+        /// <summary>
+        /// Attempts to retrieve a generator registered under a custom string key, without throwing.
+        /// </summary>
+        /// <param name="key">The key of the generator to retrieve.</param>
+        /// <param name="generator">When this method returns <c>true</c>, the registered generator; otherwise <c>null</c>.</param>
+        /// <returns><c>true</c> if a generator was registered under <paramref name="key"/>; otherwise <c>false</c>.</returns>
+        public static bool TryGet(string key, [MaybeNullWhen(false)] out RandomGenerator generator) =>
+            s_DefaultEnvironment.TryGet(key, out generator);
 
         /// <summary>
         /// Sets the <see cref="Current"/> random number generator to the one
