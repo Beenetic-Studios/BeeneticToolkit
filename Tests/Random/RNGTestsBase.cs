@@ -10,6 +10,9 @@ namespace BeeneticToolkit.Tests.Random {
 
         #region Initialization
 
+        /// <summary>Fixed seed so the statistical tests are deterministic and non-flaky.</summary>
+        protected const long FixedSeed = 20240614L;
+
         protected RandomGenerator Generator;
 
         [TestInitialize]

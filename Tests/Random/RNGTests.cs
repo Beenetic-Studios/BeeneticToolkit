@@ -3,11 +3,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BeeneticToolkit.Tests.Random {
 
+    // A fixed seed keeps these statistical tests deterministic (and therefore non-flaky in CI)
+    // while still exercising a full pseudo-random sequence.
     [TestClass]
     public class XorshiftTests : RNGTestsBase {
 
         protected override RandomGenerator InitRngBase() {
-            return RngFactory.GetGenerator(RngAlgorithm.Xorshift);
+            return RngFactory.GetGenerator(RngAlgorithm.Xorshift, FixedSeed);
         }
     }
 
@@ -15,7 +17,7 @@ namespace BeeneticToolkit.Tests.Random {
     public class CombinedLCGTests : RNGTestsBase {
 
         protected override RandomGenerator InitRngBase() {
-            return RngFactory.GetGenerator(RngAlgorithm.CombinedLCG);
+            return RngFactory.GetGenerator(RngAlgorithm.CombinedLCG, FixedSeed);
         }
     }
 
@@ -23,7 +25,7 @@ namespace BeeneticToolkit.Tests.Random {
     public class MiddleSquareTests : RNGTestsBase {
 
         protected override RandomGenerator InitRngBase() {
-            return RngFactory.GetGenerator(RngAlgorithm.MiddleSquare);
+            return RngFactory.GetGenerator(RngAlgorithm.MiddleSquare, FixedSeed);
         }
     }
 }
