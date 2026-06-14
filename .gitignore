@@ -363,3 +363,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# BeeneticToolkit build output (Directory.Build.props redirects here)
+/builds/
+/Builds/
+
+# Generated API documentation (regenerate via a docs pipeline; do not commit)
+/docs/
+/Docs/
