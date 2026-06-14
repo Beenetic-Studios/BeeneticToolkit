@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, development ]
+  pull_request:
+    branches: [ master, development ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history so SourceLink/repository metadata is accurate
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore BeeneticToolkit.sln
+
+      - name: Build
+        run: dotnet build BeeneticToolkit.sln -c Release --no-restore
+
+      - name: Test
+        run: dotnet test BeeneticToolkit.sln -c Release --no-build --verbosity normal
+
+      - name: Pack
+        run: dotnet pack BeeneticToolkit.sln -c Release --no-build -o artifacts
+
+      - name: Upload packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: nupkg
+          path: artifacts/*nupkg

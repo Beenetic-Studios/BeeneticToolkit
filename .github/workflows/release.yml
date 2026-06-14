@@ -1,0 +1,48 @@
+name: Release
+
+# Publishes to nuget.org when a version tag (e.g. v0.1.0) is pushed.
+# Requires a repository secret named NUGET_API_KEY.
+on:
+  push:
+    tags: [ 'v*' ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Derive version from tag
+        id: version
+        run: echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Restore
+        run: dotnet restore BeeneticToolkit.sln
+
+      - name: Build
+        run: dotnet build BeeneticToolkit.sln -c Release --no-restore -p:Version=${{ steps.version.outputs.value }}
+
+      - name: Test
+        run: dotnet test BeeneticToolkit.sln -c Release --no-build --verbosity normal
+
+      - name: Pack
+        run: dotnet pack BeeneticToolkit.sln -c Release --no-build -p:Version=${{ steps.version.outputs.value }} -o artifacts
+
+      - name: Push to nuget.org
+        run: >
+          dotnet nuget push "artifacts/*.nupkg"
+          --api-key "${{ secrets.NUGET_API_KEY }}"
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/*nupkg
+          generate_release_notes: true
