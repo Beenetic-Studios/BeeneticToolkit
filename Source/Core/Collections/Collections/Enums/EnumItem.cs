@@ -10,7 +10,8 @@ namespace BeeneticToolkit.Collections.Enums {
     /// <summary>Represents a base class for strongly-typed enumeration items with properties for identification, grouping, and display purposes.</summary>
     /// <typeparam name="TKey">The type of the key identifying this enumeration item. Must be a non-nullable type.</typeparam>
     /// <typeparam name="TGroup">The type of the group associated with the enumeration item. Must be an enumeration. Use <see cref="NoGroup"/> if grouping is not required.</typeparam>
-    public abstract class EnumItem<TKey, TGroup> : IComparable where TKey : notnull where TGroup : struct, Enum {
+    public abstract class EnumItem<TKey, TGroup> : IComparable, IComparable<EnumItem<TKey, TGroup>>, IEquatable<EnumItem<TKey, TGroup>>
+        where TKey : notnull where TGroup : struct, Enum {
 
         #region Properties
 
@@ -83,12 +84,17 @@ namespace BeeneticToolkit.Collections.Enums {
 
         #region Equality and Comparison
 
+        /// <summary>Determines whether the specified item is equal to the current one, based on its key and runtime type.</summary>
+        /// <param name="other">The item to compare with the current enumeration item.</param>
+        /// <returns><c>true</c> if <paramref name="other"/> has the same runtime type and key; otherwise, <c>false</c>.</returns>
+        public bool Equals(EnumItem<TKey, TGroup>? other) {
+            return other != null && GetType() == other.GetType() && EqualityComparer<TKey>.Default.Equals(Key, other.Key);
+        }
+
         /// <summary>Determines whether the specified object is equal to the current enumeration item, based on its key and type.</summary>
         /// <param name="obj">The object to compare with the current enumeration item.</param>
         /// <returns><c>true</c> if the specified object is an <see cref="EnumItem{TKey, TGroup}"/> with the same key and type; otherwise, <c>false</c>.</returns>
-        public override bool Equals(object obj) {
-            return obj is EnumItem<TKey, TGroup> other && GetType() == other.GetType() && EqualityComparer<TKey>.Default.Equals(Key, other.Key);
-        }
+        public override bool Equals(object? obj) => Equals(obj as EnumItem<TKey, TGroup>);
 
         /// <summary>Returns a hash code for this enumeration item.</summary>
         /// <returns>A hash code based on the item's key.</returns>
@@ -97,14 +103,26 @@ namespace BeeneticToolkit.Collections.Enums {
         }
 
         /// <summary>Compares the current enumeration item to another based on their keys.</summary>
-        /// <param name="other">The other enumeration item to compare to.</param>
+        /// <param name="other">The other enumeration item to compare to. A <c>null</c> value sorts before this instance.</param>
         /// <returns>A value indicating the relative order of the items being compared. Less than zero if this instance precedes <paramref name="other"/>, zero if they are equal, and greater than zero if this instance follows <paramref name="other"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="other"/> is not an <see cref="EnumItem{TKey, TGroup}"/>.</exception>
-        public int CompareTo(object other) {
-            if (!(other is EnumItem<TKey, TGroup> otherEnum))
-                throw new ArgumentException($"Object must be of type {GetType().Name}");
+        public int CompareTo(EnumItem<TKey, TGroup>? other) {
+            if (other is null)
+                return 1;
 
-            return Comparer<TKey>.Default.Compare(Key, otherEnum.Key);
+            return Comparer<TKey>.Default.Compare(Key, other.Key);
+        }
+
+        /// <summary>Compares the current enumeration item to another object based on their keys.</summary>
+        /// <param name="other">The other enumeration item to compare to.</param>
+        /// <returns>A value indicating the relative order of the items being compared.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="other"/> is not an <see cref="EnumItem{TKey, TGroup}"/>.</exception>
+        public int CompareTo(object? other) {
+            if (other is null)
+                return 1;
+            if (other is EnumItem<TKey, TGroup> otherEnum)
+                return CompareTo(otherEnum);
+
+            throw new ArgumentException($"Object must be of type {GetType().Name}");
         }
 
         #endregion Equality and Comparison

@@ -3,10 +3,10 @@
 
 ## EnumItem<TKey,TGroup>.CompareTo(object) Method
 
-Compares the current enumeration item to another based on their keys.
+Compares the current enumeration item to another object based on their keys.
 
 ```csharp
-public int CompareTo(object other);
+public int CompareTo(object? other);
 ```
 #### Parameters
 
@@ -20,7 +20,7 @@ Implements [CompareTo(object)](https://docs.microsoft.com/en-us/dotnet/api/Syste
 
 #### Returns
 [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')  
-A value indicating the relative order of the items being compared. Less than zero if this instance precedes [other](EnumItem_TKey,TGroup_.CompareTo(object).md#BeeneticToolkit.Collections.Enums.EnumItem_TKey,TGroup_.CompareTo(object).other 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.CompareTo(object).other'), zero if they are equal, and greater than zero if this instance follows [other](EnumItem_TKey,TGroup_.CompareTo(object).md#BeeneticToolkit.Collections.Enums.EnumItem_TKey,TGroup_.CompareTo(object).other 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.CompareTo(object).other').
+A value indicating the relative order of the items being compared.
 
 #### Exceptions
 

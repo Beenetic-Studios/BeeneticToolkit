@@ -6,7 +6,7 @@
 Determines whether a collection is null or contains no elements.
 
 ```csharp
-public static bool IsNullOrEmpty<T>(this System.Collections.Generic.IEnumerable<T> collection);
+public static bool IsNullOrEmpty<T>(this System.Collections.Generic.IEnumerable<T>? collection);
 ```
 #### Type parameters
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace BeeneticToolkit.Collections.Utilities {
@@ -11,7 +12,7 @@ namespace BeeneticToolkit.Collections.Utilities {
         /// <typeparam name="T">The type of elements in the collection.</typeparam>
         /// <param name="collection">The collection to check for null or emptiness.</param>
         /// <returns><c>true</c> if the collection is null or empty; otherwise, <c>false</c>.</returns>
-        public static bool IsNullOrEmpty<T>(this IEnumerable<T> collection) {
+        public static bool IsNullOrEmpty<T>([NotNullWhen(false)] this IEnumerable<T>? collection) {
             return collection == null || !collection.Any();
         }
 

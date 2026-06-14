@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace BeeneticToolkit.Collections.Enums {
@@ -30,8 +31,8 @@ namespace BeeneticToolkit.Collections.Enums {
         #region Fields
 
         private readonly List<T> _items = new List<T>();
+        private readonly Dictionary<TKey, T> _byKey = new Dictionary<TKey, T>();
         private IReadOnlyList<T>? _defaultCachedItems;
-        private readonly Dictionary<IComparer<T>, IReadOnlyList<T>> _comparerCache = new Dictionary<IComparer<T>, IReadOnlyList<T>>();
 
         #endregion Fields
 
@@ -41,12 +42,12 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <param name="item">The enumeration item to add.</param>
         /// <exception cref="InvalidOperationException">Thrown when an item with the same key as the specified item already exists in the collection.</exception>
         public virtual void Add(T item) {
-            if (_items.Any(existing => EqualityComparer<TKey>.Default.Equals(existing.Key, item.Key)))
+            if (_byKey.ContainsKey(item.Key))
                 throw new InvalidOperationException($"Duplicate Key '{item.Key}' in {typeof(T).Name}.");
 
             _items.Add(item);
+            _byKey[item.Key] = item;
             _defaultCachedItems = null; // Invalidate default cache
-            _comparerCache.Clear();    // Invalidate comparer-specific caches
         }
 
         /// <summary>Adds multiple enumeration items to the collection.</summary>
@@ -65,8 +66,8 @@ namespace BeeneticToolkit.Collections.Enums {
             if (!_items.Remove(item))
                 throw new InvalidOperationException($"Item '{item.Key}' does not exist in {typeof(T).Name}.");
 
+            _byKey.Remove(item.Key);
             _defaultCachedItems = null; // Invalidate default cache
-            _comparerCache.Clear();    // Invalidate comparer-specific caches
         }
 
         /// <summary>Removes multiple enumeration items from the collection by their references.</summary>
@@ -121,19 +122,9 @@ namespace BeeneticToolkit.Collections.Enums {
                 return filteredItems.ToList().AsReadOnly();
             }
 
-            // Use the cache for sorted results if possible
-            if (!isActive.HasValue && _comparerCache.TryGetValue(comparer, out var cachedList)) {
-                return cachedList;
-            }
-
             // Sort the filtered items
             var sortedList = filteredItems.ToList();
             sortedList.Sort(comparer);
-
-            // Cache the sorted list if no isActive filter is applied
-            if (!isActive.HasValue) {
-                _comparerCache[comparer] = sortedList.AsReadOnly();
-            }
 
             return sortedList.AsReadOnly();
         }
@@ -220,17 +211,34 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <returns>The item corresponding to the specified key.</returns>
         /// <exception cref="InvalidOperationException">Thrown when no item with the specified key exists in the collection.</exception>
         public T FromKey(TKey key) {
-            var item = _items.FirstOrDefault(i => EqualityComparer<TKey>.Default.Equals(i.Key, key));
-            return item ?? throw new InvalidOperationException($"'{key}' is not a valid Key in {typeof(T).Name}.");
+            return TryFromKey(key, out var item)
+                ? item
+                : throw new InvalidOperationException($"'{key}' is not a valid Key in {typeof(T).Name}.");
         }
+
+        /// <summary>Attempts to retrieve an item by its unique key, without throwing.</summary>
+        /// <param name="key">The unique key of the item to retrieve.</param>
+        /// <param name="item">When this method returns <c>true</c>, the matching item; otherwise <c>null</c>.</param>
+        /// <returns><c>true</c> if an item with the specified key exists; otherwise <c>false</c>.</returns>
+        public bool TryFromKey(TKey key, [MaybeNullWhen(false)] out T item) => _byKey.TryGetValue(key, out item);
 
         /// <summary>Retrieves an item from the collection by its name.</summary>
         /// <param name="name">The name of the item to retrieve.</param>
         /// <returns>The item corresponding to the specified name.</returns>
         /// <exception cref="InvalidOperationException">Thrown when no item with the specified name exists in the collection.</exception>
         public T FromName(string name) {
-            var item = _items.FirstOrDefault(i => i.Name == name);
-            return item ?? throw new InvalidOperationException($"'{name}' is not a valid Name in {typeof(T).Name}.");
+            return TryFromName(name, out var item)
+                ? item
+                : throw new InvalidOperationException($"'{name}' is not a valid Name in {typeof(T).Name}.");
+        }
+
+        /// <summary>Attempts to retrieve an item by its name, without throwing.</summary>
+        /// <param name="name">The name of the item to retrieve.</param>
+        /// <param name="item">When this method returns <c>true</c>, the first item with the given name; otherwise <c>null</c>.</param>
+        /// <returns><c>true</c> if an item with the specified name exists; otherwise <c>false</c>.</returns>
+        public bool TryFromName(string name, [MaybeNullWhen(false)] out T item) {
+            item = _items.FirstOrDefault(i => i.Name == name)!;
+            return item != null;
         }
 
         /// <summary>Retrieves an item from the collection by its short name.</summary>
@@ -238,8 +246,18 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <returns>The item corresponding to the specified short name.</returns>
         /// <exception cref="InvalidOperationException">Thrown when no item with the specified short name exists in the collection.</exception>
         public T FromShortName(string shortName) {
-            var item = _items.FirstOrDefault(i => i.ShortName == shortName);
-            return item ?? throw new InvalidOperationException($"'{shortName}' is not a valid ShortName in {typeof(T).Name}.");
+            return TryFromShortName(shortName, out var item)
+                ? item
+                : throw new InvalidOperationException($"'{shortName}' is not a valid ShortName in {typeof(T).Name}.");
+        }
+
+        /// <summary>Attempts to retrieve an item by its short name, without throwing.</summary>
+        /// <param name="shortName">The short name of the item to retrieve.</param>
+        /// <param name="item">When this method returns <c>true</c>, the first item with the given short name; otherwise <c>null</c>.</param>
+        /// <returns><c>true</c> if an item with the specified short name exists; otherwise <c>false</c>.</returns>
+        public bool TryFromShortName(string shortName, [MaybeNullWhen(false)] out T item) {
+            item = _items.FirstOrDefault(i => i.ShortName == shortName)!;
+            return item != null;
         }
 
         #endregion Lookup

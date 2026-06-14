@@ -7,7 +7,9 @@ Represents a base class for strongly-typed enumeration items with properties for
 
 ```csharp
 public abstract class EnumItem<TKey,TGroup> :
-System.IComparable
+System.IComparable,
+System.IComparable<BeeneticToolkit.Collections.Enums.EnumItem<TKey, TGroup>>,
+System.IEquatable<BeeneticToolkit.Collections.Enums.EnumItem<TKey, TGroup>>
     where TKey : notnull
     where TGroup : struct, System.Enum, System.ValueType, System.ValueType
 ```
@@ -27,7 +29,7 @@ The type of the group associated with the enumeration item. Must be an enumerati
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; EnumItem<TKey,TGroup>
 
-Implements [System.IComparable](https://docs.microsoft.com/en-us/dotnet/api/System.IComparable 'System.IComparable')
+Implements [System.IComparable](https://docs.microsoft.com/en-us/dotnet/api/System.IComparable 'System.IComparable'), [System.IComparable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.IComparable-1 'System.IComparable`1')[BeeneticToolkit.Collections.Enums.EnumItem&lt;](EnumItem_TKey,TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>')[TKey](EnumItem_TKey,TGroup_.md#BeeneticToolkit.Collections.Enums.EnumItem_TKey,TGroup_.TKey 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.TKey')[,](EnumItem_TKey,TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>')[TGroup](EnumItem_TKey,TGroup_.md#BeeneticToolkit.Collections.Enums.EnumItem_TKey,TGroup_.TGroup 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.TGroup')[&gt;](EnumItem_TKey,TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.IComparable-1 'System.IComparable`1'), [System.IEquatable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.IEquatable-1 'System.IEquatable`1')[BeeneticToolkit.Collections.Enums.EnumItem&lt;](EnumItem_TKey,TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>')[TKey](EnumItem_TKey,TGroup_.md#BeeneticToolkit.Collections.Enums.EnumItem_TKey,TGroup_.TKey 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.TKey')[,](EnumItem_TKey,TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>')[TGroup](EnumItem_TKey,TGroup_.md#BeeneticToolkit.Collections.Enums.EnumItem_TKey,TGroup_.TGroup 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.TGroup')[&gt;](EnumItem_TKey,TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.IEquatable-1 'System.IEquatable`1')
 
 | Constructors | |
 | :--- | :--- |
@@ -45,7 +47,9 @@ Implements [System.IComparable](https://docs.microsoft.com/en-us/dotnet/api/Syst
 
 | Methods | |
 | :--- | :--- |
-| [CompareTo(object)](EnumItem_TKey,TGroup_.CompareTo(object).md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.CompareTo(object)') | Compares the current enumeration item to another based on their keys. |
+| [CompareTo(EnumItem&lt;TKey,TGroup&gt;)](EnumItem_TKey,TGroup_.CompareTo(EnumItem_TKey,TGroup_).md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.CompareTo(BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>)') | Compares the current enumeration item to another based on their keys. |
+| [CompareTo(object)](EnumItem_TKey,TGroup_.CompareTo(object).md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.CompareTo(object)') | Compares the current enumeration item to another object based on their keys. |
+| [Equals(EnumItem&lt;TKey,TGroup&gt;)](EnumItem_TKey,TGroup_.Equals(EnumItem_TKey,TGroup_).md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.Equals(BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>)') | Determines whether the specified item is equal to the current one, based on its key and runtime type. |
 | [Equals(object)](EnumItem_TKey,TGroup_.Equals(object).md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.Equals(object)') | Determines whether the specified object is equal to the current enumeration item, based on its key and type. |
 | [GetHashCode()](EnumItem_TKey,TGroup_.GetHashCode().md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.GetHashCode()') | Returns a hash code for this enumeration item. |
 | [ToString()](EnumItem_TKey,TGroup_.ToString().md 'BeeneticToolkit.Collections.Enums.EnumItem<TKey,TGroup>.ToString()') | Returns a string representation of the enumeration item. |

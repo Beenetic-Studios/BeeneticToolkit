@@ -6,7 +6,7 @@
 Determines whether the specified object is equal to the current enumeration item, based on its key and type.
 
 ```csharp
-public override bool Equals(object obj);
+public override bool Equals(object? obj);
 ```
 #### Parameters
 
