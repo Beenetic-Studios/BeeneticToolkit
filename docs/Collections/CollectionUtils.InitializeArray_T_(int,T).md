@@ -1,4 +1,4 @@
-#### [Collections](index.md 'index')
+#### [BeeneticToolkit.Collections](index.md 'index')
 ### [BeeneticToolkit.Collections.Utilities](index.md#BeeneticToolkit.Collections.Utilities 'BeeneticToolkit.Collections.Utilities').[CollectionUtils](CollectionUtils.md 'BeeneticToolkit.Collections.Utilities.CollectionUtils')
 
 ## CollectionUtils.InitializeArray<T>(int, T) Method

@@ -1,4 +1,4 @@
-#### [Collections](index.md 'index')
+#### [BeeneticToolkit.Collections](index.md 'index')
 ### [BeeneticToolkit.Collections.Enums.Comparators](index.md#BeeneticToolkit.Collections.Enums.Comparators 'BeeneticToolkit.Collections.Enums.Comparators').[EnumItemShortNameComparator&lt;TKey,TGroup&gt;](EnumItemShortNameComparator_TKey,TGroup_.md 'BeeneticToolkit.Collections.Enums.Comparators.EnumItemShortNameComparator<TKey,TGroup>')
 
 ## EnumItemShortNameComparator(bool) Constructor

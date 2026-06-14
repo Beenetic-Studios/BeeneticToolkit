@@ -1,4 +1,4 @@
-#### [Numerics](index.md 'index')
+#### [BeeneticToolkit.Numerics](index.md 'index')
 ### [BeeneticToolkit.Numerics](index.md#BeeneticToolkit.Numerics 'BeeneticToolkit.Numerics')
 
 ## RoundingUtils Class

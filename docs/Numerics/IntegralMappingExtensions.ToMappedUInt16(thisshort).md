@@ -1,4 +1,4 @@
-#### [Numerics](index.md 'index')
+#### [BeeneticToolkit.Numerics](index.md 'index')
 ### [BeeneticToolkit.Numerics](index.md#BeeneticToolkit.Numerics 'BeeneticToolkit.Numerics').[IntegralMappingExtensions](IntegralMappingExtensions.md 'BeeneticToolkit.Numerics.IntegralMappingExtensions')
 
 ## IntegralMappingExtensions.ToMappedUInt16(this short) Method

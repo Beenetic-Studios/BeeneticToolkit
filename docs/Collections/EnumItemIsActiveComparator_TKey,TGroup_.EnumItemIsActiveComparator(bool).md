@@ -1,4 +1,4 @@
-#### [Collections](index.md 'index')
+#### [BeeneticToolkit.Collections](index.md 'index')
 ### [BeeneticToolkit.Collections.Enums.Comparators](index.md#BeeneticToolkit.Collections.Enums.Comparators 'BeeneticToolkit.Collections.Enums.Comparators').[EnumItemIsActiveComparator&lt;TKey,TGroup&gt;](EnumItemIsActiveComparator_TKey,TGroup_.md 'BeeneticToolkit.Collections.Enums.Comparators.EnumItemIsActiveComparator<TKey,TGroup>')
 
 ## EnumItemIsActiveComparator(bool) Constructor

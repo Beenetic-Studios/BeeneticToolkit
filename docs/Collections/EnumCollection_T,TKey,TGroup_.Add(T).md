@@ -1,4 +1,4 @@
-#### [Collections](index.md 'index')
+#### [BeeneticToolkit.Collections](index.md 'index')
 ### [BeeneticToolkit.Collections.Enums](index.md#BeeneticToolkit.Collections.Enums 'BeeneticToolkit.Collections.Enums').[EnumCollection&lt;T,TKey,TGroup&gt;](EnumCollection_T,TKey,TGroup_.md 'BeeneticToolkit.Collections.Enums.EnumCollection<T,TKey,TGroup>')
 
 ## EnumCollection<T,TKey,TGroup>.Add(T) Method

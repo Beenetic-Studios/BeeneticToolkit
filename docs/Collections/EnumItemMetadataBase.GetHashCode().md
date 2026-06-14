@@ -1,4 +1,4 @@
-#### [Collections](index.md 'index')
+#### [BeeneticToolkit.Collections](index.md 'index')
 ### [BeeneticToolkit.Collections.Enums.Metadata](index.md#BeeneticToolkit.Collections.Enums.Metadata 'BeeneticToolkit.Collections.Enums.Metadata').[EnumItemMetadataBase](EnumItemMetadataBase.md 'BeeneticToolkit.Collections.Enums.Metadata.EnumItemMetadataBase')
 
 ## EnumItemMetadataBase.GetHashCode() Method

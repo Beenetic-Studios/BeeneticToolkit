@@ -5,10 +5,20 @@
 		<Nullable>enable</Nullable>
 		<RootNamespace>BeeneticToolkit</RootNamespace>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+		<PackageId>BeeneticToolkit.Random</PackageId>
+		<AssemblyName>BeeneticToolkit.Random</AssemblyName>
+		<Description>Deterministic, seedable pseudo-random generation for games and simulations: swappable algorithms (xoshiro256**, Xorshift, Combined LCG, Middle-Square-Weyl), reproducible environments, and weighted/subset/shuffle selection helpers.</Description>
+		<PackageTags>random;rng;prng;xoshiro;seed;deterministic;games;simulation;weighted;shuffle</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="DefaultDocumentation" Version="0.8.2" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>

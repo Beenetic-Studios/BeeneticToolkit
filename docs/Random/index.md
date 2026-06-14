@@ -1,6 +1,6 @@
-#### [Random](index.md 'index')
+#### [BeeneticToolkit.Random](index.md 'index')
 
-## Random Assembly
+## BeeneticToolkit.Random Assembly
 ### Namespaces
 
 <a name='BeeneticToolkit.Random'></a>

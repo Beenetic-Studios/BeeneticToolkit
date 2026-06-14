@@ -1,4 +1,4 @@
-#### [Random](index.md 'index')
+#### [BeeneticToolkit.Random](index.md 'index')
 ### [BeeneticToolkit.Random.Utilities](index.md#BeeneticToolkit.Random.Utilities 'BeeneticToolkit.Random.Utilities').[RandomExtensions](RandomExtensions.md 'BeeneticToolkit.Random.Utilities.RandomExtensions')
 
 ## RandomExtensions.ShuffleInPlace<T>(this IList<T>, RandomGenerator) Method

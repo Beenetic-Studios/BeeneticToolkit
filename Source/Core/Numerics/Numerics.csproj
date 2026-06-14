@@ -5,9 +5,19 @@
 		<Nullable>enable</Nullable>
 		<RootNamespace>BeeneticToolkit</RootNamespace>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+		<PackageId>BeeneticToolkit.Numerics</PackageId>
+		<AssemblyName>BeeneticToolkit.Numerics</AssemblyName>
+		<Description>Mathf-style numeric helpers for .NET and Unity: interpolation (Lerp/SmoothStep/Remap), normalization, angle conversion and wrapping, and robust float comparison.</Description>
+		<PackageTags>numerics;math;mathf;lerp;interpolation;smoothstep;remap;angles;games;unity</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="DefaultDocumentation" Version="0.8.2" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 </Project>

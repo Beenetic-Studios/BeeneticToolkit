@@ -1,4 +1,4 @@
-#### [Collections](index.md 'index')
+#### [BeeneticToolkit.Collections](index.md 'index')
 ### [BeeneticToolkit.Collections.Enums.Comparators](index.md#BeeneticToolkit.Collections.Enums.Comparators 'BeeneticToolkit.Collections.Enums.Comparators').[EnumItemKeyComparator&lt;TKey,TGroup&gt;](EnumItemKeyComparator_TKey,TGroup_.md 'BeeneticToolkit.Collections.Enums.Comparators.EnumItemKeyComparator<TKey,TGroup>')
 
 ## EnumItemKeyComparator<TKey,TGroup>.PerformComparison(EnumItem<TKey,TGroup>, EnumItem<TKey,TGroup>) Method

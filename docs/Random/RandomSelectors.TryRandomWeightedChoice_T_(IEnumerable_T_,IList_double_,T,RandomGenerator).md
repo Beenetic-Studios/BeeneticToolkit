@@ -1,4 +1,4 @@
-#### [Random](index.md 'index')
+#### [BeeneticToolkit.Random](index.md 'index')
 ### [BeeneticToolkit.Random.Utilities](index.md#BeeneticToolkit.Random.Utilities 'BeeneticToolkit.Random.Utilities').[RandomSelectors](RandomSelectors.md 'BeeneticToolkit.Random.Utilities.RandomSelectors')
 
 ## RandomSelectors.TryRandomWeightedChoice<T>(IEnumerable<T>, IList<double>, T, RandomGenerator) Method

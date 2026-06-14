@@ -4,4 +4,18 @@
 	<BaseIntermediateOutputPath>$(SolutionDir)\builds\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
 	<IntermediateOutputPath>$(SolutionDir)\builds\obj\$(MSBuildProjectName)\</IntermediateOutputPath>
   </PropertyGroup>
+
+  <!-- Shared package metadata (applies to every project; only packable libraries produce packages). -->
+  <PropertyGroup>
+	<Version>0.1.0</Version>
+	<Authors>Braden Franksen</Authors>
+	<Company>Braden Franksen</Company>
+	<Copyright>Copyright (c) 2023 Braden Franksen</Copyright>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageProjectUrl>https://github.com/bfranksen/BeeneticToolkit</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/bfranksen/BeeneticToolkit</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	<Deterministic>true</Deterministic>
+  </PropertyGroup>
 </Project>

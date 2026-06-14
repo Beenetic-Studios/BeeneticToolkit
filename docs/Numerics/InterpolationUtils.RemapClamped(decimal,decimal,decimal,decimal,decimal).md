@@ -1,4 +1,4 @@
-#### [Numerics](index.md 'index')
+#### [BeeneticToolkit.Numerics](index.md 'index')
 ### [BeeneticToolkit.Numerics](index.md#BeeneticToolkit.Numerics 'BeeneticToolkit.Numerics').[InterpolationUtils](InterpolationUtils.md 'BeeneticToolkit.Numerics.InterpolationUtils')
 
 ## InterpolationUtils.RemapClamped(decimal, decimal, decimal, decimal, decimal) Method

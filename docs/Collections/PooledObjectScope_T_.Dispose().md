@@ -1,4 +1,4 @@
-#### [Collections](index.md 'index')
+#### [BeeneticToolkit.Collections](index.md 'index')
 ### [BeeneticToolkit.Collections.ObjectPooling](index.md#BeeneticToolkit.Collections.ObjectPooling 'BeeneticToolkit.Collections.ObjectPooling').[PooledObjectScope&lt;T&gt;](PooledObjectScope_T_.md 'BeeneticToolkit.Collections.ObjectPooling.PooledObjectScope<T>')
 
 ## PooledObjectScope<T>.Dispose() Method

@@ -1,6 +1,6 @@
-#### [Numerics](index.md 'index')
+#### [BeeneticToolkit.Numerics](index.md 'index')
 
-## Numerics Assembly
+## BeeneticToolkit.Numerics Assembly
 ### Namespaces
 
 <a name='BeeneticToolkit.Numerics'></a>

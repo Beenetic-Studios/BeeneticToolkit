@@ -1,6 +1,6 @@
-#### [Collections](index.md 'index')
+#### [BeeneticToolkit.Collections](index.md 'index')
 
-## Collections Assembly
+## BeeneticToolkit.Collections Assembly
 ### Namespaces
 
 <a name='BeeneticToolkit.Collections.Enums'></a>
