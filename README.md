@@ -1,5 +1,7 @@
 # BeeneticToolkit
 
+[![CI](https://github.com/bfranksen/BeeneticToolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/bfranksen/BeeneticToolkit/actions/workflows/ci.yml)
+
 A set of small, focused .NET utility libraries. Each ships as its own NuGet package, so you take
 only what you need. All target `netstandard2.1` (modern .NET and Unity-friendly).
 

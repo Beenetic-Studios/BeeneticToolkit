@@ -35,6 +35,11 @@ float wrapped = AngleUtils.WrapDegrees(370f);              // -> 10
 bool equal = NumericalUtils.IsApproximatelyRelative(1e9, 1e9 + 50, 1e-6); // true
 ```
 
+> **Tip:** these methods are overloaded for `float`, `double`, and `decimal`, so a call whose
+> arguments are *all* untyped integer literals is ambiguous (e.g. `Remap(30, 0, 100, 0, 1)` won't
+> compile). Use typed literals — `Remap(30f, 0f, 100f, 0f, 1f)`, `30.0`, or `30m` — or pass at least
+> one typed argument so the compiler can pick an overload.
+
 Also includes `RoundingUtils` (`RoundToNearest`, floored `Wrap`) and
 `IntegralMappingExtensions` for signed/unsigned integral mapping.
 
