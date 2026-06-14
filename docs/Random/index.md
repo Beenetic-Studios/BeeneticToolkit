@@ -62,12 +62,13 @@ selecting random elements from collections, and working with various pseudorando
   which remains [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null') until the first generator is registered  
   unless explicitly assigned later through [SetCurrent(string)](RngEnvironment.SetCurrent(string).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(string)') or  
   [SetCurrent(RngKey)](RngEnvironment.SetCurrent(RngKey).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(BeeneticToolkit.Random.RngKey)').
-  - **[RngEnvironment(string)](RngEnvironment.RngEnvironment(string).md 'BeeneticToolkit.Random.RngEnvironment.RngEnvironment(string)')** `Constructor` Initializes a new instance of the [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment') class.
+  - **[RngEnvironment(string, Nullable&lt;long&gt;)](RngEnvironment.RngEnvironment(string,Nullable_long_).md 'BeeneticToolkit.Random.RngEnvironment.RngEnvironment(string, System.Nullable<long>)')** `Constructor` Initializes a new instance of the [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment') class.
   - **[Current](RngEnvironment.Current.md 'BeeneticToolkit.Random.RngEnvironment.Current')** `Property` Gets the current random number generator for this environment.  
       
     This property is assigned to the first generator registered in the environment,  
     but may be reassigned through [SetCurrent(string)](RngEnvironment.SetCurrent(string).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(string)') or [SetCurrent(RngKey)](RngEnvironment.SetCurrent(RngKey).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(BeeneticToolkit.Random.RngKey)').
   - **[Name](RngEnvironment.Name.md 'BeeneticToolkit.Random.RngEnvironment.Name')** `Property` Gets the name of the environment.
+  - **[RootSeed](RngEnvironment.RootSeed.md 'BeeneticToolkit.Random.RngEnvironment.RootSeed')** `Property` Gets the root seed of the environment, or [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null') if none was supplied.
   - **[CreateAndRegister(RngKey, Nullable&lt;long&gt;, RngAlgorithm)](RngEnvironment.CreateAndRegister(RngKey,Nullable_long_,RngAlgorithm).md 'BeeneticToolkit.Random.RngEnvironment.CreateAndRegister(BeeneticToolkit.Random.RngKey, System.Nullable<long>, BeeneticToolkit.Random.RngAlgorithm)')** `Method` Creates a new random number generator, registers it under the specified [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey'),  
     and returns the created instance.  
     If a generator was previously registered with the same key, it will be replaced.
@@ -91,38 +92,22 @@ selecting random elements from collections, and working with various pseudorando
   - **[GetGenerator(RngAlgorithm, Nullable&lt;long&gt;)](RngFactory.GetGenerator(RngAlgorithm,Nullable_long_).md 'BeeneticToolkit.Random.RngFactory.GetGenerator(BeeneticToolkit.Random.RngAlgorithm, System.Nullable<long>)')** `Method` Creates a random number generator using the specified algorithm and optional seed.
   - **[GetGenerator(RngAlgorithm)](RngFactory.GetGenerator(RngAlgorithm).md 'BeeneticToolkit.Random.RngFactory.GetGenerator(BeeneticToolkit.Random.RngAlgorithm)')** `Method` Creates a random number generator using a specified algorithm without a specific seed.
   - **[GetGenerator(Nullable&lt;long&gt;)](RngFactory.GetGenerator(Nullable_long_).md 'BeeneticToolkit.Random.RngFactory.GetGenerator(System.Nullable<long>)')** `Method` Creates a random number generator using the default algorithm (xoshiro256**) with a specified seed.
-- **[RngManager](RngManager.md 'BeeneticToolkit.Random.RngManager')** `Class` Provides centralized access to a default global [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment').  
+- **[RngManager](RngManager.md 'BeeneticToolkit.Random.RngManager')** `Class` Provides global, process-wide access to the [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment') system.  
     
-  [RngManager](RngManager.md 'BeeneticToolkit.Random.RngManager') acts as a convenience facade for applications that want  
-              a shared global RNG context identified by either a strongly typed [RngRole](RngRole.md 'BeeneticToolkit.Random.RngRole')  
-              or a flexible string key.  
-    
-  For projects that require isolated RNG scopes, use [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment') directly.
-  - **[Current](RngManager.Current.md 'BeeneticToolkit.Random.RngManager.Current')** `Property` Gets the current global random number generator.  
-      
-    This property is initialized to [Default](RngRole.md#BeeneticToolkit.Random.RngRole.Default 'BeeneticToolkit.Random.RngRole.Default') during startup,  
-    and is therefore guaranteed to be non-null.  
-      
-    It may be reassigned to any registered generator through  
-    [SetCurrent(RngRole)](RngManager.SetCurrent(RngRole).md 'BeeneticToolkit.Random.RngManager.SetCurrent(BeeneticToolkit.Random.RngRole)') or [SetCurrent(string)](RngManager.SetCurrent(string).md 'BeeneticToolkit.Random.RngManager.SetCurrent(string)').
-  - **[CreateAndRegister(RngRole, Nullable&lt;long&gt;, RngAlgorithm)](RngManager.CreateAndRegister(RngRole,Nullable_long_,RngAlgorithm).md 'BeeneticToolkit.Random.RngManager.CreateAndRegister(BeeneticToolkit.Random.RngRole, System.Nullable<long>, BeeneticToolkit.Random.RngAlgorithm)')** `Method` Creates and registers a random number generator for the given role,  
-    then returns it. Overwrites any existing generator for the role.
-  - **[CreateAndRegister(string, Nullable&lt;long&gt;, RngAlgorithm)](RngManager.CreateAndRegister(string,Nullable_long_,RngAlgorithm).md 'BeeneticToolkit.Random.RngManager.CreateAndRegister(string, System.Nullable<long>, BeeneticToolkit.Random.RngAlgorithm)')** `Method` Creates and registers a random number generator for the given key,  
-    then returns it. Overwrites existing entries.
-  - **[Get(RngRole)](RngManager.Get(RngRole).md 'BeeneticToolkit.Random.RngManager.Get(BeeneticToolkit.Random.RngRole)')** `Method` Retrieves a random number generator previously registered under a specific [RngRole](RngRole.md 'BeeneticToolkit.Random.RngRole').
-  - **[Get(string)](RngManager.Get(string).md 'BeeneticToolkit.Random.RngManager.Get(string)')** `Method` Retrieves a random number generator previously registered under a custom string key.
-  - **[Register(RngRole, RandomGenerator)](RngManager.Register(RngRole,RandomGenerator).md 'BeeneticToolkit.Random.RngManager.Register(BeeneticToolkit.Random.RngRole, BeeneticToolkit.Random.RandomGenerator)')** `Method` Registers a random number generator under a specific [RngRole](RngRole.md 'BeeneticToolkit.Random.RngRole').  
-    If a generator was previously registered for the same role, it will be replaced.
-  - **[Register(string, RandomGenerator)](RngManager.Register(string,RandomGenerator).md 'BeeneticToolkit.Random.RngManager.Register(string, BeeneticToolkit.Random.RandomGenerator)')** `Method` Registers a random number generator under a custom string key.  
-    This is useful for experimental, modding, or ad hoc scenarios  
-    where predefined [RngRole](RngRole.md 'BeeneticToolkit.Random.RngRole') values are insufficient.  
-    If a generator was previously registered with the same key, it will be replaced.
-  - **[SetCurrent(RngRole)](RngManager.SetCurrent(RngRole).md 'BeeneticToolkit.Random.RngManager.SetCurrent(BeeneticToolkit.Random.RngRole)')** `Method` Sets the [Current](RngManager.Current.md 'BeeneticToolkit.Random.RngManager.Current') random number generator to the one  
-    associated with the specified [RngRole](RngRole.md 'BeeneticToolkit.Random.RngRole').
-  - **[SetCurrent(string)](RngManager.SetCurrent(string).md 'BeeneticToolkit.Random.RngManager.SetCurrent(string)')** `Method` Sets the [Current](RngManager.Current.md 'BeeneticToolkit.Random.RngManager.Current') random number generator to the one  
-    associated with the specified custom string key.
-  - **[TryGet(RngRole, RandomGenerator)](RngManager.TryGet(RngRole,RandomGenerator).md 'BeeneticToolkit.Random.RngManager.TryGet(BeeneticToolkit.Random.RngRole, BeeneticToolkit.Random.RandomGenerator)')** `Method` Attempts to retrieve a generator registered under the specified [RngRole](RngRole.md 'BeeneticToolkit.Random.RngRole'), without throwing.
-  - **[TryGet(string, RandomGenerator)](RngManager.TryGet(string,RandomGenerator).md 'BeeneticToolkit.Random.RngManager.TryGet(string, BeeneticToolkit.Random.RandomGenerator)')** `Method` Attempts to retrieve a generator registered under a custom string key, without throwing.
+  [RngManager](RngManager.md 'BeeneticToolkit.Random.RngManager') owns a default environment (used by the convenience selection helpers via  
+              [Current](RngManager.Current.md 'BeeneticToolkit.Random.RngManager.Current')) and a registry of additional named environments. Register and retrieve  
+              generators through [Default](RngManager.Default.md 'BeeneticToolkit.Random.RngManager.Default') (or another environment); the manager itself is only the  
+              global entry point, not a parallel API.
+  - **[DefaultEnvironmentName](RngManager.DefaultEnvironmentName.md 'BeeneticToolkit.Random.RngManager.DefaultEnvironmentName')** `Field` The name of the default global environment.
+  - **[Current](RngManager.Current.md 'BeeneticToolkit.Random.RngManager.Current')** `Property` Gets the current generator of the [Default](RngManager.Default.md 'BeeneticToolkit.Random.RngManager.Default') environment. This is the generator used by  
+    the selection helpers when no explicit generator is supplied.
+  - **[Default](RngManager.Default.md 'BeeneticToolkit.Random.RngManager.Default')** `Property` Gets the default global [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment'). Use it to register and retrieve generators,  
+    e.g. `RngManager.Default.CreateAndRegister("enemies")`.
+  - **[CreateEnvironment(string, Nullable&lt;long&gt;)](RngManager.CreateEnvironment(string,Nullable_long_).md 'BeeneticToolkit.Random.RngManager.CreateEnvironment(string, System.Nullable<long>)')** `Method` Creates a named environment and registers it with the manager, replacing any existing environment  
+    with the same name.
+  - **[GetEnvironment(string)](RngManager.GetEnvironment(string).md 'BeeneticToolkit.Random.RngManager.GetEnvironment(string)')** `Method` Gets a previously registered environment by name.
+  - **[SetDefault(string)](RngManager.SetDefault(string).md 'BeeneticToolkit.Random.RngManager.SetDefault(string)')** `Method` Makes a previously registered environment the [Default](RngManager.Default.md 'BeeneticToolkit.Random.RngManager.Default').
+  - **[TryGetEnvironment(string, RngEnvironment)](RngManager.TryGetEnvironment(string,RngEnvironment).md 'BeeneticToolkit.Random.RngManager.TryGetEnvironment(string, BeeneticToolkit.Random.RngEnvironment)')** `Method` Attempts to get a previously registered environment by name, without throwing.
 - **[RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey')** `Struct` Represents a strongly typed key used to identify a random number generator  
   within an [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment').
   - **[RngKey(string)](RngKey.RngKey(string).md 'BeeneticToolkit.Random.RngKey.RngKey(string)')** `Constructor` Initializes a new instance of the [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey') struct.
@@ -167,16 +152,6 @@ selecting random elements from collections, and working with various pseudorando
   - **[MiddleSquare](RngAlgorithm.md#BeeneticToolkit.Random.RngAlgorithm.MiddleSquare 'BeeneticToolkit.Random.RngAlgorithm.MiddleSquare')** `Field` Represents the Middle Square Weyl algorithm.
   - **[Xorshift](RngAlgorithm.md#BeeneticToolkit.Random.RngAlgorithm.Xorshift 'BeeneticToolkit.Random.RngAlgorithm.Xorshift')** `Field` Represents the Xorshift algorithm.
   - **[Xoshiro256](RngAlgorithm.md#BeeneticToolkit.Random.RngAlgorithm.Xoshiro256 'BeeneticToolkit.Random.RngAlgorithm.Xoshiro256')** `Field` The xoshiro256** algorithm: fast, high-quality, 2^256-1 period. The default.
-- **[RngRole](RngRole.md 'BeeneticToolkit.Random.RngRole')** `Enum` Represents the roles or contexts in which a random number generator can be used.  
-  This provides type-safe identifiers for registering and retrieving  
-  random number generators via the [RngManager](RngManager.md 'BeeneticToolkit.Random.RngManager').
-  - **[AI](RngRole.md#BeeneticToolkit.Random.RngRole.AI 'BeeneticToolkit.Random.RngRole.AI')** `Field` A generator dedicated to AI-related randomness,  
-    such as decision-making, behavior trees, or procedural logic.
-  - **[Default](RngRole.md#BeeneticToolkit.Random.RngRole.Default 'BeeneticToolkit.Random.RngRole.Default')** `Field` The default global random number generator role.
-  - **[Gameplay](RngRole.md#BeeneticToolkit.Random.RngRole.Gameplay 'BeeneticToolkit.Random.RngRole.Gameplay')** `Field` A generator dedicated to core gameplay randomness,  
-    such as combat rolls, item drops, or level generation.
-  - **[Testing](RngRole.md#BeeneticToolkit.Random.RngRole.Testing 'BeeneticToolkit.Random.RngRole.Testing')** `Field` A generator reserved for testing or debugging scenarios,  
-    where predictable or isolated random behavior is desired.
 
 <a name='BeeneticToolkit.Random.Utilities'></a>
 

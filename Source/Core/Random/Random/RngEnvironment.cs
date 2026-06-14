@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BeeneticToolkit.Random.Utilities;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
@@ -22,6 +23,7 @@ namespace BeeneticToolkit.Random {
     public sealed class RngEnvironment {
         private readonly Dictionary<string, RandomGenerator> m_Generators = new Dictionary<string, RandomGenerator>();
         private readonly object m_Sync = new object();
+        private readonly long? m_RootSeed;
         private RandomGenerator? m_Current;
 
         /// <summary>
@@ -31,6 +33,16 @@ namespace BeeneticToolkit.Random {
         /// A descriptive name used to identify the environment.
         /// </value>
         public string Name { get; }
+
+        /// <summary>
+        /// Gets the root seed of the environment, or <see langword="null"/> if none was supplied.
+        /// </summary>
+        /// <remarks>
+        /// When a root seed is present, <see cref="CreateAndRegister(string, long?, RngAlgorithm)"/> derives each
+        /// generator's seed deterministically from the root seed and the registration key, so the whole
+        /// environment is reproducible from this single value.
+        /// </remarks>
+        public long? RootSeed => m_RootSeed;
 
         /// <summary>
         /// Gets the current random number generator for this environment.
@@ -51,8 +63,14 @@ namespace BeeneticToolkit.Random {
         /// Initializes a new instance of the <see cref="RngEnvironment"/> class.
         /// </summary>
         /// <param name="name">The name of the environment.</param>
-        public RngEnvironment(string name) {
+        /// <param name="rootSeed">
+        /// An optional root seed. When supplied, generators created via
+        /// <see cref="CreateAndRegister(string, long?, RngAlgorithm)"/> without an explicit seed derive a
+        /// deterministic per-key seed from it, making the entire environment reproducible.
+        /// </param>
+        public RngEnvironment(string name, long? rootSeed = null) {
             Name = name;
+            m_RootSeed = rootSeed;
         }
 
         /// <summary>
@@ -89,11 +107,15 @@ namespace BeeneticToolkit.Random {
         /// If a generator was previously registered with the same key, it will be replaced.
         /// </summary>
         /// <param name="key">The key to register the generator under.</param>
-        /// <param name="seed">Optional seed value.</param>
-        /// <param name="algorithm">Optional algorithm to use. Defaults to <see cref="RngAlgorithm.Xorshift"/>.</param>
+        /// <param name="seed">
+        /// Optional explicit seed. If omitted and the environment has a <see cref="RootSeed"/>, the seed is
+        /// derived deterministically from the root seed and <paramref name="key"/>; otherwise it is time-based.
+        /// </param>
+        /// <param name="algorithm">Optional algorithm to use. Defaults to xoshiro256**.</param>
         /// <returns>The created and registered <see cref="RandomGenerator"/> instance.</returns>
         public RandomGenerator CreateAndRegister(string key, long? seed = null, RngAlgorithm algorithm = RngAlgorithm.Xoshiro256) {
-            var generator = RngFactory.GetGenerator(algorithm, seed);
+            long? effectiveSeed = seed ?? (m_RootSeed.HasValue ? RandomUtils.DeriveSeed(m_RootSeed.Value, key) : (long?)null);
+            var generator = RngFactory.GetGenerator(algorithm, effectiveSeed);
             Register(key, generator);
             return generator;
         }

@@ -22,13 +22,14 @@ The key to register the generator under.
 
 `seed` [System.Nullable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Nullable-1 'System.Nullable`1')[System.Int64](https://docs.microsoft.com/en-us/dotnet/api/System.Int64 'System.Int64')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Nullable-1 'System.Nullable`1')
 
-Optional seed value.
+Optional explicit seed. If omitted and the environment has a [RootSeed](RngEnvironment.RootSeed.md 'BeeneticToolkit.Random.RngEnvironment.RootSeed'), the seed is  
+derived deterministically from the root seed and [key](RngEnvironment.CreateAndRegister(string,Nullable_long_,RngAlgorithm).md#BeeneticToolkit.Random.RngEnvironment.CreateAndRegister(string,System.Nullable_long_,BeeneticToolkit.Random.RngAlgorithm).key 'BeeneticToolkit.Random.RngEnvironment.CreateAndRegister(string, System.Nullable<long>, BeeneticToolkit.Random.RngAlgorithm).key'); otherwise it is time-based.
 
 <a name='BeeneticToolkit.Random.RngEnvironment.CreateAndRegister(string,System.Nullable_long_,BeeneticToolkit.Random.RngAlgorithm).algorithm'></a>
 
 `algorithm` [RngAlgorithm](RngAlgorithm.md 'BeeneticToolkit.Random.RngAlgorithm')
 
-Optional algorithm to use. Defaults to [Xorshift](RngAlgorithm.md#BeeneticToolkit.Random.RngAlgorithm.Xorshift 'BeeneticToolkit.Random.RngAlgorithm.Xorshift').
+Optional algorithm to use. Defaults to xoshiro256**.
 
 #### Returns
 [RandomGenerator](RandomGenerator.md 'BeeneticToolkit.Random.RandomGenerator')  

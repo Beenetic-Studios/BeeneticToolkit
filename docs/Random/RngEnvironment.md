@@ -21,12 +21,13 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Constructors | |
 | :--- | :--- |
-| [RngEnvironment(string)](RngEnvironment.RngEnvironment(string).md 'BeeneticToolkit.Random.RngEnvironment.RngEnvironment(string)') | Initializes a new instance of the [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment') class. |
+| [RngEnvironment(string, Nullable&lt;long&gt;)](RngEnvironment.RngEnvironment(string,Nullable_long_).md 'BeeneticToolkit.Random.RngEnvironment.RngEnvironment(string, System.Nullable<long>)') | Initializes a new instance of the [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment') class. |
 
 | Properties | |
 | :--- | :--- |
 | [Current](RngEnvironment.Current.md 'BeeneticToolkit.Random.RngEnvironment.Current') | Gets the current random number generator for this environment.<br/><br/><br/>This property is assigned to the first generator registered in the environment,<br/>but may be reassigned through [SetCurrent(string)](RngEnvironment.SetCurrent(string).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(string)') or [SetCurrent(RngKey)](RngEnvironment.SetCurrent(RngKey).md 'BeeneticToolkit.Random.RngEnvironment.SetCurrent(BeeneticToolkit.Random.RngKey)'). |
 | [Name](RngEnvironment.Name.md 'BeeneticToolkit.Random.RngEnvironment.Name') | Gets the name of the environment. |
+| [RootSeed](RngEnvironment.RootSeed.md 'BeeneticToolkit.Random.RngEnvironment.RootSeed') | Gets the root seed of the environment, or [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null') if none was supplied. |
 
 | Methods | |
 | :--- | :--- |

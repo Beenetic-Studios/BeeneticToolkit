@@ -1,183 +1,102 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BeeneticToolkit.Random {
-    /// <summary>
-    /// Represents the roles or contexts in which a random number generator can be used.
-    /// This provides type-safe identifiers for registering and retrieving
-    /// random number generators via the <see cref="RngManager"/>.
-    /// </summary>
-    /// <remarks>
-    /// Registering a generator under a key or role will overwrite any existing generator for that identifier.
-    /// This behavior is consistent across all registration methods.
-    /// </remarks>
-
-    public enum RngRole {
-
-        /// <summary>
-        /// The default global random number generator role.
-        /// </summary>
-        Default,
-
-        /// <summary>
-        /// A generator dedicated to AI-related randomness,
-        /// such as decision-making, behavior trees, or procedural logic.
-        /// </summary>
-        AI,
-
-        /// <summary>
-        /// A generator dedicated to core gameplay randomness,
-        /// such as combat rolls, item drops, or level generation.
-        /// </summary>
-        Gameplay,
-
-        /// <summary>
-        /// A generator reserved for testing or debugging scenarios,
-        /// where predictable or isolated random behavior is desired.
-        /// </summary>
-        Testing
-    }
 
     /// <summary>
-    /// Provides centralized access to a default global <see cref="RngEnvironment"/>.
+    /// Provides global, process-wide access to the <see cref="RngEnvironment"/> system.
     /// <para>
-    /// <see cref="RngManager"/> acts as a convenience facade for applications that want
-    /// a shared global RNG context identified by either a strongly typed <see cref="RngRole"/>
-    /// or a flexible string key.
-    /// </para>
-    /// <para>
-    /// For projects that require isolated RNG scopes, use <see cref="RngEnvironment"/> directly.
+    /// <see cref="RngManager"/> owns a default environment (used by the convenience selection helpers via
+    /// <see cref="Current"/>) and a registry of additional named environments. Register and retrieve
+    /// generators through <see cref="Default"/> (or another environment); the manager itself is only the
+    /// global entry point, not a parallel API.
     /// </para>
     /// </summary>
     public static class RngManager {
-        private static readonly RngEnvironment s_DefaultEnvironment = CreateDefaultEnvironment();
+
+        /// <summary>The name of the default global environment.</summary>
+        public const string DefaultEnvironmentName = "Global";
+
+        private static readonly object s_Sync = new object();
+        private static readonly Dictionary<string, RngEnvironment> s_Environments = new Dictionary<string, RngEnvironment>();
+        private static RngEnvironment s_Default;
+
+        static RngManager() {
+            s_Default = new RngEnvironment(DefaultEnvironmentName);
+            s_Environments[DefaultEnvironmentName] = s_Default;
+
+            // Register an initial generator so Current is non-null out of the box.
+            s_Default.CreateAndRegister("Default");
+        }
 
         /// <summary>
-        /// Gets the current global random number generator.
-        /// <para>
-        /// This property is initialized to <see cref="RngRole.Default"/> during startup,
-        /// and is therefore guaranteed to be non-null.
-        /// </para>
-        /// <para>
-        /// It may be reassigned to any registered generator through
-        /// <see cref="SetCurrent(RngRole)"/> or <see cref="SetCurrent(string)"/>.
-        /// </para>
+        /// Gets the default global <see cref="RngEnvironment"/>. Use it to register and retrieve generators,
+        /// e.g. <c>RngManager.Default.CreateAndRegister("enemies")</c>.
+        /// </summary>
+        public static RngEnvironment Default {
+            get { lock (s_Sync) return s_Default; }
+        }
+
+        /// <summary>
+        /// Gets the current generator of the <see cref="Default"/> environment. This is the generator used by
+        /// the selection helpers when no explicit generator is supplied.
         /// </summary>
         /// <exception cref="InvalidOperationException">
-        /// Thrown only if the default generator has been removed, which cannot happen through the public API.
+        /// Thrown only if the default environment has no current generator, which cannot happen through the public API.
         /// </exception>
         public static RandomGenerator Current =>
-            s_DefaultEnvironment.Current
-            ?? throw new InvalidOperationException("No current random generator is registered.");
+            Default.Current ?? throw new InvalidOperationException("The default environment has no current generator.");
 
-        private static RngEnvironment CreateDefaultEnvironment() {
-            var environment = new RngEnvironment("Global");
-            environment.CreateAndRegister(RngRole.Default.ToString());
+        /// <summary>
+        /// Creates a named environment and registers it with the manager, replacing any existing environment
+        /// with the same name.
+        /// </summary>
+        /// <param name="name">The name to register the environment under.</param>
+        /// <param name="rootSeed">An optional root seed making the environment reproducible (see <see cref="RngEnvironment"/>).</param>
+        /// <returns>The created environment.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is null.</exception>
+        public static RngEnvironment CreateEnvironment(string name, long? rootSeed = null) {
+            if (name == null)
+                throw new ArgumentNullException(nameof(name));
+
+            var environment = new RngEnvironment(name, rootSeed);
+            lock (s_Sync)
+                s_Environments[name] = environment;
+
             return environment;
         }
 
         /// <summary>
-        /// Registers a random number generator under a specific <see cref="RngRole"/>.
-        /// If a generator was previously registered for the same role, it will be replaced.
+        /// Gets a previously registered environment by name.
         /// </summary>
-        /// <param name="role">The role to associate with the generator.</param>
-        /// <param name="generator">The generator instance to register.</param>
-        public static void Register(RngRole role, RandomGenerator generator) =>
-            s_DefaultEnvironment.Register(role.ToString(), generator);
+        /// <param name="name">The name of the environment.</param>
+        /// <returns>The environment registered under <paramref name="name"/>.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown when no environment is registered with the given name.</exception>
+        public static RngEnvironment GetEnvironment(string name) {
+            lock (s_Sync)
+                return s_Environments[name];
+        }
 
         /// <summary>
-        /// Registers a random number generator under a custom string key.
-        /// This is useful for experimental, modding, or ad hoc scenarios
-        /// where predefined <see cref="RngRole"/> values are insufficient.
-        /// If a generator was previously registered with the same key, it will be replaced.
+        /// Attempts to get a previously registered environment by name, without throwing.
         /// </summary>
-        /// <param name="key">The custom key to associate with the generator.</param>
-        /// <param name="generator">The generator instance to register.</param>
-        public static void Register(string key, RandomGenerator generator) =>
-            s_DefaultEnvironment.Register(key, generator);
+        /// <param name="name">The name of the environment.</param>
+        /// <param name="environment">When this method returns <c>true</c>, the matching environment; otherwise <c>null</c>.</param>
+        /// <returns><c>true</c> if an environment with the specified name exists; otherwise <c>false</c>.</returns>
+        public static bool TryGetEnvironment(string name, [MaybeNullWhen(false)] out RngEnvironment environment) {
+            lock (s_Sync)
+                return s_Environments.TryGetValue(name, out environment);
+        }
 
         /// <summary>
-        /// Creates and registers a random number generator for the given role,
-        /// then returns it. Overwrites any existing generator for the role.
+        /// Makes a previously registered environment the <see cref="Default"/>.
         /// </summary>
-        /// <param name="role">The role to register the generator under.</param>
-        /// <param name="seed">Optional seed value.</param>
-        /// <param name="algorithm">Optional algorithm to use (defaults to Xorshift).</param>
-        /// <returns>The created and registered <see cref="RandomGenerator"/> instance.</returns>
-        public static RandomGenerator CreateAndRegister(RngRole role, long? seed = null, RngAlgorithm algorithm = RngAlgorithm.Xoshiro256) =>
-            s_DefaultEnvironment.CreateAndRegister(role.ToString(), seed, algorithm);
-
-        /// <summary>
-        /// Creates and registers a random number generator for the given key,
-        /// then returns it. Overwrites existing entries.
-        /// </summary>
-        /// <param name="key">The string key to register the generator under.</param>
-        /// <param name="seed">Optional seed value.</param>
-        /// <param name="algorithm">Optional algorithm to use (defaults to Xorshift).</param>
-        /// <returns>The created and registered <see cref="RandomGenerator"/> instance.</returns>
-        public static RandomGenerator CreateAndRegister(string key, long? seed = null, RngAlgorithm algorithm = RngAlgorithm.Xoshiro256) =>
-            s_DefaultEnvironment.CreateAndRegister(key, seed, algorithm);
-
-        /// <summary>
-        /// Retrieves a random number generator previously registered under a specific <see cref="RngRole"/>.
-        /// </summary>
-        /// <param name="role">The role of the generator to retrieve.</param>
-        /// <returns>The generator associated with the specified role.</returns>
-        /// <exception cref="System.Collections.Generic.KeyNotFoundException">
-        /// Thrown if no generator has been registered for the given role.
-        /// </exception>
-        public static RandomGenerator Get(RngRole role) =>
-            s_DefaultEnvironment.Get(role.ToString());
-
-        /// <summary>
-        /// Retrieves a random number generator previously registered under a custom string key.
-        /// </summary>
-        /// <param name="key">The key of the generator to retrieve.</param>
-        /// <returns>The generator associated with the specified key.</returns>
-        /// <exception cref="System.Collections.Generic.KeyNotFoundException">
-        /// Thrown if no generator has been registered with the given key.
-        /// </exception>
-        public static RandomGenerator Get(string key) =>
-            s_DefaultEnvironment.Get(key);
-
-        /// <summary>
-        /// Attempts to retrieve a generator registered under the specified <see cref="RngRole"/>, without throwing.
-        /// </summary>
-        /// <param name="role">The role of the generator to retrieve.</param>
-        /// <param name="generator">When this method returns <c>true</c>, the registered generator; otherwise <c>null</c>.</param>
-        /// <returns><c>true</c> if a generator was registered for <paramref name="role"/>; otherwise <c>false</c>.</returns>
-        public static bool TryGet(RngRole role, [MaybeNullWhen(false)] out RandomGenerator generator) =>
-            s_DefaultEnvironment.TryGet(role.ToString(), out generator);
-
-        /// <summary>
-        /// Attempts to retrieve a generator registered under a custom string key, without throwing.
-        /// </summary>
-        /// <param name="key">The key of the generator to retrieve.</param>
-        /// <param name="generator">When this method returns <c>true</c>, the registered generator; otherwise <c>null</c>.</param>
-        /// <returns><c>true</c> if a generator was registered under <paramref name="key"/>; otherwise <c>false</c>.</returns>
-        public static bool TryGet(string key, [MaybeNullWhen(false)] out RandomGenerator generator) =>
-            s_DefaultEnvironment.TryGet(key, out generator);
-
-        /// <summary>
-        /// Sets the <see cref="Current"/> random number generator to the one
-        /// associated with the specified <see cref="RngRole"/>.
-        /// </summary>
-        /// <param name="role">The role of the generator to make current.</param>
-        /// <exception cref="System.Collections.Generic.KeyNotFoundException">
-        /// Thrown if no generator has been registered for the given role.
-        /// </exception>
-        public static void SetCurrent(RngRole role) =>
-            s_DefaultEnvironment.SetCurrent(role.ToString());
-
-        /// <summary>
-        /// Sets the <see cref="Current"/> random number generator to the one
-        /// associated with the specified custom string key.
-        /// </summary>
-        /// <param name="key">The key of the generator to make current.</param>
-        /// <exception cref="System.Collections.Generic.KeyNotFoundException">
-        /// Thrown if no generator has been registered with the given key.
-        /// </exception>
-        public static void SetCurrent(string key) =>
-            s_DefaultEnvironment.SetCurrent(key);
+        /// <param name="name">The name of the environment to make default.</param>
+        /// <exception cref="KeyNotFoundException">Thrown when no environment is registered with the given name.</exception>
+        public static void SetDefault(string name) {
+            lock (s_Sync)
+                s_Default = s_Environments[name];
+        }
     }
 }

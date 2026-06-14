@@ -3,13 +3,8 @@
 
 ## RngManager.Current Property
 
-Gets the current global random number generator.  
-  
-This property is initialized to [Default](RngRole.md#BeeneticToolkit.Random.RngRole.Default 'BeeneticToolkit.Random.RngRole.Default') during startup,  
-and is therefore guaranteed to be non-null.  
-  
-It may be reassigned to any registered generator through  
-[SetCurrent(RngRole)](RngManager.SetCurrent(RngRole).md 'BeeneticToolkit.Random.RngManager.SetCurrent(BeeneticToolkit.Random.RngRole)') or [SetCurrent(string)](RngManager.SetCurrent(string).md 'BeeneticToolkit.Random.RngManager.SetCurrent(string)').
+Gets the current generator of the [Default](RngManager.Default.md 'BeeneticToolkit.Random.RngManager.Default') environment. This is the generator used by  
+the selection helpers when no explicit generator is supplied.
 
 ```csharp
 public static BeeneticToolkit.Random.RandomGenerator Current { get; }
@@ -21,4 +16,4 @@ public static BeeneticToolkit.Random.RandomGenerator Current { get; }
 #### Exceptions
 
 [System.InvalidOperationException](https://docs.microsoft.com/en-us/dotnet/api/System.InvalidOperationException 'System.InvalidOperationException')  
-Thrown only if the default generator has been removed, which cannot happen through the public API.
+Thrown only if the default environment has no current generator, which cannot happen through the public API.

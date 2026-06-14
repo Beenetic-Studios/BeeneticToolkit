@@ -283,14 +283,52 @@ namespace BeeneticToolkit.Tests.Random {
             Assert.IsNull(found);
         }
 
+        #endregion TryGet
+
+        #region Environment root seed
+
         [TestMethod]
-        public void RngManager_TryGet_FindsDefaultRoleAndMissesUnknownKey() {
-            Assert.IsTrue(RngManager.TryGet(RngRole.Default, out var def));
-            Assert.IsNotNull(def);
-            Assert.IsFalse(RngManager.TryGet("definitely-not-registered-key", out var missing));
-            Assert.IsNull(missing);
+        public void RootSeed_SameRootAndKey_ProducesIdenticalSequences() {
+            var a = new RngEnvironment("a", rootSeed: 12345);
+            var b = new RngEnvironment("b", rootSeed: 12345);
+
+            var genA = a.CreateAndRegister("player");
+            var genB = b.CreateAndRegister("player");
+
+            for (int i = 0; i < 50; i++)
+                Assert.AreEqual(genA.NextInt(), genB.NextInt());
         }
 
-        #endregion TryGet
+        [TestMethod]
+        public void RootSeed_DifferentKeys_ProduceDifferentSequences() {
+            var env = new RngEnvironment("env", rootSeed: 12345);
+
+            var player = env.CreateAndRegister("player");
+            var enemy = env.CreateAndRegister("enemy");
+
+            bool diverged = false;
+            for (int i = 0; i < 50 && !diverged; i++)
+                diverged = player.NextInt() != enemy.NextInt();
+
+            Assert.IsTrue(diverged, "Generators keyed differently from the same root should differ.");
+        }
+
+        [TestMethod]
+        public void RootSeed_ExplicitSeedOverridesDerivation() {
+            var env = new RngEnvironment("env", rootSeed: 12345);
+            var explicitly = env.CreateAndRegister("x", seed: 999);
+            var reference = RngFactory.GetGenerator(RngAlgorithm.Xoshiro256, 999);
+
+            for (int i = 0; i < 20; i++)
+                Assert.AreEqual(reference.NextInt(), explicitly.NextInt());
+        }
+
+        [TestMethod]
+        public void RootSeed_NullByDefault() {
+            Assert.IsNull(new RngEnvironment("env").RootSeed);
+            Assert.AreEqual(7L, new RngEnvironment("env", 7).RootSeed);
+        }
+
+        #endregion Environment root seed
     }
 }
