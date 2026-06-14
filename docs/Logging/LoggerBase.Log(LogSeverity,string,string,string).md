@@ -34,4 +34,4 @@ String value to prepend to the message string.
 
 String value to append to the message string.
 
-Implements [Log(LogSeverity, string, string, string)](ILogger.Log(LogSeverity,string,string,string).md 'BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity, string, string, string)')
+Implements [Log(LogSeverity, string, string, string)](IBeeneticLogger.Log(LogSeverity,string,string,string).md 'BeeneticToolkit.Logging.IBeeneticLogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity, string, string, string)')

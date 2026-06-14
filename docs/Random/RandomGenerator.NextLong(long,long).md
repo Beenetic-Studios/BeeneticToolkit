@@ -31,5 +31,5 @@ A random long integer in the range [[minInclusive](RandomGenerator.NextLong(long
 
 #### Exceptions
 
-[System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
-Thrown when [minInclusive](RandomGenerator.NextLong(long,long).md#BeeneticToolkit.Random.RandomGenerator.NextLong(long,long).minInclusive 'BeeneticToolkit.Random.RandomGenerator.NextLong(long, long).minInclusive') is greater than or equal to [maxExclusive](RandomGenerator.NextLong(long,long).md#BeeneticToolkit.Random.RandomGenerator.NextLong(long,long).maxExclusive 'BeeneticToolkit.Random.RandomGenerator.NextLong(long, long).maxExclusive').
+[System.ArgumentOutOfRangeException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentOutOfRangeException 'System.ArgumentOutOfRangeException')  
+Thrown when[minInclusive](RandomGenerator.NextLong(long,long).md#BeeneticToolkit.Random.RandomGenerator.NextLong(long,long).minInclusive 'BeeneticToolkit.Random.RandomGenerator.NextLong(long, long).minInclusive') is greater than or equal to [maxExclusive](RandomGenerator.NextLong(long,long).md#BeeneticToolkit.Random.RandomGenerator.NextLong(long,long).maxExclusive 'BeeneticToolkit.Random.RandomGenerator.NextLong(long, long).maxExclusive').

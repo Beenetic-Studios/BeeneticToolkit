@@ -25,5 +25,5 @@ A random float in the range [0, [maxInclusive](RandomGenerator.NextFloat(float).
 
 #### Exceptions
 
-[System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
-Thrown when [maxInclusive](RandomGenerator.NextFloat(float).md#BeeneticToolkit.Random.RandomGenerator.NextFloat(float).maxInclusive 'BeeneticToolkit.Random.RandomGenerator.NextFloat(float).maxInclusive') is less than or equal to 0.
+[System.ArgumentOutOfRangeException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentOutOfRangeException 'System.ArgumentOutOfRangeException')  
+Thrown when[maxInclusive](RandomGenerator.NextFloat(float).md#BeeneticToolkit.Random.RandomGenerator.NextFloat(float).maxInclusive 'BeeneticToolkit.Random.RandomGenerator.NextFloat(float).maxInclusive') is less than or equal to 0.

@@ -12,8 +12,13 @@ It may be reassigned to any registered generator through
 [SetCurrent(RngRole)](RngManager.SetCurrent(RngRole).md 'BeeneticToolkit.Random.RngManager.SetCurrent(BeeneticToolkit.Random.RngRole)') or [SetCurrent(string)](RngManager.SetCurrent(string).md 'BeeneticToolkit.Random.RngManager.SetCurrent(string)').
 
 ```csharp
-public static BeeneticToolkit.Random.RandomGenerator? Current { get; }
+public static BeeneticToolkit.Random.RandomGenerator Current { get; }
 ```
 
 #### Property Value
 [RandomGenerator](RandomGenerator.md 'BeeneticToolkit.Random.RandomGenerator')
+
+#### Exceptions
+
+[System.InvalidOperationException](https://docs.microsoft.com/en-us/dotnet/api/System.InvalidOperationException 'System.InvalidOperationException')  
+Thrown only if the default generator has been removed, which cannot happen through the public API.

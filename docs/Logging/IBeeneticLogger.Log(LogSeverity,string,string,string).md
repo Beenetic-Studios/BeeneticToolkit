@@ -1,7 +1,7 @@
 #### [Logging](index.md 'index')
-### [BeeneticToolkit.Logging](index.md#BeeneticToolkit.Logging 'BeeneticToolkit.Logging').[ILogger](ILogger.md 'BeeneticToolkit.Logging.ILogger')
+### [BeeneticToolkit.Logging](index.md#BeeneticToolkit.Logging 'BeeneticToolkit.Logging').[IBeeneticLogger](IBeeneticLogger.md 'BeeneticToolkit.Logging.IBeeneticLogger')
 
-## ILogger.Log(LogSeverity, string, string, string) Method
+## IBeeneticLogger.Log(LogSeverity, string, string, string) Method
 
 Logs a message with the specified severity.
 
@@ -10,25 +10,25 @@ void Log(BeeneticToolkit.Logging.Enums.LogSeverity severity, string message, str
 ```
 #### Parameters
 
-<a name='BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity,string,string,string).severity'></a>
+<a name='BeeneticToolkit.Logging.IBeeneticLogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity,string,string,string).severity'></a>
 
 `severity` [LogSeverity](LogSeverity.md 'BeeneticToolkit.Logging.Enums.LogSeverity')
 
 The severity level of the log message.
 
-<a name='BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity,string,string,string).message'></a>
+<a name='BeeneticToolkit.Logging.IBeeneticLogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity,string,string,string).message'></a>
 
 `message` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 
 The message to be logged.
 
-<a name='BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity,string,string,string).prepend'></a>
+<a name='BeeneticToolkit.Logging.IBeeneticLogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity,string,string,string).prepend'></a>
 
 `prepend` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 
 String value to prepend to the message string.
 
-<a name='BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity,string,string,string).append'></a>
+<a name='BeeneticToolkit.Logging.IBeeneticLogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity,string,string,string).append'></a>
 
 `append` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
 

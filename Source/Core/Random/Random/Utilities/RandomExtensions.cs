@@ -1,5 +1,4 @@
-﻿using BeeneticToolkit.Collections.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,14 +16,18 @@ namespace BeeneticToolkit.Random.Utilities {
         /// <param name="source">The collection to shuffle.</param>
         /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A shuffled version of the source collection.</returns>
-        /// <exception cref="ArgumentException">Thrown when the source collection is null or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="source"/> is null.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="source"/> is empty.</exception>
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, RandomGenerator? random = null) {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
             random ??= RngManager.Current;
 
-            if (source.IsNullOrEmpty())
-                throw new ArgumentException(nameof(source), "Source cannot be null or empty.");
-
             var list = source as IList<T> ?? source.ToList();
+            if (list.Count == 0)
+                throw new ArgumentException("Source cannot be empty.", nameof(source));
+
             for (int i = list.Count - 1; i > 0; i--) {
                 int swapIndex = random.NextInt(i + 1);
                 (list[swapIndex], list[i]) = (list[i], list[swapIndex]);

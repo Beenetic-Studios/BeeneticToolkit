@@ -35,5 +35,8 @@ A shuffled version of the source collection.
 
 #### Exceptions
 
+[System.ArgumentNullException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentNullException 'System.ArgumentNullException')  
+Thrown when [source](RandomExtensions.Shuffle_T_(thisIEnumerable_T_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomExtensions.Shuffle_T_(thisSystem.Collections.Generic.IEnumerable_T_,BeeneticToolkit.Random.RandomGenerator).source 'BeeneticToolkit.Random.Utilities.RandomExtensions.Shuffle<T>(this System.Collections.Generic.IEnumerable<T>, BeeneticToolkit.Random.RandomGenerator).source') is null.
+
 [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
-Thrown when the source collection is null or empty.
+Thrown when [source](RandomExtensions.Shuffle_T_(thisIEnumerable_T_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomExtensions.Shuffle_T_(thisSystem.Collections.Generic.IEnumerable_T_,BeeneticToolkit.Random.RandomGenerator).source 'BeeneticToolkit.Random.Utilities.RandomExtensions.Shuffle<T>(this System.Collections.Generic.IEnumerable<T>, BeeneticToolkit.Random.RandomGenerator).source') is empty.

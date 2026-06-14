@@ -38,9 +38,9 @@ and utilities to manage and format log messages across different output sources.
   - **[ObjectName](BaseMessageIncludes.ObjectName.md 'BeeneticToolkit.Logging.BaseMessageIncludes.ObjectName')** `Property` Gets a value indicating whether the object name is included in the log entry.
   - **[Timestamp](BaseMessageIncludes.Timestamp.md 'BeeneticToolkit.Logging.BaseMessageIncludes.Timestamp')** `Property` Gets a value indicating whether the timestamp is included in the log entry.
   - **[TypeName](BaseMessageIncludes.TypeName.md 'BeeneticToolkit.Logging.BaseMessageIncludes.TypeName')** `Property` Gets a value indicating whether the type name is included in the log entry.
-- **[ILogger](ILogger.md 'BeeneticToolkit.Logging.ILogger')** `Interface` Defines a general interface for loggers, allowing messages to be logged with varying levels of severity.
-  - **[Log(LogSeverity, object, MethodBase, string, string, string)](ILogger.Log(LogSeverity,object,MethodBase,string,string,string).md 'BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity, object, System.Reflection.MethodBase, string, string, string)')** `Method` Logs a message with additional context from an object and a method, and with the specified severity.
-  - **[Log(LogSeverity, string, string, string)](ILogger.Log(LogSeverity,string,string,string).md 'BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity, string, string, string)')** `Method` Logs a message with the specified severity.
+- **[IBeeneticLogger](IBeeneticLogger.md 'BeeneticToolkit.Logging.IBeeneticLogger')** `Interface` Defines a general interface for loggers, allowing messages to be logged with varying levels of severity.
+  - **[Log(LogSeverity, object, MethodBase, string, string, string)](IBeeneticLogger.Log(LogSeverity,object,MethodBase,string,string,string).md 'BeeneticToolkit.Logging.IBeeneticLogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity, object, System.Reflection.MethodBase, string, string, string)')** `Method` Logs a message with additional context from an object and a method, and with the specified severity.
+  - **[Log(LogSeverity, string, string, string)](IBeeneticLogger.Log(LogSeverity,string,string,string).md 'BeeneticToolkit.Logging.IBeeneticLogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity, string, string, string)')** `Method` Logs a message with the specified severity.
 
 <a name='BeeneticToolkit.Logging.Enums'></a>
 
@@ -81,8 +81,6 @@ and utilities to manage and format log messages across different output sources.
 <a name='BeeneticToolkit.Logging.Utilities'></a>
 
 ## BeeneticToolkit.Logging.Utilities Namespace
-- **[LogIgnoreAttribute](LogIgnoreAttribute.md 'BeeneticToolkit.Logging.Utilities.LogIgnoreAttribute')** `Class` Specifies that a property should be ignored when generating a string representation  
-  of an object's public properties using the [ToPropertiesString(object)](LogUtils.ToPropertiesString(object).md 'BeeneticToolkit.Logging.Utilities.LogUtils.ToPropertiesString(object)') method.
 - **[LogUtils](LogUtils.md 'BeeneticToolkit.Logging.Utilities.LogUtils')** `Class` Provides utility methods for logging and displaying elements of collections and properties of objects.
   - **[PrintElements&lt;T&gt;(IEnumerable&lt;T&gt;, bool, string)](LogUtils.PrintElements_T_(IEnumerable_T_,bool,string).md 'BeeneticToolkit.Logging.Utilities.LogUtils.PrintElements<T>(System.Collections.Generic.IEnumerable<T>, bool, string)')** `Method` Converts an IEnumerable sequence into a string representation, with options for inline display and custom delimiters.
   - **[PrintElements&lt;T&gt;(List&lt;T&gt;, bool, string)](LogUtils.PrintElements_T_(List_T_,bool,string).md 'BeeneticToolkit.Logging.Utilities.LogUtils.PrintElements<T>(System.Collections.Generic.List<T>, bool, string)')** `Method` Converts a list of elements into a string representation, with options for inline display and custom delimiters.

@@ -25,12 +25,12 @@ namespace BeeneticToolkit.Tests.Random {
 
         [TestMethod]
         public void NextInt_MaxExclusiveZero_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextInt(0));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextInt(0));
         }
 
         [TestMethod]
         public void NextInt_MaxExclusiveNegative_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextInt(-1));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextInt(-1));
         }
 
         [TestMethod]
@@ -41,12 +41,12 @@ namespace BeeneticToolkit.Tests.Random {
 
         [TestMethod]
         public void NextInt_MinEqualsMax_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextInt(5, 5));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextInt(5, 5));
         }
 
         [TestMethod]
         public void NextInt_MinGreaterThanMax_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextInt(10, 5));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextInt(10, 5));
         }
 
         [TestMethod]
@@ -137,12 +137,12 @@ namespace BeeneticToolkit.Tests.Random {
 
         [TestMethod]
         public void NextLong_MaxExclusiveZero_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextLong(0));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextLong(0));
         }
 
         [TestMethod]
         public void NextLong_MaxExclusiveNegative_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextLong(-1));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextLong(-1));
         }
 
         [TestMethod]
@@ -153,12 +153,12 @@ namespace BeeneticToolkit.Tests.Random {
 
         [TestMethod]
         public void NextLong_MinEqualsMax_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextLong(5, 5));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextLong(5, 5));
         }
 
         [TestMethod]
         public void NextLong_MinGreaterThanMax_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextLong(10, 5));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextLong(10, 5));
         }
 
         [TestMethod]
@@ -252,22 +252,22 @@ namespace BeeneticToolkit.Tests.Random {
 
         [TestMethod]
         public void NextFloat_MaxExclusiveZero_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextFloat(0f));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextFloat(0f));
         }
 
         [TestMethod]
         public void NextFloat_MaxExclusiveNegative_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextFloat(-1f));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextFloat(-1f));
         }
 
         [TestMethod]
         public void NextFloat_MinEqualsMax_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextFloat(5f, 5f));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextFloat(5f, 5f));
         }
 
         [TestMethod]
         public void NextFloat_MinGreaterThanMax_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextFloat(10f, 5f));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextFloat(10f, 5f));
         }
 
         [TestMethod]
@@ -360,22 +360,22 @@ namespace BeeneticToolkit.Tests.Random {
 
         [TestMethod]
         public void NextDouble_MaxExclusiveZero_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextDouble(0.0));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextDouble(0.0));
         }
 
         [TestMethod]
         public void NextDouble_MaxExclusiveNegative_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextDouble(-1.0));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextDouble(-1.0));
         }
 
         [TestMethod]
         public void NextDouble_MinEqualsMax_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextDouble(5.0, 5.0));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextDouble(5.0, 5.0));
         }
 
         [TestMethod]
         public void NextDouble_MinGreaterThanMax_ThrowsArgumentException() {
-            Assert.ThrowsException<ArgumentException>(() => Generator.NextDouble(10.0, 5.0));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => Generator.NextDouble(10.0, 5.0));
         }
 
         [TestMethod]

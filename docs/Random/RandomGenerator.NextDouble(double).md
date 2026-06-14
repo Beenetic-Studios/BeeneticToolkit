@@ -25,5 +25,5 @@ A random double in the range [0, [maxInclusive](RandomGenerator.NextDouble(doubl
 
 #### Exceptions
 
-[System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
-Thrown when [maxInclusive](RandomGenerator.NextDouble(double).md#BeeneticToolkit.Random.RandomGenerator.NextDouble(double).maxInclusive 'BeeneticToolkit.Random.RandomGenerator.NextDouble(double).maxInclusive') is less than or equal to 0.
+[System.ArgumentOutOfRangeException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentOutOfRangeException 'System.ArgumentOutOfRangeException')  
+Thrown when[maxInclusive](RandomGenerator.NextDouble(double).md#BeeneticToolkit.Random.RandomGenerator.NextDouble(double).maxInclusive 'BeeneticToolkit.Random.RandomGenerator.NextDouble(double).maxInclusive') is less than or equal to 0.

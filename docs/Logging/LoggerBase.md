@@ -7,7 +7,7 @@ Provides a base implementation for loggers with common functionalities.
 
 ```csharp
 public abstract class LoggerBase :
-BeeneticToolkit.Logging.ILogger
+BeeneticToolkit.Logging.IBeeneticLogger
 ```
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; LoggerBase
@@ -17,7 +17,7 @@ Derived
 &#8627; [DebugLogger](DebugLogger.md 'BeeneticToolkit.Logging.Loggers.DebugLogger')  
 &#8627; [FileLogger](FileLogger.md 'BeeneticToolkit.Logging.Loggers.FileLogger')
 
-Implements [ILogger](ILogger.md 'BeeneticToolkit.Logging.ILogger')
+Implements [IBeeneticLogger](IBeeneticLogger.md 'BeeneticToolkit.Logging.IBeeneticLogger')
 
 | Constructors | |
 | :--- | :--- |

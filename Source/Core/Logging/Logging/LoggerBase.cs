@@ -7,7 +7,7 @@ namespace BeeneticToolkit.Logging {
     /// <summary>
     /// Provides a base implementation for loggers with common functionalities.
     /// </summary>
-    public abstract class LoggerBase : ILogger {
+    public abstract class LoggerBase : IBeeneticLogger {
 
         #region Properties
 

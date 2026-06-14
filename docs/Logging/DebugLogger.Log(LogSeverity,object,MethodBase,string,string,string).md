@@ -46,7 +46,7 @@ String value to prepend to the message string.
 
 String value to append to the message string.
 
-Implements [Log(LogSeverity, object, MethodBase, string, string, string)](ILogger.Log(LogSeverity,object,MethodBase,string,string,string).md 'BeeneticToolkit.Logging.ILogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity, object, System.Reflection.MethodBase, string, string, string)')
+Implements [Log(LogSeverity, object, MethodBase, string, string, string)](IBeeneticLogger.Log(LogSeverity,object,MethodBase,string,string,string).md 'BeeneticToolkit.Logging.IBeeneticLogger.Log(BeeneticToolkit.Logging.Enums.LogSeverity, object, System.Reflection.MethodBase, string, string, string)')
 
 ### Remarks
 This method will log the message only if the logger is enabled and the message severity meets or exceeds the logger's threshold level.  

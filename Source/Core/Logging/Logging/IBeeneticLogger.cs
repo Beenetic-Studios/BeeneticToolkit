@@ -6,7 +6,11 @@ namespace BeeneticToolkit.Logging {
     /// <summary>
     /// Defines a general interface for loggers, allowing messages to be logged with varying levels of severity.
     /// </summary>
-    public interface ILogger {
+    /// <remarks>
+    /// Named to avoid collision with <c>Microsoft.Extensions.Logging.ILogger</c>, which consumers
+    /// frequently import in the same scope.
+    /// </remarks>
+    public interface IBeeneticLogger {
 
         /// <summary>
         /// Logs a message with the specified severity.

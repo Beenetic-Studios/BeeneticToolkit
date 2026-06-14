@@ -7,7 +7,13 @@ namespace BeeneticToolkit.Tests.Diagnostics {
     /// <summary>
     /// Unit tests for the <see cref="MemoryProfiler"/> class.
     /// </summary>
+    /// <remarks>
+    /// Marked <see cref="DoNotParallelizeAttribute"/> because <see cref="MemoryProfiler"/> reads
+    /// process-wide GC totals; concurrent tests allocating/collecting would otherwise pollute the
+    /// measured deltas and make these tests flaky.
+    /// </remarks>
     [TestClass]
+    [DoNotParallelize]
     public class MemoryProfilerTests {
 
         /// <summary>
@@ -31,16 +37,17 @@ namespace BeeneticToolkit.Tests.Diagnostics {
         /// </summary>
         [TestMethod]
         public void MeasureMemoryUsage_VoidMethod_ReturnsMemoryChange() {
-            // Arrange
-            static void testMethod() {
-                byte[] data = new byte[200_000]; // Allocate ~200 KB
-            }
+            // Arrange — keep the allocation rooted so the forced GC in the profiler cannot reclaim it
+            // before the post-execution measurement (otherwise the measured delta is ~0).
+            byte[]? held = null;
+            void testMethod() => held = new byte[200_000]; // Allocate ~200 KB
 
             // Act
             long memoryChange = MemoryProfiler.MeasureMemoryUsage(testMethod);
 
             // Assert
             Assert.IsTrue(memoryChange > 0, "Memory change should reflect the allocation.");
+            GC.KeepAlive(held);
         }
 
         /// <summary>

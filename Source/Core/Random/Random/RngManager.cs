@@ -1,4 +1,6 @@
-﻿namespace BeeneticToolkit.Random {
+﻿using System;
+
+namespace BeeneticToolkit.Random {
     /// <summary>
     /// Represents the roles or contexts in which a random number generator can be used.
     /// This provides type-safe identifiers for registering and retrieving
@@ -60,7 +62,12 @@
         /// <see cref="SetCurrent(RngRole)"/> or <see cref="SetCurrent(string)"/>.
         /// </para>
         /// </summary>
-        public static RandomGenerator? Current => s_DefaultEnvironment.Current;
+        /// <exception cref="InvalidOperationException">
+        /// Thrown only if the default generator has been removed, which cannot happen through the public API.
+        /// </exception>
+        public static RandomGenerator Current =>
+            s_DefaultEnvironment.Current
+            ?? throw new InvalidOperationException("No current random generator is registered.");
 
         private static RngEnvironment CreateDefaultEnvironment() {
             var environment = new RngEnvironment("Global");

@@ -55,10 +55,10 @@ namespace BeeneticToolkit.Random {
         /// Initializes a new instance of the random number generator with the specified seed.
         /// </summary>
         /// <param name="seed">The seed to use in random number generation.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="seed"/> is less than or equal to 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when<paramref name="seed"/> is less than or equal to 0.</exception>
         protected RandomGenerator(long seed) {
             if (seed <= 0)
-                throw new ArgumentException("Seed must be greater than 0");
+                throw new ArgumentOutOfRangeException(nameof(seed), "Seed must be greater than 0.");
 
             Seed = seed;
             InitializeRng();
@@ -155,7 +155,7 @@ namespace BeeneticToolkit.Random {
         /// <returns>A random byte array of the specified length, with each byte within the specified range.</returns>
         public byte[] NextBytes(int length, byte minInclusive, byte maxExclusive) {
             if (minInclusive >= maxExclusive)
-                throw new ArgumentException($"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}");
+                throw new ArgumentOutOfRangeException(nameof(minInclusive), $"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}.");
 
             byte[] bytes = new byte[length];
             int range = maxExclusive - minInclusive;
@@ -179,10 +179,10 @@ namespace BeeneticToolkit.Random {
         /// </summary>
         /// <param name="maxExclusive">The upper bound (exclusive) of the random number to be generated. Must be greater than 0.</param>
         /// <returns>A random integer in the range [0, <paramref name="maxExclusive"/>).</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="maxExclusive"/> is less than or equal to 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when<paramref name="maxExclusive"/> is less than or equal to 0.</exception>
         public virtual int NextInt(int maxExclusive) {
             if (maxExclusive <= 0)
-                throw new ArgumentException($"{nameof(maxExclusive)} must be greater than 0");
+                throw new ArgumentOutOfRangeException(nameof(maxExclusive), $"{nameof(maxExclusive)} must be greater than 0.");
 
             return NextInt(0, maxExclusive);
         }
@@ -194,10 +194,10 @@ namespace BeeneticToolkit.Random {
         /// <param name="minInclusive">The lower bound (inclusive) of the random number to be generated.</param>
         /// <param name="maxExclusive">The upper bound (exclusive) of the random number to be generated. Must be greater than <paramref name="minInclusive"/>.</param>
         /// <returns>A random integer in the range [<paramref name="minInclusive"/>, <paramref name="maxExclusive"/>).</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="minInclusive"/> is greater than or equal to <paramref name="maxExclusive"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when<paramref name="minInclusive"/> is greater than or equal to <paramref name="maxExclusive"/>.</exception>
         public virtual int NextInt(int minInclusive, int maxExclusive) {
             if (minInclusive >= maxExclusive)
-                throw new ArgumentException($"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}");
+                throw new ArgumentOutOfRangeException(nameof(minInclusive), $"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}.");
 
             return (int)NextBounded(minInclusive, maxExclusive);
         }
@@ -214,10 +214,10 @@ namespace BeeneticToolkit.Random {
         /// </summary>
         /// <param name="maxExclusive">The upper bound (exclusive) of the random long number to be generated. Must be greater than 0.</param>
         /// <returns>A random long integer in the range [0, <paramref name="maxExclusive"/>).</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="maxExclusive"/> is less than or equal to 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when<paramref name="maxExclusive"/> is less than or equal to 0.</exception>
         public virtual long NextLong(long maxExclusive) {
             if (maxExclusive <= 0)
-                throw new ArgumentException($"{nameof(maxExclusive)} must be greater than 0");
+                throw new ArgumentOutOfRangeException(nameof(maxExclusive), $"{nameof(maxExclusive)} must be greater than 0.");
 
             return NextLong(0, maxExclusive);
         }
@@ -229,10 +229,10 @@ namespace BeeneticToolkit.Random {
         /// <param name="minInclusive">The lower bound (inclusive) of the random long number to be generated.</param>
         /// <param name="maxExclusive">The upper bound (exclusive) of the random long number to be generated. Must be greater than <paramref name="minInclusive"/>.</param>
         /// <returns>A random long integer in the range [<paramref name="minInclusive"/>, <paramref name="maxExclusive"/>).</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="minInclusive"/> is greater than or equal to <paramref name="maxExclusive"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when<paramref name="minInclusive"/> is greater than or equal to <paramref name="maxExclusive"/>.</exception>
         public virtual long NextLong(long minInclusive, long maxExclusive) {
             if (minInclusive >= maxExclusive)
-                throw new ArgumentException($"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}");
+                throw new ArgumentOutOfRangeException(nameof(minInclusive), $"{nameof(minInclusive)} must be less than {nameof(maxExclusive)}.");
 
             return NextBounded(minInclusive, maxExclusive);
         }
@@ -249,10 +249,10 @@ namespace BeeneticToolkit.Random {
         /// </summary>
         /// <param name="maxInclusive">The upper bound (inclusive) of the random float number to be generated. Must be greater than 0.</param>
         /// <returns>A random float in the range [0, <paramref name="maxInclusive"/>].</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="maxInclusive"/> is less than or equal to 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when<paramref name="maxInclusive"/> is less than or equal to 0.</exception>
         public virtual float NextFloat(float maxInclusive) {
             if (maxInclusive <= 0)
-                throw new ArgumentException($"{nameof(maxInclusive)} must be greater than 0");
+                throw new ArgumentOutOfRangeException(nameof(maxInclusive), $"{nameof(maxInclusive)} must be greater than 0.");
 
             return NextFloat(0, maxInclusive);
         }
@@ -264,11 +264,11 @@ namespace BeeneticToolkit.Random {
         /// <param name="minInclusive">The lower bound (inclusive) of the random float number to be generated.</param>
         /// <param name="maxInclusive">The upper bound (inclusive) of the random float number to be generated. Must be greater than <paramref name="minInclusive"/>.</param>
         /// <returns>A random float in the range [<paramref name="minInclusive"/>, <paramref name="maxInclusive"/>].</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="minInclusive"/> is greater than or equal to <paramref name="maxInclusive"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when<paramref name="minInclusive"/> is greater than or equal to <paramref name="maxInclusive"/>.</exception>
 
         public virtual float NextFloat(float minInclusive, float maxInclusive) {
             if (minInclusive >= maxInclusive)
-                throw new ArgumentException($"{nameof(minInclusive)} must be less than {nameof(maxInclusive)}");
+                throw new ArgumentOutOfRangeException(nameof(minInclusive), $"{nameof(minInclusive)} must be less than {nameof(maxInclusive)}.");
 
             return NextFloat() * (maxInclusive - minInclusive) + minInclusive;
         }
@@ -285,11 +285,11 @@ namespace BeeneticToolkit.Random {
         /// </summary>
         /// <param name="maxInclusive">The upper bound (inclusive) of the random double number to be generated. Must be greater than 0.</param>
         /// <returns>A random double in the range [0, <paramref name="maxInclusive"/>].</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="maxInclusive"/> is less than or equal to 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when<paramref name="maxInclusive"/> is less than or equal to 0.</exception>
 
         public virtual double NextDouble(double maxInclusive) {
             if (maxInclusive <= 0)
-                throw new ArgumentException("The maximum (inclusive) must be greater than 0", nameof(maxInclusive));
+                throw new ArgumentOutOfRangeException(nameof(maxInclusive), "The maximum (inclusive) must be greater than 0.");
 
             return NextDouble(0, maxInclusive);
         }
@@ -301,11 +301,11 @@ namespace BeeneticToolkit.Random {
         /// <param name="minInclusive">The lower bound (inclusive) of the random double number to be generated.</param>
         /// <param name="maxInclusive">The upper bound (inclusive) of the random double number to be generated. Must be greater than <paramref name="minInclusive"/>.</param>
         /// <returns>A random double in the range [<paramref name="minInclusive"/>, <paramref name="maxInclusive"/>].</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="minInclusive"/> is greater than or equal to <paramref name="maxInclusive"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when<paramref name="minInclusive"/> is greater than or equal to <paramref name="maxInclusive"/>.</exception>
 
         public virtual double NextDouble(double minInclusive, double maxInclusive) {
             if (minInclusive >= maxInclusive)
-                throw new ArgumentException($"{nameof(minInclusive)} must be less than {nameof(maxInclusive)}");
+                throw new ArgumentOutOfRangeException(nameof(minInclusive), $"{nameof(minInclusive)} must be less than {nameof(maxInclusive)}.");
 
             return NextDouble() * (maxInclusive - minInclusive) + minInclusive;
         }
@@ -327,10 +327,10 @@ namespace BeeneticToolkit.Random {
         /// <param name="mean">The mean (μ) of the normal distribution.</param>
         /// <param name="stDev">The standard deviation (σ) of the normal distribution. Must be non-negative.</param>
         /// <returns>A random double number following the normal distribution with the specified mean and standard deviation.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="stDev"/> is negative.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when<paramref name="stDev"/> is negative.</exception>
         public virtual double NextNormal(double mean, double stDev) {
             if (stDev < 0)
-                throw new ArgumentException("Standard deviation cannot be negative", nameof(stDev));
+                throw new ArgumentOutOfRangeException(nameof(stDev), "Standard deviation cannot be negative.");
 
             double u1 = 1.0 - NextDouble();
             double u2 = 1.0 - NextDouble();

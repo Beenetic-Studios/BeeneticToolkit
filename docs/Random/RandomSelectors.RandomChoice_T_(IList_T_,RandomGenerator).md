@@ -35,5 +35,8 @@ A randomly selected element from the list.
 
 #### Exceptions
 
+[System.ArgumentNullException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentNullException 'System.ArgumentNullException')  
+Thrown when [list](RandomSelectors.RandomChoice_T_(IList_T_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoice_T_(System.Collections.Generic.IList_T_,BeeneticToolkit.Random.RandomGenerator).list 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoice<T>(System.Collections.Generic.IList<T>, BeeneticToolkit.Random.RandomGenerator).list') is null.
+
 [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
-Thrown when [list](RandomSelectors.RandomChoice_T_(IList_T_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoice_T_(System.Collections.Generic.IList_T_,BeeneticToolkit.Random.RandomGenerator).list 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoice<T>(System.Collections.Generic.IList<T>, BeeneticToolkit.Random.RandomGenerator).list') is null or empty.
+Thrown when [list](RandomSelectors.RandomChoice_T_(IList_T_,RandomGenerator).md#BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoice_T_(System.Collections.Generic.IList_T_,BeeneticToolkit.Random.RandomGenerator).list 'BeeneticToolkit.Random.Utilities.RandomSelectors.RandomChoice<T>(System.Collections.Generic.IList<T>, BeeneticToolkit.Random.RandomGenerator).list') is empty.

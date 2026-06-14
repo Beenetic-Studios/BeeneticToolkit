@@ -10,4 +10,8 @@
 	<ItemGroup>
 		<PackageReference Include="DefaultDocumentation" Version="0.8.2" PrivateAssets="all" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Extensions\Extensions.csproj" />
+	</ItemGroup>
 </Project>

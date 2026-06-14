@@ -18,5 +18,5 @@ The seed to use in random number generation.
 
 #### Exceptions
 
-[System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
-Thrown when [seed](RandomGenerator.RandomGenerator(long).md#BeeneticToolkit.Random.RandomGenerator.RandomGenerator(long).seed 'BeeneticToolkit.Random.RandomGenerator.RandomGenerator(long).seed') is less than or equal to 0.
+[System.ArgumentOutOfRangeException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentOutOfRangeException 'System.ArgumentOutOfRangeException')  
+Thrown when[seed](RandomGenerator.RandomGenerator(long).md#BeeneticToolkit.Random.RandomGenerator.RandomGenerator(long).seed 'BeeneticToolkit.Random.RandomGenerator.RandomGenerator(long).seed') is less than or equal to 0.

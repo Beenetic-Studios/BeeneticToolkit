@@ -18,10 +18,13 @@ namespace BeeneticToolkit.Random.Utilities {
         /// <param name="list">The list from which to select a random element.</param>
         /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A randomly selected element from the list.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="list"/> is null or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is null.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="list"/> is empty.</exception>
         public static T RandomChoice<T>(IList<T> list, RandomGenerator? random = null) {
-            if (list == null || list.Count == 0)
-                throw new ArgumentException("List cannot be null or empty.", nameof(list));
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+            if (list.Count == 0)
+                throw new ArgumentException("List cannot be empty.", nameof(list));
 
             random ??= RngManager.Current;
 
@@ -104,11 +107,14 @@ namespace BeeneticToolkit.Random.Utilities {
         /// <param name="subsetSize">The size of the subset to select.</param>
         /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A list containing a random subset of the specified size.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="list"/> is null or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is null.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="list"/> is empty.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="subsetSize"/> is less than or equal to 0, or greater than the list size.</exception>
         public static List<T> RandomSubset<T>(IList<T> list, int subsetSize, RandomGenerator? random = null) {
-            if (list == null || list.Count == 0)
-                throw new ArgumentException("List cannot be null or empty.", nameof(list));
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+            if (list.Count == 0)
+                throw new ArgumentException("List cannot be empty.", nameof(list));
 
             if (subsetSize <= 0 || subsetSize > list.Count)
                 throw new ArgumentOutOfRangeException(nameof(subsetSize), subsetSize,

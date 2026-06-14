@@ -32,5 +32,5 @@ A random double number following the normal distribution with the specified mean
 
 #### Exceptions
 
-[System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
-Thrown when [stDev](RandomGenerator.NextNormal(double,double).md#BeeneticToolkit.Random.RandomGenerator.NextNormal(double,double).stDev 'BeeneticToolkit.Random.RandomGenerator.NextNormal(double, double).stDev') is negative.
+[System.ArgumentOutOfRangeException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentOutOfRangeException 'System.ArgumentOutOfRangeException')  
+Thrown when[stDev](RandomGenerator.NextNormal(double,double).md#BeeneticToolkit.Random.RandomGenerator.NextNormal(double,double).stDev 'BeeneticToolkit.Random.RandomGenerator.NextNormal(double, double).stDev') is negative.
