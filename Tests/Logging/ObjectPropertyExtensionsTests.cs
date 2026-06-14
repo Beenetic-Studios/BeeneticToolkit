@@ -1,9 +1,9 @@
-﻿using BeeneticToolkit.Extensions;
+﻿using BeeneticToolkit.Logging.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
-namespace BeeneticToolkit.Tests.Extensions {
+namespace BeeneticToolkit.Tests.Logging {
 
     [TestClass]
     public class ObjectPropertyExtensionsTests {

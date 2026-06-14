@@ -1,4 +1,4 @@
-﻿namespace BeeneticToolkit.Extensions {
+﻿namespace BeeneticToolkit.Numerics {
 
     /// <summary>Provides extension methods for mapping between signed and unsigned numeric types while preserving relative positions within their ranges.</summary>
     public static class IntegralMappingExtensions {

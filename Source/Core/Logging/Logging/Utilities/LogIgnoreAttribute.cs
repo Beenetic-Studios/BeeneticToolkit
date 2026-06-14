@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BeeneticToolkit.Extensions {
+namespace BeeneticToolkit.Logging.Utilities {
 
     /// <summary>
     /// Specifies that a property should be ignored when generating a string representation

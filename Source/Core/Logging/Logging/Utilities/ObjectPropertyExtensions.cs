@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace BeeneticToolkit.Extensions {
+namespace BeeneticToolkit.Logging.Utilities {
 
     /// <summary>Provides extension methods for objects.</summary>
     public static class ObjectPropertyExtensions {

@@ -39,7 +39,7 @@ namespace BeeneticToolkit.Tests.Diagnostics {
         public void MeasureMemoryUsage_VoidMethod_ReturnsMemoryChange() {
             // Arrange — keep the allocation rooted so the forced GC in the profiler cannot reclaim it
             // before the post-execution measurement (otherwise the measured delta is ~0).
-            byte[]? held = null;
+            byte[] held = null;
             void testMethod() => held = new byte[200_000]; // Allocate ~200 KB
 
             // Act

@@ -1,7 +1,7 @@
-﻿using BeeneticToolkit.Extensions;
+﻿using BeeneticToolkit.Numerics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BeeneticToolkit.Tests.Extensions {
+namespace BeeneticToolkit.Tests.Numerics {
 
     [TestClass]
     public class IntegralMappingExtensionsTests {
