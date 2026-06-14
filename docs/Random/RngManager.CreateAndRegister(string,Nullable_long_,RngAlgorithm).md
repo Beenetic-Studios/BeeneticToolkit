@@ -7,7 +7,7 @@ Creates and registers a random number generator for the given key,
 then returns it. Overwrites existing entries.
 
 ```csharp
-public static BeeneticToolkit.Random.RandomGenerator CreateAndRegister(string key, System.Nullable<long> seed=null, BeeneticToolkit.Random.RngAlgorithm algorithm=BeeneticToolkit.Random.RngAlgorithm.Xorshift);
+public static BeeneticToolkit.Random.RandomGenerator CreateAndRegister(string key, System.Nullable<long> seed=null, BeeneticToolkit.Random.RngAlgorithm algorithm=BeeneticToolkit.Random.RngAlgorithm.Xoshiro256);
 ```
 #### Parameters
 

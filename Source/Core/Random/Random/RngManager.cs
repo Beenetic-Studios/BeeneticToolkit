@@ -104,7 +104,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="seed">Optional seed value.</param>
         /// <param name="algorithm">Optional algorithm to use (defaults to Xorshift).</param>
         /// <returns>The created and registered <see cref="RandomGenerator"/> instance.</returns>
-        public static RandomGenerator CreateAndRegister(RngRole role, long? seed = null, RngAlgorithm algorithm = RngAlgorithm.Xorshift) =>
+        public static RandomGenerator CreateAndRegister(RngRole role, long? seed = null, RngAlgorithm algorithm = RngAlgorithm.Xoshiro256) =>
             s_DefaultEnvironment.CreateAndRegister(role.ToString(), seed, algorithm);
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="seed">Optional seed value.</param>
         /// <param name="algorithm">Optional algorithm to use (defaults to Xorshift).</param>
         /// <returns>The created and registered <see cref="RandomGenerator"/> instance.</returns>
-        public static RandomGenerator CreateAndRegister(string key, long? seed = null, RngAlgorithm algorithm = RngAlgorithm.Xorshift) =>
+        public static RandomGenerator CreateAndRegister(string key, long? seed = null, RngAlgorithm algorithm = RngAlgorithm.Xoshiro256) =>
             s_DefaultEnvironment.CreateAndRegister(key, seed, algorithm);
 
         /// <summary>

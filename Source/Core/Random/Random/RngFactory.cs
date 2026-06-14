@@ -12,6 +12,11 @@ namespace BeeneticToolkit.Random {
     public enum RngAlgorithm {
 
         /// <summary>
+        /// The xoshiro256** algorithm: fast, high-quality, 2^256-1 period. The default.
+        /// </summary>
+        Xoshiro256,
+
+        /// <summary>
         /// Represents the Xorshift algorithm.
         /// </summary>
         Xorshift,
@@ -33,20 +38,20 @@ namespace BeeneticToolkit.Random {
     public static class RngFactory {
 
         /// <summary>
-        /// Creates a random number generator using the default algorithm (Xorshift) without a specific seed.
+        /// Creates a random number generator using the default algorithm (xoshiro256**) without a specific seed.
         /// </summary>
         /// <returns>An instance of a random number generator.</returns>
         public static RandomGenerator GetGenerator() {
-            return GetNewGenerator(RngAlgorithm.Xorshift, null);
+            return GetNewGenerator(RngAlgorithm.Xoshiro256, null);
         }
 
         /// <summary>
-        /// Creates a random number generator using the default algorithm (Xorshift) with a specified seed.
+        /// Creates a random number generator using the default algorithm (xoshiro256**) with a specified seed.
         /// </summary>
         /// <param name="seed">The seed for the random number generator.</param>
         /// <returns>An instance of a random number generator.</returns>
         public static RandomGenerator GetGenerator(long? seed) {
-            return GetNewGenerator(RngAlgorithm.Xorshift, seed);
+            return GetNewGenerator(RngAlgorithm.Xoshiro256, seed);
         }
 
         /// <summary>
@@ -76,6 +81,7 @@ namespace BeeneticToolkit.Random {
         /// <returns>An instance of a random number generator.</returns>
         private static RandomGenerator GetNewGenerator(RngAlgorithm algorithm, long? seed) {
             return algorithm switch {
+                RngAlgorithm.Xoshiro256 => new Xoshiro256(seed),
                 RngAlgorithm.Xorshift => new Xorshift(seed),
                 RngAlgorithm.CombinedLCG => new CombinedLCG(seed),
                 RngAlgorithm.MiddleSquare => new MiddleSquare(seed),

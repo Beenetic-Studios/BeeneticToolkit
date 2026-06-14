@@ -92,7 +92,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="seed">Optional seed value.</param>
         /// <param name="algorithm">Optional algorithm to use. Defaults to <see cref="RngAlgorithm.Xorshift"/>.</param>
         /// <returns>The created and registered <see cref="RandomGenerator"/> instance.</returns>
-        public RandomGenerator CreateAndRegister(string key, long? seed = null, RngAlgorithm algorithm = RngAlgorithm.Xorshift) {
+        public RandomGenerator CreateAndRegister(string key, long? seed = null, RngAlgorithm algorithm = RngAlgorithm.Xoshiro256) {
             var generator = RngFactory.GetGenerator(algorithm, seed);
             Register(key, generator);
             return generator;
@@ -107,7 +107,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="seed">Optional seed value.</param>
         /// <param name="algorithm">Optional algorithm to use. Defaults to <see cref="RngAlgorithm.Xorshift"/>.</param>
         /// <returns>The created and registered <see cref="RandomGenerator"/> instance.</returns>
-        public RandomGenerator CreateAndRegister(RngKey key, long? seed = null, RngAlgorithm algorithm = RngAlgorithm.Xorshift) =>
+        public RandomGenerator CreateAndRegister(RngKey key, long? seed = null, RngAlgorithm algorithm = RngAlgorithm.Xoshiro256) =>
             CreateAndRegister(key.Value, seed, algorithm);
 
         /// <summary>

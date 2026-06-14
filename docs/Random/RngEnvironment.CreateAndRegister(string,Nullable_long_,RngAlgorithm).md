@@ -8,7 +8,7 @@ and returns the created instance.
 If a generator was previously registered with the same key, it will be replaced.
 
 ```csharp
-public BeeneticToolkit.Random.RandomGenerator CreateAndRegister(string key, System.Nullable<long> seed=null, BeeneticToolkit.Random.RngAlgorithm algorithm=BeeneticToolkit.Random.RngAlgorithm.Xorshift);
+public BeeneticToolkit.Random.RandomGenerator CreateAndRegister(string key, System.Nullable<long> seed=null, BeeneticToolkit.Random.RngAlgorithm algorithm=BeeneticToolkit.Random.RngAlgorithm.Xoshiro256);
 ```
 #### Parameters
 

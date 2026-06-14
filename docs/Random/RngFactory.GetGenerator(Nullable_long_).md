@@ -3,7 +3,7 @@
 
 ## RngFactory.GetGenerator(Nullable<long>) Method
 
-Creates a random number generator using the default algorithm (Xorshift) with a specified seed.
+Creates a random number generator using the default algorithm (xoshiro256**) with a specified seed.
 
 ```csharp
 public static BeeneticToolkit.Random.RandomGenerator GetGenerator(System.Nullable<long> seed);

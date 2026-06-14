@@ -87,10 +87,10 @@ selecting random elements from collections, and working with various pseudorando
   - **[TryGet(RngKey, RandomGenerator)](RngEnvironment.TryGet(RngKey,RandomGenerator).md 'BeeneticToolkit.Random.RngEnvironment.TryGet(BeeneticToolkit.Random.RngKey, BeeneticToolkit.Random.RandomGenerator)')** `Method` Attempts to retrieve a generator registered under the specified [RngKey](RngKey.md 'BeeneticToolkit.Random.RngKey'), without throwing.
   - **[TryGet(string, RandomGenerator)](RngEnvironment.TryGet(string,RandomGenerator).md 'BeeneticToolkit.Random.RngEnvironment.TryGet(string, BeeneticToolkit.Random.RandomGenerator)')** `Method` Attempts to retrieve a generator registered under the specified key, without throwing.
 - **[RngFactory](RngFactory.md 'BeeneticToolkit.Random.RngFactory')** `Class` Provides factory methods for creating random number generators based on different algorithms.
-  - **[GetGenerator()](RngFactory.GetGenerator().md 'BeeneticToolkit.Random.RngFactory.GetGenerator()')** `Method` Creates a random number generator using the default algorithm (Xorshift) without a specific seed.
+  - **[GetGenerator()](RngFactory.GetGenerator().md 'BeeneticToolkit.Random.RngFactory.GetGenerator()')** `Method` Creates a random number generator using the default algorithm (xoshiro256**) without a specific seed.
   - **[GetGenerator(RngAlgorithm, Nullable&lt;long&gt;)](RngFactory.GetGenerator(RngAlgorithm,Nullable_long_).md 'BeeneticToolkit.Random.RngFactory.GetGenerator(BeeneticToolkit.Random.RngAlgorithm, System.Nullable<long>)')** `Method` Creates a random number generator using the specified algorithm and optional seed.
   - **[GetGenerator(RngAlgorithm)](RngFactory.GetGenerator(RngAlgorithm).md 'BeeneticToolkit.Random.RngFactory.GetGenerator(BeeneticToolkit.Random.RngAlgorithm)')** `Method` Creates a random number generator using a specified algorithm without a specific seed.
-  - **[GetGenerator(Nullable&lt;long&gt;)](RngFactory.GetGenerator(Nullable_long_).md 'BeeneticToolkit.Random.RngFactory.GetGenerator(System.Nullable<long>)')** `Method` Creates a random number generator using the default algorithm (Xorshift) with a specified seed.
+  - **[GetGenerator(Nullable&lt;long&gt;)](RngFactory.GetGenerator(Nullable_long_).md 'BeeneticToolkit.Random.RngFactory.GetGenerator(System.Nullable<long>)')** `Method` Creates a random number generator using the default algorithm (xoshiro256**) with a specified seed.
 - **[RngManager](RngManager.md 'BeeneticToolkit.Random.RngManager')** `Class` Provides centralized access to a default global [RngEnvironment](RngEnvironment.md 'BeeneticToolkit.Random.RngEnvironment').  
     
   [RngManager](RngManager.md 'BeeneticToolkit.Random.RngManager') acts as a convenience facade for applications that want  
@@ -166,6 +166,7 @@ selecting random elements from collections, and working with various pseudorando
   - **[CombinedLCG](RngAlgorithm.md#BeeneticToolkit.Random.RngAlgorithm.CombinedLCG 'BeeneticToolkit.Random.RngAlgorithm.CombinedLCG')** `Field` Represents the Combined Linear Congruential Generator algorithm.
   - **[MiddleSquare](RngAlgorithm.md#BeeneticToolkit.Random.RngAlgorithm.MiddleSquare 'BeeneticToolkit.Random.RngAlgorithm.MiddleSquare')** `Field` Represents the Middle Square Weyl algorithm.
   - **[Xorshift](RngAlgorithm.md#BeeneticToolkit.Random.RngAlgorithm.Xorshift 'BeeneticToolkit.Random.RngAlgorithm.Xorshift')** `Field` Represents the Xorshift algorithm.
+  - **[Xoshiro256](RngAlgorithm.md#BeeneticToolkit.Random.RngAlgorithm.Xoshiro256 'BeeneticToolkit.Random.RngAlgorithm.Xoshiro256')** `Field` The xoshiro256** algorithm: fast, high-quality, 2^256-1 period. The default.
 - **[RngRole](RngRole.md 'BeeneticToolkit.Random.RngRole')** `Enum` Represents the roles or contexts in which a random number generator can be used.  
   This provides type-safe identifiers for registering and retrieving  
   random number generators via the [RngManager](RngManager.md 'BeeneticToolkit.Random.RngManager').

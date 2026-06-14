@@ -13,7 +13,7 @@ namespace BeeneticToolkit.Tests.Random {
             var generator = RngFactory.GetGenerator();
 
             Assert.IsNotNull(generator);
-            Assert.IsInstanceOfType(generator, typeof(Xorshift));
+            Assert.IsInstanceOfType(generator, typeof(Xoshiro256));
         }
 
         [TestMethod]

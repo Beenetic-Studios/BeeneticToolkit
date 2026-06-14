@@ -12,18 +12,24 @@ public enum RngAlgorithm
 
 <a name='BeeneticToolkit.Random.RngAlgorithm.CombinedLCG'></a>
 
-`CombinedLCG` 1
+`CombinedLCG` 2
 
 Represents the Combined Linear Congruential Generator algorithm.
 
 <a name='BeeneticToolkit.Random.RngAlgorithm.MiddleSquare'></a>
 
-`MiddleSquare` 2
+`MiddleSquare` 3
 
 Represents the Middle Square Weyl algorithm.
 
 <a name='BeeneticToolkit.Random.RngAlgorithm.Xorshift'></a>
 
-`Xorshift` 0
+`Xorshift` 1
 
 Represents the Xorshift algorithm.
+
+<a name='BeeneticToolkit.Random.RngAlgorithm.Xoshiro256'></a>
+
+`Xoshiro256` 0
+
+The xoshiro256** algorithm: fast, high-quality, 2^256-1 period. The default.

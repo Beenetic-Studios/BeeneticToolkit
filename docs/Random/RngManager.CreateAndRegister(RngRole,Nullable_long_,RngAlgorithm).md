@@ -7,7 +7,7 @@ Creates and registers a random number generator for the given role,
 then returns it. Overwrites any existing generator for the role.
 
 ```csharp
-public static BeeneticToolkit.Random.RandomGenerator CreateAndRegister(BeeneticToolkit.Random.RngRole role, System.Nullable<long> seed=null, BeeneticToolkit.Random.RngAlgorithm algorithm=BeeneticToolkit.Random.RngAlgorithm.Xorshift);
+public static BeeneticToolkit.Random.RandomGenerator CreateAndRegister(BeeneticToolkit.Random.RngRole role, System.Nullable<long> seed=null, BeeneticToolkit.Random.RngAlgorithm algorithm=BeeneticToolkit.Random.RngAlgorithm.Xoshiro256);
 ```
 #### Parameters
 
