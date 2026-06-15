@@ -142,6 +142,25 @@ foreach (var (x, y) in points)
     PlaceTree(x, y);
 ```
 
+## Spatial point sampling
+
+Single random directions and points inside 2D/3D shapes, as extension methods on the generator
+(`BeeneticToolkit.Random.Sampling`). Points inside areas and volumes are **uniformly distributed**
+(no center-crowding), and results are returned as value tuples — no allocation, no engine-specific
+vector type to convert:
+
+```csharp
+using BeeneticToolkit.Random.Sampling;
+
+float angle              = rng.NextAngle();                  // [0, 2π)
+(float X, float Y) dir   = rng.NextUnitVector2();            // point on the unit circle
+var dir3                 = rng.NextUnitVector3();            // point on the unit sphere
+
+var spawn   = rng.NextPointInCircle(radius: 5f);            // uniform inside a disk
+var ring    = rng.NextPointInAnnulus(inner: 3f, outer: 5f); // uniform inside a ring
+var inBlast = rng.NextPointInSphere(radius: 2f);            // uniform inside a ball
+```
+
 ## Thread safety
 
 Generators are **not** thread-safe — each draw advances mutable state. For concurrent work, give each
