@@ -67,13 +67,26 @@ namespace BeeneticToolkit.Logging {
         #region Logging
 
         /// <summary>
+        /// Writes a fully-formatted, already-filtered log entry to this logger's destination. This is the single
+        /// method a concrete logger must implement; all formatting and threshold filtering is handled by the base.
+        /// </summary>
+        /// <param name="severity">The severity of the entry, so sinks can route by level (e.g. error vs. info).</param>
+        /// <param name="entry">The complete, formatted log line (including any prepend/append).</param>
+        protected abstract void WriteEntry(LogSeverity severity, string entry);
+
+        /// <summary>
         /// Logs a message with the specified severity.
         /// </summary>
         /// <param name="severity">The severity level of the log message.</param>
         /// <param name="message">The message to log.</param>
         /// <param name="prepend">String value to prepend to the message string.</param>
         /// <param name="append">String value to append to the message string.</param>
-        public abstract void Log(LogSeverity severity, string message, string prepend = " ", string append = "\n");
+        public void Log(LogSeverity severity, string message, string prepend = " ", string append = "\n") {
+            if (!AllowLogMessage(severity))
+                return;
+
+            WriteEntry(severity, $"{BaseMessage(severity)}{prepend}{message}{append}");
+        }
 
         /// <summary>
         /// Logs a message with additional context and the specified severity.
@@ -84,7 +97,12 @@ namespace BeeneticToolkit.Logging {
         /// <param name="message">The message to log.</param>
         /// <param name="prepend">String value to prepend to the message string.</param>
         /// <param name="append">String value to append to the message string.</param>
-        public abstract void Log(LogSeverity severity, object? obj, MethodBase? method, string message, string prepend = " ", string append = "\n");
+        public void Log(LogSeverity severity, object? obj, MethodBase? method, string message, string prepend = " ", string append = "\n") {
+            if (!AllowLogMessage(severity))
+                return;
+
+            WriteEntry(severity, $"{BaseMessage(severity, obj, method)}{prepend}{message}{append}");
+        }
 
         /// <summary>
         /// Logs a message with additional context from an object and a method name, using the specified severity.
@@ -95,13 +113,11 @@ namespace BeeneticToolkit.Logging {
         /// <param name="message">The message to log.</param>
         /// <param name="prepend">String value to prepend to the message string.</param>
         /// <param name="append">String value to append to the message string.</param>
-        /// <remarks>
-        /// The default implementation forwards the call to the <see cref="Log(LogSeverity, object, MethodBase, string, string, string)"/>
-        /// overload with a <c>null</c> method reference, preserving the object context but not the method name.
-        /// Derived loggers can override this method to support explicit method-name logging.
-        /// </remarks>
-        public virtual void Log(LogSeverity severity, object? obj, string methodName, string message, string prepend = " ", string append = "\n") {
-            Log(severity, obj, (MethodBase?)null, message, prepend, append); // fallback: object context preserved, method name lost until overridden
+        public void Log(LogSeverity severity, object? obj, string? methodName, string message, string prepend = " ", string append = "\n") {
+            if (!AllowLogMessage(severity))
+                return;
+
+            WriteEntry(severity, $"{BaseMessage(severity, obj, methodName)}{prepend}{message}{append}");
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace BeeneticToolkit.Logging {
 
@@ -89,6 +90,52 @@ namespace BeeneticToolkit.Logging {
         }
 
         #endregion Logging
+
+        #region Convenience
+
+        /// <summary>Logs a <see cref="LogSeverity.Trace"/> message, capturing the calling member automatically.</summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="context">Optional object context (typically <c>this</c>).</param>
+        /// <param name="member">The calling member; supplied automatically by the compiler.</param>
+        public void Trace(string message, object? context = null, [CallerMemberName] string member = "") =>
+            LogMessage(LogSeverity.Trace, context, member, message);
+
+        /// <summary>Logs an <see cref="LogSeverity.Info"/> message, capturing the calling member automatically.</summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="context">Optional object context (typically <c>this</c>).</param>
+        /// <param name="member">The calling member; supplied automatically by the compiler.</param>
+        public void Info(string message, object? context = null, [CallerMemberName] string member = "") =>
+            LogMessage(LogSeverity.Info, context, member, message);
+
+        /// <summary>Logs a <see cref="LogSeverity.Debug"/> message, capturing the calling member automatically.</summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="context">Optional object context (typically <c>this</c>).</param>
+        /// <param name="member">The calling member; supplied automatically by the compiler.</param>
+        public void Debug(string message, object? context = null, [CallerMemberName] string member = "") =>
+            LogMessage(LogSeverity.Debug, context, member, message);
+
+        /// <summary>Logs a <see cref="LogSeverity.Warn"/> message, capturing the calling member automatically.</summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="context">Optional object context (typically <c>this</c>).</param>
+        /// <param name="member">The calling member; supplied automatically by the compiler.</param>
+        public void Warn(string message, object? context = null, [CallerMemberName] string member = "") =>
+            LogMessage(LogSeverity.Warn, context, member, message);
+
+        /// <summary>Logs an <see cref="LogSeverity.Error"/> message, capturing the calling member automatically.</summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="context">Optional object context (typically <c>this</c>).</param>
+        /// <param name="member">The calling member; supplied automatically by the compiler.</param>
+        public void Error(string message, object? context = null, [CallerMemberName] string member = "") =>
+            LogMessage(LogSeverity.Error, context, member, message);
+
+        /// <summary>Logs a <see cref="LogSeverity.Fatal"/> message, capturing the calling member automatically.</summary>
+        /// <param name="message">The message to log.</param>
+        /// <param name="context">Optional object context (typically <c>this</c>).</param>
+        /// <param name="member">The calling member; supplied automatically by the compiler.</param>
+        public void Fatal(string message, object? context = null, [CallerMemberName] string member = "") =>
+            LogMessage(LogSeverity.Fatal, context, member, message);
+
+        #endregion Convenience
 
         #region Helpers
 

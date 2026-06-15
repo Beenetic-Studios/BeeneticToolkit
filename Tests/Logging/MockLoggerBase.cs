@@ -1,39 +1,31 @@
-﻿using BeeneticToolkit.Logging;
+using BeeneticToolkit.Logging;
 using BeeneticToolkit.Logging.Enums;
-using System.Reflection;
 
 namespace BeeneticToolkit.Tests.Logging {
 
     public class MockLoggerBase : LoggerBase {
+
+        /// <summary>The most recent fully-formatted entry handed to the sink, or null if nothing was written.</summary>
         public string LastLoggedMessage { get; private set; }
+
+        /// <summary>The severity of the most recent written entry.</summary>
+        public LogSeverity LastSeverity { get; private set; }
+
+        /// <summary>How many entries have been written (i.e. passed the threshold).</summary>
+        public int WriteCount { get; private set; }
 
         public MockLoggerBase(string loggerName = null, LogThreshold threshold = LogThreshold.All) : base() {
             Name = loggerName;
             Threshold = threshold;
         }
 
-        public override void Log(LogSeverity severity, string message, string prepend = " ", string append = "\n") {
-            if (!AllowLogMessage(severity))
-                return;
-
-            LastLoggedMessage = $"{BaseMessage(severity)}: {message}";
+        protected override void WriteEntry(LogSeverity severity, string entry) {
+            LastSeverity = severity;
+            LastLoggedMessage = entry;
+            WriteCount++;
         }
 
-        public override void Log(LogSeverity severity, object obj, MethodBase method, string message, string prepend = " ", string append = "\n") {
-            if (!AllowLogMessage(severity))
-                return;
-
-            LastLoggedMessage = $"{BaseMessage(severity, obj, method)}: {message}";
-        }
-
-        public override void Log(LogSeverity severity, object obj, string methodName, string message, string prepend = " ", string append = "\n") {
-            if (!AllowLogMessage(severity))
-                return;
-
-            LastLoggedMessage = $"{BaseMessage(severity, obj, methodName)}: {message}";
-        }
-
-        // Public wrapper methods for testing protected members
+        // Public wrappers for testing protected members.
         public bool AllowLogMessagePublic(LogSeverity severity) => AllowLogMessage(severity);
 
         public string BaseMessagePublic(LogSeverity level) => BaseMessage(level);
