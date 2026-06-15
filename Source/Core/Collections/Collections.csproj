@@ -8,8 +8,8 @@
 
 		<PackageId>BeeneticToolkit.Collections</PackageId>
 		<AssemblyName>BeeneticToolkit.Collections</AssemblyName>
-		<Description>Type-safe "smart enums" with attached data and O(1) lookups, plus a thread-safe object pool.</Description>
-		<PackageTags>collections;smart-enum;enumeration;enum;object-pool;pooling;games</PackageTags>
+		<Description>Type-safe "smart enums": self-registering enumeration objects (AutoEnumItem) with attached data, grouping, sorting, search, and O(1) key lookups — plus a manual collection for runtime-built sets and a thread-safe object pool.</Description>
+		<PackageTags>collections;smart-enum;enumeration;enum;auto-register;object-pool;pooling;games</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 

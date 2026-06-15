@@ -1,6 +1,8 @@
 # BeeneticToolkit.Collections
 
-Type-safe "smart enums" with attached data and fast lookups, plus a small thread-safe object pool.
+Type-safe "smart enums" — a richer alternative to a C# `enum` where each value is a real object that
+can carry data, be looked up by key/name, grouped, sorted, and searched. Plus a small thread-safe
+object pool.
 
 Targets `netstandard2.1` (modern .NET and Unity).
 
@@ -10,41 +12,169 @@ Targets `netstandard2.1` (modern .NET and Unity).
 dotnet add package BeeneticToolkit.Collections
 ```
 
-## Smart enums (`EnumCollection`)
+---
 
-A richer alternative to a C# `enum`: attach arbitrary data to each item, then look items up by
-key or name, group them, and search — all strongly typed.
+## Smart enums
+
+A plain C# `enum` is just a named integer — you can't attach data to it, and parsing/looking it up is
+clumsy. A *smart enum* makes each value a strongly-typed object with whatever properties you need, while
+keeping the "fixed set of named values" feel.
+
+There are two ways to declare one:
+
+| You want… | Use | Items are… |
+| --- | --- | --- |
+| The normal case — a fixed set known at compile time | **`AutoEnumItem<TSelf, TKey, TGroup>`** | declared as `static readonly` fields, auto-registered |
+| A set built from data at runtime (JSON, mods, DB rows) | **`EnumItem` + `EnumCollection`** | added manually via `Add()` |
+
+Start with `AutoEnumItem`. Reach for the manual pair only when items aren't known until runtime.
+
+---
+
+## `AutoEnumItem` — the recommended path
+
+Declare your items as `public static readonly` fields on the type. That's it — they register themselves,
+and you get static lookups (`FromKey`, `All`, …) for free. No collection class, no `Add` calls, no
+hand-written lookup methods.
 
 ```csharp
 using BeeneticToolkit.Collections.Enums;
 
-public sealed class Planet : EnumItem<string, NoGroup> {
-    public Planet(string key, string name, string shortName, double massKg)
-        : base(key, name, shortName) => MassKg = massKg;
+public enum PlanetGroup { None = 0, Rocky, GasGiant }
 
+// The type names itself as TSelf — "public sealed class Planet : AutoEnumItem<Planet, …>".
+public sealed class Planet : AutoEnumItem<Planet, string, PlanetGroup> {
+
+    // Items: public static readonly fields of this type. They are discovered automatically.
+    public static readonly Planet Earth   = new("earth",   "Earth",   "E", 5.97e24, PlanetGroup.Rocky);
+    public static readonly Planet Mars    = new("mars",    "Mars",    "M", 6.42e23, PlanetGroup.Rocky);
+    public static readonly Planet Jupiter = new("jupiter", "Jupiter", "J", 1.90e27, PlanetGroup.GasGiant);
+
+    // Attach any data you like — just add properties.
     public double MassKg { get; }
-}
 
-public sealed class Planets : EnumCollection<Planet, string, NoGroup> {
-    public Planets() {
-        Add(new Planet("earth", "Earth", "E", 5.97e24));
-        Add(new Planet("mars",  "Mars",  "M", 6.42e23));
+    // A private constructor keeps the value set closed (only the fields above can exist).
+    private Planet(string key, string name, string shortName, double massKg, PlanetGroup group)
+        : base(key, name, shortName, group: group) {
+        MassKg = massKg;
     }
 }
-
-var planets = new Planets();
-
-Planet earth = planets.FromKey("earth");              // O(1); throws if missing
-if (planets.TryFromName("Mars", out var mars)) { /* ... */ }
-
-foreach (var p in planets.GetAll())                    // insertion order
-    Console.WriteLine($"{p.Name}: {p.MassKg} kg");
 ```
 
-Keyed lookups are O(1). Supply a real `enum` as the third type argument to group items
-(`GetByGroup(group)`); use `NoGroup` when you don't need grouping.
+Now use it through static members on the type itself:
+
+```csharp
+Planet earth = Planet.FromKey("earth");              // O(1); throws if missing
+if (Planet.TryFromKey("mars", out var mars)) { /* … */ }
+
+Planet byName  = Planet.FromName("Jupiter");
+Planet byShort = Planet.FromShortName("E");
+
+foreach (Planet p in Planet.All)                     // every item, in declaration order
+    Console.WriteLine($"{p.Name}: {p.MassKg} kg");
+
+int howMany = Planet.Count;
+```
+
+### The constructor base parameters
+
+`AutoEnumItem` requires `key`, `name`, and `shortName`, and accepts four optional values. Pass the
+optional ones by name:
+
+```csharp
+private Planet(...) : base(
+    key,                      // unique identity, any non-null type (string, an int enum, a Guid…)
+    name,                     // display name, e.g. "Jupiter"
+    shortName,                // abbreviation, e.g. "J"
+    description: "…",         // optional
+    displayOrder: 3,          // optional, for ordered display
+    isActive: true,           // optional, filterable via isActive: below
+    group: PlanetGroup.GasGiant) { }   // optional
+```
+
+### Grouping
+
+Supply a real `enum` as the third type argument to group items, then filter by group. Use the built-in
+`NoGroup` when you don't need grouping:
+
+```csharp
+foreach (Planet rocky in Planet.GetByGroup(PlanetGroup.Rocky)) { /* … */ }
+
+// No grouping needed:
+public sealed class Currency : AutoEnumItem<Currency, string, NoGroup> { /* … */ }
+```
+
+### Filtering, sorting, and searching
+
+```csharp
+using BeeneticToolkit.Collections.Enums.Comparators;
+
+// Active items only (uses the optional isActive flag on each item).
+var active = Planet.GetAll(isActive: true);
+
+// Sort with a built-in comparator (ByKey / ByName / ByShortName / ByDisplayOrder / ByActiveState / ByGroup).
+var byName = Planet.GetAll(EnumItemComparators.ByName<string, PlanetGroup>());
+
+// Substring search over any string property (case-insensitive by default).
+var hits = Planet.Search(p => p.Name, "ar");          // → Mars
+```
+
+### Why it's robust: registration is order-independent
+
+Items register the first time you touch *any* static member of the type — and registration explicitly
+runs the type's static constructor first, so the set is **always fully populated no matter what you touch
+first** (`Planet.All`, `Planet.FromKey(...)`, or a field like `Planet.Earth`). Initialization runs once,
+under the runtime's type-init lock, so it's thread-safe with no work on your part.
+
+> **Unity / IL2CPP note:** auto-registration uses reflection over the type's static fields. This works
+> under IL2CPP, but aggressive managed-code stripping can remove members only ever accessed via
+> reflection. Your item fields are normally also referenced directly in code (`Planet.Earth`), which keeps
+> them — but verify on an actual IL2CPP build, or add a `link.xml` preserve rule for your enum types if you
+> rely on stripping. If you need a reflection-free option, use the manual `EnumCollection` path below.
+
+---
+
+## `EnumItem` + `EnumCollection` — dynamic / runtime-built sets
+
+When the items aren't known at compile time — loaded from JSON, defined by mods, or read from a database —
+derive the item from `EnumItem` and add instances to an `EnumCollection` at runtime.
+
+```csharp
+using BeeneticToolkit.Collections.Enums;
+
+public sealed class Card : EnumItem<string, NoGroup> {
+    public Card(string key, string name, string shortName, int cost)
+        : base(key, name, shortName) => Cost = cost;
+
+    public int Cost { get; }
+}
+
+public sealed class CardCatalog : EnumCollection<Card, string, NoGroup> { }
+
+var catalog = new CardCatalog();
+foreach (var dto in LoadCardsFromJson())              // built at runtime
+    catalog.Add(new Card(dto.Key, dto.Name, dto.Short, dto.Cost));
+
+Card fireball = catalog.FromKey("fireball");
+var cheap = catalog.GetAll(EnumItemComparators.ByName<string, NoGroup>())
+                   .Where(c => c.Cost <= 2);
+```
+
+`EnumCollection` supports `Add`/`AddRange`/`Remove`/`RemoveRange` and the same lookup/query surface
+(`FromKey`, `FromName`, `FromShortName`, `GetAll`, `GetByGroup`, `Search`) that `AutoEnumItem` exposes
+statically. `AutoEnumItem` is in fact built on these two types — this is the same engine, with manual
+control over the item set.
+
+### Equality and comparison (both paths)
+
+Every item is equal to another when they share the **same runtime type and key**, and items sort by key
+by default. So items work correctly as dictionary keys, in sets, and in sorted collections.
+
+---
 
 ## Object pooling
+
+A small, thread-safe object pool for reusing instances and avoiding allocations on hot paths.
 
 ```csharp
 using BeeneticToolkit.Collections.ObjectPooling;
@@ -64,9 +194,9 @@ using (pool.Rent(out var sb)) {   // automatically returned to the pool on dispo
 }
 ```
 
-`StackObjectPool<T>` is thread-safe. `Rent(out …)` returns a `PooledObjectScope<T>` (a struct,
-so no allocation) that returns the object when disposed; `Get()`/`Return(obj)` are available for
-manual control.
+`StackObjectPool<T>` is thread-safe. `Rent(out …)` returns a `PooledObjectScope<T>` (a struct, so no
+allocation) that returns the object when disposed; `Get()` / `Return(obj)` are available for manual
+control.
 
 ## License
 
