@@ -1,38 +1,28 @@
-﻿namespace BeeneticToolkit.Logging.Enums {
+namespace BeeneticToolkit.Logging.Enums {
 
     /// <summary>
-    /// Defines the severity levels for logging messages.
+    /// Defines the severity levels for logging messages, in ascending order of importance. The numeric values
+    /// align with <see cref="LogThreshold"/> so a message is emitted when its severity is at or above a logger's
+    /// threshold.
     /// </summary>
     public enum LogSeverity {
 
-        /// <summary>
-        /// Trace severity level, used for detailed and systematic logging.
-        /// </summary>
-        Trace,
+        /// <summary>Most verbose: detailed, fine-grained tracing.</summary>
+        Trace = 0,
 
-        /// <summary>
-        /// Informational severity level, used for general informational messages.
-        /// </summary>
-        Info,
+        /// <summary>Debugging detail, used during development.</summary>
+        Debug = 1,
 
-        /// <summary>
-        /// Debug severity level, used for debugging purposes during development.
-        /// </summary>
-        Debug,
+        /// <summary>General informational messages.</summary>
+        Info = 2,
 
-        /// <summary>
-        /// Warning severity level, used for potentially harmful situations.
-        /// </summary>
-        Warn,
+        /// <summary>Potentially harmful situations worth attention.</summary>
+        Warn = 3,
 
-        /// <summary>
-        /// Error severity level, used for error events that might still allow the application to continue running.
-        /// </summary>
-        Error,
+        /// <summary>Errors that might still allow the application to continue running.</summary>
+        Error = 4,
 
-        /// <summary>
-        /// Fatal severity level, used for very severe error events that will presumably lead the application to abort.
-        /// </summary>
-        Fatal
+        /// <summary>Very severe errors that will presumably lead the application to abort.</summary>
+        Fatal = 5
     }
 }

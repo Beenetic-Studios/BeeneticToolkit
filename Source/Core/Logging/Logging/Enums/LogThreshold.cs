@@ -1,43 +1,31 @@
-﻿namespace BeeneticToolkit.Logging.Enums {
+namespace BeeneticToolkit.Logging.Enums {
 
     /// <summary>
-    /// Defines the threshold levels for logging, determining which messages should be logged based on their severity.
+    /// Defines the threshold levels for logging: a message is emitted when its <see cref="LogSeverity"/> is at or
+    /// above the threshold. Values align with <see cref="LogSeverity"/> (plus <see cref="All"/> and
+    /// <see cref="Off"/> at the ends).
     /// </summary>
     public enum LogThreshold {
 
-        /// <summary>
-        /// All logging levels are enabled. Every log message regardless of severity will be logged.
-        /// </summary>
+        /// <summary>Everything is logged, including <see cref="LogSeverity.Trace"/>.</summary>
         All = 0,
 
-        /// <summary>
-        /// Informational and higher severity levels are enabled. This includes Info, Debug, Warn, Error, and Fatal.
-        /// </summary>
-        Info,
+        /// <summary>Debug and above: Debug, Info, Warn, Error, Fatal (excludes Trace).</summary>
+        Debug = 1,
 
-        /// <summary>
-        /// Debug and higher severity levels are enabled. This includes Debug, Warn, Error, and Fatal.
-        /// </summary>
-        Debug,
+        /// <summary>Info and above: Info, Warn, Error, Fatal (excludes Trace and Debug).</summary>
+        Info = 2,
 
-        /// <summary>
-        /// Warning and higher severity levels are enabled. This includes Warn, Error, and Fatal.
-        /// </summary>
-        Warn,
+        /// <summary>Warn and above: Warn, Error, Fatal.</summary>
+        Warn = 3,
 
-        /// <summary>
-        /// Error and Fatal severity levels are enabled.
-        /// </summary>
-        Error,
+        /// <summary>Error and above: Error, Fatal.</summary>
+        Error = 4,
 
-        /// <summary>
-        /// Only Fatal severity level is enabled.
-        /// </summary>
-        Fatal,
+        /// <summary>Only Fatal.</summary>
+        Fatal = 5,
 
-        /// <summary>
-        /// Logging is disabled. No log messages will be recorded.
-        /// </summary>
-        Off
+        /// <summary>Logging is disabled; nothing is recorded.</summary>
+        Off = 6
     }
 }

@@ -21,6 +21,25 @@ namespace BeeneticToolkit.Tests.Logging {
         }
 
         [TestMethod]
+        public void LoggerBase_SeverityOrdering_IsConventional() {
+            // Lock in Trace < Debug < Info < Warn < Error < Fatal (and the LogSeverity/LogThreshold alignment).
+            Assert.IsTrue((int)LogSeverity.Trace < (int)LogSeverity.Debug);
+            Assert.IsTrue((int)LogSeverity.Debug < (int)LogSeverity.Info);
+            Assert.IsTrue((int)LogSeverity.Info < (int)LogSeverity.Warn);
+            Assert.AreEqual((int)LogSeverity.Debug, (int)LogThreshold.Debug);
+            Assert.AreEqual((int)LogSeverity.Info, (int)LogThreshold.Info);
+
+            // A Debug threshold includes Debug but excludes Trace; an Info threshold excludes Debug.
+            var atDebug = new MockLoggerBase(threshold: LogThreshold.Debug);
+            Assert.IsTrue(atDebug.AllowLogMessagePublic(LogSeverity.Debug));
+            Assert.IsFalse(atDebug.AllowLogMessagePublic(LogSeverity.Trace));
+
+            var atInfo = new MockLoggerBase(threshold: LogThreshold.Info);
+            Assert.IsFalse(atInfo.AllowLogMessagePublic(LogSeverity.Debug));
+            Assert.IsTrue(atInfo.AllowLogMessagePublic(LogSeverity.Info));
+        }
+
+        [TestMethod]
         public void LoggerBase_WritesExpectedMessage() {
             var mockLogger = new MockLoggerBase();
             var testMessage = "Test message";

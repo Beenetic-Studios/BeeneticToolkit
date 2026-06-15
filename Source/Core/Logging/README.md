@@ -78,8 +78,8 @@ log.Info("Reloading", this);
 // → [2026-06-15 09:00:00] [Info] [WeaponSystem].[WeaponSystem].[Reload] Reloading
 ```
 
-> Severity order is `Trace, Info, Debug, Warn, Error, Fatal`. **Note this differs from most frameworks**: here
-> `Info` is *below* `Debug`, so a `Debug` threshold filters out `Info`. Set a logger's `Threshold` accordingly.
+> Severity order is the conventional `Trace < Debug < Info < Warn < Error < Fatal`. A logger's `Threshold`
+> emits messages at or above it — e.g. `LogThreshold.Info` shows Info/Warn/Error/Fatal and drops Trace/Debug.
 
 The raw `Log(severity, …)` overloads remain for explicit control, including an overload that takes a
 `MethodBase` if you prefer to pass it yourself.
