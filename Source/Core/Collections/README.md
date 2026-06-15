@@ -67,14 +67,18 @@ Now use it through static members on the type itself:
 Planet earth = Planet.FromKey("earth");              // O(1); throws if missing
 if (Planet.TryFromKey("mars", out var mars)) { /* … */ }
 
-Planet byName  = Planet.FromName("Jupiter");
-Planet byShort = Planet.FromShortName("E");
+Planet byName  = Planet.FromName("Jupiter");         // also O(1) (indexed by name)
+Planet byShort = Planet.FromShortName("E");           // also O(1) (indexed by short name)
 
 foreach (Planet p in Planet.All)                     // every item, in declaration order
     Console.WriteLine($"{p.Name}: {p.MassKg} kg");
 
 int howMany = Planet.Count;
 ```
+
+Key, name, and short-name lookups are all O(1) — keyed by a dictionary, with the name/short-name
+indexes built on first use and kept fresh as items are added or removed. Lookups are case-sensitive and,
+when names repeat, return the first item declared.
 
 ### The constructor base parameters
 

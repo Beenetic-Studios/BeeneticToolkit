@@ -34,6 +34,11 @@ namespace BeeneticToolkit.Collections.Enums {
         private readonly Dictionary<TKey, T> _byKey = new Dictionary<TKey, T>();
         private IReadOnlyList<T>? _defaultCachedItems;
 
+        // Lazily built name/short-name indexes for O(1) lookups; invalidated on Add/Remove. First-match wins,
+        // mirroring the original linear-scan semantics.
+        private Dictionary<string, T>? _byName;
+        private Dictionary<string, T>? _byShortName;
+
         #endregion Fields
 
         #region Collection Management
@@ -47,7 +52,7 @@ namespace BeeneticToolkit.Collections.Enums {
 
             _items.Add(item);
             _byKey[item.Key] = item;
-            _defaultCachedItems = null; // Invalidate default cache
+            InvalidateCaches();
         }
 
         /// <summary>Adds multiple enumeration items to the collection.</summary>
@@ -67,7 +72,7 @@ namespace BeeneticToolkit.Collections.Enums {
                 throw new InvalidOperationException($"Item '{item.Key}' does not exist in {typeof(T).Name}.");
 
             _byKey.Remove(item.Key);
-            _defaultCachedItems = null; // Invalidate default cache
+            InvalidateCaches();
         }
 
         /// <summary>Removes multiple enumeration items from the collection by their references.</summary>
@@ -237,8 +242,13 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <param name="item">When this method returns <c>true</c>, the first item with the given name; otherwise <c>null</c>.</param>
         /// <returns><c>true</c> if an item with the specified name exists; otherwise <c>false</c>.</returns>
         public bool TryFromName(string name, [MaybeNullWhen(false)] out T item) {
-            item = _items.FirstOrDefault(i => i.Name == name)!;
-            return item != null;
+            if (name == null) {
+                item = default!;
+                return false;
+            }
+
+            _byName ??= BuildIndex(i => i.Name);
+            return _byName.TryGetValue(name, out item!);
         }
 
         /// <summary>Retrieves an item from the collection by its short name.</summary>
@@ -256,8 +266,32 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <param name="item">When this method returns <c>true</c>, the first item with the given short name; otherwise <c>null</c>.</param>
         /// <returns><c>true</c> if an item with the specified short name exists; otherwise <c>false</c>.</returns>
         public bool TryFromShortName(string shortName, [MaybeNullWhen(false)] out T item) {
-            item = _items.FirstOrDefault(i => i.ShortName == shortName)!;
-            return item != null;
+            if (shortName == null) {
+                item = default!;
+                return false;
+            }
+
+            _byShortName ??= BuildIndex(i => i.ShortName);
+            return _byShortName.TryGetValue(shortName, out item!);
+        }
+
+        /// <summary>Builds a first-match-wins lookup index over the current items, keyed by the selected string.</summary>
+        private Dictionary<string, T> BuildIndex(Func<T, string> selector) {
+            var index = new Dictionary<string, T>(_items.Count);
+            foreach (T item in _items) {
+                string key = selector(item);
+                if (!index.ContainsKey(key))
+                    index[key] = item; // keep the first, matching the original FirstOrDefault behavior
+            }
+
+            return index;
+        }
+
+        /// <summary>Drops the cached views and indexes after the item set changes.</summary>
+        private void InvalidateCaches() {
+            _defaultCachedItems = null;
+            _byName = null;
+            _byShortName = null;
         }
 
         #endregion Lookup
