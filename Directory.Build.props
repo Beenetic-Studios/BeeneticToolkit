@@ -1,8 +1,16 @@
 <Project>
+  <!--
+    Anchor build output to this file's directory (the repo root), NOT $(SolutionDir).
+    $(SolutionDir) is only defined for solution builds; a direct `dotnet build Some.csproj`
+    leaves it empty, which redirected obj/ INTO each project's source cone. The default
+    compile glob then swept those generated *.AssemblyInfo.cs files into the next solution
+    build, producing duplicate-attribute (CS0579) errors. $(MSBuildThisFileDirectory) is
+    stable across both build styles, keeping all intermediates outside every project cone.
+  -->
   <PropertyGroup>
-	<BaseOutputPath>$(SolutionDir)builds/bin/$(MSBuildProjectName)/</BaseOutputPath>
-	<BaseIntermediateOutputPath>$(SolutionDir)builds/obj/$(MSBuildProjectName)/</BaseIntermediateOutputPath>
-	<IntermediateOutputPath>$(SolutionDir)builds/obj/$(MSBuildProjectName)/</IntermediateOutputPath>
+	<BaseOutputPath>$(MSBuildThisFileDirectory)builds/bin/$(MSBuildProjectName)/</BaseOutputPath>
+	<BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)builds/obj/$(MSBuildProjectName)/</BaseIntermediateOutputPath>
+	<IntermediateOutputPath>$(MSBuildThisFileDirectory)builds/obj/$(MSBuildProjectName)/</IntermediateOutputPath>
   </PropertyGroup>
 
   <!-- Shared package metadata (applies to every project; only packable libraries produce packages). -->
