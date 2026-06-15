@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BeeneticToolkit.Random.Utilities {
+namespace BeeneticToolkit.Random {
 
     /// <summary>
-    /// Provides utility methods for random operations, such as selecting random elements from collections.
+    /// Extension methods on <see cref="RandomGenerator"/> for selecting random elements from collections:
+    /// choice, exclusion, subset, and weighted choice. Each operates on the generator it is called on, so
+    /// the source of randomness is always explicit.
     /// </summary>
     public static partial class RandomSelectors {
 
@@ -15,18 +17,18 @@ namespace BeeneticToolkit.Random.Utilities {
         /// Selects a random element from a list.
         /// </summary>
         /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="list">The list from which to select a random element.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A randomly selected element from the list.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="list"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="list"/> is empty.</exception>
-        public static T RandomChoice<T>(IList<T> list, RandomGenerator? random = null) {
+        public static T RandomChoice<T>(this RandomGenerator random, IList<T> list) {
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
             if (list.Count == 0)
                 throw new ArgumentException("List cannot be empty.", nameof(list));
-
-            random ??= RandomManager.Current;
 
             return list[random.NextInt(list.Count)];
         }
@@ -35,32 +37,34 @@ namespace BeeneticToolkit.Random.Utilities {
         /// Selects a random element from an IEnumerable sequence.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="sequence">The sequence from which to select a random element.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A randomly selected element from the sequence.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sequence"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="sequence"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown when the converted list is empty.</exception>
-        public static T RandomChoice<T>(IEnumerable<T> sequence, RandomGenerator? random = null) {
+        public static T RandomChoice<T>(this RandomGenerator random, IEnumerable<T> sequence) {
             if (sequence == null)
                 throw new ArgumentNullException(nameof(sequence));
 
             var list = sequence as IList<T> ?? sequence.ToList();
-            return RandomChoice(list, random);
+            return random.RandomChoice(list);
         }
 
         /// <summary>
         /// Selects a random element from a span, without allocating.
         /// </summary>
         /// <typeparam name="T">The type of elements in the span.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="span">The span from which to select a random element.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A randomly selected element from the span.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="span"/> is empty.</exception>
-        public static T RandomChoice<T>(ReadOnlySpan<T> span, RandomGenerator? random = null) {
+        public static T RandomChoice<T>(this RandomGenerator random, ReadOnlySpan<T> span) {
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
             if (span.IsEmpty)
                 throw new ArgumentException("Span cannot be empty.", nameof(span));
 
-            random ??= RandomManager.Current;
             return span[random.NextInt(span.Length)];
         }
 
@@ -72,19 +76,20 @@ namespace BeeneticToolkit.Random.Utilities {
         /// Selects a random element from a list, excluding elements that match a specified predicate.
         /// </summary>
         /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="list">The list from which to select a random element.</param>
         /// <param name="exclusionPredicate">A predicate to exclude elements from being selected.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A randomly selected element from the list that does not match the exclusion predicate.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> or <paramref name="exclusionPredicate"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/>, <paramref name="list"/>, or <paramref name="exclusionPredicate"/> is null.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no elements remain after applying the exclusion filter.</exception>
-        public static T RandomChoiceWithExclusion<T>(IList<T> list, Func<T, bool> exclusionPredicate, RandomGenerator? random = null) {
+        public static T RandomChoiceWithExclusion<T>(this RandomGenerator random, IList<T> list, Func<T, bool> exclusionPredicate) {
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
             if (exclusionPredicate == null)
                 throw new ArgumentNullException(nameof(exclusionPredicate));
 
-            random ??= RandomManager.Current;
             List<T> filteredList = list.Where(item => !exclusionPredicate(item)).ToList();
 
             if (filteredList.Count == 0)
@@ -97,18 +102,18 @@ namespace BeeneticToolkit.Random.Utilities {
         /// Selects a random element from an IEnumerable sequence, excluding elements that match a specified predicate.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="sequence">The sequence from which to select a random element.</param>
         /// <param name="exclusionPredicate">A predicate to exclude elements from being selected.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A randomly selected element from the sequence that does not match the exclusion predicate.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sequence"/> or <paramref name="exclusionPredicate"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="sequence"/> is null.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no elements remain after applying the exclusion filter.</exception>
-        public static T RandomChoiceWithExclusion<T>(IEnumerable<T> sequence, Func<T, bool> exclusionPredicate, RandomGenerator? random = null) {
+        public static T RandomChoiceWithExclusion<T>(this RandomGenerator random, IEnumerable<T> sequence, Func<T, bool> exclusionPredicate) {
             if (sequence == null)
                 throw new ArgumentNullException(nameof(sequence));
 
             var list = sequence as IList<T> ?? sequence.ToList();
-            return RandomChoiceWithExclusion(list, exclusionPredicate, random);
+            return random.RandomChoiceWithExclusion(list, exclusionPredicate);
         }
 
         #endregion Random Choice With Exclusion
@@ -119,14 +124,16 @@ namespace BeeneticToolkit.Random.Utilities {
         /// Selects a random subset of a specified size from a list.
         /// </summary>
         /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="list">The list from which to select a random subset.</param>
         /// <param name="subsetSize">The size of the subset to select.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A list containing a random subset of the specified size.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="list"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="list"/> is empty.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="subsetSize"/> is less than or equal to 0, or greater than the list size.</exception>
-        public static List<T> RandomSubset<T>(IList<T> list, int subsetSize, RandomGenerator? random = null) {
+        public static List<T> RandomSubset<T>(this RandomGenerator random, IList<T> list, int subsetSize) {
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
             if (list.Count == 0)
@@ -135,8 +142,6 @@ namespace BeeneticToolkit.Random.Utilities {
             if (subsetSize <= 0 || subsetSize > list.Count)
                 throw new ArgumentOutOfRangeException(nameof(subsetSize), subsetSize,
                     "Subset size must be larger than 0 and less than or equal to the list size.");
-
-            random ??= RandomManager.Current;
 
             List<T> shuffledList = new List<T>(list);
             for (int i = 0; i < subsetSize; i++) {
@@ -151,19 +156,19 @@ namespace BeeneticToolkit.Random.Utilities {
         /// Selects a random subset of a specified size from an IEnumerable sequence.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="sequence">The sequence from which to select a random subset.</param>
         /// <param name="subsetSize">The size of the subset to select.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A list containing a random subset of the specified size.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sequence"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="sequence"/> is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="subsetSize"/> is invalid for the list size.</exception>
         /// <remarks>Converts the sequence to a list before selecting the subset.</remarks>
-        public static List<T> RandomSubset<T>(IEnumerable<T> sequence, int subsetSize, RandomGenerator? random = null) {
+        public static List<T> RandomSubset<T>(this RandomGenerator random, IEnumerable<T> sequence, int subsetSize) {
             if (sequence == null)
                 throw new ArgumentNullException(nameof(sequence));
 
             var list = sequence as IList<T> ?? sequence.ToList();
-            return RandomSubset(list, subsetSize, random);
+            return random.RandomSubset(list, subsetSize);
         }
 
         #endregion Random Subset
@@ -175,22 +180,22 @@ namespace BeeneticToolkit.Random.Utilities {
         /// determined by its corresponding weight in a separate weight list.
         /// </summary>
         /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="list">The list from which to select a random weighted element.</param>
         /// <param name="weights">A list of weights corresponding to each element in the list.</param>
-        /// <param name="random">The random number generator to use, or <c>null</c> to use the default generator.</param>
         /// <returns>A randomly selected element from the list, weighted by the corresponding weights.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> or <paramref name="weights"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/>, <paramref name="list"/>, or <paramref name="weights"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="list"/> is empty or the lengths of <paramref name="list"/> and <paramref name="weights"/> do not match.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the total weight is zero or no valid item can be selected.</exception>
-        public static T RandomWeightedChoice<T>(IList<T> list, IList<double> weights, RandomGenerator? random = null) {
+        public static T RandomWeightedChoice<T>(this RandomGenerator random, IList<T> list, IList<double> weights) {
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
             if (list == null || weights == null)
                 throw new ArgumentNullException(list == null ? nameof(list) : nameof(weights));
             if (list.Count == 0)
                 throw new ArgumentException("List cannot be empty.", nameof(list));
             if (list.Count != weights.Count)
                 throw new ArgumentException("The lengths of the list and weights do not match.");
-
-            random ??= RandomManager.Current;
 
             double totalWeight = weights.Sum();
             if (totalWeight <= 0)
@@ -213,19 +218,19 @@ namespace BeeneticToolkit.Random.Utilities {
         /// determined by its corresponding weight in a separate weight list.
         /// </summary>
         /// <typeparam name="T">The type of elements in the sequence.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="sequence">The sequence from which to select a random weighted element.</param>
         /// <param name="weights">A list of weights corresponding to each element in the sequence.</param>
-        /// <param name="random">The random number generator to use, or <c>null</c> to use the default generator.</param>
         /// <returns>A randomly selected element from the sequence, weighted by the corresponding weights.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sequence"/> or <paramref name="weights"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="sequence"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown when the sequence is empty or lengths do not match.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the total weight is zero or no valid item can be selected.</exception>
-        public static T RandomWeightedChoice<T>(IEnumerable<T> sequence, IList<double> weights, RandomGenerator? random = null) {
+        public static T RandomWeightedChoice<T>(this RandomGenerator random, IEnumerable<T> sequence, IList<double> weights) {
             if (sequence == null)
                 throw new ArgumentNullException(nameof(sequence));
 
             var list = sequence as IList<T> ?? sequence.ToList();
-            return RandomWeightedChoice(list, weights, random);
+            return random.RandomWeightedChoice(list, weights);
         }
 
         /// <summary>
@@ -233,19 +238,19 @@ namespace BeeneticToolkit.Random.Utilities {
         /// determined by its associated weight.
         /// </summary>
         /// <typeparam name="T">The type of elements used as the dictionary's keys.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="typeWeightDict">The dictionary containing items as keys and their associated weights as values.</param>
-        /// <param name="random">The random number generator to use, or <c>null</c> to use the default generator.</param>
         /// <returns>A randomly selected key from the dictionary, weighted by the corresponding values.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="typeWeightDict"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="typeWeightDict"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="typeWeightDict"/> is empty.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the total weight is zero or no valid item can be selected.</exception>
-        public static T RandomWeightedChoice<T>(Dictionary<T, double> typeWeightDict, RandomGenerator? random = null) {
+        public static T RandomWeightedChoice<T>(this RandomGenerator random, Dictionary<T, double> typeWeightDict) {
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
             if (typeWeightDict == null)
                 throw new ArgumentNullException(nameof(typeWeightDict), "Dictionary cannot be null.");
             if (typeWeightDict.Count == 0)
                 throw new ArgumentException("Dictionary cannot be empty.", nameof(typeWeightDict));
-
-            random ??= RandomManager.Current;
 
             double totalWeight = typeWeightDict.Values.Sum();
             if (totalWeight <= 0)
@@ -268,13 +273,13 @@ namespace BeeneticToolkit.Random.Utilities {
         /// proportional to its weight.
         /// </summary>
         /// <typeparam name="T">The type of the items.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="weightedItems">The items paired with their weights.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A randomly selected item, weighted by the paired weights.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="weightedItems"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="weightedItems"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="weightedItems"/> is empty.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the total weight is not greater than zero.</exception>
-        public static T RandomWeightedChoice<T>(IEnumerable<(T item, double weight)> weightedItems, RandomGenerator? random = null) {
+        public static T RandomWeightedChoice<T>(this RandomGenerator random, IEnumerable<(T item, double weight)> weightedItems) {
             if (weightedItems == null)
                 throw new ArgumentNullException(nameof(weightedItems));
 
@@ -285,7 +290,7 @@ namespace BeeneticToolkit.Random.Utilities {
                 weights.Add(weight);
             }
 
-            return RandomWeightedChoice(items, weights, random);
+            return random.RandomWeightedChoice(items, weights);
         }
 
         /// <summary>
@@ -293,14 +298,14 @@ namespace BeeneticToolkit.Random.Utilities {
         /// weight returned by <paramref name="weightSelector"/>.
         /// </summary>
         /// <typeparam name="T">The type of the items.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="items">The items to choose from.</param>
         /// <param name="weightSelector">A function returning the weight for a given item.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A randomly selected item, weighted by <paramref name="weightSelector"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="items"/> or <paramref name="weightSelector"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/>, <paramref name="items"/>, or <paramref name="weightSelector"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="items"/> is empty.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the total weight is not greater than zero.</exception>
-        public static T RandomWeightedChoice<T>(IEnumerable<T> items, Func<T, double> weightSelector, RandomGenerator? random = null) {
+        public static T RandomWeightedChoice<T>(this RandomGenerator random, IEnumerable<T> items, Func<T, double> weightSelector) {
             if (items == null)
                 throw new ArgumentNullException(nameof(items));
             if (weightSelector == null)
@@ -311,7 +316,7 @@ namespace BeeneticToolkit.Random.Utilities {
             for (int i = 0; i < itemList.Count; i++)
                 weights[i] = weightSelector(itemList[i]);
 
-            return RandomWeightedChoice(itemList, weights, random);
+            return random.RandomWeightedChoice(itemList, weights);
         }
 
         #endregion Random Weighted Choice

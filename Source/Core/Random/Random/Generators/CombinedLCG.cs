@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Tests")]
 
 namespace BeeneticToolkit.Random.Generators {
 
@@ -56,7 +53,7 @@ namespace BeeneticToolkit.Random.Generators {
         /// <param name="seed">The initial seed value for the LCG algorithm.</param>
         /// <exclude></exclude>
 
-        public CombinedLCG(long? seed = null) : base(seed ?? DateTime.UtcNow.Ticks) {
+        public CombinedLCG(long seed) : base(seed) {
         }
 
         /// <summary>

@@ -6,17 +6,18 @@ namespace BeeneticToolkit.Tests.Random {
 
     /// <summary>
     /// Tests for the global <see cref="RandomManager"/>. Marked <see cref="DoNotParallelizeAttribute"/> because
-    /// they read and mutate process-wide state (the default environment / environment registry).
+    /// they read and mutate process-wide state (the environment registry and scratch generator).
     /// </summary>
     [TestClass]
     [DoNotParallelize]
     public class RandomManagerTests {
 
         [TestMethod]
-        public void Default_HasCurrentGeneratorOutOfTheBox() {
-            Assert.IsNotNull(RandomManager.Default);
-            Assert.AreEqual(RandomManager.DefaultEnvironmentName, RandomManager.Default.Name);
-            Assert.IsNotNull(RandomManager.Current);
+        public void Scratch_IsAvailableAndStable() {
+            var scratch = RandomManager.Scratch;
+
+            Assert.IsNotNull(scratch);
+            Assert.AreSame(scratch, RandomManager.Scratch, "Scratch should be a stable, lazily-created singleton.");
         }
 
         [TestMethod]
@@ -34,23 +35,17 @@ namespace BeeneticToolkit.Tests.Random {
         }
 
         [TestMethod]
-        public void GetEnvironment_Unknown_Throws() {
-            Assert.ThrowsException<KeyNotFoundException>(() => RandomManager.GetEnvironment("does-not-exist"));
+        public void CreateEnvironment_ReplacesExistingByName() {
+            var first = RandomManager.CreateEnvironment("sim-replace");
+            var second = RandomManager.CreateEnvironment("sim-replace");
+
+            Assert.AreNotSame(first, second);
+            Assert.AreSame(second, RandomManager.GetEnvironment("sim-replace"));
         }
 
         [TestMethod]
-        public void SetDefault_SwitchesDefaultEnvironment() {
-            var alt = RandomManager.CreateEnvironment("sim-default");
-            alt.CreateAndRegister("x");
-
-            try {
-                RandomManager.SetDefault("sim-default");
-                Assert.AreSame(alt, RandomManager.Default);
-            } finally {
-                RandomManager.SetDefault(RandomManager.DefaultEnvironmentName); // restore global state
-            }
-
-            Assert.AreEqual(RandomManager.DefaultEnvironmentName, RandomManager.Default.Name);
+        public void GetEnvironment_Unknown_Throws() {
+            Assert.ThrowsException<KeyNotFoundException>(() => RandomManager.GetEnvironment("does-not-exist"));
         }
     }
 }

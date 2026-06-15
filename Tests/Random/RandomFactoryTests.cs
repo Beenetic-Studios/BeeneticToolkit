@@ -1,65 +1,60 @@
-﻿using BeeneticToolkit.Random;
+using BeeneticToolkit.Random;
 using BeeneticToolkit.Random.Generators;
+using BeeneticToolkit.Random.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace BeeneticToolkit.Tests.Random {
 
+    /// <summary>
+    /// Tests for the internal <see cref="RandomFactory"/> (accessible via InternalsVisibleTo). The factory is
+    /// an implementation detail of the environment system: it maps an algorithm and a concrete seed to a generator.
+    /// </summary>
     [TestClass]
     public class RandomFactoryTests {
 
+        private const long Seed = 12345L;
+
         [TestMethod]
-        public void GetGenerator_NoParams_ShouldReturnDefaultGenerator() {
-            var generator = RandomFactory.GetGenerator();
+        public void GetGenerator_Xoshiro_ReturnsCorrectTypeAndSeed() {
+            var generator = RandomFactory.GetGenerator(RandomAlgorithm.Xoshiro256, Seed);
 
             Assert.IsNotNull(generator);
             Assert.IsInstanceOfType(generator, typeof(Xoshiro256));
+            Assert.AreEqual(Seed, generator.Seed);
         }
 
         [TestMethod]
-        public void GetGenerator_WithSeed_ShouldReturnGeneratorWithSeed() {
-            long seed = 12345;
-            var generator = RandomFactory.GetGenerator(seed);
-
-            Assert.IsNotNull(generator);
-            Assert.AreEqual(seed, generator.Seed);
-        }
-
-        [TestMethod]
-        public void GetGenerator_SpecificAlgorithm_ShouldReturnCorrectType() {
-            var generator = RandomFactory.GetGenerator(RandomAlgorithm.CombinedLCG);
+        public void GetGenerator_SpecificAlgorithm_ReturnsCorrectType() {
+            var generator = RandomFactory.GetGenerator(RandomAlgorithm.CombinedLCG, Seed);
 
             Assert.IsNotNull(generator);
             Assert.IsInstanceOfType(generator, typeof(CombinedLCG));
         }
 
         [TestMethod]
-        public void GetGenerator_WithSeedAndAlgorithm_ShouldReturnCorrectTypeAndSeed() {
-            long seed = 12345;
-            var generator = RandomFactory.GetGenerator(RandomAlgorithm.MiddleSquare, seed);
+        public void GetGenerator_WithSeedAndAlgorithm_ReturnsCorrectTypeAndSeed() {
+            var generator = RandomFactory.GetGenerator(RandomAlgorithm.MiddleSquare, Seed);
 
             Assert.IsNotNull(generator);
             Assert.IsInstanceOfType(generator, typeof(MiddleSquare));
-            Assert.AreEqual(seed, generator.Seed);
+            Assert.AreEqual(Seed, generator.Seed);
         }
 
         [TestMethod]
         public void GetGenerator_InvalidAlgorithm_ShouldThrowArgumentException() {
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = RandomFactory.GetGenerator((RandomAlgorithm)(-1)));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => _ = RandomFactory.GetGenerator((RandomAlgorithm)(-1), Seed));
         }
 
         [TestMethod]
         public void RngsWithSameSeed_ShouldProduceIdenticalSequences() {
-            long seed = 12345;
-            var rng1 = RandomFactory.GetGenerator(RandomAlgorithm.Xorshift, seed);
-            var rng2 = RandomFactory.GetGenerator(RandomAlgorithm.Xorshift, seed);
-            int numberOfValuesToTest = 100;
+            var rng1 = RandomFactory.GetGenerator(RandomAlgorithm.Xorshift, Seed);
+            var rng2 = RandomFactory.GetGenerator(RandomAlgorithm.Xorshift, Seed);
 
-            for (int i = 0; i < numberOfValuesToTest; i++) {
+            for (int i = 0; i < 100; i++) {
                 var value1 = rng1.NextNormal();
                 var value2 = rng2.NextNormal();
-                var s = $"The RNG sequences diverged at iteration {i}. RNG1: {value1}, RNG2: {value2}";
-                Assert.AreEqual(value1, value2, s);
+                Assert.AreEqual(value1, value2, $"The RNG sequences diverged at iteration {i}. RNG1: {value1}, RNG2: {value2}");
             }
         }
     }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Tests")]
 
 namespace BeeneticToolkit.Random.Generators {
 
@@ -32,7 +29,7 @@ namespace BeeneticToolkit.Random.Generators {
         /// </summary>
         /// <param name="seed">The seed value used to initialize the random number generator.</param>
         /// <exclude></exclude>
-        public MiddleSquare(long? seed = null) : base(seed ?? DateTime.UtcNow.Ticks) {
+        public MiddleSquare(long seed) : base(seed) {
         }
 
         /// <summary>

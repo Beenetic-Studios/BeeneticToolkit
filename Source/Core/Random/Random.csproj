@@ -20,4 +20,8 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Collections\Collections.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <InternalsVisibleTo Include="BeeneticToolkit.Tests" />
+	</ItemGroup>
 </Project>

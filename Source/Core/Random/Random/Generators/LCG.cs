@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Tests")]
 
 namespace BeeneticToolkit.Random.Generators {
 
@@ -42,7 +39,7 @@ namespace BeeneticToolkit.Random.Generators {
 
         #region Initialization
 
-        public LCG(long modulus, long multiplier, long increment, long? seed = null) : base(seed ?? DateTime.UtcNow.Ticks) {
+        public LCG(long modulus, long multiplier, long increment, long seed) : base(seed) {
             _modulus = modulus;
             _multiplier = multiplier;
             _increment = increment;

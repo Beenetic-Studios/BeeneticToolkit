@@ -1,5 +1,5 @@
 using BeeneticToolkit.Random;
-using BeeneticToolkit.Random.Utilities;
+using BeeneticToolkit.Random.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -160,19 +160,19 @@ namespace BeeneticToolkit.Tests.Random {
             var pool = new[] { 10, 20, 30, 40 };
 
             for (int i = 0; i < 1_000; i++)
-                Assert.IsTrue(pool.Contains(RandomSelectors.RandomChoice(span, gen)));
+                Assert.IsTrue(pool.Contains(gen.RandomChoice(span)));
         }
 
         [TestMethod]
         public void RandomChoice_Span_EmptyThrows() {
-            Assert.ThrowsException<ArgumentException>(() => RandomSelectors.RandomChoice(ReadOnlySpan<int>.Empty, NewGen()));
+            Assert.ThrowsException<ArgumentException>(() => NewGen().RandomChoice(ReadOnlySpan<int>.Empty));
         }
 
         [TestMethod]
         public void RandomChoice_ArrayArgument_StillResolves() {
             // Guards against ambiguity introduced by the ReadOnlySpan<T> overload.
             int[] array = { 1, 2, 3 };
-            int chosen = RandomSelectors.RandomChoice(array, NewGen());
+            int chosen = NewGen().RandomChoice(array);
             Assert.IsTrue(array.Contains(chosen));
         }
 
@@ -186,7 +186,7 @@ namespace BeeneticToolkit.Tests.Random {
             var weighted = new[] { ("a", 0.0), ("b", 1.0), ("c", 0.0) };
 
             for (int i = 0; i < 1_000; i++)
-                Assert.AreEqual("b", RandomSelectors.RandomWeightedChoice(weighted, gen));
+                Assert.AreEqual("b", gen.RandomWeightedChoice(weighted));
         }
 
         [TestMethod]
@@ -195,13 +195,13 @@ namespace BeeneticToolkit.Tests.Random {
             var items = new[] { "a", "b", "c" };
 
             for (int i = 0; i < 1_000; i++)
-                Assert.AreEqual("b", RandomSelectors.RandomWeightedChoice(items, s => s == "b" ? 1.0 : 0.0, gen));
+                Assert.AreEqual("b", gen.RandomWeightedChoice(items, s => s == "b" ? 1.0 : 0.0));
         }
 
         [TestMethod]
         public void RandomWeightedChoice_Selector_NullSelectorThrows() {
             Assert.ThrowsException<ArgumentNullException>(
-                () => RandomSelectors.RandomWeightedChoice(new[] { "a" }, (Func<string, double>)null, NewGen()));
+                () => NewGen().RandomWeightedChoice(new[] { "a" }, (Func<string, double>)null));
         }
 
         [TestMethod]
@@ -212,7 +212,7 @@ namespace BeeneticToolkit.Tests.Random {
             const int n = 100_000;
 
             for (int i = 0; i < n; i++)
-                if (RandomSelectors.RandomWeightedChoice(weighted, gen) == "common")
+                if (gen.RandomWeightedChoice(weighted) == "common")
                     common++;
 
             Assert.AreEqual(0.9, common / (double)n, 0.02, "'common' should be chosen ~90% of the time.");
@@ -227,7 +227,7 @@ namespace BeeneticToolkit.Tests.Random {
             var source = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
             var snapshot = source.ToList();
 
-            var shuffled = source.Shuffle(NewGen());
+            var shuffled = NewGen().Shuffle(source);
 
             CollectionAssert.AreEqual(snapshot, source, "Source must not be mutated.");
             CollectionAssert.AreEquivalent(snapshot, shuffled, "Shuffle must preserve elements.");
@@ -236,14 +236,14 @@ namespace BeeneticToolkit.Tests.Random {
 
         [TestMethod]
         public void Shuffle_EmptySourceReturnsEmpty() {
-            var shuffled = Array.Empty<int>().Shuffle(NewGen());
+            var shuffled = NewGen().Shuffle(Array.Empty<int>());
             Assert.AreEqual(0, shuffled.Count);
         }
 
         [TestMethod]
         public void Shuffle_NullSourceThrows() {
             List<int> source = null;
-            Assert.ThrowsException<ArgumentNullException>(() => source.Shuffle(NewGen()));
+            Assert.ThrowsException<ArgumentNullException>(() => NewGen().Shuffle(source));
         }
 
         [TestMethod]
@@ -251,7 +251,7 @@ namespace BeeneticToolkit.Tests.Random {
             var list = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
             var snapshot = list.ToList();
 
-            list.ShuffleInPlace(NewGen());
+            NewGen().ShuffleInPlace(list);
 
             CollectionAssert.AreEquivalent(snapshot, list);
         }
@@ -259,7 +259,7 @@ namespace BeeneticToolkit.Tests.Random {
         [TestMethod]
         public void ShuffleInPlace_NullThrows() {
             IList<int> list = null;
-            Assert.ThrowsException<ArgumentNullException>(() => list.ShuffleInPlace(NewGen()));
+            Assert.ThrowsException<ArgumentNullException>(() => NewGen().ShuffleInPlace(list));
         }
 
         #endregion Shuffle
@@ -324,9 +324,22 @@ namespace BeeneticToolkit.Tests.Random {
         }
 
         [TestMethod]
-        public void RootSeed_NullByDefault() {
-            Assert.IsNull(new RandomEnvironment("env").RootSeed);
+        public void RootSeed_PresentByDefaultAndPreservesExplicit() {
+            // An environment without an explicit root seed still records a positive, recoverable root
+            // seed, so a run can be reproduced after the fact.
+            Assert.IsTrue(new RandomEnvironment("env").RootSeed > 0);
             Assert.AreEqual(7L, new RandomEnvironment("env", 7).RootSeed);
+        }
+
+        [TestMethod]
+        public void RootSeed_DefaultEnvironments_GetDistinctRoots() {
+            // Auto seeds come from a high-entropy source, so environments created back-to-back do not
+            // collide (as a clock-based seed could within the same tick).
+            var roots = new HashSet<long>();
+            for (int i = 0; i < 100; i++)
+                roots.Add(new RandomEnvironment("env").RootSeed);
+
+            Assert.AreEqual(100, roots.Count, "Auto-generated root seeds should be distinct.");
         }
 
         #endregion Environment root seed

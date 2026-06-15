@@ -1,4 +1,5 @@
 ﻿using BeeneticToolkit.Random;
+using BeeneticToolkit.Random.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BeeneticToolkit.Tests.Random {

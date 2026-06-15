@@ -18,69 +18,94 @@ dotnet add package BeeneticToolkit.Random
 
 ## Quick start
 
+Generators come from **environments** — the seedable unit. Create one, register a generator on it, and draw:
+
 ```csharp
 using BeeneticToolkit.Random;
 
-var rng = RandomFactory.GetGenerator();   // xoshiro256**, time-seeded
+var env = new RandomEnvironment("game", rootSeed: 12345);
+var rng = env.CreateAndRegister("main");
 
-int roll   = rng.NextInt(1, 7);            // [1, 7)
-double unit = rng.NextDouble();            // [0, 1)
-bool crit  = rng.NextBool(0.05f);          // 5% chance of true
-var dir    = rng.NextEnum<Direction>();    // a random value of your enum
-Guid id    = rng.NextGuid();
+int roll    = rng.NextInt(1, 7);            // [1, 7)
+double unit = rng.NextDouble();             // [0, 1)
+bool crit   = rng.NextBool(0.05f);          // 5% chance of true
+var dir     = rng.NextEnum<Direction>();    // a random value of your enum
+Guid id     = rng.NextGuid();
 ```
 
-### Reproducible runs
+Just need a number and don't care about reproducibility? Use the shared scratch generator:
 
 ```csharp
-var a = RandomFactory.GetGenerator(seed: 12345);
-var b = RandomFactory.GetGenerator(seed: 12345);
-// a and b now produce identical sequences.
-```
-
-### Choose an algorithm
-
-```csharp
-var lcg = RandomFactory.GetGenerator(RandomAlgorithm.CombinedLCG, seed: 42);
-```
-
-## Selection helpers
-
-```csharp
-using BeeneticToolkit.Random.Utilities;
-
-var loot = new[] { "common", "rare", "epic" };
-string pick = RandomSelectors.RandomChoice(loot, rng);
-
-// Weighted — "common" is chosen ~90% of the time.
-string weighted = RandomSelectors.RandomWeightedChoice(
-    new[] { ("common", 9.0), ("rare", 1.0) }, rng);
-
-// Shuffle returns a new list; ShuffleInPlace mutates the source.
-var deck = Enumerable.Range(1, 52).ToList();
-List<int> shuffled = deck.Shuffle(rng);
-deck.ShuffleInPlace(rng);
+int n = RandomManager.Scratch.NextInt(100);   // entropy-seeded, not reproducible
 ```
 
 ## Reproducible environments
 
-Group related generators under one root seed; each generator's seed is derived from the
-root and its key, so the whole environment replays from a single number:
+Group related generators under one root seed. Each generator's seed is derived from the root
+and its key, so every stream is independent yet the whole environment replays from a single number:
 
 ```csharp
 var world = new RandomEnvironment("world", rootSeed: 2024);
 var terrain = world.CreateAndRegister("terrain");
-var loot    = world.CreateAndRegister("loot");   // distinct stream, also reproducible
+var loot    = world.CreateAndRegister("loot");    // distinct stream, also reproducible
 ```
 
-Or use the global manager for shared, process-wide access:
+An environment **always** has a `RootSeed`. If you don't supply one, a high-entropy seed is generated
+and recorded — so even an unseeded run can be reproduced after the fact:
 
 ```csharp
-RandomManager.Default.CreateAndRegister("enemies");
-var enemyRng = RandomManager.Default.Get("enemies");
-
-int n = RandomManager.Current.NextInt(100);      // the default global generator
+var run = new RandomEnvironment("run");           // auto-seeded
+long seed = run.RootSeed;                          // capture it to replay this exact run later
 ```
+
+Use `RandomKey` constants instead of raw strings for compile-time safety against typos. Pick a default
+algorithm per environment, or override per generator:
+
+```csharp
+var env = new RandomEnvironment("sim", rootSeed: 7, algorithm: RandomAlgorithm.CombinedLCG);
+var fast = env.CreateAndRegister("fast", algorithm: RandomAlgorithm.Xorshift);
+```
+
+### Process-wide access
+
+The global `RandomManager` is a registry of named environments:
+
+```csharp
+var enemies = RandomManager.CreateEnvironment("enemies", rootSeed: 99);
+enemies.CreateAndRegister("spawns");
+
+var sameEnv = RandomManager.GetEnvironment("enemies");
+var spawnRng = sameEnv.Get("spawns");
+```
+
+## Selection helpers
+
+The selection and shuffle helpers are **extension methods on the generator**, so the source of
+randomness is always explicit:
+
+```csharp
+var loot = new[] { "common", "rare", "epic" };
+string pick = rng.RandomChoice(loot);
+
+// Weighted — "common" is chosen ~90% of the time.
+string weighted = rng.RandomWeightedChoice(
+    new[] { ("common", 9.0), ("rare", 1.0) });
+
+// Shuffle returns a new list; ShuffleInPlace mutates in place.
+var deck = Enumerable.Range(1, 52).ToList();
+List<int> shuffled = rng.Shuffle(deck);
+rng.ShuffleInPlace(deck);
+
+// Non-throwing Try* variants are available for all selectors.
+if (rng.TryRandomChoice(loot, out string chosen)) { /* ... */ }
+```
+
+## Thread safety
+
+Generators are **not** thread-safe — each draw advances mutable state. For concurrent work, give each
+thread its own generator from an environment (`env.CreateAndRegister(perThreadKey)`); because their seeds
+derive from the shared root, that is both thread-safe *and* reproducible. `RandomManager.Scratch` is
+likewise single-threaded by contract.
 
 ## License
 

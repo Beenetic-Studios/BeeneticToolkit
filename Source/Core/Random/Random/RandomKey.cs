@@ -7,8 +7,10 @@ namespace BeeneticToolkit.Random {
     /// within an <see cref="RandomEnvironment"/>.
     /// </summary>
     /// <remarks>
-    /// <see cref="RandomKey"/> provides a readable and reusable alternative to raw string keys
-    /// while still allowing interoperability with APIs that accept string values.
+    /// <see cref="RandomKey"/> provides a readable and reusable alternative to raw string keys, and is the
+    /// safer choice: a mistyped string key silently registers or fetches the wrong generator, whereas a
+    /// shared <see cref="RandomKey"/> constant is checked at compile time. String overloads remain available
+    /// for callers who prefer them.
     /// </remarks>
     public readonly struct RandomKey : IEquatable<RandomKey> {
 

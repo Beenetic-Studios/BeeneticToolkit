@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Tests")]
 
 namespace BeeneticToolkit.Random.Generators {
 
@@ -27,7 +24,7 @@ namespace BeeneticToolkit.Random.Generators {
         /// <param name="seed">The seed value used to initialize the random number generator.</param>
         /// <exclude></exclude>
 
-        public Xorshift(long? seed = null) : base(seed ?? DateTime.UtcNow.Ticks) {
+        public Xorshift(long seed) : base(seed) {
         }
 
         /// <summary>

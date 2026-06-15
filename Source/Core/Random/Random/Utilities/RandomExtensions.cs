@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace BeeneticToolkit.Random.Utilities {
+namespace BeeneticToolkit.Random {
 
     /// <summary>
-    /// Provides extension methods for randomizing collections, enhancing the standard RandomGenerator class functionality.
+    /// Shuffle extension methods on <see cref="RandomGenerator"/>, operating on the generator they are
+    /// called on so the source of randomness is always explicit.
     /// </summary>
     public static class RandomExtensions {
 
@@ -13,16 +13,18 @@ namespace BeeneticToolkit.Random.Utilities {
         /// Returns a new, shuffled copy of the source collection, leaving the source untouched.
         /// </summary>
         /// <typeparam name="T">The type of elements in the collection.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="source">The collection to shuffle. It is not modified.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
         /// <returns>A new <see cref="List{T}"/> containing the source elements in random order.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="source"/> is null.</exception>
-        public static List<T> Shuffle<T>(this IEnumerable<T> source, RandomGenerator? random = null) {
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="source"/> is null.</exception>
+        public static List<T> Shuffle<T>(this RandomGenerator random, IEnumerable<T> source) {
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
             var result = new List<T>(source);
-            result.ShuffleInPlace(random);
+            random.ShuffleInPlace(result);
             return result;
         }
 
@@ -30,14 +32,14 @@ namespace BeeneticToolkit.Random.Utilities {
         /// Shuffles the elements of a list in place using a Fisher-Yates shuffle, without allocating.
         /// </summary>
         /// <typeparam name="T">The type of elements in the list.</typeparam>
+        /// <param name="random">The random number generator to use.</param>
         /// <param name="list">The list to shuffle in place.</param>
-        /// <param name="random">The random number generator to use, or null to use the default generator.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is null.</exception>
-        public static void ShuffleInPlace<T>(this IList<T> list, RandomGenerator? random = null) {
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="list"/> is null.</exception>
+        public static void ShuffleInPlace<T>(this RandomGenerator random, IList<T> list) {
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
-
-            random ??= RandomManager.Current;
 
             for (int i = list.Count - 1; i > 0; i--) {
                 int swapIndex = random.NextInt(i + 1);
