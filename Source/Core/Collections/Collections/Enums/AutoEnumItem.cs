@@ -94,6 +94,20 @@ namespace BeeneticToolkit.Collections.Enums {
         public static EnumSet<TSelf> SetOf(params TSelf[] items) => Backing.Domain.Of(items);
 
         /// <summary>
+        /// Builds an O(1) secondary index over this enum's items, keyed by an arbitrary property. The item set is
+        /// fixed, so the index is built once; hold the result (e.g. in a static field) to query it.
+        /// </summary>
+        /// <typeparam name="TValue">The type of the property being indexed.</typeparam>
+        /// <param name="selector">Selects the value to index each item by.</param>
+        /// <returns>The index, ready to query.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="selector"/> is null.</exception>
+        public static EnumIndex<TValue, TSelf> IndexBy<TValue>(Func<TSelf, TValue> selector) {
+            var index = new EnumIndex<TValue, TSelf>(selector);
+            ((IEnumCollectionIndex<TSelf>)index).Rebuild(Backing.Items);
+            return index;
+        }
+
+        /// <summary>
         /// Holds the per-<typeparamref name="TSelf"/> registry. Nested so its static initializer runs lazily on
         /// first access, under the CLR's type-initialization lock (thread-safe by construction).
         /// </summary>

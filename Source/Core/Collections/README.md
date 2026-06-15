@@ -213,6 +213,29 @@ EnumSet<Card> starter = domain.Of(catalog.FromKey("strike"), catalog.FromKey("de
 
 ---
 
+## Secondary indexes
+
+`FromKey` / `FromName` / `FromShortName` cover the built-in lookups. To look items up O(1) by *any* other
+property, register a secondary index. You get back a typed, queryable handle — no stringly-typed names:
+
+```csharp
+// Runtime-built collection: the index stays in sync as items are added/removed.
+EnumIndex<string, Card> byColor = catalog.AddIndex(c => c.Color);
+IReadOnlyList<Card> reds = byColor.Get("Red");
+Card theOnly = byColor.GetSingle("Colorless");        // throws if not exactly one
+
+// Fixed smart enum: built once over the item set.
+public sealed class Planet : AutoEnumItem<Planet, string, PlanetGroup> {
+    public static readonly EnumIndex<PlanetGroup, Planet> ByGroup = IndexBy(p => p.Group ?? PlanetGroup.None);
+}
+var gasGiants = Planet.ByGroup.Get(PlanetGroup.GasGiant);
+```
+
+Query with `Get` (all matches), `GetSingle` / `TryGetSingle` (exactly one), `Contains`, `Keys`, and
+`Count`. Items whose indexed value is `null` are skipped.
+
+---
+
 ## Object pooling
 
 A small, thread-safe object pool for reusing instances and avoiding allocations on hot paths.

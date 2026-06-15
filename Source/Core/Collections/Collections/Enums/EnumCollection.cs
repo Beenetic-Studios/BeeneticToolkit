@@ -39,6 +39,9 @@ namespace BeeneticToolkit.Collections.Enums {
         private Dictionary<string, T>? _byName;
         private Dictionary<string, T>? _byShortName;
 
+        // User-registered secondary indexes, kept in sync as items are added/removed.
+        private List<IEnumCollectionIndex<T>>? _indexes;
+
         #endregion Fields
 
         #region Collection Management
@@ -53,6 +56,10 @@ namespace BeeneticToolkit.Collections.Enums {
             _items.Add(item);
             _byKey[item.Key] = item;
             InvalidateCaches();
+
+            if (_indexes != null)
+                foreach (IEnumCollectionIndex<T> index in _indexes)
+                    index.OnAdded(item);
         }
 
         /// <summary>Adds multiple enumeration items to the collection.</summary>
@@ -73,6 +80,10 @@ namespace BeeneticToolkit.Collections.Enums {
 
             _byKey.Remove(item.Key);
             InvalidateCaches();
+
+            if (_indexes != null)
+                foreach (IEnumCollectionIndex<T> index in _indexes)
+                    index.OnRemoved(item);
         }
 
         /// <summary>Removes multiple enumeration items from the collection by their references.</summary>
@@ -310,5 +321,32 @@ namespace BeeneticToolkit.Collections.Enums {
         public EnumDomain<T> ToDomain() => new EnumDomain<T>(_items);
 
         #endregion Flag Sets
+
+        #region Secondary Indexes
+
+        /// <summary>
+        /// Registers an O(1) secondary index keyed by an arbitrary item property, and returns it. The index is
+        /// populated from the current items and kept in sync as items are added to or removed from this collection.
+        /// </summary>
+        /// <remarks>
+        /// Hold onto the returned <see cref="EnumIndex{TValue, T}"/> to query it (<c>Get</c>, <c>GetSingle</c>,
+        /// <c>TryGetSingle</c>, <c>Contains</c>). Items whose indexed value is <see langword="null"/> are not
+        /// included. Registering many indexes adds a small per-item cost to every <c>Add</c>/<c>Remove</c>.
+        /// </remarks>
+        /// <typeparam name="TValue">The type of the property being indexed.</typeparam>
+        /// <param name="selector">Selects the value to index each item by.</param>
+        /// <returns>The live index, ready to query.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="selector"/> is null.</exception>
+        public EnumIndex<TValue, T> AddIndex<TValue>(Func<T, TValue> selector) {
+            if (selector == null)
+                throw new ArgumentNullException(nameof(selector));
+
+            var index = new EnumIndex<TValue, T>(selector);
+            ((IEnumCollectionIndex<T>)index).Rebuild(_items);
+            (_indexes ??= new List<IEnumCollectionIndex<T>>()).Add(index);
+            return index;
+        }
+
+        #endregion Secondary Indexes
     }
 }
