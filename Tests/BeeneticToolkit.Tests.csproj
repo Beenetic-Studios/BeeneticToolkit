@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Source\Core\Collections\Collections.csproj" />
-    <ProjectReference Include="..\Source\Core\Diagnostics\Diagnostics.csproj" />
     <ProjectReference Include="..\Source\Core\Logging\Logging.csproj" />
     <ProjectReference Include="..\Source\Core\Numerics\Numerics.csproj" />
     <ProjectReference Include="..\Source\Core\Random\Random.csproj" />
