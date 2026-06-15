@@ -161,6 +161,37 @@ var ring    = rng.NextPointInAnnulus(inner: 3f, outer: 5f); // uniform inside a 
 var inBlast = rng.NextPointInSphere(radius: 2f);            // uniform inside a ball
 ```
 
+## Probability & loot
+
+Game-ready probability building blocks in the `BeeneticToolkit.Random.Probability` namespace. Each takes a
+generator at draw time, so everything is reproducible from a seed:
+
+```csharp
+using BeeneticToolkit.Random.Probability;
+
+// Weighted bag — draw with replacement, or without (the bag depletes).
+var bag = new WeightedBag<string>().Add("common", 9).Add("rare", 1);
+string drop   = bag.Draw(rng);                    // bag unchanged
+string unique = bag.DrawWithoutReplacement(rng);  // removed from the bag
+
+// Loot table — weighted entries, nestable into tiers.
+var rares = new LootTable<string>().Add("epic", 3).Add("legendary", 1);
+var chest = new LootTable<string>()
+    .Add("gold", 80)
+    .AddTable(rares, 20);          // 20% chance to roll the rare sub-table
+string loot = chest.Roll(rng);
+List<string> haul = chest.Roll(rng, count: 5);
+
+// Dice notation — "NdS±M", parse once or roll inline.
+int damage = rng.Roll("2d6+1");
+var attack = DiceRoll.Parse("1d20+5");
+int hit    = attack.Roll(rng);    // attack.Min .. attack.Max
+
+// Gacha pity — base rate, soft-pity ramp, guaranteed at hard pity.
+var pity = new PityCounter(baseChance: 0.006, hardPity: 90, softPityStart: 73, softPityIncrement: 0.06);
+bool fiveStar = pity.Roll(rng);   // resets the streak on success
+```
+
 ## Thread safety
 
 Generators are **not** thread-safe — each draw advances mutable state. For concurrent work, give each
