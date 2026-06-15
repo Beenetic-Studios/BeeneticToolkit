@@ -6,6 +6,17 @@ automatic caller context.
 
 Targets `netstandard2.1`.
 
+### Is this for you?
+
+It's deliberately a **lightweight, zero-dependency, code-first** logger — a great fit for **Unity** (no
+dependency tree, IL2CPP-friendly, trivial custom sinks) and small/solo .NET projects where you want
+readable console/file logging without a configuration ecosystem. Distinctive touches: per-component message
+formatting, built-in object/method context, and recursive property dumps for debugging.
+
+It is **string logging, not structured logging.** If you need message templates, queryable/aggregated sinks
+(Seq, ELK), or `Microsoft.Extensions.Logging.ILogger` integration, reach for **Serilog** or
+**Microsoft.Extensions.Logging** instead — that's not what this is.
+
 ## Core ideas
 
 - **`LoggerBase`** — the base for a sink. Implement one method, `WriteEntry`, and you have a logger.
@@ -119,8 +130,20 @@ public sealed class UnityDebugLogger : LoggerBase {
 }
 ```
 
-Built-in loggers: `ConsoleLogger`, `DebugLogger` (`System.Diagnostics.Debug`), and `FileLogger`
-(thread-safe; concurrent appends to the same path are serialized).
+Built-in loggers: `ConsoleLogger`, `DebugLogger` (`System.Diagnostics.Debug`), and `FileLogger`.
+
+### File logging
+
+`FileLogger` keeps a single writer open per file path, shared across all loggers (and threads) targeting it —
+no per-message open/close, writes serialized. Entries flush to disk immediately by default (`AutoFlush`);
+set `AutoFlush = false` for throughput and call `Flush()` periodically. Call `FileLogger.CloseAll()` once on
+shutdown (e.g. Unity's `OnApplicationQuit`) to flush and release the handles:
+
+```csharp
+var file = new FileLogger("logs/run.log");
+// ...
+FileLogger.CloseAll();   // on shutdown
+```
 
 ## Property dumps
 
