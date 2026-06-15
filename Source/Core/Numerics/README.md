@@ -40,6 +40,25 @@ bool equal = NumericalUtils.IsApproximatelyRelative(1e9, 1e9 + 50, 1e-6); // tru
 > compile). Use typed literals — `Remap(30f, 0f, 100f, 0f, 1f)`, `30.0`, or `30m` — or pass at least
 > one typed argument so the compiler can pick an overload.
 
+## Easing
+
+The standard (Penner) easing curves for tweening and animation — Sine, Quad, Cubic, Quart, Quint, Expo,
+Circ, Back, Elastic, and Bounce, each in `In` / `Out` / `InOut`. Every curve maps `t` in `[0, 1]` to eased
+progress; combine with a lerp, or pick a curve at runtime with the `Ease` dispatcher.
+
+```csharp
+using BeeneticToolkit.Numerics;
+
+float p = EasingUtils.OutCubic(t);                       // eased progress
+float x = EasingUtils.Ease(EasingType.OutBack, a, b, t); // tween a→b (OutBack overshoots past b)
+
+// Data-driven: store the curve choice and resolve it later.
+EasingType curve = config.Curve;
+float eased = EasingUtils.Ease(curve, t);
+```
+
+Provided for `float` and `double`. `Back` and `Elastic` intentionally overshoot outside `[0, 1]`.
+
 Also includes `RoundingUtils` (`RoundToNearest`, floored `Wrap`) and
 `IntegralMappingExtensions` for signed/unsigned integral mapping.
 
