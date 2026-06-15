@@ -286,6 +286,33 @@ Use `Add` for overwrite-oldest behavior, or `TryAdd` to reject when full (a boun
 `RemoveOldest` / `TryRemoveOldest`; inspect with `PeekOldest` / `PeekNewest` (and `Try…` variants),
 `Count`, `Capacity`, `IsEmpty`, `IsFull`.
 
+## Priority queue
+
+`PriorityQueue<TElement, TPriority>` is a binary min-heap: each element is enqueued with a priority, and the
+**lowest** priority is always dequeued first. .NET 6+ ships one in the BCL, but `netstandard2.1` / Unity do
+not — this is a drop-in with the same API, handy for event scheduling, turn/cooldown ordering, and
+pathfinding frontiers.
+
+```csharp
+using BeeneticToolkit.Collections;
+
+var events = new PriorityQueue<string, float>();   // priority = time
+events.Enqueue("spawn wave", 12.5f);
+events.Enqueue("tick",        1.0f);
+events.Enqueue("boss",       60.0f);
+
+string next = events.Peek();                        // "tick" (lowest time)
+while (events.TryDequeue(out string e, out float t))
+    Process(e, t);                                  // fired in time order
+```
+
+Pass an `IComparer<TPriority>` to change the ordering (e.g. a reverse comparer for a max-heap). Also
+provides `Dequeue`, `EnqueueDequeue` (enqueue then pop the min in one step), `Clear`, and `Count`.
+
+> On .NET 6+ the BCL also defines `PriorityQueue`. If you import both `System.Collections.Generic` and
+> `BeeneticToolkit.Collections`, alias or fully qualify to disambiguate. On Unity/`netstandard2.1` there's
+> no conflict.
+
 ## License
 
 Licensed under the MIT License.
