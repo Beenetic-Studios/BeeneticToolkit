@@ -2,10 +2,8 @@
 
 namespace BeeneticToolkit.Numerics {
 
-    /// <summary>
-    /// Provides methods for rounding values, including rounding to the nearest interval and wrapping values within a range.
-    /// </summary>
-    public static class RoundingUtils {
+    // Rounding to an interval and floored range wrapping. See MathKit.cs for the type summary.
+    public static partial class MathKit {
 
         #region Round To Nearest
 

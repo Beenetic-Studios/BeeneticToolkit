@@ -2,21 +2,9 @@
 
 namespace BeeneticToolkit.Numerics {
 
-    /// <summary>
-    /// Provides utility methods for common numerical operations, including clamping, normalization, and approximate comparisons.
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    /// <see cref="IsApproximately(float, float, float)"/> uses an <em>absolute</em> tolerance, which is only
-    /// appropriate when the compared magnitudes are known and small. For values that vary in scale, prefer
-    /// <see cref="IsApproximatelyRelative(float, float, float)"/>, whose tolerance scales with magnitude.
-    /// </para>
-    /// <para>
-    /// Except where documented, non-finite inputs (<see cref="float.NaN"/>, infinities) are not specially
-    /// handled by the clamp/normalize methods and propagate through the result.
-    /// </para>
-    /// </remarks>
-    public static class NumericalUtils {
+    // Clamping, normalization, and approximate comparison. Note: IsApproximately uses an absolute tolerance
+    // (good for known/small magnitudes); IsApproximatelyRelative scales with magnitude. See MathKit.cs.
+    public static partial class MathKit {
 
         #region Clamp
 

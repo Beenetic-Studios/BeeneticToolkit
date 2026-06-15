@@ -2,15 +2,8 @@
 
 namespace BeeneticToolkit.Numerics {
 
-    /// <summary>
-    /// Provides methods for interpolation, including linear interpolation (Lerp), quadratic Bezier
-    /// interpolation (Qerp), range remapping, and smooth (Hermite) easing.
-    /// </summary>
-    /// <remarks>
-    /// Unless a method documents otherwise, non-finite inputs (<see cref="float.NaN"/>,
-    /// <see cref="float.PositiveInfinity"/>, etc.) are not specially handled and propagate through the result.
-    /// </remarks>
-    public static class InterpolationUtils {
+    // Interpolation, remapping, smoothing, movement, and splines. See MathKit.cs for the type summary.
+    public static partial class MathKit {
 
         #region Interpolation
 
@@ -22,7 +15,7 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="factor">The interpolation factor, typically between 0 and 1. Values outside this range are clamped to the range [0, 1].</param>
         /// <returns>The interpolated float value between the start and end values.</returns>
         public static float Lerp(float start, float end, float factor) {
-            return start + (end - start) * NumericalUtils.Clamp01(factor);
+            return start + (end - start) * Clamp01(factor);
         }
 
         /// <summary>
@@ -33,7 +26,7 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="factor">The interpolation factor, typically between 0 and 1. Values outside this range are clamped to the range [0, 1].</param>
         /// <returns>The interpolated double value between the start and end values.</returns>
         public static double Lerp(double start, double end, double factor) {
-            return start + (end - start) * NumericalUtils.Clamp01(factor);
+            return start + (end - start) * Clamp01(factor);
         }
 
         /// <summary>
@@ -44,7 +37,7 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="factor">The interpolation factor, typically between 0 and 1. Values outside this range are clamped to the range [0, 1].</param>
         /// <returns>The interpolated decimal value between the start and end values.</returns>
         public static decimal Lerp(decimal start, decimal end, decimal factor) {
-            return start + (end - start) * NumericalUtils.Clamp01(factor);
+            return start + (end - start) * Clamp01(factor);
         }
 
         /// <summary>
@@ -204,7 +197,7 @@ namespace BeeneticToolkit.Numerics {
             if (fromMin == fromMax)
                 throw new DivideByZeroException("Source range cannot be zero (fromMin and fromMax are equal).");
 
-            float t = NumericalUtils.Clamp01((value - fromMin) / (fromMax - fromMin));
+            float t = Clamp01((value - fromMin) / (fromMax - fromMin));
             return toMin + (toMax - toMin) * t;
         }
 
@@ -213,7 +206,7 @@ namespace BeeneticToolkit.Numerics {
             if (fromMin == fromMax)
                 throw new DivideByZeroException("Source range cannot be zero (fromMin and fromMax are equal).");
 
-            double t = NumericalUtils.Clamp01((value - fromMin) / (fromMax - fromMin));
+            double t = Clamp01((value - fromMin) / (fromMax - fromMin));
             return toMin + (toMax - toMin) * t;
         }
 
@@ -222,7 +215,7 @@ namespace BeeneticToolkit.Numerics {
             if (fromMin == fromMax)
                 throw new DivideByZeroException("Source range cannot be zero (fromMin and fromMax are equal).");
 
-            decimal t = NumericalUtils.Clamp01((value - fromMin) / (fromMax - fromMin));
+            decimal t = Clamp01((value - fromMin) / (fromMax - fromMin));
             return toMin + (toMax - toMin) * t;
         }
 
@@ -236,14 +229,14 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="t">The interpolation factor. Clamped to [0, 1] before easing.</param>
         /// <returns>The eased value between <paramref name="from"/> and <paramref name="to"/>.</returns>
         public static float SmoothStep(float from, float to, float t) {
-            t = NumericalUtils.Clamp01(t);
+            t = Clamp01(t);
             t = t * t * (3f - 2f * t);
             return from + (to - from) * t;
         }
 
         /// <inheritdoc cref="SmoothStep(float, float, float)"/>
         public static double SmoothStep(double from, double to, double t) {
-            t = NumericalUtils.Clamp01(t);
+            t = Clamp01(t);
             t = t * t * (3d - 2d * t);
             return from + (to - from) * t;
         }

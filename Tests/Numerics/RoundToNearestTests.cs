@@ -13,7 +13,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float value = 5.3f;
             float interval = 1f;
             float expected = 5f;
-            float result = RoundingUtils.RoundToNearest(value, interval);
+            float result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should round the value to the nearest interval.");
         }
 
@@ -22,7 +22,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float value = 5.5f;
             float interval = 1f;
             float expected = 6f;
-            float result = RoundingUtils.RoundToNearest(value, interval);
+            float result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should correctly round halfway values.");
         }
 
@@ -31,7 +31,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float value = 5.25f;
             float interval = 0.5f;
             float expected = 5.5f;
-            float result = RoundingUtils.RoundToNearest(value, interval);
+            float result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should work with different intervals.");
         }
 
@@ -40,7 +40,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float value = 5.5f;
             float interval = 0f;
             float expected = 6f;
-            float result = RoundingUtils.RoundToNearest(value, interval);
+            float result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should correctly round to nearest integer with interval 0.");
         }
 
@@ -49,7 +49,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float value = -5.3f;
             float interval = 1f;
             float expected = -5f;
-            float result = RoundingUtils.RoundToNearest(value, interval);
+            float result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should correctly round negative values.");
         }
 
@@ -58,7 +58,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float value = 5.3f;
             float interval = -1f;
             float expected = 5f; // Assuming negative intervals behave like positive intervals
-            float result = RoundingUtils.RoundToNearest(value, interval);
+            float result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should handle negative intervals by treating them as positive.");
         }
 
@@ -67,7 +67,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float value = 1234.567f;
             float interval = 1000f;
             float expected = 1000f; // Assuming standard rounding
-            float result = RoundingUtils.RoundToNearest(value, interval);
+            float result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should handle large intervals correctly.");
         }
 
@@ -76,7 +76,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double value = 5.3d;
             double interval = 1d;
             double expected = 5d;
-            double result = RoundingUtils.RoundToNearest(value, interval);
+            double result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should round the value to the nearest interval.");
         }
 
@@ -85,7 +85,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double value = 5.5d;
             double interval = 1d;
             double expected = 6d;
-            double result = RoundingUtils.RoundToNearest(value, interval);
+            double result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should correctly round halfway values.");
         }
 
@@ -94,7 +94,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double value = 5.25d;
             double interval = 0.5d;
             double expected = 5.5d;
-            double result = RoundingUtils.RoundToNearest(value, interval);
+            double result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should work with different intervals.");
         }
 
@@ -103,7 +103,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double value = 5.5d;
             double interval = 0d;
             double expected = 6d;
-            double result = RoundingUtils.RoundToNearest(value, interval);
+            double result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should correctly round to nearest integer with interval 0.");
         }
 
@@ -112,7 +112,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double value = -5.3d;
             double interval = 1d;
             double expected = -5d;
-            double result = RoundingUtils.RoundToNearest(value, interval);
+            double result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should correctly round negative values.");
         }
 
@@ -121,7 +121,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double value = 5.3d;
             double interval = -1d;
             double expected = 5d; // Assuming negative intervals behave like positive intervals
-            double result = RoundingUtils.RoundToNearest(value, interval);
+            double result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should handle negative intervals by treating them as positive.");
         }
 
@@ -130,7 +130,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double value = 1234.567d;
             double interval = 1000d;
             double expected = 1000d; // Assuming standard rounding
-            double result = RoundingUtils.RoundToNearest(value, interval);
+            double result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should handle large intervals correctly.");
         }
 
@@ -139,7 +139,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal value = 5.3m;
             decimal interval = 1m;
             decimal expected = 5m;
-            decimal result = RoundingUtils.RoundToNearest(value, interval);
+            decimal result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should round the value to the nearest interval.");
         }
 
@@ -148,7 +148,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal value = 5.5m;
             decimal interval = 1m;
             decimal expected = 6m;
-            decimal result = RoundingUtils.RoundToNearest(value, interval);
+            decimal result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should correctly round halfway values.");
         }
 
@@ -157,7 +157,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal value = 5.25m;
             decimal interval = 0.5m;
             decimal expected = 5.5m;
-            decimal result = RoundingUtils.RoundToNearest(value, interval);
+            decimal result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should work with different intervals.");
         }
 
@@ -166,7 +166,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal value = 5.5m;
             decimal interval = 0m;
             decimal expected = 6m;
-            decimal result = RoundingUtils.RoundToNearest(value, interval);
+            decimal result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should correctly round to nearest integer with interval 0.");
         }
 
@@ -175,7 +175,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal value = -5.3m;
             decimal interval = 1m;
             decimal expected = -5m;
-            decimal result = RoundingUtils.RoundToNearest(value, interval);
+            decimal result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should correctly round negative values.");
         }
 
@@ -184,7 +184,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal value = 5.3m;
             decimal interval = -1m;
             decimal expected = 5m; // Assuming negative intervals behave like positive intervals
-            decimal result = RoundingUtils.RoundToNearest(value, interval);
+            decimal result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should handle negative intervals by treating them as positive.");
         }
 
@@ -193,7 +193,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal value = 1234.567m;
             decimal interval = 1000m;
             decimal expected = 1000m; // Assuming standard rounding
-            decimal result = RoundingUtils.RoundToNearest(value, interval);
+            decimal result = MathKit.RoundToNearest(value, interval);
             Assert.AreEqual(expected, result, "RoundToNearest should handle large intervals correctly.");
         }
 

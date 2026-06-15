@@ -15,7 +15,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float min = 10f;
             float max = 20f;
             float expected = 15f;
-            float result = NumericalUtils.Denormalize(normalizedValue, min, max);
+            float result = MathKit.Denormalize(normalizedValue, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Denormalize should correctly rescale a normalized value to its original range.");
         }
 
@@ -25,7 +25,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float min = 10f;
             float max = 20f;
             float expected = 10f;
-            float result = NumericalUtils.Denormalize(normalizedValue, min, max);
+            float result = MathKit.Denormalize(normalizedValue, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Denormalize should return min when normalized value is 0.");
         }
 
@@ -35,7 +35,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float min = 10f;
             float max = 20f;
             float expected = 20f;
-            float result = NumericalUtils.Denormalize(normalizedValue, min, max);
+            float result = MathKit.Denormalize(normalizedValue, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Denormalize should return max when normalized value is 1.");
         }
 
@@ -44,7 +44,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float normalizedValue = -0.1f;
             float min = 10f;
             float max = 20f;
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => NumericalUtils.Denormalize(normalizedValue, min, max));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => MathKit.Denormalize(normalizedValue, min, max));
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float normalizedValue = 1.1f;
             float min = 10f;
             float max = 20f;
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => NumericalUtils.Denormalize(normalizedValue, min, max));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => MathKit.Denormalize(normalizedValue, min, max));
         }
 
         [TestMethod]
@@ -61,7 +61,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double min = 100d;
             double max = 200d;
             double expected = 150d;
-            double result = NumericalUtils.Denormalize(normalizedValue, min, max);
+            double result = MathKit.Denormalize(normalizedValue, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Denormalize should correctly rescale a normalized value to its original range.");
         }
 
@@ -71,7 +71,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double min = 100d;
             double max = 200d;
             double expected = 100d;
-            double result = NumericalUtils.Denormalize(normalizedValue, min, max);
+            double result = MathKit.Denormalize(normalizedValue, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Denormalize should return min when normalized value is 0.");
         }
 
@@ -81,7 +81,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double min = 100d;
             double max = 200d;
             double expected = 200d;
-            double result = NumericalUtils.Denormalize(normalizedValue, min, max);
+            double result = MathKit.Denormalize(normalizedValue, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Denormalize should return max when normalized value is 1.");
         }
 
@@ -90,7 +90,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double normalizedValue = -0.5d;
             double min = 100d;
             double max = 200d;
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => NumericalUtils.Denormalize(normalizedValue, min, max));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => MathKit.Denormalize(normalizedValue, min, max));
         }
 
         [TestMethod]
@@ -98,7 +98,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double normalizedValue = 1.5d;
             double min = 100d;
             double max = 200d;
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => NumericalUtils.Denormalize(normalizedValue, min, max));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => MathKit.Denormalize(normalizedValue, min, max));
         }
 
         [TestMethod]
@@ -107,7 +107,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal min = 500m;
             decimal max = 1000m;
             decimal expected = 750m;
-            decimal result = NumericalUtils.Denormalize(normalizedValue, min, max);
+            decimal result = MathKit.Denormalize(normalizedValue, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Denormalize should correctly rescale a normalized value to its original range.");
         }
 
@@ -117,7 +117,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal min = 500m;
             decimal max = 1000m;
             decimal expected = 500m;
-            decimal result = NumericalUtils.Denormalize(normalizedValue, min, max);
+            decimal result = MathKit.Denormalize(normalizedValue, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Denormalize should return min when normalized value is 0.");
         }
 
@@ -127,7 +127,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal min = 500m;
             decimal max = 1000m;
             decimal expected = 1000m;
-            decimal result = NumericalUtils.Denormalize(normalizedValue, min, max);
+            decimal result = MathKit.Denormalize(normalizedValue, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Denormalize should return max when normalized value is 1.");
         }
 
@@ -136,7 +136,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal normalizedValue = -0.25m;
             decimal min = 500m;
             decimal max = 1000m;
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => NumericalUtils.Denormalize(normalizedValue, min, max));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => MathKit.Denormalize(normalizedValue, min, max));
         }
 
         [TestMethod]
@@ -144,7 +144,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal normalizedValue = 1.25m;
             decimal min = 500m;
             decimal max = 1000m;
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => NumericalUtils.Denormalize(normalizedValue, min, max));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => MathKit.Denormalize(normalizedValue, min, max));
         }
 
         #endregion Denormalize

@@ -15,7 +15,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float end = 10f;
             float factor = 0.5f;
             float expected = 5f;
-            float result = InterpolationUtils.Lerp(start, end, factor);
+            float result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Lerp should correctly interpolate between start and end values.");
         }
 
@@ -25,7 +25,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float end = 10f;
             float factor = 0f;
             float expected = start;
-            float result = InterpolationUtils.Lerp(start, end, factor);
+            float result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Lerp should return start value when factor is 0.");
         }
 
@@ -35,7 +35,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float end = 10f;
             float factor = 1f;
             float expected = end;
-            float result = InterpolationUtils.Lerp(start, end, factor);
+            float result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Lerp should return end value when factor is 1.");
         }
 
@@ -45,7 +45,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float end = 10f;
             float factor = -0.5f;
             float expected = start; // Since factor is clamped to 0
-            float result = InterpolationUtils.Lerp(start, end, factor);
+            float result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Lerp should return start value when factor is below 0.");
         }
 
@@ -55,7 +55,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float end = 10f;
             float factor = 1.5f;
             float expected = end; // Since factor is clamped to 1
-            float result = InterpolationUtils.Lerp(start, end, factor);
+            float result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Lerp should return end value when factor is above 1.");
         }
 
@@ -65,7 +65,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float end = 5f;
             float factor = 0.5f;
             float expected = 5f;
-            float result = InterpolationUtils.Lerp(start, end, factor);
+            float result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Lerp should return the same value when start and end are the same.");
         }
 
@@ -75,7 +75,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double end = 10d;
             double factor = 0.5d;
             double expected = 5d;
-            double result = InterpolationUtils.Lerp(start, end, factor);
+            double result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Lerp should correctly interpolate between start and end values.");
         }
 
@@ -85,7 +85,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double end = 10d;
             double factor = 0d;
             double expected = start;
-            double result = InterpolationUtils.Lerp(start, end, factor);
+            double result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Lerp should return start value when factor is 0.");
         }
 
@@ -95,7 +95,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double end = 10d;
             double factor = 1d;
             double expected = end;
-            double result = InterpolationUtils.Lerp(start, end, factor);
+            double result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Lerp should return end value when factor is 1.");
         }
 
@@ -105,7 +105,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double end = 10d;
             double factor = -0.5d;
             double expected = start; // Since factor is clamped to 0
-            double result = InterpolationUtils.Lerp(start, end, factor);
+            double result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Lerp should return start value when factor is below 0.");
         }
 
@@ -115,7 +115,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double end = 10d;
             double factor = 1.5d;
             double expected = end; // Since factor is clamped to 1
-            double result = InterpolationUtils.Lerp(start, end, factor);
+            double result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Lerp should return end value when factor is above 1.");
         }
 
@@ -125,7 +125,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double end = 5d;
             double factor = 0.5d;
             double expected = 5d;
-            double result = InterpolationUtils.Lerp(start, end, factor);
+            double result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Lerp should return the same value when start and end are the same.");
         }
 
@@ -135,7 +135,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal end = 10m;
             decimal factor = 0.5m;
             decimal expected = 5m;
-            decimal result = InterpolationUtils.Lerp(start, end, factor);
+            decimal result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Lerp should correctly interpolate between start and end values.");
         }
 
@@ -145,7 +145,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal end = 10m;
             decimal factor = 0m;
             decimal expected = start;
-            decimal result = InterpolationUtils.Lerp(start, end, factor);
+            decimal result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Lerp should return start value when factor is 0.");
         }
 
@@ -155,7 +155,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal end = 10m;
             decimal factor = 1m;
             decimal expected = end;
-            decimal result = InterpolationUtils.Lerp(start, end, factor);
+            decimal result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Lerp should return end value when factor is 1.");
         }
 
@@ -165,7 +165,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal end = 10m;
             decimal factor = -0.5m;
             decimal expected = start; // Since factor is clamped to 0
-            decimal result = InterpolationUtils.Lerp(start, end, factor);
+            decimal result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Lerp should return start value when factor is below 0.");
         }
 
@@ -175,7 +175,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal end = 10m;
             decimal factor = 1.5m;
             decimal expected = end; // Since factor is clamped to 1
-            decimal result = InterpolationUtils.Lerp(start, end, factor);
+            decimal result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Lerp should return end value when factor is above 1.");
         }
 
@@ -185,7 +185,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal end = 5m;
             decimal factor = 0.5m;
             decimal expected = 5m;
-            decimal result = InterpolationUtils.Lerp(start, end, factor);
+            decimal result = MathKit.Lerp(start, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Lerp should return the same value when start and end are the same.");
         }
 
@@ -196,7 +196,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float end = 10f;
             float factor = 0f;
             float expected = start;
-            float result = InterpolationUtils.Qerp(start, control, end, factor);
+            float result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Qerp should return the start value when the factor is 0.");
         }
 
@@ -207,7 +207,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float end = 10f;
             float factor = 1f;
             float expected = end;
-            float result = InterpolationUtils.Qerp(start, control, end, factor);
+            float result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Qerp should return the end value when the factor is 1.");
         }
 
@@ -221,7 +221,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float expected = (1 - factor) * (1 - factor) * start +
                              2 * (1 - factor) * factor * control +
                              factor * factor * end;
-            float result = InterpolationUtils.Qerp(start, control, end, factor);
+            float result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Qerp should correctly interpolate for a factor of 0.5.");
         }
 
@@ -234,7 +234,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float expected = (1 - factor) * (1 - factor) * start +
                              2 * (1 - factor) * factor * control +
                              factor * factor * end;
-            float result = InterpolationUtils.Qerp(start, control, end, factor);
+            float result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "Qerp should return a value influenced by the control point when start and end are the same.");
         }
 
@@ -245,7 +245,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double end = 10d;
             double factor = 0d;
             double expected = start;
-            double result = InterpolationUtils.Qerp(start, control, end, factor);
+            double result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Qerp should return the start value when the factor is 0.");
         }
 
@@ -256,7 +256,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double end = 10d;
             double factor = 1d;
             double expected = end;
-            double result = InterpolationUtils.Qerp(start, control, end, factor);
+            double result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Qerp should return the end value when the factor is 1.");
         }
 
@@ -270,7 +270,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double expected = (1 - factor) * (1 - factor) * start +
                              2 * (1 - factor) * factor * control +
                              factor * factor * end;
-            double result = InterpolationUtils.Qerp(start, control, end, factor);
+            double result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Qerp should correctly interpolate for a factor of 0.5.");
         }
 
@@ -283,7 +283,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double expected = (1 - factor) * (1 - factor) * start +
                              2 * (1 - factor) * factor * control +
                              factor * factor * end;
-            double result = InterpolationUtils.Qerp(start, control, end, factor);
+            double result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "Qerp should return a value influenced by the control point when start and end are the same.");
         }
 
@@ -294,7 +294,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal end = 10m;
             decimal factor = 0m;
             decimal expected = start;
-            decimal result = InterpolationUtils.Qerp(start, control, end, factor);
+            decimal result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Qerp should return the start value when the factor is 0.");
         }
 
@@ -305,7 +305,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal end = 10m;
             decimal factor = 1m;
             decimal expected = end;
-            decimal result = InterpolationUtils.Qerp(start, control, end, factor);
+            decimal result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Qerp should return the end value when the factor is 1.");
         }
 
@@ -319,7 +319,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal expected = (1 - factor) * (1 - factor) * start +
                              2 * (1 - factor) * factor * control +
                              factor * factor * end;
-            decimal result = InterpolationUtils.Qerp(start, control, end, factor);
+            decimal result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Qerp should correctly interpolate for a factor of 0.5.");
         }
 
@@ -332,7 +332,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal expected = (1 - factor) * (1 - factor) * start +
                              2 * (1 - factor) * factor * control +
                              factor * factor * end;
-            decimal result = InterpolationUtils.Qerp(start, control, end, factor);
+            decimal result = MathKit.Qerp(start, control, end, factor);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "Qerp should return a value influenced by the control point when start and end are the same.");
         }
 
@@ -342,7 +342,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float min = 0f;
             float max = 10f;
             float expected = 0.5f; // Mid-range value
-            float result = InterpolationUtils.InverseLerp(value, min, max);
+            float result = MathKit.InverseLerp(value, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "InverseLerp should return 0.5 for a mid-range value.");
         }
 
@@ -352,7 +352,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float min = 0f;
             float max = 10f;
             float expected = 0f; // Value at min
-            float result = InterpolationUtils.InverseLerp(value, min, max);
+            float result = MathKit.InverseLerp(value, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "InverseLerp should return 0 when the value is at the minimum.");
         }
 
@@ -362,7 +362,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float min = 0f;
             float max = 10f;
             float expected = 1f; // Value at max
-            float result = InterpolationUtils.InverseLerp(value, min, max);
+            float result = MathKit.InverseLerp(value, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.FLOAT_TOLERANCE, "InverseLerp should return 1 when the value is at the maximum.");
         }
 
@@ -371,7 +371,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             float value = 5f;
             float min = 5f;
             float max = 5f;
-            Assert.ThrowsException<DivideByZeroException>(() => InterpolationUtils.InverseLerp(value, min, max));
+            Assert.ThrowsException<DivideByZeroException>(() => MathKit.InverseLerp(value, min, max));
         }
 
         [TestMethod]
@@ -380,7 +380,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double min = 0d;
             double max = 10d;
             double expected = 0.5d; // Mid-range value
-            double result = InterpolationUtils.InverseLerp(value, min, max);
+            double result = MathKit.InverseLerp(value, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "InverseLerp should return 0.5 for a mid-range value.");
         }
 
@@ -390,7 +390,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double min = 0d;
             double max = 10d;
             double expected = 0d; // Value at min
-            double result = InterpolationUtils.InverseLerp(value, min, max);
+            double result = MathKit.InverseLerp(value, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "InverseLerp should return 0 when the value is at the minimum.");
         }
 
@@ -400,7 +400,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double min = 0d;
             double max = 10d;
             double expected = 1d; // Value at max
-            double result = InterpolationUtils.InverseLerp(value, min, max);
+            double result = MathKit.InverseLerp(value, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DOUBLE_TOLERANCE, "InverseLerp should return 1 when the value is at the maximum.");
         }
 
@@ -409,7 +409,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             double value = 5d;
             double min = 5d;
             double max = 5d;
-            Assert.ThrowsException<DivideByZeroException>(() => InterpolationUtils.InverseLerp(value, min, max));
+            Assert.ThrowsException<DivideByZeroException>(() => MathKit.InverseLerp(value, min, max));
         }
 
         [TestMethod]
@@ -418,7 +418,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal min = 0m;
             decimal max = 10m;
             decimal expected = 0.5m; // Mid-range value
-            decimal result = InterpolationUtils.InverseLerp(value, min, max);
+            decimal result = MathKit.InverseLerp(value, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "InverseLerp should return 0.5 for a mid-range value.");
         }
 
@@ -428,7 +428,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal min = 0m;
             decimal max = 10m;
             decimal expected = 0m; // Value at min
-            decimal result = InterpolationUtils.InverseLerp(value, min, max);
+            decimal result = MathKit.InverseLerp(value, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "InverseLerp should return 0 when the value is at the minimum.");
         }
 
@@ -438,7 +438,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal min = 0m;
             decimal max = 10m;
             decimal expected = 1m; // Value at max
-            decimal result = InterpolationUtils.InverseLerp(value, min, max);
+            decimal result = MathKit.InverseLerp(value, min, max);
             Assert.AreEqual(expected, result, NumericsHelpers.DECIMAL_TOLERANCE, "InverseLerp should return 1 when the value is at the maximum.");
         }
 
@@ -447,7 +447,7 @@ namespace BeeneticToolkit.Tests.Numerics {
             decimal value = 5m;
             decimal min = 5m;
             decimal max = 5m;
-            Assert.ThrowsException<DivideByZeroException>(() => InterpolationUtils.InverseLerp(value, min, max));
+            Assert.ThrowsException<DivideByZeroException>(() => MathKit.InverseLerp(value, min, max));
         }
 
         #endregion Interpolation

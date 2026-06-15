@@ -2,10 +2,8 @@
 
 namespace BeeneticToolkit.Numerics {
 
-    /// <summary>
-    /// Provides methods for angle conversions between degrees and radians.
-    /// </summary>
-    public static class AngleUtils {
+    // Angle conversion, wrapping, and shortest-path delta/lerp/move-towards. See MathKit.cs for the type summary.
+    public static partial class MathKit {
 
         #region Constants
 
@@ -80,18 +78,18 @@ namespace BeeneticToolkit.Numerics {
         /// <summary>Wraps an angle in degrees to the half-open range [-180, 180).</summary>
         /// <param name="degrees">The angle in degrees.</param>
         /// <returns>The equivalent angle in the range [-180, 180).</returns>
-        public static float WrapDegrees(float degrees) => RoundingUtils.Wrap(degrees, -180f, 180f);
+        public static float WrapDegrees(float degrees) => Wrap(degrees, -180f, 180f);
 
         /// <inheritdoc cref="WrapDegrees(float)"/>
-        public static double WrapDegrees(double degrees) => RoundingUtils.Wrap(degrees, -180d, 180d);
+        public static double WrapDegrees(double degrees) => Wrap(degrees, -180d, 180d);
 
         /// <summary>Wraps an angle in radians to the half-open range [-π, π).</summary>
         /// <param name="radians">The angle in radians.</param>
         /// <returns>The equivalent angle in the range [-π, π).</returns>
-        public static float WrapRadians(float radians) => RoundingUtils.Wrap(radians, -MathF.PI, MathF.PI);
+        public static float WrapRadians(float radians) => Wrap(radians, -MathF.PI, MathF.PI);
 
         /// <inheritdoc cref="WrapRadians(float)"/>
-        public static double WrapRadians(double radians) => RoundingUtils.Wrap(radians, -Math.PI, Math.PI);
+        public static double WrapRadians(double radians) => Wrap(radians, -Math.PI, Math.PI);
 
         #endregion Wrapping
 
@@ -104,10 +102,10 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="current">The starting angle, in degrees.</param>
         /// <param name="target">The target angle, in degrees.</param>
         /// <returns>The signed delta in degrees, in the range [-180, 180).</returns>
-        public static float DeltaAngleDegrees(float current, float target) => RoundingUtils.Wrap(target - current, -180f, 180f);
+        public static float DeltaAngleDegrees(float current, float target) => Wrap(target - current, -180f, 180f);
 
         /// <inheritdoc cref="DeltaAngleDegrees(float, float)"/>
-        public static double DeltaAngleDegrees(double current, double target) => RoundingUtils.Wrap(target - current, -180d, 180d);
+        public static double DeltaAngleDegrees(double current, double target) => Wrap(target - current, -180d, 180d);
 
         /// <summary>
         /// Returns the shortest signed difference between two angles in radians, accounting for wraparound.
@@ -115,10 +113,10 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="current">The starting angle, in radians.</param>
         /// <param name="target">The target angle, in radians.</param>
         /// <returns>The signed delta in radians, in the range [-π, π).</returns>
-        public static float DeltaAngleRadians(float current, float target) => RoundingUtils.Wrap(target - current, -MathF.PI, MathF.PI);
+        public static float DeltaAngleRadians(float current, float target) => Wrap(target - current, -MathF.PI, MathF.PI);
 
         /// <inheritdoc cref="DeltaAngleRadians(float, float)"/>
-        public static double DeltaAngleRadians(double current, double target) => RoundingUtils.Wrap(target - current, -Math.PI, Math.PI);
+        public static double DeltaAngleRadians(double current, double target) => Wrap(target - current, -Math.PI, Math.PI);
 
         #endregion Delta
 
@@ -133,11 +131,11 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="t">The interpolation factor, clamped to [0, 1].</param>
         /// <returns>The interpolated angle in degrees (not wrapped).</returns>
         public static float LerpAngleDegrees(float current, float target, float t) =>
-            current + DeltaAngleDegrees(current, target) * NumericalUtils.Clamp01(t);
+            current + DeltaAngleDegrees(current, target) * Clamp01(t);
 
         /// <inheritdoc cref="LerpAngleDegrees(float, float, float)"/>
         public static double LerpAngleDegrees(double current, double target, double t) =>
-            current + DeltaAngleDegrees(current, target) * NumericalUtils.Clamp01(t);
+            current + DeltaAngleDegrees(current, target) * Clamp01(t);
 
         /// <summary>Interpolates between two angles in radians along the shortest path.</summary>
         /// <param name="current">The start angle, in radians.</param>
@@ -145,11 +143,11 @@ namespace BeeneticToolkit.Numerics {
         /// <param name="t">The interpolation factor, clamped to [0, 1].</param>
         /// <returns>The interpolated angle in radians (not wrapped).</returns>
         public static float LerpAngleRadians(float current, float target, float t) =>
-            current + DeltaAngleRadians(current, target) * NumericalUtils.Clamp01(t);
+            current + DeltaAngleRadians(current, target) * Clamp01(t);
 
         /// <inheritdoc cref="LerpAngleRadians(float, float, float)"/>
         public static double LerpAngleRadians(double current, double target, double t) =>
-            current + DeltaAngleRadians(current, target) * NumericalUtils.Clamp01(t);
+            current + DeltaAngleRadians(current, target) * Clamp01(t);
 
         #endregion Lerp
 
@@ -168,7 +166,7 @@ namespace BeeneticToolkit.Numerics {
             if (-maxDelta < delta && delta < maxDelta)
                 return target;
 
-            return InterpolationUtils.MoveTowards(current, current + delta, maxDelta);
+            return MoveTowards(current, current + delta, maxDelta);
         }
 
         /// <inheritdoc cref="MoveTowardsAngleDegrees(float, float, float)"/>
@@ -177,7 +175,7 @@ namespace BeeneticToolkit.Numerics {
             if (-maxDelta < delta && delta < maxDelta)
                 return target;
 
-            return InterpolationUtils.MoveTowards(current, current + delta, maxDelta);
+            return MoveTowards(current, current + delta, maxDelta);
         }
 
         /// <summary>
@@ -193,7 +191,7 @@ namespace BeeneticToolkit.Numerics {
             if (-maxDelta < delta && delta < maxDelta)
                 return target;
 
-            return InterpolationUtils.MoveTowards(current, current + delta, maxDelta);
+            return MoveTowards(current, current + delta, maxDelta);
         }
 
         /// <inheritdoc cref="MoveTowardsAngleRadians(float, float, float)"/>
@@ -202,7 +200,7 @@ namespace BeeneticToolkit.Numerics {
             if (-maxDelta < delta && delta < maxDelta)
                 return target;
 
-            return InterpolationUtils.MoveTowards(current, current + delta, maxDelta);
+            return MoveTowards(current, current + delta, maxDelta);
         }
 
         #endregion MoveTowards

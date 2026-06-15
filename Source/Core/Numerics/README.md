@@ -12,37 +12,43 @@ dotnet add package BeeneticToolkit.Numerics
 
 ## Highlights
 
+Everything lives on one discoverable type, **`MathKit`** — like Unity's `Mathf` or .NET's `Math`, but for
+this toolkit. Type `MathKit.` and browse.
+
 ```csharp
 using BeeneticToolkit.Numerics;
 
 // Interpolation
-float y  = InterpolationUtils.Lerp(0, 100, t);              // clamped to [0,1]
-float ye = InterpolationUtils.SmoothStep(0, 100, t);        // Hermite easing
-float yx = InterpolationUtils.LerpUnclamped(0, 100, 1.5f);  // extrapolates
+float y  = MathKit.Lerp(0, 100, t);              // clamped to [0,1]
+float ye = MathKit.SmoothStep(0, 100, t);        // Hermite easing
+float yx = MathKit.LerpUnclamped(0, 100, 1.5f);  // extrapolates
 
 // Remap a value from one range to another (e.g. raw reading -> percentage)
-float pct = InterpolationUtils.Remap(reading, 0, 1023, 0, 100);
+float pct = MathKit.Remap(reading, 0, 1023, 0, 100);
 
 // Splines: cubic Bezier (Cerp) and Catmull-Rom (passes through its control points)
-float b = InterpolationUtils.Cerp(p0, p1, p2, p3, t);        // 4-point cubic Bezier
-float s = InterpolationUtils.CatmullRom(p0, p1, p2, p3, t);  // smooth path through p1..p2
+float b = MathKit.Cerp(p0, p1, p2, p3, t);        // 4-point cubic Bezier
+float s = MathKit.CatmullRom(p0, p1, p2, p3, t);  // smooth path through p1..p2
 
 // Normalize / clamp
-float hp01 = NumericalUtils.Normalize(hp, 0, maxHp);        // -> [0, 1]
-float c    = NumericalUtils.Clamp01(value);
+float hp01 = MathKit.Normalize(hp, 0, maxHp);    // -> [0, 1]
+float c    = MathKit.Clamp01(value);
 
 // Angles
-float radians = AngleUtils.ToRadians(90f);
-float wrapped = AngleUtils.WrapDegrees(370f);              // -> 10
-float turn    = AngleUtils.DeltaAngleDegrees(350f, 10f);  // -> 20 (shortest signed turn across the seam)
-float facing  = AngleUtils.LerpAngleDegrees(350f, 10f, t);        // interpolates the short way
-float step    = AngleUtils.MoveTowardsAngleDegrees(350f, 10f, 5f);// turn ≤5° toward target
+float radians = MathKit.ToRadians(90f);
+float wrapped = MathKit.WrapDegrees(370f);              // -> 10
+float turn    = MathKit.DeltaAngleDegrees(350f, 10f);  // -> 20 (shortest signed turn across the seam)
+float facing  = MathKit.LerpAngleDegrees(350f, 10f, t);        // interpolates the short way
+float step    = MathKit.MoveTowardsAngleDegrees(350f, 10f, 5f);// turn ≤5° toward target
 
 // Move a value toward a target at constant speed (no overshoot)
-float meter = InterpolationUtils.MoveTowards(current, target, maxDelta);
+float meter = MathKit.MoveTowards(current, target, maxDelta);
+
+// Easing curves (also surfaced as MathKit.Ease)
+float eased = MathKit.Ease(EasingType.OutBack, a, b, t);
 
 // Magnitude-aware float comparison (absolute comparison fails for large values)
-bool equal = NumericalUtils.IsApproximatelyRelative(1e9, 1e9 + 50, 1e-6); // true
+bool equal = MathKit.IsApproximatelyRelative(1e9, 1e9 + 50, 1e-6); // true
 ```
 
 > **Tip:** these methods are overloaded for `float`, `double`, and `decimal`, so a call whose
@@ -67,10 +73,11 @@ EasingType curve = config.Curve;
 float eased = EasingUtils.Ease(curve, t);
 ```
 
-Provided for `float` and `double`. `Back` and `Elastic` intentionally overshoot outside `[0, 1]`.
+Provided for `float` and `double`. `Back` and `Elastic` intentionally overshoot outside `[0, 1]`. The named
+curves live on `EasingUtils`; `MathKit.Ease(EasingType, …)` is the discoverable shortcut.
 
-Also includes `RoundingUtils` (`RoundToNearest`, floored `Wrap`) and
-`IntegralMappingExtensions` for signed/unsigned integral mapping.
+`MathKit` also includes `RoundToNearest` and floored `Wrap`. Integral mapping is a separate set of
+extension methods (`IntegralMappingExtensions`), since those read fluently on the value itself.
 
 ## License
 
