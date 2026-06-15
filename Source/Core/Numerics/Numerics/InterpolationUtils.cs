@@ -249,5 +249,44 @@ namespace BeeneticToolkit.Numerics {
         }
 
         #endregion SmoothStep
+
+        #region MoveTowards
+
+        /// <summary>
+        /// Moves <paramref name="current"/> toward <paramref name="target"/> by at most <paramref name="maxDelta"/>,
+        /// without overshooting. Unlike <see cref="Lerp(float, float, float)"/>, this moves a fixed amount rather
+        /// than a fraction — handy for constant-speed movement of meters, cooldowns, and UI values.
+        /// </summary>
+        /// <param name="current">The current value.</param>
+        /// <param name="target">The value to move toward.</param>
+        /// <param name="maxDelta">The maximum distance to move. Negative values move away from the target.</param>
+        /// <returns>The new value, never past <paramref name="target"/> (for non-negative <paramref name="maxDelta"/>).</returns>
+        public static float MoveTowards(float current, float target, float maxDelta) {
+            float diff = target - current;
+            if (Math.Abs(diff) <= maxDelta)
+                return target;
+
+            return current + Math.Sign(diff) * maxDelta;
+        }
+
+        /// <inheritdoc cref="MoveTowards(float, float, float)"/>
+        public static double MoveTowards(double current, double target, double maxDelta) {
+            double diff = target - current;
+            if (Math.Abs(diff) <= maxDelta)
+                return target;
+
+            return current + Math.Sign(diff) * maxDelta;
+        }
+
+        /// <inheritdoc cref="MoveTowards(float, float, float)"/>
+        public static decimal MoveTowards(decimal current, decimal target, decimal maxDelta) {
+            decimal diff = target - current;
+            if (Math.Abs(diff) <= maxDelta)
+                return target;
+
+            return current + Math.Sign(diff) * maxDelta;
+        }
+
+        #endregion MoveTowards
     }
 }

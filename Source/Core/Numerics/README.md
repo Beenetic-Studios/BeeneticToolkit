@@ -30,6 +30,12 @@ float c    = NumericalUtils.Clamp01(value);
 // Angles
 float radians = AngleUtils.ToRadians(90f);
 float wrapped = AngleUtils.WrapDegrees(370f);              // -> 10
+float turn    = AngleUtils.DeltaAngleDegrees(350f, 10f);  // -> 20 (shortest signed turn across the seam)
+float facing  = AngleUtils.LerpAngleDegrees(350f, 10f, t);        // interpolates the short way
+float step    = AngleUtils.MoveTowardsAngleDegrees(350f, 10f, 5f);// turn ≤5° toward target
+
+// Move a value toward a target at constant speed (no overshoot)
+float meter = InterpolationUtils.MoveTowards(current, target, maxDelta);
 
 // Magnitude-aware float comparison (absolute comparison fails for large values)
 bool equal = NumericalUtils.IsApproximatelyRelative(1e9, 1e9 + 50, 1e-6); // true
