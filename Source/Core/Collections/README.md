@@ -262,6 +262,30 @@ using (pool.Rent(out var sb)) {   // automatically returned to the pool on dispo
 allocation) that returns the object when disposed; `Get()` / `Return(obj)` are available for manual
 control.
 
+## Ring buffer
+
+`RingBuffer<T>` is a fixed-capacity circular FIFO. Once full, adding overwrites and drops the oldest
+element — perfect for rolling windows like input/command history, recent frame-time or telemetry samples,
+netcode snapshots, or "last N events" logs. Backed by a single array, so it allocates nothing in use
+(`foreach` is allocation-free via a struct enumerator).
+
+```csharp
+using BeeneticToolkit.Collections;
+
+var recent = new RingBuffer<float>(60);   // keep the last 60 frame times
+recent.Add(deltaTime);                    // overwrites the oldest once full
+
+float newest = recent.PeekNewest();
+float oldest = recent[0];                 // indexer: 0 = oldest … Count-1 = newest
+float average = recent.Sum() / recent.Count;
+
+foreach (float dt in recent) { /* oldest → newest */ }
+```
+
+Use `Add` for overwrite-oldest behavior, or `TryAdd` to reject when full (a bounded queue). Drain with
+`RemoveOldest` / `TryRemoveOldest`; inspect with `PeekOldest` / `PeekNewest` (and `Try…` variants),
+`Count`, `Capacity`, `IsEmpty`, `IsFull`.
+
 ## License
 
 Licensed under the MIT License.
