@@ -9,7 +9,7 @@ only what you need. All target `netstandard2.1` (modern .NET and Unity-friendly)
 
 | Package | What it does |
 |---|---|
-| [`BeeneticToolkit.Random`](Source/Core/Random/README.md) | Deterministic, seedable RNG (xoshiro256\*\* and more) with reproducible environments and rich selection helpers. |
+| [`BeeneticToolkit.Random`](Source/Core/Random/README.md) | Deterministic, seedable RNG (xoshiro256\*\* and more) with reproducible environments, rich selection helpers, and coherent noise (value/Perlin, 2D & 3D, fractal/fBm). |
 | [`BeeneticToolkit.Collections`](Source/Core/Collections/README.md) | Type-safe "smart enums" with attached data and O(1) lookups, plus a thread-safe object pool. |
 | [`BeeneticToolkit.Numerics`](Source/Core/Numerics/README.md) | `Mathf`-style numeric helpers — interpolation, remapping, angle math, robust comparisons. |
 | `BeeneticToolkit` | Meta-package that references all of the above. |

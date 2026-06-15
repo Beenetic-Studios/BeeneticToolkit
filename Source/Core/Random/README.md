@@ -100,6 +100,31 @@ rng.ShuffleInPlace(deck);
 if (rng.TryRandomChoice(loot, out string chosen)) { /* ... */ }
 ```
 
+## Coherent noise
+
+Deterministic, cross-platform **value** and **Perlin** noise (2D & 3D) with a fractal/fBm wrapper, in
+the `BeeneticToolkit.Random.Noise` namespace. Unlike Unity's `Mathf.PerlinNoise`, it is seedable and
+bit-identical across platforms, so procedural content reproduces exactly. Allocation-free scalar sampling.
+
+```csharp
+using BeeneticToolkit.Random.Noise;
+
+INoise perlin = NoiseFactory.Create(NoiseAlgorithm.Perlin, seed: 1337);
+float v   = perlin.Sample(x, y);       // [-1, 1]
+float v01 = perlin.Sample01(x, y);     // [0, 1]
+float cave = perlin.Sample(x, y, z);   // 3D
+
+// Fractal Brownian motion — natural-looking terrain/textures:
+var terrain = new FractalNoise(perlin, octaves: 5, frequency: 0.01f);
+float height = terrain.Sample(worldX, worldY);
+```
+
+Seed it from an environment's `RootSeed` to keep noise reproducible alongside the rest of a run:
+
+```csharp
+INoise noise = NoiseFactory.Create(NoiseAlgorithm.Perlin, world.RootSeed);
+```
+
 ## Thread safety
 
 Generators are **not** thread-safe — each draw advances mutable state. For concurrent work, give each

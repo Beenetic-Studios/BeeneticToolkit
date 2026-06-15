@@ -8,8 +8,8 @@
 
 		<PackageId>BeeneticToolkit.Random</PackageId>
 		<AssemblyName>BeeneticToolkit.Random</AssemblyName>
-		<Description>Deterministic, seedable pseudo-random generation for games and simulations: swappable algorithms (xoshiro256**, Xorshift, Combined LCG, Middle-Square-Weyl), reproducible environments, and weighted/subset/shuffle selection helpers.</Description>
-		<PackageTags>random;rng;prng;xoshiro;seed;deterministic;games;simulation;weighted;shuffle</PackageTags>
+		<Description>Deterministic, seedable pseudo-random generation for games and simulations: swappable algorithms (xoshiro256**, Xorshift, Combined LCG, Middle-Square-Weyl), reproducible environments, weighted/subset/shuffle selection helpers, and coherent noise (value/Perlin, 2D &amp; 3D, fractal/fBm) under BeeneticToolkit.Random.Noise.</Description>
+		<PackageTags>random;rng;prng;xoshiro;seed;deterministic;games;simulation;weighted;shuffle;noise;perlin;procedural</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
