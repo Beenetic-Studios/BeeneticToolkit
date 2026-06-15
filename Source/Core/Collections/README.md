@@ -313,6 +313,26 @@ provides `Dequeue`, `EnqueueDequeue` (enqueue then pop the min in one step), `Cl
 > `BeeneticToolkit.Collections`, alias or fully qualify to disambiguate. On Unity/`netstandard2.1` there's
 > no conflict.
 
+## LRU cache
+
+`LruCache<TKey, TValue>` is a fixed-capacity cache that evicts the least-recently-used entry when it fills
+up — so memory stays bounded for asset, result, or path caches. Lookups, inserts, and eviction are all
+O(1). Reading or writing a key marks it most-recently-used; `TryPeek`/`ContainsKey` deliberately don't.
+
+```csharp
+using BeeneticToolkit.Collections;
+
+var thumbnails = new LruCache<string, Texture>(capacity: 100);
+thumbnails.Evicted += (key, tex) => tex.Dispose();         // release what falls out
+
+Texture icon = thumbnails.GetOrAdd(path, LoadTexture);     // cached, or loaded + cached
+if (thumbnails.TryGet(path, out Texture cached)) { /* hit, now most-recently-used */ }
+```
+
+`Set` / the indexer add-or-update; `TryGet` / `GetOrAdd` read (and bump recency); `TryPeek` / `ContainsKey`
+inspect without bumping; `Remove`, `Clear`, `Count`, `Capacity`, and a recency-ordered `Keys` round it out.
+Pass an `IEqualityComparer<TKey>` for things like case-insensitive string keys.
+
 ## License
 
 Licensed under the MIT License.
