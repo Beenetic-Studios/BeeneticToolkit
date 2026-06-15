@@ -81,6 +81,18 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <summary>Attempts to retrieve an item by its short name, without throwing.</summary>
         public static bool TryFromShortName(string shortName, [MaybeNullWhen(false)] out TSelf item) => Backing.Collection.TryFromShortName(shortName, out item);
 
+        /// <summary>Gets the fixed domain of all items, used to build <see cref="EnumSet{T}"/> flag sets.</summary>
+        public static EnumDomain<TSelf> Domain => Backing.Domain;
+
+        /// <summary>Creates an empty <see cref="EnumSet{T}"/> over this enum's items.</summary>
+        public static EnumSet<TSelf> EmptySet() => Backing.Domain.Empty();
+
+        /// <summary>Creates an <see cref="EnumSet{T}"/> containing every item of this enum.</summary>
+        public static EnumSet<TSelf> FullSet() => Backing.Domain.All();
+
+        /// <summary>Creates an <see cref="EnumSet{T}"/> containing the given items of this enum.</summary>
+        public static EnumSet<TSelf> SetOf(params TSelf[] items) => Backing.Domain.Of(items);
+
         /// <summary>
         /// Holds the per-<typeparamref name="TSelf"/> registry. Nested so its static initializer runs lazily on
         /// first access, under the CLR's type-initialization lock (thread-safe by construction).
@@ -89,6 +101,7 @@ namespace BeeneticToolkit.Collections.Enums {
 
             public static readonly EnumCollection<TSelf, TKey, TGroup> Collection = Build();
             public static readonly IReadOnlyList<TSelf> Items = Collection.GetAll().ToList();
+            public static readonly EnumDomain<TSelf> Domain = new EnumDomain<TSelf>(Items);
 
             private static EnumCollection<TSelf, TKey, TGroup> Build() {
                 // Force the concrete type's static fields to construct BEFORE we read them. This is what makes

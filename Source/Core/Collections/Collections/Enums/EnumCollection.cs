@@ -261,5 +261,20 @@ namespace BeeneticToolkit.Collections.Enums {
         }
 
         #endregion Lookup
+
+        #region Flag Sets
+
+        /// <summary>
+        /// Creates a fixed <see cref="EnumDomain{T}"/> snapshot of the items currently in this collection, for
+        /// building <see cref="EnumSet{T}"/> flag sets.
+        /// </summary>
+        /// <remarks>
+        /// The domain is a <b>snapshot</b>: items added to or removed from this collection afterward are not
+        /// reflected. Call this again after mutating the collection if you need an up-to-date domain.
+        /// </remarks>
+        /// <returns>A domain over the collection's current items, in their current order.</returns>
+        public EnumDomain<T> ToDomain() => new EnumDomain<T>(_items);
+
+        #endregion Flag Sets
     }
 }

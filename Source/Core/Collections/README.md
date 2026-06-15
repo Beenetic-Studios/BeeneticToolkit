@@ -172,6 +172,43 @@ by default. So items work correctly as dictionary keys, in sets, and in sorted c
 
 ---
 
+## Flag sets (`EnumSet<T>`)
+
+`EnumSet<T>` is the smart-enum equivalent of a `[Flags]` enum — hold a *combination* of items as one value
+and do set algebra on it — but without the 64-value ceiling, the manual `1 << n` bookkeeping, or losing
+type safety. It's backed by a compact bitmask (one bit per item), so membership tests and combinations are
+fast and the in-place operations allocate nothing.
+
+For an `AutoEnumItem`, the factories come for free on the type:
+
+```csharp
+EnumSet<Planet> inner = Planet.SetOf(Planet.Earth, Planet.Mars);
+EnumSet<Planet> rocky = Planet.Domain.From(Planet.GetByGroup(PlanetGroup.Rocky));
+
+bool hasEarth = inner.Contains(Planet.Earth);
+EnumSet<Planet> everythingElse = ~inner;             // complement, relative to all planets
+EnumSet<Planet> both = inner & rocky;                // intersection
+bool subset = inner.IsSubsetOf(Planet.FullSet());
+
+foreach (Planet p in inner) { /* yielded in declaration order */ }
+```
+
+Combine with operators (`|` union, `&` intersection, `^` symmetric difference, `-` difference, `~`
+complement), or mutate in place without allocating (`Add`, `Remove`, `UnionWith`, `IntersectWith`,
+`ExceptWith`, `SymmetricExceptWith`). Query with `Contains`, `IsSubsetOf`, `IsSupersetOf`, `Overlaps`,
+`SetEquals`, `Count`, `IsEmpty`.
+
+The **domain** is the complete pool of valid items a set draws from — it's what `complement` is relative to,
+and only sets built from the **same domain** can be combined (mixing throws). For a runtime-built
+`EnumCollection`, snapshot a domain with `collection.ToDomain()`:
+
+```csharp
+EnumDomain<Card> domain = catalog.ToDomain();         // snapshot of the current items
+EnumSet<Card> starter = domain.Of(catalog.FromKey("strike"), catalog.FromKey("defend"));
+```
+
+---
+
 ## Object pooling
 
 A small, thread-safe object pool for reusing instances and avoiding allocations on hot paths.
