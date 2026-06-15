@@ -15,10 +15,10 @@
 
   <!-- Shared package metadata (applies to every project; only packable libraries produce packages). -->
   <PropertyGroup>
-	<Version>0.5.0</Version>
-	<Authors>Braden Franksen</Authors>
-	<Company>Braden Franksen</Company>
-	<Copyright>Copyright (c) 2023 Braden Franksen</Copyright>
+	<Version>0.6.0</Version>
+	<Authors>Beenetic Studios</Authors>
+	<Company>Beenetic Studios</Company>
+	<Copyright>Copyright (c) 2023-2026 Braden Franksen (Beenetic Studios)</Copyright>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageProjectUrl>https://github.com/bfranksen/BeeneticToolkit</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/bfranksen/BeeneticToolkit</RepositoryUrl>

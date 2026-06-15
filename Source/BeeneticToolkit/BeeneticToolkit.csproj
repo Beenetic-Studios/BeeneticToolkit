@@ -4,8 +4,8 @@
 		<TargetFramework>netstandard2.1</TargetFramework>
 
 		<PackageId>BeeneticToolkit</PackageId>
-		<Description>Meta-package that references the full BeeneticToolkit family: BeeneticToolkit.Random, BeeneticToolkit.Collections, and BeeneticToolkit.Numerics. Install this to get everything, or install the individual packages to take only what you need.</Description>
-		<PackageTags>beenetictoolkit;utilities;random;collections;numerics;games;unity</PackageTags>
+		<Description>Meta-package that references the full BeeneticToolkit family: BeeneticToolkit.Random, BeeneticToolkit.Collections, BeeneticToolkit.Numerics, and BeeneticToolkit.Logging. Install this to get everything, or install the individual packages to take only what you need.</Description>
+		<PackageTags>beenetictoolkit;utilities;random;collections;numerics;logging;games;unity</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<!-- Dependency-only meta-package: no compiled output (and therefore no symbols) of its own. -->
@@ -19,6 +19,7 @@
 		<ProjectReference Include="..\Core\Random\Random.csproj" />
 		<ProjectReference Include="..\Core\Collections\Collections.csproj" />
 		<ProjectReference Include="..\Core\Numerics\Numerics.csproj" />
+		<ProjectReference Include="..\Core\Logging\Logging.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
