@@ -23,6 +23,10 @@ float yx = InterpolationUtils.LerpUnclamped(0, 100, 1.5f);  // extrapolates
 // Remap a value from one range to another (e.g. raw reading -> percentage)
 float pct = InterpolationUtils.Remap(reading, 0, 1023, 0, 100);
 
+// Splines: cubic Bezier (Cerp) and Catmull-Rom (passes through its control points)
+float b = InterpolationUtils.Cerp(p0, p1, p2, p3, t);        // 4-point cubic Bezier
+float s = InterpolationUtils.CatmullRom(p0, p1, p2, p3, t);  // smooth path through p1..p2
+
 // Normalize / clamp
 float hp01 = NumericalUtils.Normalize(hp, 0, maxHp);        // -> [0, 1]
 float c    = NumericalUtils.Clamp01(value);

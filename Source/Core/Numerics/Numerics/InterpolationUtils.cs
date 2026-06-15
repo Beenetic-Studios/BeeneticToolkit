@@ -288,5 +288,86 @@ namespace BeeneticToolkit.Numerics {
         }
 
         #endregion MoveTowards
+
+        #region Splines
+
+        /// <summary>
+        /// Evaluates a cubic Bézier curve at <paramref name="factor"/> — the four-point sibling of
+        /// <see cref="Qerp(float, float, float, float)"/>. The curve starts at <paramref name="p0"/>, ends at
+        /// <paramref name="p3"/>, and is pulled toward the interior control points <paramref name="p1"/> and
+        /// <paramref name="p2"/> (which it does not pass through).
+        /// </summary>
+        /// <param name="p0">The start point.</param>
+        /// <param name="p1">The first control point.</param>
+        /// <param name="p2">The second control point.</param>
+        /// <param name="p3">The end point.</param>
+        /// <param name="factor">The curve parameter, typically in [0, 1]. Not clamped.</param>
+        /// <returns>The point on the curve at <paramref name="factor"/>.</returns>
+        public static float Cerp(float p0, float p1, float p2, float p3, float factor) {
+            float u = 1f - factor;
+            float uu = u * u;
+            float tt = factor * factor;
+            return uu * u * p0 + 3f * uu * factor * p1 + 3f * u * tt * p2 + tt * factor * p3;
+        }
+
+        /// <inheritdoc cref="Cerp(float, float, float, float, float)"/>
+        public static double Cerp(double p0, double p1, double p2, double p3, double factor) {
+            double u = 1d - factor;
+            double uu = u * u;
+            double tt = factor * factor;
+            return uu * u * p0 + 3d * uu * factor * p1 + 3d * u * tt * p2 + tt * factor * p3;
+        }
+
+        /// <inheritdoc cref="Cerp(float, float, float, float, float)"/>
+        public static decimal Cerp(decimal p0, decimal p1, decimal p2, decimal p3, decimal factor) {
+            decimal u = 1m - factor;
+            decimal uu = u * u;
+            decimal tt = factor * factor;
+            return uu * u * p0 + 3m * uu * factor * p1 + 3m * u * tt * p2 + tt * factor * p3;
+        }
+
+        /// <summary>
+        /// Evaluates a Catmull-Rom spline segment, interpolating from <paramref name="p1"/> (at
+        /// <paramref name="t"/> = 0) to <paramref name="p2"/> (at <paramref name="t"/> = 1) using
+        /// <paramref name="p0"/> and <paramref name="p3"/> as the neighbouring points that shape the tangents.
+        /// Unlike a Bézier curve, the spline passes <i>through</i> <paramref name="p1"/> and <paramref name="p2"/>,
+        /// which makes it ideal for smoothly following a series of keyframes or waypoints.
+        /// </summary>
+        /// <param name="p0">The point before the segment (shapes the entry tangent).</param>
+        /// <param name="p1">The segment start (returned at <paramref name="t"/> = 0).</param>
+        /// <param name="p2">The segment end (returned at <paramref name="t"/> = 1).</param>
+        /// <param name="p3">The point after the segment (shapes the exit tangent).</param>
+        /// <param name="t">The segment parameter, typically in [0, 1]. Not clamped.</param>
+        /// <returns>The point on the spline between <paramref name="p1"/> and <paramref name="p2"/>.</returns>
+        public static float CatmullRom(float p0, float p1, float p2, float p3, float t) {
+            float t2 = t * t;
+            float t3 = t2 * t;
+            return 0.5f * (2f * p1
+                + (-p0 + p2) * t
+                + (2f * p0 - 5f * p1 + 4f * p2 - p3) * t2
+                + (-p0 + 3f * p1 - 3f * p2 + p3) * t3);
+        }
+
+        /// <inheritdoc cref="CatmullRom(float, float, float, float, float)"/>
+        public static double CatmullRom(double p0, double p1, double p2, double p3, double t) {
+            double t2 = t * t;
+            double t3 = t2 * t;
+            return 0.5d * (2d * p1
+                + (-p0 + p2) * t
+                + (2d * p0 - 5d * p1 + 4d * p2 - p3) * t2
+                + (-p0 + 3d * p1 - 3d * p2 + p3) * t3);
+        }
+
+        /// <inheritdoc cref="CatmullRom(float, float, float, float, float)"/>
+        public static decimal CatmullRom(decimal p0, decimal p1, decimal p2, decimal p3, decimal t) {
+            decimal t2 = t * t;
+            decimal t3 = t2 * t;
+            return 0.5m * (2m * p1
+                + (-p0 + p2) * t
+                + (2m * p0 - 5m * p1 + 4m * p2 - p3) * t2
+                + (-p0 + 3m * p1 - 3m * p2 + p3) * t3);
+        }
+
+        #endregion Splines
     }
 }
