@@ -20,6 +20,7 @@
     <ProjectReference Include="..\Source\Core\Logging\Logging.csproj" />
     <ProjectReference Include="..\Source\Core\Numerics\Numerics.csproj" />
     <ProjectReference Include="..\Source\Core\Random\Random.csproj" />
+    <ProjectReference Include="..\Source\Core\Spatial\Spatial.csproj" />
   </ItemGroup>
 
 </Project>

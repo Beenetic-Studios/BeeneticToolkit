@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>enable</Nullable>
+		<RootNamespace>BeeneticToolkit</RootNamespace>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+		<!-- Not published yet; building toward maturity before it joins the family. -->
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Pathfinding (A*/Dijkstra) reuses BeeneticToolkit.Collections.PriorityQueue. -->
+		<ProjectReference Include="..\Collections\Collections.csproj" />
+	</ItemGroup>
+</Project>
