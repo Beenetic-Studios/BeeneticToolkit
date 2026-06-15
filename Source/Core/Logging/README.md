@@ -95,6 +95,21 @@ log.Info("Reloading", this);
 The raw `Log(severity, …)` overloads remain for explicit control, including an overload that takes a
 `MethodBase` if you prefer to pass it yourself.
 
+### Avoiding the cost of logs you won't emit
+
+Message arguments are built *before* the call runs, so a filtered-out log still pays to construct its
+string. For expensive, verbose, usually-disabled sites, guard with `IsEnabled` (cheapest — no allocation),
+or pass a `Func<string>` overload that only runs when the message will actually be emitted:
+
+```csharp
+if (log.IsEnabled(LogSeverity.Debug))
+    log.Debug($"State: {ComputeExpensiveSnapshot()}");   // built only when needed
+
+log.Debug(() => $"State: {ComputeExpensiveSnapshot()}"); // same, via a deferred factory
+```
+
+`IsEnabled` and the `Func<string>` overloads exist on `LogManager`, `LoggerService`, and any `LoggerBase`.
+
 ## Configuring a logger
 
 ```csharp

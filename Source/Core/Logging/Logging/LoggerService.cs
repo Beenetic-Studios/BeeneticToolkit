@@ -1,4 +1,5 @@
 using BeeneticToolkit.Logging.Enums;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace BeeneticToolkit.Logging {
@@ -50,5 +51,46 @@ namespace BeeneticToolkit.Logging {
         /// <summary>Logs a <see cref="LogSeverity.Fatal"/> message through the configured manager, if any.</summary>
         public static void Fatal(string message, object? context = null, [CallerMemberName] string member = "") =>
             Instance?.LogMessage(LogSeverity.Fatal, context, member, message);
+
+        /// <summary>
+        /// Determines whether the configured manager would currently emit a message of the given severity
+        /// (always <c>false</c> when not initialized). Use to guard expensive message construction.
+        /// </summary>
+        public static bool IsEnabled(LogSeverity severity) => Instance?.IsEnabled(severity) ?? false;
+
+        /// <summary>Logs a <see cref="LogSeverity.Trace"/> message, building it only if it will be emitted.</summary>
+        public static void Trace(Func<string> messageFactory, object? context = null, [CallerMemberName] string member = "") =>
+            LogDeferred(LogSeverity.Trace, messageFactory, context, member);
+
+        /// <summary>Logs an <see cref="LogSeverity.Info"/> message, building it only if it will be emitted.</summary>
+        public static void Info(Func<string> messageFactory, object? context = null, [CallerMemberName] string member = "") =>
+            LogDeferred(LogSeverity.Info, messageFactory, context, member);
+
+        /// <summary>Logs a <see cref="LogSeverity.Debug"/> message, building it only if it will be emitted.</summary>
+        public static void Debug(Func<string> messageFactory, object? context = null, [CallerMemberName] string member = "") =>
+            LogDeferred(LogSeverity.Debug, messageFactory, context, member);
+
+        /// <summary>Logs a <see cref="LogSeverity.Warn"/> message, building it only if it will be emitted.</summary>
+        public static void Warn(Func<string> messageFactory, object? context = null, [CallerMemberName] string member = "") =>
+            LogDeferred(LogSeverity.Warn, messageFactory, context, member);
+
+        /// <summary>Logs an <see cref="LogSeverity.Error"/> message, building it only if it will be emitted.</summary>
+        public static void Error(Func<string> messageFactory, object? context = null, [CallerMemberName] string member = "") =>
+            LogDeferred(LogSeverity.Error, messageFactory, context, member);
+
+        /// <summary>Logs a <see cref="LogSeverity.Fatal"/> message, building it only if it will be emitted.</summary>
+        public static void Fatal(Func<string> messageFactory, object? context = null, [CallerMemberName] string member = "") =>
+            LogDeferred(LogSeverity.Fatal, messageFactory, context, member);
+
+        private static void LogDeferred(LogSeverity severity, Func<string> messageFactory, object? context, string member) {
+            if (messageFactory == null)
+                throw new ArgumentNullException(nameof(messageFactory));
+
+            LogManager? instance = Instance;
+            if (instance == null || !instance.IsEnabled(severity))
+                return;
+
+            instance.LogMessage(severity, context, member, messageFactory());
+        }
     }
 }

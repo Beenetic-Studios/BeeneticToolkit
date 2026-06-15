@@ -115,6 +115,74 @@ namespace BeeneticToolkit.Tests.Logging {
             Assert.AreEqual(1, logger.WriteCount);
         }
 
+        // --- IsEnabled ---
+
+        [TestMethod]
+        public void IsEnabled_ReflectsThreshold() {
+            var logger = new MockLoggerBase(threshold: LogThreshold.Warn);
+            Assert.IsFalse(logger.IsEnabled(LogSeverity.Info));
+            Assert.IsTrue(logger.IsEnabled(LogSeverity.Error));
+
+            var manager = new LogManager().AddLogger(logger);
+            Assert.IsFalse(manager.IsEnabled(LogSeverity.Info));
+            Assert.IsTrue(manager.IsEnabled(LogSeverity.Warn));
+        }
+
+        [TestMethod]
+        public void LogManager_IsEnabled_TrueIfAnyLoggerWouldEmit() {
+            var quiet = new MockLoggerBase(threshold: LogThreshold.Error);
+            var chatty = new MockLoggerBase(threshold: LogThreshold.All);
+            var manager = new LogManager().AddLogger(quiet).AddLogger(chatty);
+
+            Assert.IsTrue(manager.IsEnabled(LogSeverity.Info)); // chatty would emit
+        }
+
+        // --- Deferred Func<string> overloads ---
+
+        [TestMethod]
+        public void Deferred_DoesNotInvokeFactory_WhenFiltered() {
+            var logger = new MockLoggerBase(threshold: LogThreshold.Error);
+            var manager = new LogManager().AddLogger(logger);
+
+            int factoryCalls = 0;
+            manager.Info(() => { factoryCalls++; return "expensive"; });   // filtered out
+
+            Assert.AreEqual(0, factoryCalls);
+            Assert.IsNull(logger.LastLoggedMessage);
+        }
+
+        [TestMethod]
+        public void Deferred_InvokesFactoryAndLogs_WhenEnabled() {
+            var logger = new MockLoggerBase();
+            var manager = new LogManager().AddLogger(logger);
+
+            int factoryCalls = 0;
+            manager.Error(() => { factoryCalls++; return "boom"; });
+
+            Assert.AreEqual(1, factoryCalls);
+            StringAssert.Contains(logger.LastLoggedMessage, "boom");
+            StringAssert.Contains(logger.LastLoggedMessage, nameof(Deferred_InvokesFactoryAndLogs_WhenEnabled));
+        }
+
+        [TestMethod]
+        public void Deferred_OnLoggerExtension_Works() {
+            var logger = new MockLoggerBase(threshold: LogThreshold.Error);
+
+            int calls = 0;
+            logger.Debug(() => { calls++; return "x"; });   // filtered → not invoked
+            Assert.AreEqual(0, calls);
+
+            logger.Error(() => { calls++; return "y"; });   // emitted
+            Assert.AreEqual(1, calls);
+            StringAssert.Contains(logger.LastLoggedMessage, "y");
+        }
+
+        [TestMethod]
+        public void Deferred_NullFactory_Throws() {
+            var manager = new LogManager().AddLogger(new MockLoggerBase());
+            Assert.ThrowsException<ArgumentNullException>(() => manager.Info((Func<string>)null));
+        }
+
         private sealed class Ctx {
             public override string ToString() => "CtxInstance";
         }

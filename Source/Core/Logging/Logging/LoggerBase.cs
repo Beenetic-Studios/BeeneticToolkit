@@ -220,6 +220,15 @@ namespace BeeneticToolkit.Logging {
         }
 
         /// <summary>
+        /// Determines whether a message of the given severity would currently be emitted by this logger (i.e. the
+        /// logger is enabled and the severity meets its threshold). Use this to guard expensive message
+        /// construction: <c>if (logger.IsEnabled(LogSeverity.Debug)) logger.Debug(Expensive());</c>.
+        /// </summary>
+        /// <param name="severity">The severity to test.</param>
+        /// <returns><c>true</c> if a message of this severity would be logged; otherwise <c>false</c>.</returns>
+        public bool IsEnabled(LogSeverity severity) => AllowLogMessage(severity);
+
+        /// <summary>
         /// Evaluates if a log message meets the required severity threshold and checks if the logger is currently enabled.
         /// </summary>
         /// <param name="severity">The severity of the message.</param>
