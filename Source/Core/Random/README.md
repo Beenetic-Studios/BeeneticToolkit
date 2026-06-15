@@ -125,6 +125,23 @@ Seed it from an environment's `RootSeed` to keep noise reproducible alongside th
 INoise noise = NoiseFactory.Create(NoiseAlgorithm.Perlin, world.RootSeed);
 ```
 
+## Poisson-disk point sampling
+
+Blue-noise point distributions (`BeeneticToolkit.Random.Sampling`) — random points kept at least a
+minimum distance apart, so they scatter evenly with no clumps or gaps. Ideal for placing vegetation,
+props, spawns, or decoration; deterministic for a seeded generator.
+
+```csharp
+using BeeneticToolkit.Random.Sampling;
+
+// Points at least 4 units apart, filling a 100x100 region:
+IReadOnlyList<(float X, float Y)> points =
+    PoissonDisk.Sample(rng, width: 100f, height: 100f, minDistance: 4f);
+
+foreach (var (x, y) in points)
+    PlaceTree(x, y);
+```
+
 ## Thread safety
 
 Generators are **not** thread-safe — each draw advances mutable state. For concurrent work, give each
