@@ -362,5 +362,115 @@ namespace BeeneticToolkit.Numerics {
         }
 
         #endregion Splines
+
+        #region SmootherStep
+
+        /// <summary>
+        /// Like <see cref="SmoothStep(float, float, float)"/> but using Ken Perlin's smoother curve
+        /// (6t⁵ − 15t⁴ + 10t³), which has zero first <i>and</i> second derivatives at both ends for an even
+        /// gentler start and stop. Clamps the factor to [0, 1].
+        /// </summary>
+        /// <param name="from">The start value (returned when <paramref name="t"/> is 0 or less).</param>
+        /// <param name="to">The end value (returned when <paramref name="t"/> is 1 or more).</param>
+        /// <param name="t">The interpolation factor. Clamped to [0, 1] before easing.</param>
+        /// <returns>The eased value between <paramref name="from"/> and <paramref name="to"/>.</returns>
+        public static float SmootherStep(float from, float to, float t) {
+            t = Clamp01(t);
+            t = t * t * t * (t * (t * 6f - 15f) + 10f);
+            return from + (to - from) * t;
+        }
+
+        /// <inheritdoc cref="SmootherStep(float, float, float)"/>
+        public static double SmootherStep(double from, double to, double t) {
+            t = Clamp01(t);
+            t = t * t * t * (t * (t * 6d - 15d) + 10d);
+            return from + (to - from) * t;
+        }
+
+        #endregion SmootherStep
+
+        #region Step
+
+        /// <summary>Returns 0 when <paramref name="x"/> is below <paramref name="edge"/>, otherwise 1 — a hard threshold, the GLSL-style companion to <see cref="SmoothStep(float, float, float)"/>.</summary>
+        /// <param name="edge">The threshold.</param>
+        /// <param name="x">The value to test.</param>
+        public static float Step(float edge, float x) => x < edge ? 0f : 1f;
+
+        /// <inheritdoc cref="Step(float, float)"/>
+        public static double Step(double edge, double x) => x < edge ? 0d : 1d;
+
+        /// <inheritdoc cref="Step(float, float)"/>
+        public static decimal Step(decimal edge, decimal x) => x < edge ? 0m : 1m;
+
+        #endregion Step
+
+        #region SmoothDamp
+
+        /// <summary>
+        /// Gradually moves <paramref name="current"/> toward <paramref name="target"/> like a critically-damped
+        /// spring — smooth acceleration and deceleration with no overshoot. Ideal for camera and UI follow.
+        /// Call every frame, threading the same <paramref name="currentVelocity"/> through.
+        /// </summary>
+        /// <param name="current">The current value.</param>
+        /// <param name="target">The value being chased.</param>
+        /// <param name="currentVelocity">The caller-owned velocity state; pass the same variable each call.</param>
+        /// <param name="smoothTime">Approximate time (seconds) to reach the target; larger is slower.</param>
+        /// <param name="deltaTime">Time since the last call (seconds). Must be positive.</param>
+        /// <param name="maxSpeed">Optional cap on how fast the value may move.</param>
+        /// <returns>The new value, one step closer to <paramref name="target"/>.</returns>
+        public static float SmoothDamp(float current, float target, ref float currentVelocity, float smoothTime, float deltaTime, float maxSpeed = float.PositiveInfinity) {
+            // Critically-damped spring (the formulation popularized by Game Programming Gems 4 / Unity).
+            smoothTime = Math.Max(0.0001f, smoothTime);
+            float omega = 2f / smoothTime;
+            float x = omega * deltaTime;
+            float exp = 1f / (1f + x + 0.48f * x * x + 0.235f * x * x * x);
+
+            float change = current - target;
+            float originalTarget = target;
+
+            float maxChange = maxSpeed * smoothTime;
+            change = Math.Clamp(change, -maxChange, maxChange);
+            target = current - change;
+
+            float temp = (currentVelocity + omega * change) * deltaTime;
+            currentVelocity = (currentVelocity - omega * temp) * exp;
+            float output = target + (change + temp) * exp;
+
+            // Prevent overshooting past the target.
+            if (originalTarget - current > 0f == output > originalTarget) {
+                output = originalTarget;
+                currentVelocity = (output - originalTarget) / deltaTime;
+            }
+
+            return output;
+        }
+
+        /// <inheritdoc cref="SmoothDamp(float, float, ref float, float, float, float)"/>
+        public static double SmoothDamp(double current, double target, ref double currentVelocity, double smoothTime, double deltaTime, double maxSpeed = double.PositiveInfinity) {
+            smoothTime = Math.Max(0.0001d, smoothTime);
+            double omega = 2d / smoothTime;
+            double x = omega * deltaTime;
+            double exp = 1d / (1d + x + 0.48d * x * x + 0.235d * x * x * x);
+
+            double change = current - target;
+            double originalTarget = target;
+
+            double maxChange = maxSpeed * smoothTime;
+            change = Math.Clamp(change, -maxChange, maxChange);
+            target = current - change;
+
+            double temp = (currentVelocity + omega * change) * deltaTime;
+            currentVelocity = (currentVelocity - omega * temp) * exp;
+            double output = target + (change + temp) * exp;
+
+            if (originalTarget - current > 0d == output > originalTarget) {
+                output = originalTarget;
+                currentVelocity = (output - originalTarget) / deltaTime;
+            }
+
+            return output;
+        }
+
+        #endregion SmoothDamp
     }
 }

@@ -204,5 +204,50 @@ namespace BeeneticToolkit.Numerics {
         }
 
         #endregion MoveTowards
+
+        #region SmoothDamp
+
+        /// <summary>
+        /// Critically-damped spring smoothing for an angle in degrees, taking the shortest path across the 0/360
+        /// seam. The angular companion to <see cref="SmoothDamp(float, float, ref float, float, float, float)"/>.
+        /// </summary>
+        /// <param name="current">The current angle, in degrees.</param>
+        /// <param name="target">The target angle, in degrees.</param>
+        /// <param name="currentVelocity">The caller-owned velocity state; pass the same variable each call.</param>
+        /// <param name="smoothTime">Approximate time (seconds) to reach the target; larger is slower.</param>
+        /// <param name="deltaTime">Time since the last call (seconds). Must be positive.</param>
+        /// <param name="maxSpeed">Optional cap on angular speed, in degrees per second.</param>
+        /// <returns>The new angle in degrees.</returns>
+        public static float SmoothDampAngleDegrees(float current, float target, ref float currentVelocity, float smoothTime, float deltaTime, float maxSpeed = float.PositiveInfinity) {
+            target = current + DeltaAngleDegrees(current, target);
+            return SmoothDamp(current, target, ref currentVelocity, smoothTime, deltaTime, maxSpeed);
+        }
+
+        /// <inheritdoc cref="SmoothDampAngleDegrees(float, float, ref float, float, float, float)"/>
+        public static double SmoothDampAngleDegrees(double current, double target, ref double currentVelocity, double smoothTime, double deltaTime, double maxSpeed = double.PositiveInfinity) {
+            target = current + DeltaAngleDegrees(current, target);
+            return SmoothDamp(current, target, ref currentVelocity, smoothTime, deltaTime, maxSpeed);
+        }
+
+        /// <summary>Critically-damped spring smoothing for an angle in radians, taking the shortest path.</summary>
+        /// <param name="current">The current angle, in radians.</param>
+        /// <param name="target">The target angle, in radians.</param>
+        /// <param name="currentVelocity">The caller-owned velocity state; pass the same variable each call.</param>
+        /// <param name="smoothTime">Approximate time (seconds) to reach the target; larger is slower.</param>
+        /// <param name="deltaTime">Time since the last call (seconds). Must be positive.</param>
+        /// <param name="maxSpeed">Optional cap on angular speed, in radians per second.</param>
+        /// <returns>The new angle in radians.</returns>
+        public static float SmoothDampAngleRadians(float current, float target, ref float currentVelocity, float smoothTime, float deltaTime, float maxSpeed = float.PositiveInfinity) {
+            target = current + DeltaAngleRadians(current, target);
+            return SmoothDamp(current, target, ref currentVelocity, smoothTime, deltaTime, maxSpeed);
+        }
+
+        /// <inheritdoc cref="SmoothDampAngleRadians(float, float, ref float, float, float, float)"/>
+        public static double SmoothDampAngleRadians(double current, double target, ref double currentVelocity, double smoothTime, double deltaTime, double maxSpeed = double.PositiveInfinity) {
+            target = current + DeltaAngleRadians(current, target);
+            return SmoothDamp(current, target, ref currentVelocity, smoothTime, deltaTime, maxSpeed);
+        }
+
+        #endregion SmoothDamp
     }
 }

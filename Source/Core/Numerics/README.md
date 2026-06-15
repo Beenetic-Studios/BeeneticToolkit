@@ -44,6 +44,12 @@ float step    = MathKit.MoveTowardsAngleDegrees(350f, 10f, 5f);// turn ≤5° to
 // Move a value toward a target at constant speed (no overshoot)
 float meter = MathKit.MoveTowards(current, target, maxDelta);
 
+// Smoothing & cycling
+float ss   = MathKit.SmootherStep(0, 1, t);           // Perlin's gentler ease
+float gate = MathKit.Step(0.5f, x);                   // hard threshold: 0 or 1
+float ping = MathKit.PingPong(time, 3f);              // bounces 0..3..0
+float cam  = MathKit.SmoothDamp(current, target, ref velocity, smoothTime, deltaTime); // spring follow
+
 // Easing curves (also surfaced as MathKit.Ease)
 float eased = MathKit.Ease(EasingType.OutBack, a, b, t);
 

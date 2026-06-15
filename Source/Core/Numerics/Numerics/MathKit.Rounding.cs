@@ -102,5 +102,35 @@ namespace BeeneticToolkit.Numerics {
         }
 
         #endregion Wrap
+
+        #region PingPong
+
+        /// <summary>
+        /// Oscillates between 0 and <paramref name="length"/> as <paramref name="t"/> increases — ramping up to
+        /// <paramref name="length"/>, back down to 0, and repeating. Handy for back-and-forth animation without
+        /// tracking direction.
+        /// </summary>
+        /// <param name="t">The (typically increasing) input value.</param>
+        /// <param name="length">The peak of the oscillation. Must be greater than zero.</param>
+        /// <returns>A value in [0, <paramref name="length"/>].</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="length"/> is not greater than zero.</exception>
+        public static float PingPong(float t, float length) {
+            if (length <= 0f)
+                throw new ArgumentException("Length must be greater than zero.", nameof(length));
+
+            float wrapped = Wrap(t, 0f, 2f * length);
+            return length - Math.Abs(wrapped - length);
+        }
+
+        /// <inheritdoc cref="PingPong(float, float)"/>
+        public static double PingPong(double t, double length) {
+            if (length <= 0d)
+                throw new ArgumentException("Length must be greater than zero.", nameof(length));
+
+            double wrapped = Wrap(t, 0d, 2d * length);
+            return length - Math.Abs(wrapped - length);
+        }
+
+        #endregion PingPong
     }
 }
