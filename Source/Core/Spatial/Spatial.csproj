@@ -6,12 +6,19 @@
 		<RootNamespace>BeeneticToolkit</RootNamespace>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 
-		<!-- Not published yet; building toward maturity before it joins the family. -->
-		<IsPackable>false</IsPackable>
+		<PackageId>BeeneticToolkit.Spatial</PackageId>
+		<AssemblyName>BeeneticToolkit.Spatial</AssemblyName>
+		<Description>Grids, pathfinding, visibility, and spatial queries for 2D games — engine-agnostic and deterministic. Hex and square grids (coordinates, layouts, lines, ranges/rings), A*/Dijkstra/BFS pathfinding and flow fields over an abstract graph, recursive-shadowcasting and hex line-of-sight field of view, and quadtree / spatial-hash partitioning with rectangle, radius, and nearest-neighbor queries. Uses integer coordinate structs and (float X, float Y) tuples instead of any engine vector type, so it stays portable across Unity, MonoGame, and plain .NET.</Description>
+		<PackageTags>spatial;grid;hex;hexgrid;pathfinding;astar;flow-field;field-of-view;quadtree;spatial-hash;games;unity;netstandard</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<!-- Pathfinding (A*/Dijkstra) reuses BeeneticToolkit.Collections.PriorityQueue. -->
 		<ProjectReference Include="..\Collections\Collections.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 </Project>

@@ -20,7 +20,10 @@ if ($LASTEXITCODE -ne 0) { throw "Build failed (exit $LASTEXITCODE)." }
 
 New-Item -ItemType Directory -Force -Path $dest | Out-Null
 
-# Copy the project DLLs + XML docs (Spatial.dll and its BeeneticToolkit.Collections.dll dependency).
+# Clear any previously-copied assemblies first, so a renamed assembly never leaves a stale duplicate behind.
+Get-ChildItem -Path $dest -File | Where-Object { $_.Extension -in '.dll', '.xml', '.pdb' } | Remove-Item -Force
+
+# Copy the project DLLs + XML docs (BeeneticToolkit.Spatial.dll and its BeeneticToolkit.Collections.dll dependency).
 Get-ChildItem -Path $output -File | Where-Object { $_.Extension -in '.dll', '.xml' } | ForEach-Object {
     Copy-Item $_.FullName -Destination $dest -Force
     Write-Host "  copied $($_.Name)"

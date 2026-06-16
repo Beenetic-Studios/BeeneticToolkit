@@ -15,7 +15,7 @@
 
   <!-- Shared package metadata (applies to every project; only packable libraries produce packages). -->
   <PropertyGroup>
-	<Version>0.6.0</Version>
+	<Version>0.7.0</Version>
 	<Authors>Beenetic Studios</Authors>
 	<Company>Beenetic Studios</Company>
 	<Copyright>Copyright (c) 2023-2026 Braden Franksen (Beenetic Studios)</Copyright>
