@@ -15,15 +15,15 @@
 
   <!-- Shared package metadata (applies to every project; only packable libraries produce packages). -->
   <PropertyGroup>
-	<Version>0.8.1</Version>
+	<Version>0.8.2</Version>
 	<Authors>Beenetic Studios</Authors>
 	<Company>Beenetic Studios</Company>
 	<Copyright>Copyright (c) 2023-2026 Braden Franksen (Beenetic Studios)</Copyright>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageIcon>icon.png</PackageIcon>
-	<PackageReleaseNotes>See the changelog: https://github.com/bfranksen/BeeneticToolkit/blob/master/CHANGELOG.md</PackageReleaseNotes>
-	<PackageProjectUrl>https://github.com/bfranksen/BeeneticToolkit</PackageProjectUrl>
-	<RepositoryUrl>https://github.com/bfranksen/BeeneticToolkit</RepositoryUrl>
+	<PackageReleaseNotes>See the changelog: https://github.com/Beenetic-Studios/BeeneticToolkit/blob/master/CHANGELOG.md</PackageReleaseNotes>
+	<PackageProjectUrl>https://github.com/Beenetic-Studios/BeeneticToolkit</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/Beenetic-Studios/BeeneticToolkit</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<Deterministic>true</Deterministic>

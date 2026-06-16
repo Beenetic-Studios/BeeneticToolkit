@@ -1,6 +1,6 @@
 # BeeneticToolkit.Logging
 
-[![NuGet](https://img.shields.io/nuget/v/BeeneticToolkit.Logging.svg)](https://www.nuget.org/packages/BeeneticToolkit.Logging) [![Downloads](https://img.shields.io/nuget/dt/BeeneticToolkit.Logging.svg)](https://www.nuget.org/packages/BeeneticToolkit.Logging) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bfranksen/BeeneticToolkit/blob/master/LICENSE.txt)
+[![NuGet](https://img.shields.io/nuget/v/BeeneticToolkit.Logging.svg)](https://www.nuget.org/packages/BeeneticToolkit.Logging) [![Downloads](https://img.shields.io/nuget/dt/BeeneticToolkit.Logging.svg)](https://www.nuget.org/packages/BeeneticToolkit.Logging) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Beenetic-Studios/BeeneticToolkit/blob/master/LICENSE.txt)
 
 A small, dependency-free logging toolkit for .NET and Unity: severity-based logging that fans out to
 multiple sinks (console, debug output, file, or your own), with rich, configurable message formatting and

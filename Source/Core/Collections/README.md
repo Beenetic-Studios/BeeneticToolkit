@@ -1,6 +1,6 @@
 # BeeneticToolkit.Collections
 
-[![NuGet](https://img.shields.io/nuget/v/BeeneticToolkit.Collections.svg)](https://www.nuget.org/packages/BeeneticToolkit.Collections) [![Downloads](https://img.shields.io/nuget/dt/BeeneticToolkit.Collections.svg)](https://www.nuget.org/packages/BeeneticToolkit.Collections) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bfranksen/BeeneticToolkit/blob/master/LICENSE.txt)
+[![NuGet](https://img.shields.io/nuget/v/BeeneticToolkit.Collections.svg)](https://www.nuget.org/packages/BeeneticToolkit.Collections) [![Downloads](https://img.shields.io/nuget/dt/BeeneticToolkit.Collections.svg)](https://www.nuget.org/packages/BeeneticToolkit.Collections) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Beenetic-Studios/BeeneticToolkit/blob/master/LICENSE.txt)
 
 Type-safe "smart enums" — a richer alternative to a C# `enum` where each value is a real object that
 can carry data, be looked up by key/name, grouped, sorted, and searched. Plus a small thread-safe

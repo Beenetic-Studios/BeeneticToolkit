@@ -2,7 +2,7 @@ name: Release
 
 # Publishes to nuget.org when a version tag (e.g. v0.1.0) is pushed, using NuGet
 # Trusted Publishing (OIDC) - no long-lived API key secret. Requires:
-#   * a Trusted Publishing policy on nuget.org (owner bfranksen, repo BeeneticToolkit, workflow release.yml)
+#   * a Trusted Publishing policy on nuget.org (owner Beenetic-Studios, repo BeeneticToolkit, workflow release.yml)
 #   * a repo secret NUGET_USER set to your nuget.org username (profile name, not email)
 on:
   push:

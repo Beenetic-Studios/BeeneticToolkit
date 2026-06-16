@@ -6,6 +6,14 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 
 ## [Unreleased]
 
+## [0.8.2] - 2026-06-16
+
+### Changed
+- Repository moved to the **Beenetic-Studios** GitHub organization. All repository URLs
+  (`RepositoryUrl`, `PackageProjectUrl`, README badges/logo/links, and changelog links) now point
+  at `github.com/Beenetic-Studios/BeeneticToolkit`. With the repository now public, the README
+  images, the nuget "Source" link, and SourceLink debugging resolve correctly.
+
 ## [0.8.1] - 2026-06-16
 
 ### Fixed
@@ -91,13 +99,14 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 - Initial public release: `BeeneticToolkit.Random`, `BeeneticToolkit.Collections`,
   `BeeneticToolkit.Numerics`, and the `BeeneticToolkit` meta-package.
 
-[Unreleased]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.8.1...HEAD
-[0.8.1]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.8.0...v0.8.1
-[0.8.0]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.7.0...v0.8.0
-[0.7.0]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.6.0...v0.7.0
-[0.6.0]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.5.0...v0.6.0
-[0.5.0]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.4.0...v0.5.0
-[0.4.0]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.3.0...v0.4.0
-[0.3.0]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/bfranksen/BeeneticToolkit/releases/tag/v0.1.0
+[Unreleased]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.8.2...HEAD
+[0.8.2]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.8.1...v0.8.2
+[0.8.1]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.8.0...v0.8.1
+[0.8.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.7.0...v0.8.0
+[0.7.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.6.0...v0.7.0
+[0.6.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.5.0...v0.6.0
+[0.5.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/releases/tag/v0.1.0
