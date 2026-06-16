@@ -6,6 +6,14 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-06-16
+
+### Fixed
+- The root / meta-package README now renders correctly on nuget.org: replaced the raw HTML
+  header (which nuget escapes for safety, so it showed as literal markup) with pure Markdown,
+  and switched all images and links to absolute URLs. Per-package README license links were
+  made absolute as well.
+
 ## [0.8.0] - 2026-06-16
 
 ### Added
@@ -83,7 +91,8 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 - Initial public release: `BeeneticToolkit.Random`, `BeeneticToolkit.Collections`,
   `BeeneticToolkit.Numerics`, and the `BeeneticToolkit` meta-package.
 
-[Unreleased]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.8.1...HEAD
+[0.8.1]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/bfranksen/BeeneticToolkit/compare/v0.5.0...v0.6.0
