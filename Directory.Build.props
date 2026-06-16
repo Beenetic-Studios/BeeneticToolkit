@@ -15,11 +15,13 @@
 
   <!-- Shared package metadata (applies to every project; only packable libraries produce packages). -->
   <PropertyGroup>
-	<Version>0.7.0</Version>
+	<Version>0.8.0</Version>
 	<Authors>Beenetic Studios</Authors>
 	<Company>Beenetic Studios</Company>
 	<Copyright>Copyright (c) 2023-2026 Braden Franksen (Beenetic Studios)</Copyright>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageIcon>icon.png</PackageIcon>
+	<PackageReleaseNotes>See the changelog: https://github.com/bfranksen/BeeneticToolkit/blob/master/CHANGELOG.md</PackageReleaseNotes>
 	<PackageProjectUrl>https://github.com/bfranksen/BeeneticToolkit</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/bfranksen/BeeneticToolkit</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
@@ -35,5 +37,10 @@
 
   <ItemGroup>
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <!-- Shared package icon (lives at the repo root; packed into every packable project). -->
+  <ItemGroup>
+	<None Include="$(MSBuildThisFileDirectory)icon.png" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,7 @@
 # BeeneticToolkit.Numerics
 
+[![NuGet](https://img.shields.io/nuget/v/BeeneticToolkit.Numerics.svg)](https://www.nuget.org/packages/BeeneticToolkit.Numerics) [![Downloads](https://img.shields.io/nuget/dt/BeeneticToolkit.Numerics.svg)](https://www.nuget.org/packages/BeeneticToolkit.Numerics) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](../../../LICENSE.txt)
+
 Small, allocation-free numeric helpers — a `Mathf`-style companion for plain .NET (and Unity).
 
 Targets `netstandard2.1`. Most methods come in `float`/`double` (and `decimal` where it makes sense).

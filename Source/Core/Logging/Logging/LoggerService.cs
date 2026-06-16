@@ -6,7 +6,8 @@ namespace BeeneticToolkit.Logging {
 
     /// <summary>
     /// A process-wide static entry point for logging, backed by a single <see cref="LogManager"/>. Call
-    /// <see cref="Initialize"/> once at startup, then log from anywhere with <see cref="Info"/>, <see cref="Warn"/>,
+    /// <see cref="Initialize"/> once at startup, then log from anywhere with <see cref="Info(string, object, string)"/>,
+    /// <see cref="Warn(string, object, string)"/>,
     /// etc. All methods are null-safe: before initialization (or after <c>Initialize(null)</c>) they simply do
     /// nothing, so logging calls scattered through a codebase never need null checks.
     /// </summary>

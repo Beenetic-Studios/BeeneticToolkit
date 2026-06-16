@@ -1,5 +1,7 @@
 # BeeneticToolkit.Random
 
+[![NuGet](https://img.shields.io/nuget/v/BeeneticToolkit.Random.svg)](https://www.nuget.org/packages/BeeneticToolkit.Random) [![Downloads](https://img.shields.io/nuget/dt/BeeneticToolkit.Random.svg)](https://www.nuget.org/packages/BeeneticToolkit.Random) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](../../../LICENSE.txt)
+
 Deterministic, seedable pseudo-random generation for games and simulations.
 
 `System.Random` gives you one algorithm and no reproducibility guarantees. `BeeneticToolkit.Random` adds:

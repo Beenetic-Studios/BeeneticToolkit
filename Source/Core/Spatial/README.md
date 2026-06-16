@@ -1,5 +1,7 @@
 # BeeneticToolkit.Spatial
 
+[![NuGet](https://img.shields.io/nuget/v/BeeneticToolkit.Spatial.svg)](https://www.nuget.org/packages/BeeneticToolkit.Spatial) [![Downloads](https://img.shields.io/nuget/dt/BeeneticToolkit.Spatial.svg)](https://www.nuget.org/packages/BeeneticToolkit.Spatial) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](../../../LICENSE.txt)
+
 Grids, pathfinding, visibility, and spatial queries for 2D games — engine-agnostic and deterministic.
 
 Targets `netstandard2.1` (works in plain .NET and Unity). It never references an engine vector type: grids use
