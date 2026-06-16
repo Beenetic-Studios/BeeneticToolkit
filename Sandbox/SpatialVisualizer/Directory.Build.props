@@ -1,7 +1,0 @@
-<Project>
-  <!--
-    Intentionally empty. This stops MSBuild's upward search for Directory.Build.props at the Unity project
-    boundary, so Unity's auto-generated .csproj files do NOT inherit the repo-root packaging/versioning props
-    (Version, PackageId, AssemblyName overrides, etc.). Those generated projects are gitignored throwaways.
-  -->
-</Project>
