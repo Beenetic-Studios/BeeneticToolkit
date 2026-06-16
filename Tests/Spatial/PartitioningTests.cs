@@ -219,5 +219,86 @@ namespace BeeneticToolkit.Tests.Spatial {
         }
 
         #endregion SpatialHash
+
+        #region Nearest neighbor
+
+        // The sorted distances of the k points nearest to c, computed by a full scan.
+        private static List<float> BruteForceNearestDistances(List<(float X, float Y, int Id)> points, (float X, float Y) c, int k) =>
+            points.Select(p => { float dx = p.X - c.X, dy = p.Y - c.Y; return dx * dx + dy * dy; })
+                  .OrderBy(d => d).Take(k).ToList();
+
+        // The sorted distances of the returned ids, for comparison (robust to tie ordering).
+        private static List<float> DistancesOf(List<(float X, float Y, int Id)> points, IEnumerable<int> ids, (float X, float Y) c) =>
+            ids.Select(id => { var p = points[id]; float dx = p.X - c.X, dy = p.Y - c.Y; return dx * dx + dy * dy; })
+               .OrderBy(d => d).ToList();
+
+        [TestMethod]
+        public void Quadtree_Nearest_MatchesBruteForce() {
+            var points = BuildPoints();
+            var tree = new Quadtree<int>(new Aabb(-8f, -8f, 8f, 8f), capacity: 4);
+            foreach (var p in points)
+                tree.Insert((p.X, p.Y), p.Id);
+
+            foreach (var c in new[] { (0f, 0f), (2.05f, 2.95f), (-6f, 6f), (100f, 100f) }) {
+                foreach (int k in new[] { 1, 5, 25 }) {
+                    List<int> got = tree.Nearest(c, k);
+                    // Returned closest-first.
+                    var dists = DistancesOf(points, got, c);
+                    for (int i = 1; i < dists.Count; i++)
+                        Assert.IsTrue(dists[i] >= dists[i - 1], "not ordered closest-first");
+                    CollectionAssert.AreEqual(BruteForceNearestDistances(points, c, k), dists, $"k={k} at ({c.Item1},{c.Item2})");
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Quadtree_TryNearest_And_Empty() {
+            var tree = new Quadtree<string>(new Aabb(0f, 0f, 10f, 10f));
+            Assert.IsFalse(tree.TryNearest((5f, 5f), out _)); // empty
+
+            tree.Insert((1f, 1f), "a");
+            tree.Insert((9f, 9f), "b");
+            Assert.IsTrue(tree.TryNearest((0f, 0f), out string nearest));
+            Assert.AreEqual("a", nearest);
+        }
+
+        [TestMethod]
+        public void SpatialHash_Nearest_MatchesBruteForce() {
+            var points = BuildPoints();
+            var hash = new SpatialHash<int>(cellSize: 1.5f);
+            foreach (var p in points)
+                hash.Insert((p.X, p.Y), p.Id);
+
+            foreach (var c in new[] { (0f, 0f), (2.05f, 2.95f), (-6f, 6f), (100f, 100f) }) {
+                foreach (int k in new[] { 1, 5, 25 }) {
+                    List<int> got = hash.Nearest(c, k);
+                    var dists = DistancesOf(points, got, c);
+                    for (int i = 1; i < dists.Count; i++)
+                        Assert.IsTrue(dists[i] >= dists[i - 1], "not ordered closest-first");
+                    CollectionAssert.AreEqual(BruteForceNearestDistances(points, c, k), dists, $"k={k} at ({c.Item1},{c.Item2})");
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SpatialHash_TryNearest_And_Empty() {
+            var hash = new SpatialHash<string>(cellSize: 2f);
+            Assert.IsFalse(hash.TryNearest((5f, 5f), out _));
+
+            hash.Insert((1f, 1f), "a");
+            hash.Insert((9f, 9f), "b");
+            Assert.IsTrue(hash.TryNearest((0f, 0f), out string nearest));
+            Assert.AreEqual("a", nearest);
+        }
+
+        [TestMethod]
+        public void Nearest_InvalidCount_Throws() {
+            var tree = new Quadtree<int>(new Aabb(0f, 0f, 1f, 1f));
+            var hash = new SpatialHash<int>(1f);
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => tree.Nearest((0f, 0f), 0));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => hash.Nearest((0f, 0f), -1));
+        }
+
+        #endregion Nearest neighbor
     }
 }

@@ -155,6 +155,87 @@ namespace BeeneticToolkit.Spatial.Partitioning {
             }
         }
 
+        /// <summary>Gets the single item closest to <paramref name="point"/>.</summary>
+        /// <returns><c>true</c> if the hash had any item; otherwise <c>false</c>.</returns>
+        public bool TryNearest((float X, float Y) point, out T nearest) {
+            foreach (T item in Nearest(point, 1)) {
+                nearest = item;
+                return true;
+            }
+
+            nearest = default!;
+            return false;
+        }
+
+        /// <summary>
+        /// Returns up to <paramref name="count"/> items nearest to <paramref name="point"/>, ordered closest first.
+        /// Expands outward ring by ring of cells and stops once no farther ring could hold a closer item.
+        /// </summary>
+        /// <param name="point">The query point.</param>
+        /// <param name="count">The maximum number of neighbors to return. Must be positive.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="count"/> is not positive.</exception>
+        public List<T> Nearest((float X, float Y) point, int count) {
+            if (count <= 0)
+                throw new ArgumentOutOfRangeException(nameof(count), "Count must be positive.");
+
+            var found = new List<(float DistSq, T Item)>();
+            if (Count == 0)
+                return new List<T>();
+
+            (int centerX, int centerY) = CellOf(point.X, point.Y);
+
+            for (int ring = 0; ; ring++) {
+                GatherRing(centerX, centerY, ring, point, found);
+
+                if (found.Count >= Count)
+                    break; // every stored item has been gathered
+
+                if (found.Count >= count) {
+                    found.Sort((a, b) => a.DistSq.CompareTo(b.DistSq));
+                    // Anything in ring+1 or beyond is at least (ring * cellSize) away from the query.
+                    float bound = ring * _cellSize;
+                    if (found[count - 1].DistSq <= bound * bound)
+                        break;
+                }
+            }
+
+            found.Sort((a, b) => a.DistSq.CompareTo(b.DistSq));
+            int take = Math.Min(count, found.Count);
+            var result = new List<T>(take);
+            for (int i = 0; i < take; i++)
+                result.Add(found[i].Item);
+
+            return result;
+        }
+
+        // Adds every entry in the cells at Chebyshev distance == ring from the center cell.
+        private void GatherRing(int centerX, int centerY, int ring, (float X, float Y) point, List<(float, T)> found) {
+            if (ring == 0) {
+                GatherCell(centerX, centerY, point, found);
+                return;
+            }
+
+            for (int dx = -ring; dx <= ring; dx++) {
+                for (int dy = -ring; dy <= ring; dy++) {
+                    if (Math.Max(Math.Abs(dx), Math.Abs(dy)) != ring)
+                        continue; // border of the square only
+
+                    GatherCell(centerX + dx, centerY + dy, point, found);
+                }
+            }
+        }
+
+        private void GatherCell(int cellX, int cellY, (float X, float Y) point, List<(float, T)> found) {
+            if (!_cells.TryGetValue((cellX, cellY), out List<Entry>? bucket))
+                return;
+
+            foreach (Entry entry in bucket) {
+                float dx = entry.X - point.X;
+                float dy = entry.Y - point.Y;
+                found.Add((dx * dx + dy * dy, entry.Item));
+            }
+        }
+
         private (int, int) CellOf(float x, float y) =>
             ((int)Math.Floor(x / _cellSize), (int)Math.Floor(y / _cellSize));
     }

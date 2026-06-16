@@ -68,11 +68,17 @@ namespace BeeneticToolkit.Spatial.Partitioning {
             MinX <= other.MaxX && MaxX >= other.MinX && MinY <= other.MaxY && MaxY >= other.MinY;
 
         /// <summary>Whether this box overlaps the circle at <paramref name="center"/> with the given radius.</summary>
-        public bool IntersectsCircle((float X, float Y) center, float radius) {
-            // Distance from the circle center to the nearest point on (or in) the box.
-            float dx = center.X - Clamp(center.X, MinX, MaxX);
-            float dy = center.Y - Clamp(center.Y, MinY, MaxY);
-            return dx * dx + dy * dy <= radius * radius;
+        public bool IntersectsCircle((float X, float Y) center, float radius) =>
+            SquaredDistanceTo(center) <= radius * radius;
+
+        /// <summary>
+        /// The squared Euclidean distance from <paramref name="point"/> to the nearest point on or inside the box
+        /// (0 when the point is inside). Squared to avoid the square root; used by nearest-neighbor pruning.
+        /// </summary>
+        public float SquaredDistanceTo((float X, float Y) point) {
+            float dx = point.X - Clamp(point.X, MinX, MaxX);
+            float dy = point.Y - Clamp(point.Y, MinY, MaxY);
+            return dx * dx + dy * dy;
         }
 
         private static float Clamp(float value, float min, float max) =>

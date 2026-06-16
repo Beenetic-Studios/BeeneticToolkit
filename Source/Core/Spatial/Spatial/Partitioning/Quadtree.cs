@@ -1,3 +1,4 @@
+using BeeneticToolkit.Collections;
 using System;
 using System.Collections.Generic;
 
@@ -40,6 +41,22 @@ namespace BeeneticToolkit.Spatial.Partitioning {
             }
 
             public bool IsLeaf => Children is null;
+        }
+
+        // A nearest-neighbor frontier element: either an interior node to expand or a concrete item result.
+        private readonly struct NearestCandidate {
+            public readonly Node? Node;
+            public readonly T Item;
+            public readonly bool IsItem;
+
+            private NearestCandidate(Node? node, T item, bool isItem) {
+                Node = node;
+                Item = item;
+                IsItem = isItem;
+            }
+
+            public static NearestCandidate ForNode(Node node) => new NearestCandidate(node, default!, false);
+            public static NearestCandidate ForItem(T item) => new NearestCandidate(null, item, true);
         }
 
         private readonly Node _root;
@@ -123,6 +140,60 @@ namespace BeeneticToolkit.Spatial.Partitioning {
                 throw new ArgumentOutOfRangeException(nameof(radius), "Radius must be non-negative.");
 
             QueryRadiusNode(_root, center, radius, radius * radius, onItem);
+        }
+
+        /// <summary>Gets the single item closest to <paramref name="point"/>.</summary>
+        /// <returns><c>true</c> if the tree had any item; otherwise <c>false</c>.</returns>
+        public bool TryNearest((float X, float Y) point, out T nearest) {
+            foreach (T item in Nearest(point, 1)) {
+                nearest = item;
+                return true;
+            }
+
+            nearest = default!;
+            return false;
+        }
+
+        /// <summary>
+        /// Returns up to <paramref name="count"/> items nearest to <paramref name="point"/>, ordered closest first.
+        /// Uses a best-first branch-and-bound over the tree, so it visits far fewer items than a full scan.
+        /// </summary>
+        /// <param name="point">The query point.</param>
+        /// <param name="count">The maximum number of neighbors to return. Must be positive.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="count"/> is not positive.</exception>
+        public List<T> Nearest((float X, float Y) point, int count) {
+            if (count <= 0)
+                throw new ArgumentOutOfRangeException(nameof(count), "Count must be positive.");
+
+            var results = new List<T>(Math.Min(count, Count));
+            if (Count == 0)
+                return results;
+
+            // Min-heap keyed by squared distance: nodes by their bounds' distance, items by their exact distance.
+            // When an item surfaces to the top, nothing unexplored can be closer, so it is the next nearest.
+            var frontier = new PriorityQueue<NearestCandidate, float>();
+            frontier.Enqueue(NearestCandidate.ForNode(_root), _root.Bounds.SquaredDistanceTo(point));
+
+            while (results.Count < count && frontier.TryDequeue(out NearestCandidate current, out _)) {
+                if (current.IsItem) {
+                    results.Add(current.Item);
+                    continue;
+                }
+
+                Node node = current.Node!;
+                if (node.IsLeaf) {
+                    foreach (Entry entry in node.Entries!) {
+                        float dx = entry.X - point.X;
+                        float dy = entry.Y - point.Y;
+                        frontier.Enqueue(NearestCandidate.ForItem(entry.Item), dx * dx + dy * dy);
+                    }
+                } else {
+                    foreach (Node child in node.Children!)
+                        frontier.Enqueue(NearestCandidate.ForNode(child), child.Bounds.SquaredDistanceTo(point));
+                }
+            }
+
+            return results;
         }
 
         private void InsertInto(Node node, Entry entry) {
