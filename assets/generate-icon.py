@@ -1,9 +1,24 @@
-"""Kinetic bee v2: 4 contour-matched comet streaks, shallower tilt, bee fully inside hex."""
+"""Kinetic bee (KIN4) — the locked BeeneticToolkit brand mark.
+
+A "kinetic angle" bee inside a navy/amber hex with three flat motion streaks
+carved to the bee's contour. Deltas from the earlier KIN3:
+  - streaks have their OWN flat angle (decoupled from the bee), riding higher and
+    more parallel to the ground;
+  - streaks are skinnier and sharper (smaller radius, crisper taper);
+  - the bee is rotated more upright (reads as travelling more vertically) and
+    dropped slightly to sit centered in the hex.
+
+Writes the three shipped files in one shot:
+  - ../icon.png            (128px) — the NuGet PackageIcon
+  - ./icon-512.png         (512px) — hi-res source / README/social
+  - ./logo-200.png         (200px) — README header mark
+"""
 import math
 import os
 from PIL import Image, ImageDraw, ImageFilter, ImageChops
 
-OUT = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.dirname(os.path.abspath(__file__))   # assets/
+ROOT = os.path.dirname(OUT)                          # repo root
 SS = 4
 SIZE = 128
 S = SIZE * SS
@@ -14,9 +29,14 @@ AMBER_LT = (255, 205, 60, 255)
 INK = (20, 22, 30, 255)
 WING = (228, 240, 255, 175)
 
-TILT = -44                 # shallower (more horizontal) climb; negative => head up-right
-BEE_SCALE = 0.42 * S       # smaller so the whole bee stays inside the hex
-BCX, BCY = 0.52 * S, 0.49 * S
+# --- locked KIN4 (= "B drop2") parameters ---
+BEE_TILT = -30             # more upright than KIN3's -44 (head up-right, steeper climb)
+STREAK_THETA = 18          # degrees below horizontal: flatter, faster streaks
+STREAK_R0 = 1.6            # skinnier than KIN3's 2.2
+STREAK_ANCHOR_DY = -0.04   # nudge streaks up a touch
+BEE_SCALE = 0.42 * S
+BCX = 0.52 * S
+BCY = 0.565 * S            # dropped to center the bee in the hex
 
 
 def canvas():
@@ -26,12 +46,6 @@ def canvas():
 def hexagon(cx, cy, r, rot=90):
     return [(cx + r * math.cos(math.radians(60 * i + rot)),
              cy + r * math.sin(math.radians(60 * i + rot))) for i in range(6)]
-
-
-def save(base, name):
-    base.resize((512, 512), Image.LANCZOS).save(os.path.join(OUT, f"{name}_512.png"))
-    base.resize((SIZE, SIZE), Image.LANCZOS).save(os.path.join(OUT, f"{name}_128.png"))
-    print("wrote", name)
 
 
 def paste_centered(base, layer, ax, ay):
@@ -83,35 +97,31 @@ def bee(scale, body_w=0.38, wing_factor=1.18, rim_px=8):
     return add_rim(img, px=rim_px)
 
 
-def facing_dir(tilt_deg):
-    a = math.radians(tilt_deg)
-    return (-math.sin(a), -math.cos(a))     # negative tilt => up-right
-
-
-def comet_streaks(center, tilt_deg, scale):
-    """4 skinny streaks drawn fully INTO the bee region. The near ends get cut
-    later by the bee's dilated silhouette, so each end matches the bee's shape
-    exactly (the 'paint up to the bee, then move it' effect). Tapers + fades out."""
+def comet_streaks(center, scale):
+    """Skinny, sharp comet streaks with their own flat angle (STREAK_THETA below
+    horizontal). Drawn fully into the bee region; the near ends get carved later
+    to the bee's exact (gap-offset) contour. Tapers + fades toward the tail."""
     layer = canvas()
     d = ImageDraw.Draw(layer)
-    fx, fy = facing_dir(tilt_deg)
-    tx, ty = -fx, -fy                       # trail (down-left)
+    th = math.radians(STREAK_THETA)
+    tx, ty = -math.cos(th), math.sin(th)      # trail toward lower-left, flatter as theta -> 0
     perpx, perpy = -ty, tx
     cx, cy = center
+    cy += STREAK_ANCHOR_DY * scale
     bw = scale * 0.38
-    offsets = [-0.5 * bw, 0.0, 0.5 * bw]            # 3 streaks
-    hold = scale * 0.55                      # full width through the (to-be-cut) bee region
-    length = scale * 1.95                    # taper/fade region beyond that
-    r0 = SS * 2.2                            # skinny
-    a0 = 235
-    steps = 150
+    offsets = [-0.5 * bw, 0.0, 0.5 * bw]              # 3 streaks
+    hold = scale * 0.55                               # full width through (to-be-cut) bee region
+    length = scale * 1.95                             # taper/fade region beyond
+    r0 = SS * STREAK_R0
+    a0 = 245
+    steps = 170
     for off in offsets:
         ox, oy = cx + perpx * off, cy + perpy * off
         for i in range(steps):
             s = (hold + length) * (i / steps)
             t = 0.0 if s <= hold else (s - hold) / length
-            r = max(0.5, r0 * (1 - t) ** 1.0)           # taper toward tail
-            a = a0 if s <= hold else int(a0 * (1 - t) ** 1.4)  # fade toward tail
+            r = max(0.5, r0 * (1 - t) ** 1.25)                  # sharper taper toward tail
+            a = a0 if s <= hold else int(a0 * (1 - t) ** 1.5)   # fade toward tail
             if a <= 0:
                 break
             x, y = ox + tx * s, oy + ty * s
@@ -120,7 +130,7 @@ def comet_streaks(center, tilt_deg, scale):
     return layer
 
 
-def render(name):
+def render():
     base = canvas()
     d = ImageDraw.Draw(base)
     border_w = int(SS * 4)
@@ -129,7 +139,7 @@ def render(name):
     d.polygon(hexpts, outline=AMBER, width=border_w)
 
     bee_layer = canvas()
-    b = bee(BEE_SCALE).rotate(TILT, expand=False, resample=Image.BICUBIC)
+    b = bee(BEE_SCALE).rotate(BEE_TILT, expand=False, resample=Image.BICUBIC)
     bee_layer.alpha_composite(b, (int(BCX - S / 2), int(BCY - S / 2)))
 
     # gap-dilated silhouette (downscaled for speed) -> crisp keep-out mask
@@ -141,11 +151,10 @@ def render(name):
     dil_small = small.filter(ImageFilter.MaxFilter(2 * gsmall + 1))
     cut_mask = dil_small.resize((S, S), Image.BILINEAR).point(lambda v: 255 if v > 110 else 0)
 
-    streaks = comet_streaks((BCX, BCY), TILT, BEE_SCALE)
+    streaks = comet_streaks((BCX, BCY), BEE_SCALE)
     # carve the bee's exact (gap-offset) contour out of the streaks
     streaks.putalpha(ImageChops.subtract(streaks.getchannel("A"), cut_mask))
     # clip to the exact navy interior: fill the hex, then punch out the border ring
-    # itself (a 1px-wider erase guards against anti-aliasing bleed onto the border)
     innermask = Image.new("L", (S, S), 0)
     im = ImageDraw.Draw(innermask)
     im.polygon(hexpts, fill=255)
@@ -153,8 +162,16 @@ def render(name):
     streaks = Image.composite(streaks, canvas(), innermask)
     base.alpha_composite(streaks)
     base.alpha_composite(bee_layer)
-    save(base, name)
+    return base
 
 
-render("KIN3_icon")
-print("done")
+def main():
+    base = render()
+    base.resize((512, 512), Image.LANCZOS).save(os.path.join(OUT, "icon-512.png"))
+    base.resize((200, 200), Image.LANCZOS).save(os.path.join(OUT, "logo-200.png"))
+    base.resize((SIZE, SIZE), Image.LANCZOS).save(os.path.join(ROOT, "icon.png"))
+    print("wrote icon.png (128), assets/icon-512.png (512), assets/logo-200.png (200)")
+
+
+if __name__ == "__main__":
+    main()
