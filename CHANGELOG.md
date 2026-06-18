@@ -6,6 +6,13 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-06-18
+
+### Changed
+- Refreshed the package icon — the kinetic bee mark now has a more upright bee and flatter,
+  skinnier, sharper motion streaks. Shown on nuget.org and in IDE package managers across every
+  package.
+
 ## [0.8.2] - 2026-06-16
 
 ### Changed
@@ -99,7 +106,8 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 - Initial public release: `BeeneticToolkit.Random`, `BeeneticToolkit.Collections`,
   `BeeneticToolkit.Numerics`, and the `BeeneticToolkit` meta-package.
 
-[Unreleased]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.8.2...HEAD
+[Unreleased]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.8.2...v0.9.0
 [0.8.2]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.7.0...v0.8.0
