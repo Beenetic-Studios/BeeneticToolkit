@@ -6,6 +6,22 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-06-21
+
+### Added
+- **`net8.0` target.** Every package now multi-targets `netstandard2.1` and `net8.0`. Unity and
+  other netstandard2.1 consumers are unaffected (that build is unchanged); .NET 8 consumers get a
+  build compiled for that runtime.
+- API reference site, generated with DocFX and published to GitHub Pages.
+
+### Changed
+- Tightened public-API nullability (surfaced by the net8 build): added `notnull` constraints to
+  generic node/key types (`IGraph`/`IWeightedGraph`/`FlowField` node type; `EnumIndex` and its
+  `AddIndex`/`IndexBy` value type; the weighted-choice key type), annotated `Equals(object?)` on
+  `DiceRoll`/`RandomKey`, and made `LogManager.GetLogger` return a nullable `LoggerBase?`. The added
+  generic constraints are technically source-breaking, hence the minor version bump.
+- Enabled NuGet package validation in the build (cross-framework public-API consistency).
+
 ## [0.9.0] - 2026-06-18
 
 ### Changed
@@ -106,7 +122,8 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 - Initial public release: `BeeneticToolkit.Random`, `BeeneticToolkit.Collections`,
   `BeeneticToolkit.Numerics`, and the `BeeneticToolkit` meta-package.
 
-[Unreleased]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.8.2...v0.9.0
 [0.8.2]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/Beenetic-Studios/BeeneticToolkit/compare/v0.8.0...v0.8.1

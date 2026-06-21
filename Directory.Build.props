@@ -15,7 +15,7 @@
 
   <!-- Shared package metadata (applies to every project; only packable libraries produce packages). -->
   <PropertyGroup>
-	<Version>0.9.0</Version>
+	<Version>0.10.0</Version>
 	<Authors>Beenetic Studios</Authors>
 	<Company>Beenetic Studios</Company>
 	<Copyright>Copyright (c) 2023-2026 Braden Franksen (Beenetic Studios)</Copyright>
@@ -33,6 +33,12 @@
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	<ContinuousIntegrationBuild Condition="'$(CI)' == 'true' or '$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+
+	<!-- Catch API/packaging breaks at pack time. Without a baseline this validates surface
+	     consistency ACROSS target frameworks (net8.0 must expose the same public API as
+	     netstandard2.1). At 1.0, set PackageValidationBaselineVersion to 1.0.0 to also guard
+	     against accidental breaking changes vs. the last release through the 1.x line. -->
+	<EnablePackageValidation>true</EnablePackageValidation>
   </PropertyGroup>
 
   <ItemGroup>
