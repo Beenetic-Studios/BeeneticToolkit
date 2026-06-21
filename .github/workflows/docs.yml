@@ -1,0 +1,55 @@
+name: Docs
+
+# Builds the DocFX API site and publishes it to GitHub Pages. One-time setup: in the repo
+# Settings -> Pages, set "Build and deployment" Source to "GitHub Actions".
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'Source/**'
+      - 'docfx/**'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; newer runs supersede in-progress ones.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install DocFX
+        run: |
+          dotnet tool update -g docfx
+          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
+      - name: Restore
+        run: dotnet restore BeeneticToolkit.sln
+
+      - name: Build docs
+        run: docfx docfx/docfx.json
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docfx/_site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
