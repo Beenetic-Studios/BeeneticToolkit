@@ -73,7 +73,7 @@ namespace BeeneticToolkit.Random {
         /// <see langword="true"/> if <paramref name="obj"/> is an <see cref="RandomKey"/>
         /// with the same value; otherwise, <see langword="false"/>.
         /// </returns>
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is RandomKey other && Equals(other);
 
         /// <summary>

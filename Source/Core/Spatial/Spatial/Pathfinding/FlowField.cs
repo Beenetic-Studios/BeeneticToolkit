@@ -1,6 +1,7 @@
 using BeeneticToolkit.Collections;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BeeneticToolkit.Spatial.Pathfinding {
 
@@ -17,7 +18,7 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
     /// The graph's reachable region must be <b>finite</b>, or the computation will not terminate.
     /// </remarks>
     /// <typeparam name="TNode">The node type.</typeparam>
-    public sealed class FlowField<TNode> {
+    public sealed class FlowField<TNode> where TNode : notnull {
 
         private readonly Dictionary<TNode, float> _cost;
         private readonly Dictionary<TNode, TNode> _next;
@@ -56,7 +57,7 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
         /// <returns>
         /// <c>false</c> if <paramref name="node"/> is a goal (already arrived) or is unreachable; otherwise <c>true</c>.
         /// </returns>
-        public bool TryGetNext(TNode node, out TNode next) => _next.TryGetValue(node, out next);
+        public bool TryGetNext(TNode node, [MaybeNullWhen(false)] out TNode next) => _next.TryGetValue(node, out next);
 
         /// <summary>
         /// Follows the field from <paramref name="from"/> step by step to the nearest goal, returning the full path.
@@ -68,8 +69,8 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
 
             var path = new List<TNode> { from };
             TNode current = from;
-            while (_next.TryGetValue(current, out TNode step)) {
-                current = step;
+            while (_next.ContainsKey(current)) {
+                current = _next[current];
                 path.Add(current);
             }
 
@@ -100,7 +101,7 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
 
             var cost = new Dictionary<TNode, float>(comparer);
             var next = new Dictionary<TNode, TNode>(comparer);
-            var frontier = new PriorityQueue<TNode, float>();
+            var frontier = new Collections.PriorityQueue<TNode, float>();
 
             foreach (TNode goal in goalSet) {
                 cost[goal] = 0f;

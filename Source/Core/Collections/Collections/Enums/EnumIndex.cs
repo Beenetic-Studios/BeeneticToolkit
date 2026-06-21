@@ -27,7 +27,7 @@ namespace BeeneticToolkit.Collections.Enums {
     /// </remarks>
     /// <typeparam name="TValue">The type of the indexed property value.</typeparam>
     /// <typeparam name="T">The item type.</typeparam>
-    public sealed class EnumIndex<TValue, T> : IEnumCollectionIndex<T> where T : class {
+    public sealed class EnumIndex<TValue, T> : IEnumCollectionIndex<T> where TValue : notnull where T : class {
 
         private static readonly IReadOnlyList<T> Empty = Array.Empty<T>();
 

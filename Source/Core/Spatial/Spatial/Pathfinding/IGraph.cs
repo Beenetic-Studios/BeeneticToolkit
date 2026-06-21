@@ -12,7 +12,7 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
     /// (override <c>Equals</c>/<c>GetHashCode</c>, or pass an <see cref="IEqualityComparer{T}"/> to the pathfinder).
     /// </remarks>
     /// <typeparam name="TNode">The node type (a cell, a hex, a waypoint — whatever your graph connects).</typeparam>
-    public interface IGraph<TNode> {
+    public interface IGraph<TNode> where TNode : notnull {
 
         /// <summary>Returns the nodes reachable in one step from <paramref name="node"/>.</summary>
         IEnumerable<TNode> Neighbors(TNode node);
@@ -24,7 +24,7 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
     /// <see cref="FlowField{TNode}"/>). For uniform-cost graphs every edge can simply return 1.
     /// </summary>
     /// <typeparam name="TNode">The node type.</typeparam>
-    public interface IWeightedGraph<TNode> : IGraph<TNode> {
+    public interface IWeightedGraph<TNode> : IGraph<TNode> where TNode : notnull {
 
         /// <summary>
         /// Returns the cost of moving from <paramref name="from"/> to the adjacent node <paramref name="to"/>.

@@ -337,7 +337,7 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <param name="selector">Selects the value to index each item by.</param>
         /// <returns>The live index, ready to query.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="selector"/> is null.</exception>
-        public EnumIndex<TValue, T> AddIndex<TValue>(Func<T, TValue> selector) {
+        public EnumIndex<TValue, T> AddIndex<TValue>(Func<T, TValue> selector) where TValue : notnull {
             if (selector == null)
                 throw new ArgumentNullException(nameof(selector));
 

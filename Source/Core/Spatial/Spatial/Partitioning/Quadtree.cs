@@ -171,7 +171,7 @@ namespace BeeneticToolkit.Spatial.Partitioning {
 
             // Min-heap keyed by squared distance: nodes by their bounds' distance, items by their exact distance.
             // When an item surfaces to the top, nothing unexplored can be closer, so it is the next nearest.
-            var frontier = new PriorityQueue<NearestCandidate, float>();
+            var frontier = new Collections.PriorityQueue<NearestCandidate, float>();
             frontier.Enqueue(NearestCandidate.ForNode(_root), _root.Bounds.SquaredDistanceTo(point));
 
             while (results.Count < count && frontier.TryDequeue(out NearestCandidate current, out _)) {

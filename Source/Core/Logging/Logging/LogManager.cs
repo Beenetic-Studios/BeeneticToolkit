@@ -194,7 +194,7 @@ namespace BeeneticToolkit.Logging {
         /// </summary>
         /// <param name="identifier">The identifier (ID or Name) of the logger to be enabled.</param>
         /// <returns>LoggerBase with the specified identifier; otherwise, null.</returns>
-        public LoggerBase GetLogger(string identifier) {
+        public LoggerBase? GetLogger(string identifier) {
             return FindLoggerByIdentifier(identifier);
         }
 
@@ -233,7 +233,7 @@ namespace BeeneticToolkit.Logging {
         /// </summary>
         /// <param name="identifier">The identifier (ID or Name) of the logger.</param>
         /// <returns>The found logger, or null if no logger matches the identifier.</returns>
-        private LoggerBase FindLoggerByIdentifier(string identifier) {
+        private LoggerBase? FindLoggerByIdentifier(string identifier) {
             lock (_sync)
                 return _loggers.FirstOrDefault(l => l.Id == identifier || l.Name == identifier);
         }

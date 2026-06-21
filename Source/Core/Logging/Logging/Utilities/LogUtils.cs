@@ -153,8 +153,9 @@ namespace BeeneticToolkit.Logging.Utilities {
         /// <param name="type">The <see cref="Type"/> to check.</param>
         /// <returns><c>true</c> if the type is numeric or a nullable numeric type; otherwise, <c>false</c>.</returns>
         private static bool IsNumericType(Type type) {
+            Type? underlying = Nullable.GetUnderlyingType(type);
             return NumericTypes.Contains(type) ||
-                   NumericTypes.Contains(Nullable.GetUnderlyingType(type));
+                   (!(underlying is null) && NumericTypes.Contains(underlying));
         }
 
         #endregion Properties

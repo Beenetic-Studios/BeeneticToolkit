@@ -175,7 +175,7 @@ namespace BeeneticToolkit.Random.Probability {
         public bool Equals(DiceRoll other) => Count == other.Count && Sides == other.Sides && Modifier == other.Modifier;
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is DiceRoll other && Equals(other);
+        public override bool Equals(object? obj) => obj is DiceRoll other && Equals(other);
 
         /// <inheritdoc/>
         public override int GetHashCode() {

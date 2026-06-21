@@ -208,7 +208,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="typeWeightDict">The dictionary containing items as keys and their associated weights as values. May be null or empty.</param>
         /// <param name="result">When this method returns, contains the randomly selected key if the operation succeeded; otherwise, the default value for <typeparamref name="T"/>.</param>
         /// <returns><c>true</c> if a weighted random key was successfully selected; otherwise <c>false</c>.</returns>
-        public static bool TryRandomWeightedChoice<T>(this RandomGenerator random, Dictionary<T, double>? typeWeightDict, out T result) {
+        public static bool TryRandomWeightedChoice<T>(this RandomGenerator random, Dictionary<T, double>? typeWeightDict, out T result) where T : notnull {
             if (typeWeightDict == null || typeWeightDict.Count == 0) {
                 result = default!;
                 return false;

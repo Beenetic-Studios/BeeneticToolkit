@@ -8,7 +8,7 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
     /// Single-source/single-goal pathfinding over any <see cref="IGraph{TNode}"/>:
     /// <see cref="BreadthFirstSearch{TNode}"/> for unweighted graphs, <see cref="Dijkstra{TNode}"/> for weighted
     /// graphs, and <see cref="AStar{TNode}"/> when an admissible heuristic is available. The cost-aware searches
-    /// use <see cref="PriorityQueue{TElement, TPriority}"/> from BeeneticToolkit.Collections.
+    /// use <see cref="Collections.PriorityQueue{TElement, TPriority}"/> from BeeneticToolkit.Collections.
     /// </summary>
     /// <remarks>
     /// For one goal served by many sources (e.g. lots of agents converging on the same target), prefer a
@@ -27,7 +27,8 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
         /// <returns>The path, or <see cref="PathResult{TNode}.Failure"/> if the goal is unreachable.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="graph"/> is null.</exception>
         public static PathResult<TNode> BreadthFirstSearch<TNode>(
-            IGraph<TNode> graph, TNode start, TNode goal, IEqualityComparer<TNode>? comparer = null) {
+            IGraph<TNode> graph, TNode start, TNode goal, IEqualityComparer<TNode>? comparer = null)
+            where TNode : notnull {
 
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
@@ -70,7 +71,8 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
         /// <returns>The least-cost path, or <see cref="PathResult{TNode}.Failure"/> if the goal is unreachable.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="graph"/> is null.</exception>
         public static PathResult<TNode> Dijkstra<TNode>(
-            IWeightedGraph<TNode> graph, TNode start, TNode goal, IEqualityComparer<TNode>? comparer = null) =>
+            IWeightedGraph<TNode> graph, TNode start, TNode goal, IEqualityComparer<TNode>? comparer = null)
+            where TNode : notnull =>
             AStar(graph, start, goal, (_, __) => 0f, comparer);
 
         /// <summary>
@@ -87,7 +89,7 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="graph"/> or <paramref name="heuristic"/> is null.</exception>
         public static PathResult<TNode> AStar<TNode>(
             IWeightedGraph<TNode> graph, TNode start, TNode goal, Func<TNode, TNode, float> heuristic,
-            IEqualityComparer<TNode>? comparer = null) {
+            IEqualityComparer<TNode>? comparer = null) where TNode : notnull {
 
             if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
@@ -101,7 +103,7 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
 
             var cameFrom = new Dictionary<TNode, TNode>(comparer) { [start] = start };
             var costSoFar = new Dictionary<TNode, float>(comparer) { [start] = 0f };
-            var frontier = new PriorityQueue<TNode, float>();
+            var frontier = new Collections.PriorityQueue<TNode, float>();
             frontier.Enqueue(start, 0f);
 
             while (frontier.TryDequeue(out TNode current, out _)) {
@@ -134,7 +136,7 @@ namespace BeeneticToolkit.Spatial.Pathfinding {
         /// </summary>
         internal static PathResult<TNode> Reconstruct<TNode>(
             Dictionary<TNode, TNode> cameFrom, TNode start, TNode goal,
-            IEqualityComparer<TNode> comparer, Dictionary<TNode, float>? costSoFar) {
+            IEqualityComparer<TNode> comparer, Dictionary<TNode, float>? costSoFar) where TNode : notnull {
 
             var path = new List<TNode> { goal };
             TNode current = goal;

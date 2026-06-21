@@ -244,7 +244,7 @@ namespace BeeneticToolkit.Random {
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="typeWeightDict"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="typeWeightDict"/> is empty.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the total weight is zero or no valid item can be selected.</exception>
-        public static T RandomWeightedChoice<T>(this RandomGenerator random, Dictionary<T, double> typeWeightDict) {
+        public static T RandomWeightedChoice<T>(this RandomGenerator random, Dictionary<T, double> typeWeightDict) where T : notnull {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (typeWeightDict == null)

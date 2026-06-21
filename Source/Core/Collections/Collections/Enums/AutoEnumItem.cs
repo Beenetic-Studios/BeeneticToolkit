@@ -101,7 +101,7 @@ namespace BeeneticToolkit.Collections.Enums {
         /// <param name="selector">Selects the value to index each item by.</param>
         /// <returns>The index, ready to query.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="selector"/> is null.</exception>
-        public static EnumIndex<TValue, TSelf> IndexBy<TValue>(Func<TSelf, TValue> selector) {
+        public static EnumIndex<TValue, TSelf> IndexBy<TValue>(Func<TSelf, TValue> selector) where TValue : notnull {
             var index = new EnumIndex<TValue, TSelf>(selector);
             ((IEnumCollectionIndex<TSelf>)index).Rebuild(Backing.Items);
             return index;
