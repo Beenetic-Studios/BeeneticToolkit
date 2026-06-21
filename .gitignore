@@ -372,6 +372,14 @@ FodyWeavers.xsd
 /docs/
 /Docs/
 
+# Brand icon generator — kept local-only; the produced PNGs (icon.png, assets/*.png) are committed
+/assets/generate-icon.py
+
+# DocFX: commit the sources (docfx.json, *.md, toc.yml), ignore generated output
+/docfx/_site/
+/docfx/api/*.yml
+/docfx/api/.manifest
+
 # Unity visual-test harness removed from the public repo (kept locally, untracked).
 # If we need a visual test project again, it'll live in its own dedicated repo.
 /Sandbox/
