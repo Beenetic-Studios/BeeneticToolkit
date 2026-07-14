@@ -29,7 +29,7 @@ namespace BeeneticToolkit.BigMath {
         /// stored as a <see cref="double"/>, is always an exact integer. Exponents beyond this saturate to
         /// infinity (positive) or zero (negative).
         /// </summary>
-        public const double ExponentLimit = 9e15;
+        public static readonly double ExponentLimit = 9e15;
 
         /// <summary>
         /// Number of significant decimal digits a <see cref="double"/> mantissa can carry. Used as the addition
