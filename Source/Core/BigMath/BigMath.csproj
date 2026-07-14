@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<RootNamespace>BeeneticToolkit</RootNamespace>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+		<PackageId>BeeneticToolkit.BigMath</PackageId>
+		<AssemblyName>BeeneticToolkit.BigMath</AssemblyName>
+		<Description>Large-number math for incremental/idle games and long-running simulations: a BigDouble value type (normalized mantissa x 10^exponent) that shrugs off double's ~1.8e308 ceiling, with full arithmetic, comparison, powers/logs, and a pluggable notation system (scientific, engineering, standard-abbreviated K/M/B/T/aa..zz) for display and round-trippable parsing.</Description>
+		<PackageTags>bignumber;bigdouble;incremental;idle;clicker;math;numerics;scientific-notation;games;unity;simulation</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <InternalsVisibleTo Include="BeeneticToolkit.Tests" />
+	</ItemGroup>
+</Project>

@@ -16,6 +16,7 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Source\Core\BigMath\BigMath.csproj" />
     <ProjectReference Include="..\Source\Core\Collections\Collections.csproj" />
     <ProjectReference Include="..\Source\Core\Logging\Logging.csproj" />
     <ProjectReference Include="..\Source\Core\Numerics\Numerics.csproj" />
