@@ -194,6 +194,29 @@ var pity = new PityCounter(baseChance: 0.006, hardPity: 90, softPityStart: 73, s
 bool fiveStar = pity.Roll(rng);   // resets the streak on success
 ```
 
+## Testing & dependency injection
+
+Every helper here — dice, loot, weighted bags, selectors, shuffles, spatial sampling — is keyed to the
+`IRandomGenerator` interface, not the concrete generator. So your game logic can depend on the
+abstraction and take a mock or fixed-sequence fake in tests, while production passes a real seeded
+generator:
+
+```csharp
+// Logic depends only on the interface…
+int AttackRoll(IRandomGenerator rng) => rng.Roll("1d20+5");
+
+// …a real seeded generator in production…
+IRandomGenerator rng = new RandomEnvironment("combat", rootSeed: 42).CreateAndRegister("attacks");
+int hit = AttackRoll(rng);
+
+// …a mock/fake in a unit test.
+int forced = AttackRoll(fakeRng);
+```
+
+Determinism is a property of the seeded *instance*, not the reference type — passing a generator as
+`IRandomGenerator` never changes its stream. (Environment registration still uses the concrete
+`RandomGenerator`, since it owns the seeding/reproducibility contract the interface doesn't express.)
+
 ## Thread safety
 
 Generators are **not** thread-safe — each draw advances mutable state. For concurrent work, give each
