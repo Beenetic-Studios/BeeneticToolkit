@@ -58,7 +58,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <returns>The dropped item.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
         /// <exception cref="InvalidOperationException">Thrown when this table (or a nested table reached during the roll) is empty.</exception>
-        public T Roll(RandomGenerator random) {
+        public T Roll(IRandomGenerator random) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
 
@@ -72,7 +72,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="rolls"/> is negative.</exception>
         /// <exception cref="InvalidOperationException">Thrown when this table (or a nested table reached during a roll) is empty.</exception>
-        public List<T> Roll(RandomGenerator random, int rolls) {
+        public List<T> Roll(IRandomGenerator random, int rolls) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (rolls < 0)
@@ -91,7 +91,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <returns><c>true</c> if an item was rolled; <c>false</c> when the table is empty.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
         /// <exception cref="InvalidOperationException">Thrown when a non-empty nested table reached during the roll is itself empty.</exception>
-        public bool TryRoll(RandomGenerator random, out T item) {
+        public bool TryRoll(IRandomGenerator random, out T item) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (_entries.Count == 0) {
@@ -103,7 +103,7 @@ namespace BeeneticToolkit.Random.Probability {
             return true;
         }
 
-        private T RollInternal(RandomGenerator random) {
+        private T RollInternal(IRandomGenerator random) {
             if (_entries.Count == 0)
                 throw new InvalidOperationException("Cannot roll an empty loot table.");
 

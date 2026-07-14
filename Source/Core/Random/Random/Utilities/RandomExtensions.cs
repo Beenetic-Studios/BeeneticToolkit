@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace BeeneticToolkit.Random {
 
     /// <summary>
-    /// Shuffle extension methods on <see cref="RandomGenerator"/>, operating on the generator they are
+    /// Shuffle extension methods on <see cref="IRandomGenerator"/>, operating on the generator they are
     /// called on so the source of randomness is always explicit.
     /// </summary>
     public static class RandomExtensions {
@@ -17,7 +17,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="source">The collection to shuffle. It is not modified.</param>
         /// <returns>A new <see cref="List{T}"/> containing the source elements in random order.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="source"/> is null.</exception>
-        public static List<T> Shuffle<T>(this RandomGenerator random, IEnumerable<T> source) {
+        public static List<T> Shuffle<T>(this IRandomGenerator random, IEnumerable<T> source) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (source == null)
@@ -35,7 +35,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="random">The random number generator to use.</param>
         /// <param name="list">The list to shuffle in place.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="list"/> is null.</exception>
-        public static void ShuffleInPlace<T>(this RandomGenerator random, IList<T> list) {
+        public static void ShuffleInPlace<T>(this IRandomGenerator random, IList<T> list) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (list == null)

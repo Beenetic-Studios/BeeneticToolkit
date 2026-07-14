@@ -61,7 +61,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <param name="random">The generator to roll with.</param>
         /// <returns><c>true</c> on a success (the streak resets); <c>false</c> on a failure (the streak grows).</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
-        public bool Roll(RandomGenerator random) {
+        public bool Roll(IRandomGenerator random) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
 

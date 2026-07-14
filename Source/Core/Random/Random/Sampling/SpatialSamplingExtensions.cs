@@ -3,7 +3,7 @@ using System;
 namespace BeeneticToolkit.Random.Sampling {
 
     /// <summary>
-    /// Extension methods on <see cref="RandomGenerator"/> for sampling single random directions and points
+    /// Extension methods on <see cref="IRandomGenerator"/> for sampling single random directions and points
     /// in 2D/3D shapes. Results are returned as value tuples (no allocation, no engine-specific vector type),
     /// and points inside areas/volumes are uniformly distributed.
     /// </summary>
@@ -14,7 +14,7 @@ namespace BeeneticToolkit.Random.Sampling {
         /// <summary>Returns a random angle in radians, in the range <c>[0, 2π)</c>.</summary>
         /// <param name="random">The generator to draw from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
-        public static float NextAngle(this RandomGenerator random) {
+        public static float NextAngle(this IRandomGenerator random) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
 
@@ -24,7 +24,7 @@ namespace BeeneticToolkit.Random.Sampling {
         /// <summary>Returns a uniformly random 2D unit vector (a point on the unit circle).</summary>
         /// <param name="random">The generator to draw from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
-        public static (float X, float Y) NextUnitVector2(this RandomGenerator random) {
+        public static (float X, float Y) NextUnitVector2(this IRandomGenerator random) {
             float angle = random.NextAngle();
             return (MathF.Cos(angle), MathF.Sin(angle));
         }
@@ -32,7 +32,7 @@ namespace BeeneticToolkit.Random.Sampling {
         /// <summary>Returns a uniformly random 3D unit vector (a point on the unit sphere).</summary>
         /// <param name="random">The generator to draw from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
-        public static (float X, float Y, float Z) NextUnitVector3(this RandomGenerator random) {
+        public static (float X, float Y, float Z) NextUnitVector3(this IRandomGenerator random) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
 
@@ -48,7 +48,7 @@ namespace BeeneticToolkit.Random.Sampling {
         /// <param name="radius">The circle radius. Must be non-negative.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="radius"/> is negative.</exception>
-        public static (float X, float Y) NextPointInCircle(this RandomGenerator random, float radius = 1f) {
+        public static (float X, float Y) NextPointInCircle(this IRandomGenerator random, float radius = 1f) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (radius < 0f)
@@ -66,7 +66,7 @@ namespace BeeneticToolkit.Random.Sampling {
         /// <param name="outerRadius">The outer radius. Must be greater than <paramref name="innerRadius"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the radii are invalid.</exception>
-        public static (float X, float Y) NextPointInAnnulus(this RandomGenerator random, float innerRadius, float outerRadius) {
+        public static (float X, float Y) NextPointInAnnulus(this IRandomGenerator random, float innerRadius, float outerRadius) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (innerRadius < 0f)
@@ -85,7 +85,7 @@ namespace BeeneticToolkit.Random.Sampling {
         /// <param name="radius">The sphere radius. Must be non-negative.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="radius"/> is negative.</exception>
-        public static (float X, float Y, float Z) NextPointInSphere(this RandomGenerator random, float radius = 1f) {
+        public static (float X, float Y, float Z) NextPointInSphere(this IRandomGenerator random, float radius = 1f) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (radius < 0f)

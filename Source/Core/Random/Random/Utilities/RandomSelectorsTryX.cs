@@ -16,7 +16,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="list">The list from which to select a random element. May be null or empty.</param>
         /// <param name="result">When this method returns, contains the randomly selected element if the operation succeeded; otherwise, the default value for <typeparamref name="T"/>.</param>
         /// <returns><c>true</c> if a random element was successfully selected; otherwise <c>false</c>.</returns>
-        public static bool TryRandomChoice<T>(this RandomGenerator random, IList<T>? list, out T result) {
+        public static bool TryRandomChoice<T>(this IRandomGenerator random, IList<T>? list, out T result) {
             if (list == null || list.Count == 0) {
                 result = default!;
                 return false;
@@ -34,7 +34,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="sequence">The sequence from which to select a random element. May be null or empty.</param>
         /// <param name="result">When this method returns, contains the randomly selected element if the operation succeeded; otherwise, the default value for <typeparamref name="T"/>.</param>
         /// <returns><c>true</c> if a random element was successfully selected; otherwise <c>false</c>.</returns>
-        public static bool TryRandomChoice<T>(this RandomGenerator random, IEnumerable<T>? sequence, out T result) {
+        public static bool TryRandomChoice<T>(this IRandomGenerator random, IEnumerable<T>? sequence, out T result) {
             if (sequence == null) {
                 result = default!;
                 return false;
@@ -57,7 +57,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="exclusionPredicate">A predicate to exclude elements from being selected. May be null.</param>
         /// <param name="result">When this method returns, contains the randomly selected element if the operation succeeded; otherwise, the default value for <typeparamref name="T"/>.</param>
         /// <returns><c>true</c> if a valid random element was successfully selected; otherwise <c>false</c>.</returns>
-        public static bool TryRandomChoiceWithExclusion<T>(this RandomGenerator random, IList<T>? list, Func<T, bool>? exclusionPredicate, out T result) {
+        public static bool TryRandomChoiceWithExclusion<T>(this IRandomGenerator random, IList<T>? list, Func<T, bool>? exclusionPredicate, out T result) {
             if (list == null || exclusionPredicate == null) {
                 result = default!;
                 return false;
@@ -83,7 +83,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="exclusionPredicate">A predicate to exclude elements from being selected. May be null.</param>
         /// <param name="result">When this method returns, contains the randomly selected element if the operation succeeded; otherwise, the default value for <typeparamref name="T"/>.</param>
         /// <returns><c>true</c> if a valid random element was successfully selected; otherwise <c>false</c>.</returns>
-        public static bool TryRandomChoiceWithExclusion<T>(this RandomGenerator random, IEnumerable<T>? sequence, Func<T, bool>? exclusionPredicate, out T result) {
+        public static bool TryRandomChoiceWithExclusion<T>(this IRandomGenerator random, IEnumerable<T>? sequence, Func<T, bool>? exclusionPredicate, out T result) {
             if (sequence == null) {
                 result = default!;
                 return false;
@@ -106,7 +106,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="subsetSize">The desired size of the subset. Must be greater than 0 and less than or equal to the list size.</param>
         /// <param name="result">When this method returns, contains the random subset if the operation succeeded; otherwise, null.</param>
         /// <returns><c>true</c> if a valid subset was successfully selected; otherwise <c>false</c>.</returns>
-        public static bool TryRandomSubset<T>(this RandomGenerator random, IList<T>? list, int subsetSize, out List<T>? result) {
+        public static bool TryRandomSubset<T>(this IRandomGenerator random, IList<T>? list, int subsetSize, out List<T>? result) {
             if (list == null || list.Count == 0 || subsetSize <= 0 || subsetSize > list.Count) {
                 result = null;
                 return false;
@@ -131,7 +131,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="subsetSize">The desired size of the subset. Must be greater than 0 and less than or equal to the sequence size.</param>
         /// <param name="result">When this method returns, contains the random subset if the operation succeeded; otherwise, null.</param>
         /// <returns><c>true</c> if a valid subset was successfully selected; otherwise <c>false</c>.</returns>
-        public static bool TryRandomSubset<T>(this RandomGenerator random, IEnumerable<T>? sequence, int subsetSize, out List<T>? result) {
+        public static bool TryRandomSubset<T>(this IRandomGenerator random, IEnumerable<T>? sequence, int subsetSize, out List<T>? result) {
             if (sequence == null) {
                 result = null;
                 return false;
@@ -154,7 +154,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="weights">A list of weights corresponding to each element in the list. May be null.</param>
         /// <param name="result">When this method returns, contains the randomly selected element if the operation succeeded; otherwise, the default value for <typeparamref name="T"/>.</param>
         /// <returns><c>true</c> if a weighted random element was successfully selected; otherwise <c>false</c>.</returns>
-        public static bool TryRandomWeightedChoice<T>(this RandomGenerator random, IList<T>? list, IList<double>? weights, out T result) {
+        public static bool TryRandomWeightedChoice<T>(this IRandomGenerator random, IList<T>? list, IList<double>? weights, out T result) {
             if (list == null || weights == null || list.Count == 0 || list.Count != weights.Count) {
                 result = default!;
                 return false;
@@ -190,7 +190,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="weights">A list of weights corresponding to each element in the sequence. May be null.</param>
         /// <param name="result">When this method returns, contains the randomly selected element if the operation succeeded; otherwise, the default value for <typeparamref name="T"/>.</param>
         /// <returns><c>true</c> if a weighted random element was successfully selected; otherwise <c>false</c>.</returns>
-        public static bool TryRandomWeightedChoice<T>(this RandomGenerator random, IEnumerable<T>? sequence, IList<double>? weights, out T result) {
+        public static bool TryRandomWeightedChoice<T>(this IRandomGenerator random, IEnumerable<T>? sequence, IList<double>? weights, out T result) {
             if (sequence == null) {
                 result = default!;
                 return false;
@@ -208,7 +208,7 @@ namespace BeeneticToolkit.Random {
         /// <param name="typeWeightDict">The dictionary containing items as keys and their associated weights as values. May be null or empty.</param>
         /// <param name="result">When this method returns, contains the randomly selected key if the operation succeeded; otherwise, the default value for <typeparamref name="T"/>.</param>
         /// <returns><c>true</c> if a weighted random key was successfully selected; otherwise <c>false</c>.</returns>
-        public static bool TryRandomWeightedChoice<T>(this RandomGenerator random, Dictionary<T, double>? typeWeightDict, out T result) where T : notnull {
+        public static bool TryRandomWeightedChoice<T>(this IRandomGenerator random, Dictionary<T, double>? typeWeightDict, out T result) where T : notnull {
             if (typeWeightDict == null || typeWeightDict.Count == 0) {
                 result = default!;
                 return false;

@@ -6,6 +6,20 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-07-13
+
+### Changed
+- **Random helpers and extensions now accept `IRandomGenerator` instead of the concrete
+  `RandomGenerator`.** Every consumer helper in the Random module — dice (`Roll`/`RollEach`),
+  loot (`LootTable`), gacha (`PityCounter`), the `WeightedBag` draw methods, the selector/shuffle
+  extensions (`RandomChoice`/`RandomWeightedChoice`/`RandomSubset`/`Shuffle`/`TryRandomChoice`/…),
+  and the spatial-sampling extensions (`NextAngle`/`NextUnitVector*`/`NextPointIn*`) — is now keyed
+  to the `IRandomGenerator` interface, making it a usable seam for DI, mocking, and pure game cores.
+  Determinism is unaffected (it is a property of the seeded instance, not the reference type).
+  `RandomEnvironment` registration and lookup still use `RandomGenerator`, since they own the
+  seeding/reproducibility contract the interface does not express. Source-compatible for normal call
+  sites (a concrete generator satisfies the interface); binary-breaking, hence the minor version bump.
+
 ## [0.10.0] - 2026-06-21
 
 ### Added

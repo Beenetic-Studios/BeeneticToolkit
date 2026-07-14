@@ -44,7 +44,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <param name="random">The generator to roll with.</param>
         /// <returns>The total of all dice plus the modifier.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
-        public int Roll(RandomGenerator random) {
+        public int Roll(IRandomGenerator random) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
 
@@ -59,7 +59,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <param name="random">The generator to roll with.</param>
         /// <returns>An array of length <see cref="Count"/>, each value in <c>[1, Sides]</c>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
-        public int[] RollEach(RandomGenerator random) {
+        public int[] RollEach(IRandomGenerator random) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
 

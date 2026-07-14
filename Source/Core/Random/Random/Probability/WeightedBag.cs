@@ -8,7 +8,7 @@ namespace BeeneticToolkit.Random.Probability {
     /// (the item stays in the bag) or <i>without</i> replacement (the item is removed, so the bag depletes).
     /// </summary>
     /// <remarks>
-    /// The bag holds no randomness of its own: a <see cref="RandomGenerator"/> is supplied at draw time, so the
+    /// The bag holds no randomness of its own: an <see cref="IRandomGenerator"/> is supplied at draw time, so the
     /// same bag drawn from the same seeded generator always produces the same sequence. The bag itself is not
     /// thread-safe; give each thread its own bag and generator.
     /// </remarks>
@@ -63,7 +63,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <returns>A randomly selected item.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the bag is empty.</exception>
-        public T Draw(RandomGenerator random) {
+        public T Draw(IRandomGenerator random) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (_items.Count == 0)
@@ -77,7 +77,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <returns>The drawn item, now removed from the bag.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the bag is empty.</exception>
-        public T DrawWithoutReplacement(RandomGenerator random) {
+        public T DrawWithoutReplacement(IRandomGenerator random) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (_items.Count == 0)
@@ -94,7 +94,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <param name="item">When this method returns true, the drawn item; otherwise the default value.</param>
         /// <returns><c>true</c> if an item was drawn; <c>false</c> when the bag is empty.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
-        public bool TryDraw(RandomGenerator random, out T item) {
+        public bool TryDraw(IRandomGenerator random, out T item) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (_items.Count == 0) {
@@ -111,7 +111,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <param name="item">When this method returns true, the drawn item; otherwise the default value.</param>
         /// <returns><c>true</c> if an item was drawn; <c>false</c> when the bag is empty.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
-        public bool TryDrawWithoutReplacement(RandomGenerator random, out T item) {
+        public bool TryDrawWithoutReplacement(IRandomGenerator random, out T item) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
             if (_items.Count == 0) {
@@ -133,7 +133,7 @@ namespace BeeneticToolkit.Random.Probability {
         }
 
         /// <summary>Selects an index in <c>[0, Count)</c> with probability proportional to its weight.</summary>
-        private int PickIndex(RandomGenerator random) {
+        private int PickIndex(IRandomGenerator random) {
             double target = random.NextDouble() * _totalWeight;
             double cumulative = 0;
             for (int i = 0; i < _weights.Count; i++) {

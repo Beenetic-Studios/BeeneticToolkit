@@ -3,7 +3,7 @@ using System;
 namespace BeeneticToolkit.Random.Probability {
 
     /// <summary>
-    /// Convenience extension methods on <see cref="RandomGenerator"/> for rolling dice, so the source of
+    /// Convenience extension methods on <see cref="IRandomGenerator"/> for rolling dice, so the source of
     /// randomness stays explicit at the call site.
     /// </summary>
     public static class DiceExtensions {
@@ -14,7 +14,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <returns>The total of the roll.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> or <paramref name="notation"/> is null.</exception>
         /// <exception cref="FormatException">Thrown when <paramref name="notation"/> is not valid dice notation.</exception>
-        public static int Roll(this RandomGenerator random, string notation) {
+        public static int Roll(this IRandomGenerator random, string notation) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
 
@@ -26,7 +26,7 @@ namespace BeeneticToolkit.Random.Probability {
         /// <param name="dice">The dice expression to roll.</param>
         /// <returns>The total of the roll.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is null.</exception>
-        public static int Roll(this RandomGenerator random, DiceRoll dice) {
+        public static int Roll(this IRandomGenerator random, DiceRoll dice) {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
 
