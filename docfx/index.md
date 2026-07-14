@@ -15,6 +15,7 @@ deterministic by design and allocation-aware. Targets `netstandard2.1` (Unity-fr
 | **BeeneticToolkit.Numerics** | `MathKit` — interpolation, splines, easing, angle math, smoothing, and robust comparisons. |
 | **BeeneticToolkit.Logging** | Lightweight, zero-dependency logger with console/debug/file sinks, caller context, and object dumps. |
 | **BeeneticToolkit.Spatial** | Hex & square grids, A\*/Dijkstra/BFS pathfinding and flow fields, field of view, and quadtree / spatial-hash queries. |
+| **BeeneticToolkit.BigMath** | Large-number `BigDouble` for incremental/idle games — arithmetic, powers/logs beyond `double`, and a pluggable notation system for display and round-trippable parsing. |
 
 Browse the full **[API Reference](api/index.md)**.
 

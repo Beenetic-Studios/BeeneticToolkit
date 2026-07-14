@@ -6,6 +6,22 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-07-14
+
+### Added
+- **New package `BeeneticToolkit.BigMath`** — large-number math for incremental/idle games and
+  long-running simulations. `BigDouble` is a value type storing a normalized mantissa × 10^exponent
+  (the exponent a capped `double` kept exact), so values sail far past `double`'s ~1.8e308 ceiling.
+  It offers full arithmetic (`+ - * /`, unary `-`, with an addition short-circuit for negligible
+  operands), powers/roots/logs (`Pow`, `Sqrt`, `Root`, `Log10`, `Ln`, `Log`, `Pow10`, `Exp`),
+  rounding (`Floor`/`Ceiling`/`Round`), comparison/equality plus `EqualsApproximately`, and
+  interpolation (`Lerp`/`LerpUnclamped`/`InverseLerp`, `Min`/`Max`/`Clamp`). A pluggable notation
+  system (`INotation`: scientific, engineering, standard-abbreviated `K/M/B/T/aa…`, and mixed) with a
+  swappable `ISuffixProvider` handles display, alongside `IFormattable` and round-trippable
+  `Parse`/`TryParse` (`Parse(x.ToString("R")) == x`). Overflow saturates to `±Infinity` and edge
+  cases follow IEEE semantics rather than throwing. Multi-targets `netstandard2.1` and `net8.0`;
+  verified on the Unity runtime (Mono + IL2CPP). The `BeeneticToolkit` meta-package now includes it.
+
 ## [0.11.0] - 2026-07-13
 
 ### Changed
