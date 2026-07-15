@@ -6,6 +6,15 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 
 ## [Unreleased]
 
+### Added
+- **BigMath: opt-in short-scale notation.** A new `ShortScaleSuffixProvider` and the `Notation.ShortScale`
+  preset render the short-scale named suffixes most idle games display — `K/M/B/T` then `Qa, Qi, Sx, Sp,
+  Oc, No, Dc` (quadrillion…decillion), continuing algorithmically (`UDc, DDc, … Vg, Tg, … Ce`) up to
+  millinillion. The default alphabetic style (`Notation.Standard`, used by `ToString()`) is unchanged;
+  short-scale names are opt-in via the preset or `new StandardNotation(ShortScaleSuffixProvider.Instance)`.
+  An optional `maxNamedTier` cap defers larger tiers to a fallback provider (e.g. stop naming at decillion
+  and let the alphabetic set take over).
+
 ## [0.12.0] - 2026-07-14
 
 ### Added
