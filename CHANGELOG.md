@@ -6,6 +6,8 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 
 ## [Unreleased]
 
+## [0.12.1] - 2026-07-14
+
 ### Added
 - **BigMath: opt-in short-scale notation.** A new `ShortScaleSuffixProvider` and the `Notation.ShortScale`
   preset render the short-scale named suffixes most idle games display — `K/M/B/T` then `Qa, Qi, Sx, Sp,
