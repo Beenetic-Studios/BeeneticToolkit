@@ -168,6 +168,61 @@ namespace BeeneticToolkit.BigMath {
         }
     }
 
+    /// <summary>
+    /// Short-scale named suffixes following the idle-game convention: <c>K, M, B, T</c> then
+    /// <c>Qa, Qi, Sx, Sp, Oc, No, Dc</c> (quadrillion&#8230;decillion) and onward algorithmically
+    /// (<c>UDc, DDc, &#8230;, Vg, Tg, &#8230;, Ce</c>) up to&#8212;but excluding&#8212;millinillion. Tiers past the named
+    /// range, or past an optional cap, defer to a fallback provider (the alphabetic
+    /// <see cref="DefaultSuffixProvider"/> by default), so nothing ever renders suffix-less.
+    /// </summary>
+    public sealed class ShortScaleSuffixProvider : ISuffixProvider {
+
+        /// <summary>Shared instance: the full algorithmic range, falling back to the alphabetic default beyond it.</summary>
+        public static readonly ShortScaleSuffixProvider Instance = new ShortScaleSuffixProvider();
+
+        // Tiers 1-10 get bespoke abbreviations (K, then million..nonillion). Decillion (tier 11) and beyond are
+        // composed from the ones/tens/hundreds tables, indexed by the "illion number" n = tier - 1.
+        private static readonly string[] FirstTiers =
+            { "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No" };
+
+        private static readonly string[] Ones =
+            { "", "U", "D", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No" };
+        private static readonly string[] Tens =
+            { "", "Dc", "Vg", "Tg", "Qg", "Qq", "Sg", "St", "Og", "Nn" };
+        private static readonly string[] Hundreds =
+            { "", "Ce", "Dn", "Tc", "Qd", "Qn", "Se", "Su", "Ot", "Nv" };
+
+        private readonly ISuffixProvider _fallback;
+        private readonly long _maxNamedTier;
+
+        /// <summary>
+        /// Creates a short-scale provider. Tiers above <paramref name="maxNamedTier"/> (default: unbounded, i.e.
+        /// the full algorithmic range up to millinillion) defer to <paramref name="fallback"/> (default: the
+        /// alphabetic <see cref="DefaultSuffixProvider"/>). Pass <c>maxNamedTier: 11</c> to stop naming at
+        /// decillion and hand everything larger to the fallback.
+        /// </summary>
+        public ShortScaleSuffixProvider(long maxNamedTier = long.MaxValue, ISuffixProvider? fallback = null) {
+            _maxNamedTier = maxNamedTier;
+            _fallback = fallback ?? DefaultSuffixProvider.Instance;
+        }
+
+        /// <inheritdoc/>
+        public string GetSuffix(long tier) {
+            if (tier <= 0) return string.Empty;
+            if (tier > _maxNamedTier) return _fallback.GetSuffix(tier);
+            if (tier <= 10) return FirstTiers[tier - 1];
+
+            // Decillion (tier 11) is illion number 10 = Ones[0] + Tens[1] + Hundreds[0] = "Dc".
+            long n = tier - 1;
+            if (n >= 1000) return _fallback.GetSuffix(tier); // millinillion and beyond: hand off.
+
+            int ones = (int)(n % 10);
+            int tens = (int)((n / 10) % 10);
+            int hundreds = (int)((n / 100) % 10);
+            return Ones[ones] + Tens[tens] + Hundreds[hundreds];
+        }
+    }
+
     /// <summary>Notation presets and the app-wide default used by <see cref="BigDouble.ToString()"/>.</summary>
     public static class Notation {
 
@@ -179,6 +234,12 @@ namespace BeeneticToolkit.BigMath {
 
         /// <summary>Standard abbreviated notation preset (<c>K/M/B/T/aa&#8230;</c>).</summary>
         public static readonly StandardNotation Standard = new StandardNotation();
+
+        /// <summary>
+        /// Standard abbreviated notation using short-scale named suffixes (<c>K/M/B/T/Qa/Qi/&#8230;/Dc/UDc/&#8230;</c>),
+        /// the convention most idle games display. Backed by <see cref="ShortScaleSuffixProvider"/>.
+        /// </summary>
+        public static readonly StandardNotation ShortScale = new StandardNotation(ShortScaleSuffixProvider.Instance);
 
         /// <summary>
         /// The default notation used by <see cref="BigDouble.ToString()"/>. Intentionally a fixed

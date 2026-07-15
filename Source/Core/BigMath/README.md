@@ -38,4 +38,40 @@ Tetration-scale magnitudes (10↑↑n) are intentionally out of scope.
 - IEEE-style edge cases: `NaN`, `±Infinity`, saturating overflow — defined, not thrown.
 - Multi-targets `netstandard2.1` and `net8.0`; deterministic and Unity-friendly.
 
-Notation/formatting and parsing are documented alongside the `INotation` types.
+## Display notation
+
+Formatting is pluggable via `INotation`. Pick a preset per call, or pass one wherever you render:
+
+```csharp
+var value = new BigDouble(1.0, 15.0); // 10^15 (a quadrillion)
+
+Notation.Scientific.Format(value, 2);   // "1.00e15"
+Notation.Engineering.Format(value, 2);  // "1.00e15" (exponent kept a multiple of 3)
+Notation.Standard.Format(value, 2);     // "1.00aa"  (see below)
+Notation.ShortScale.Format(value, 2);   // "1.00Qa"  (see below)
+```
+
+### Two abbreviated styles — and how to reach each
+
+Both use `K/M/B/T` for thousand through trillion. They diverge at quadrillion (10^15) and up:
+
+| Preset | 10^15 | 10^18 | 10^33 | 10^36 | Style |
+|---|---|---|---|---|---|
+| `Notation.Standard` **(default)** | `1.00aa` | `1.00ab` | `1.00ag` | `1.00ah` | Alphabetic `aa, ab … zz, aaa …` (compact, unbounded) |
+| `Notation.ShortScale` | `1.00Qa` | `1.00Qi` | `1.00Dc` | `1.00UDc` | Short-scale names `Qa, Qi, Sx, Sp, Oc, No, Dc, UDc …` (the convention most idle games show) |
+
+`BigDouble.ToString()` (and the `"A"`/`"D"` format specifiers) use `Notation.Standard` — the **alphabetic** style
+is the default and is unchanged. Short-scale names are **opt-in**: reach them via the `Notation.ShortScale` preset,
+or pass `new StandardNotation(ShortScaleSuffixProvider.Instance)` where you need it.
+
+```csharp
+// App-wide: format with the short-scale preset instead of ToString().
+string label = Notation.ShortScale.Format(playerGold, 2); // e.g. "3.72Dc"
+```
+
+`ShortScaleSuffixProvider` composes names algorithmically past decillion (`UDc, DDc, … Vg, Tg, … Ce`) up to
+millinillion, then defers to the alphabetic set. To stop naming at decillion and let larger tiers fall back to
+`aa/ab`, cap it: `new ShortScaleSuffixProvider(maxNamedTier: 11)`. Supply your own `ISuffixProvider` for
+custom flavor (see `StandardNotation`). `MixedScientificNotation` switches to scientific above a chosen exponent.
+
+Parsing round-trips saved values and is documented alongside `BigDouble.Parse`/`TryParse`.

@@ -71,6 +71,39 @@ namespace BeeneticToolkit.Tests.BigMath {
 
         #endregion
 
+        #region Short-scale named suffixes
+
+        [TestMethod]
+        public void ShortScale_NamesQuadrillionThroughDecillion() {
+            Assert.AreEqual("1.50T", Notation.ShortScale.Format(new BigDouble(1.5, 12.0), 2));  // tier 4
+            Assert.AreEqual("1.00Qa", Notation.ShortScale.Format(new BigDouble(1.0, 15.0), 2)); // tier 5
+            Assert.AreEqual("1.00Qi", Notation.ShortScale.Format(new BigDouble(1.0, 18.0), 2)); // tier 6
+            Assert.AreEqual("1.00Sx", Notation.ShortScale.Format(new BigDouble(1.0, 21.0), 2)); // tier 7
+            Assert.AreEqual("1.00Sp", Notation.ShortScale.Format(new BigDouble(1.0, 24.0), 2)); // tier 8
+            Assert.AreEqual("1.00Oc", Notation.ShortScale.Format(new BigDouble(1.0, 27.0), 2)); // tier 9
+            Assert.AreEqual("1.00No", Notation.ShortScale.Format(new BigDouble(1.0, 30.0), 2)); // tier 10
+            Assert.AreEqual("1.00Dc", Notation.ShortScale.Format(new BigDouble(1.0, 33.0), 2)); // tier 11
+        }
+
+        [TestMethod]
+        public void ShortScale_ComposesTiersBeyondDecillion() {
+            var provider = ShortScaleSuffixProvider.Instance;
+            Assert.AreEqual("UDc", provider.GetSuffix(12)); // undecillion, illion 11
+            Assert.AreEqual("Vg", provider.GetSuffix(21));  // vigintillion, illion 20
+            Assert.AreEqual("UVg", provider.GetSuffix(22)); // unvigintillion, illion 21
+            Assert.AreEqual("Ce", provider.GetSuffix(101)); // centillion, illion 100
+        }
+
+        [TestMethod]
+        public void ShortScale_CapDefersLargerTiersToFallback() {
+            // Named through decillion (tier 11); tier 12 falls back to the alphabetic default.
+            var capped = new ShortScaleSuffixProvider(maxNamedTier: 11);
+            Assert.AreEqual("Dc", capped.GetSuffix(11));
+            Assert.AreEqual(DefaultSuffixProvider.Instance.GetSuffix(12), capped.GetSuffix(12));
+        }
+
+        #endregion
+
         #region Mixed scientific
 
         [TestMethod]
