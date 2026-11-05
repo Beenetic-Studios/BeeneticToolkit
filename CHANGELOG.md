@@ -6,6 +6,12 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 
 ## [Unreleased]
 
+### Added
+- **Numerics: WCAG color contrast.** A small engine-free `RgbColor` struct (sRGB float channels plus alpha,
+  `FromRgb24`, `Lerp`, sRGB/linear conversion) and a `ColorContrast` class: `RelativeLuminance`,
+  `ContrastRatio`, the WCAG thresholds as constants, `InkOn` (the least blend toward black or white that makes a
+  color read as text on a surface at a target ratio) and `MarkOn` (a glyph color that clears 3:1 on a fill).
+
 ## [0.12.1] - 2026-07-14
 
 ### Added

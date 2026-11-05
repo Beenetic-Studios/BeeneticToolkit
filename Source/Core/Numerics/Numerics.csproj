@@ -8,8 +8,8 @@
 
 		<PackageId>BeeneticToolkit.Numerics</PackageId>
 		<AssemblyName>BeeneticToolkit.Numerics</AssemblyName>
-		<Description>Mathf-style numeric helpers for .NET and Unity, under one discoverable MathKit type: interpolation (Lerp/SmoothStep/Remap), splines (cubic Bezier, Catmull-Rom), easing (Penner curves), shortest-path angle math, MoveTowards, normalization, rounding, and robust float comparison.</Description>
-		<PackageTags>numerics;math;mathkit;mathf;lerp;interpolation;easing;tween;spline;angles;games;unity</PackageTags>
+		<Description>Mathf-style numeric helpers for .NET and Unity, under one discoverable MathKit type: interpolation (Lerp/SmoothStep/Remap), splines (cubic Bezier, Catmull-Rom), easing (Penner curves), shortest-path angle math, MoveTowards, normalization, rounding, and robust float comparison. Also WCAG 2 color contrast (luminance, contrast ratio, legible text and glyph colors for a theme).</Description>
+		<PackageTags>numerics;math;mathkit;mathf;lerp;interpolation;easing;tween;spline;angles;color;contrast;wcag;accessibility;games;unity</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 

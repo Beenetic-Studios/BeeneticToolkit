@@ -84,6 +84,24 @@ float eased = EasingUtils.Ease(curve, t);
 Provided for `float` and `double`. `Back` and `Elastic` intentionally overshoot outside `[0, 1]`. The named
 curves live on `EasingUtils`; `MathKit.Ease(EasingType, …)` is the discoverable shortcut.
 
+## Color contrast
+
+WCAG 2 contrast math on a small engine-free color type, `RgbColor` (sRGB float channels plus alpha; convert
+from your engine's color at the boundary). `ColorContrast` gives relative luminance and the contrast ratio,
+plus two derivations for themes: `InkOn` nudges a fill color toward black or white just far enough to read as
+text on a given surface, and `MarkOn` picks a legible glyph color (white, else near-black) for a filled badge.
+
+```csharp
+using BeeneticToolkit.Numerics;
+
+RgbColor card = RgbColor.FromRgb24(0xFFFFFF);
+RgbColor amber = RgbColor.FromRgb24(0xE69E26);
+
+float ratio = ColorContrast.ContrastRatio(amber, card);                    // ~2.3: fine as a fill, not as text
+RgbColor text = ColorContrast.InkOn(amber, card, ColorContrast.TextRatio); // least change that reaches 4.5:1
+RgbColor check = ColorContrast.MarkOn(amber);                              // glyph color for an amber badge
+```
+
 `MathKit` also includes `RoundToNearest` and floored `Wrap`. Integral mapping is a separate set of
 extension methods (`IntegralMappingExtensions`), since those read fluently on the value itself.
 
