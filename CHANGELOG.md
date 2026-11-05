@@ -6,6 +6,8 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-05
+
 ### Added
 - **New package `BeeneticToolkit.Text`**: a bad-word filter for player-entered text (names, statuses, chat).
   `WordFilter` checks text against a tiered `WordList` you supply (anywhere, whole word, allow, reserved) under
