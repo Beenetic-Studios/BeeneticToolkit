@@ -8,8 +8,8 @@
 
 		<PackageId>BeeneticToolkit.Logging</PackageId>
 		<AssemblyName>BeeneticToolkit.Logging</AssemblyName>
-		<Description>A lightweight, zero-dependency logger for .NET and Unity: severity levels with fan-out to console, debug, and file sinks (or your own), configurable message formatting, automatic caller context via [CallerMemberName], object/property dumps, and an optional static LoggerService. String logging (not structured) — a simple, code-first companion, not a Serilog replacement.</Description>
-		<PackageTags>logging;logger;log;unity;games;file-logging;console;caller-info;netstandard</PackageTags>
+		<Description>A lightweight, zero-dependency logger for .NET and Unity: severity levels with fan-out to console, debug, and file sinks (or your own), configurable message formatting, automatic caller context via [CallerMemberName], object/property dumps, rule-driven redaction of ids and sensitive values, and an optional static LoggerService. String logging (not structured): a simple, code-first companion, not a Serilog replacement.</Description>
+		<PackageTags>logging;logger;log;unity;games;file-logging;console;caller-info;redaction;privacy;netstandard</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 

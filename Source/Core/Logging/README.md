@@ -162,6 +162,32 @@ var file = new FileLogger("logs/run.log");
 FileLogger.CloseAll();   // on shutdown
 ```
 
+## Redaction
+
+`LogRedactor` scrubs identifiers out of a line before it leaves the device. It is rule-driven: the defaults
+replace GUIDs, 32-character hex tokens, and runs of 15+ digits with `<id>`; you add JSON keys whose string
+values get blanked, your own id patterns, and short codes that only count as codes near a trigger word.
+
+```csharp
+using BeeneticToolkit.Logging.Redaction;
+
+var options = LogRedactionOptions.CreateDefault();
+options.JsonKeys.Add("playerName");                     // "playerName":"Ana" -> "playerName":"<redacted>"
+options.IdPatterns.Add(@"\bg\d{10,}\b");                // a platform player id
+options.Codes.Add(new CodeRedactionRule("code", "ABCDEFGHJKLMNPQRSTUVWXYZ23456789", 6));
+options.MaxLength = 300;                                // cap for a breadcrumb sink
+
+var redactor = new LogRedactor(options);
+string safe = redactor.Redact(line);
+
+// Or per sink: redact what goes off-device, keep the local file complete.
+breadcrumbLogger.Redactor = redactor;
+```
+
+`LogText` (in `Utilities`) shortens what goes into a line: `LogText.Brief(message)` swaps an embedded JSON
+body for its size and caps the length, `LogText.Brief(exception)` logs the type name only (exception messages
+often embed the offending value), and `LogText.Truncate` is the plain cap.
+
 ## Property dumps
 
 `LogUtils` and the `ObjectPropertyExtensions` helpers turn objects and collections into readable strings for

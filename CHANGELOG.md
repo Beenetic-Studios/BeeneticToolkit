@@ -11,6 +11,13 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
   `FromRgb24`, `Lerp`, sRGB/linear conversion) and a `ColorContrast` class: `RelativeLuminance`,
   `ContrastRatio`, the WCAG thresholds as constants, `InkOn` (the least blend toward black or white that makes a
   color read as text on a surface at a target ratio) and `MarkOn` (a glyph color that clears 3:1 on a fill).
+- **Logging: redaction.** `LogRedactor` scrubs ids out of a log line from injected rules
+  (`LogRedactionOptions`): JSON keys whose string values are blanked, id regexes (defaults: GUIDs, 32-hex
+  tokens, 15+ digit runs), and `CodeRedactionRule` for short codes that only count near a trigger word, plus an
+  optional length cap. Attach one to any sink with the new `LoggerBase.Redactor` property (null by default, so
+  existing loggers are unchanged). `LogText` adds `Truncate` and `Brief` (drop an embedded JSON body; log an
+  exception by type name only).
+
 
 ## [0.12.1] - 2026-07-14
 

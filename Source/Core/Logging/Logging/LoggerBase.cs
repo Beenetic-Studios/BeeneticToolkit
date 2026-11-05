@@ -1,4 +1,5 @@
 ﻿using BeeneticToolkit.Logging.Enums;
+using BeeneticToolkit.Logging.Redaction;
 using System;
 using System.Reflection;
 
@@ -41,6 +42,17 @@ namespace BeeneticToolkit.Logging {
         /// Struct that contains flags for the individual components of <see cref="BaseMessage(LogSeverity, object, MethodBase)"/>
         /// </summary>
         public BaseMessageIncludes Includes { get; set; }
+
+        /// <summary>
+        /// An optional redactor applied to every entry this logger writes (header and message; the trailing
+        /// <c>append</c> text is left alone, so a length cap never eats the newline). Null, the default, writes
+        /// entries unchanged.
+        /// </summary>
+        /// <remarks>
+        /// Set it per sink: typically on a sink whose entries leave the device (crash-report breadcrumbs, a remote
+        /// log), while a local file the player sends you on request stays complete.
+        /// </remarks>
+        public LogRedactor? Redactor { get; set; }
 
         #endregion Properties
 
@@ -85,7 +97,7 @@ namespace BeeneticToolkit.Logging {
             if (!AllowLogMessage(severity))
                 return;
 
-            WriteEntry(severity, $"{BaseMessage(severity)}{prepend}{message}{append}");
+            WriteEntry(severity, Redacted($"{BaseMessage(severity)}{prepend}{message}") + append);
         }
 
         /// <summary>
@@ -101,7 +113,7 @@ namespace BeeneticToolkit.Logging {
             if (!AllowLogMessage(severity))
                 return;
 
-            WriteEntry(severity, $"{BaseMessage(severity, obj, method)}{prepend}{message}{append}");
+            WriteEntry(severity, Redacted($"{BaseMessage(severity, obj, method)}{prepend}{message}") + append);
         }
 
         /// <summary>
@@ -117,7 +129,7 @@ namespace BeeneticToolkit.Logging {
             if (!AllowLogMessage(severity))
                 return;
 
-            WriteEntry(severity, $"{BaseMessage(severity, obj, methodName)}{prepend}{message}{append}");
+            WriteEntry(severity, Redacted($"{BaseMessage(severity, obj, methodName)}{prepend}{message}") + append);
         }
 
         /// <summary>
@@ -236,6 +248,8 @@ namespace BeeneticToolkit.Logging {
         protected bool AllowLogMessage(LogSeverity severity) {
             return Enabled && (int)severity >= (int)Threshold;
         }
+
+        private string Redacted(string entry) => Redactor == null ? entry : Redactor.Redact(entry);
 
         #endregion Logging
     }
