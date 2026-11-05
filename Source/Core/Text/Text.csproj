@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<RootNamespace>BeeneticToolkit</RootNamespace>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+		<PackageId>BeeneticToolkit.Text</PackageId>
+		<AssemblyName>BeeneticToolkit.Text</AssemblyName>
+		<Description>Text checks for player-entered text in games: a bad-word filter for names, statuses, and chat that sees through case, accents, Cyrillic and Greek lookalikes, styled Unicode letters, leet, stretched letters, and separators, driven by a tiered word list you supply (anywhere, whole word, allow, reserved). Pure .NET, no dependencies; ships no word list.</Description>
+		<PackageTags>text;profanity;profanity-filter;word-filter;bad-words;moderation;usernames;chat;games;unity</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+</Project>

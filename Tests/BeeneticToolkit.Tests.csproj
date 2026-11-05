@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Source\Core\Numerics\Numerics.csproj" />
     <ProjectReference Include="..\Source\Core\Random\Random.csproj" />
     <ProjectReference Include="..\Source\Core\Spatial\Spatial.csproj" />
+    <ProjectReference Include="..\Source\Core\Text\Text.csproj" />
   </ItemGroup>
 
 </Project>

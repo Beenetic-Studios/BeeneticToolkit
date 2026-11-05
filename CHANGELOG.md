@@ -7,6 +7,12 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
 ## [Unreleased]
 
 ### Added
+- **New package `BeeneticToolkit.Text`**: a bad-word filter for player-entered text (names, statuses, chat).
+  `WordFilter` checks text against a tiered `WordList` you supply (anywhere, whole word, allow, reserved) under
+  per-field `WordFilterRules` (length bounds, reserved check), and returns the first rule failed as a
+  `WordFilterVerdict`. It sees through case, accents, Cyrillic and Greek lookalikes, styled and enclosed Unicode
+  letters, fullwidth forms, three leet readings, stretched letters, and separators, and refuses control,
+  zero-width, and direction characters. Pure .NET, no dependencies, immutable and thread-safe. Ships no word list.
 - **Numerics: WCAG color contrast.** A small engine-free `RgbColor` struct (sRGB float channels plus alpha,
   `FromRgb24`, `Lerp`, sRGB/linear conversion) and a `ColorContrast` class: `RelativeLuminance`,
   `ContrastRatio`, the WCAG thresholds as constants, `InkOn` (the least blend toward black or white that makes a
@@ -17,7 +23,6 @@ version number. Pre-1.0, breaking changes bump the **minor** version.
   optional length cap. Attach one to any sink with the new `LoggerBase.Redactor` property (null by default, so
   existing loggers are unchanged). `LogText` adds `Truncate` and `Brief` (drop an embedded JSON body; log an
   exception by type name only).
-
 
 ## [0.12.1] - 2026-07-14
 
